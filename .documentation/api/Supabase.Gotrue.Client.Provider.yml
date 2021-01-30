@@ -1,0 +1,187 @@
+### YamlMime:ManagedReference
+items:
+- uid: Supabase.Gotrue.Client.Provider
+  commentId: T:Supabase.Gotrue.Client.Provider
+  id: Client.Provider
+  parent: Supabase.Gotrue
+  children:
+  - Supabase.Gotrue.Client.Provider.Azure
+  - Supabase.Gotrue.Client.Provider.Bitbucket
+  - Supabase.Gotrue.Client.Provider.Github
+  - Supabase.Gotrue.Client.Provider.Gitlab
+  - Supabase.Gotrue.Client.Provider.Google
+  langs:
+  - csharp
+  - vb
+  name: Client.Provider
+  nameWithType: Client.Provider
+  fullName: Supabase.Gotrue.Client.Provider
+  type: Enum
+  source:
+    id: Provider
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 15
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public enum Provider
+    content.vb: Public Enum Provider
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: Supabase.Gotrue.Client.Provider.Bitbucket
+  commentId: F:Supabase.Gotrue.Client.Provider.Bitbucket
+  id: Bitbucket
+  parent: Supabase.Gotrue.Client.Provider
+  langs:
+  - csharp
+  - vb
+  name: Bitbucket
+  nameWithType: Client.Provider.Bitbucket
+  fullName: Supabase.Gotrue.Client.Provider.Bitbucket
+  type: Field
+  source:
+    id: Bitbucket
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 17
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: Bitbucket = 0
+    return:
+      type: Supabase.Gotrue.Client.Provider
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.Provider.Github
+  commentId: F:Supabase.Gotrue.Client.Provider.Github
+  id: Github
+  parent: Supabase.Gotrue.Client.Provider
+  langs:
+  - csharp
+  - vb
+  name: Github
+  nameWithType: Client.Provider.Github
+  fullName: Supabase.Gotrue.Client.Provider.Github
+  type: Field
+  source:
+    id: Github
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 19
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: Github = 1
+    return:
+      type: Supabase.Gotrue.Client.Provider
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.Provider.Gitlab
+  commentId: F:Supabase.Gotrue.Client.Provider.Gitlab
+  id: Gitlab
+  parent: Supabase.Gotrue.Client.Provider
+  langs:
+  - csharp
+  - vb
+  name: Gitlab
+  nameWithType: Client.Provider.Gitlab
+  fullName: Supabase.Gotrue.Client.Provider.Gitlab
+  type: Field
+  source:
+    id: Gitlab
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 21
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: Gitlab = 2
+    return:
+      type: Supabase.Gotrue.Client.Provider
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.Provider.Google
+  commentId: F:Supabase.Gotrue.Client.Provider.Google
+  id: Google
+  parent: Supabase.Gotrue.Client.Provider
+  langs:
+  - csharp
+  - vb
+  name: Google
+  nameWithType: Client.Provider.Google
+  fullName: Supabase.Gotrue.Client.Provider.Google
+  type: Field
+  source:
+    id: Google
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 23
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: Google = 3
+    return:
+      type: Supabase.Gotrue.Client.Provider
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.Provider.Azure
+  commentId: F:Supabase.Gotrue.Client.Provider.Azure
+  id: Azure
+  parent: Supabase.Gotrue.Client.Provider
+  langs:
+  - csharp
+  - vb
+  name: Azure
+  nameWithType: Client.Provider.Azure
+  fullName: Supabase.Gotrue.Client.Provider.Azure
+  type: Field
+  source:
+    id: Azure
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 25
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: Azure = 4
+    return:
+      type: Supabase.Gotrue.Client.Provider
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: Supabase.Gotrue
+  commentId: N:Supabase.Gotrue
+  name: Supabase.Gotrue
+  nameWithType: Supabase.Gotrue
+  fullName: Supabase.Gotrue
+- uid: Supabase.Gotrue.Client.Provider
+  commentId: T:Supabase.Gotrue.Client.Provider
+  parent: Supabase.Gotrue
+  name: Client.Provider
+  nameWithType: Client.Provider
+  fullName: Supabase.Gotrue.Client.Provider

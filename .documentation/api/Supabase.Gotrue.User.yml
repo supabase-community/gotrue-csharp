@@ -1,0 +1,722 @@
+### YamlMime:ManagedReference
+items:
+- uid: Supabase.Gotrue.User
+  commentId: T:Supabase.Gotrue.User
+  id: User
+  parent: Supabase.Gotrue
+  children:
+  - Supabase.Gotrue.User.AppMetadata
+  - Supabase.Gotrue.User.Aud
+  - Supabase.Gotrue.User.ConfirmedAt
+  - Supabase.Gotrue.User.CreatedAt
+  - Supabase.Gotrue.User.Email
+  - Supabase.Gotrue.User.Id
+  - Supabase.Gotrue.User.LastSignInAt
+  - Supabase.Gotrue.User.Role
+  - Supabase.Gotrue.User.UpdatedAt
+  - Supabase.Gotrue.User.UserMetadata
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: User
+  fullName: Supabase.Gotrue.User
+  type: Class
+  source:
+    id: User
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 6
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public class User
+    content.vb: Public Class User
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Supabase.Gotrue.User.Id
+  commentId: P:Supabase.Gotrue.User.Id
+  id: Id
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: User.Id
+  fullName: Supabase.Gotrue.User.Id
+  type: Property
+  source:
+    id: Id
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 8
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string Id { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Id As String
+  overload: Supabase.Gotrue.User.Id*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.AppMetadata
+  commentId: P:Supabase.Gotrue.User.AppMetadata
+  id: AppMetadata
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: AppMetadata
+  nameWithType: User.AppMetadata
+  fullName: Supabase.Gotrue.User.AppMetadata
+  type: Property
+  source:
+    id: AppMetadata
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 11
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public object AppMetadata { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property AppMetadata As Object
+  overload: Supabase.Gotrue.User.AppMetadata*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.UserMetadata
+  commentId: P:Supabase.Gotrue.User.UserMetadata
+  id: UserMetadata
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: UserMetadata
+  nameWithType: User.UserMetadata
+  fullName: Supabase.Gotrue.User.UserMetadata
+  type: Property
+  source:
+    id: UserMetadata
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 14
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public object UserMetadata { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property UserMetadata As Object
+  overload: Supabase.Gotrue.User.UserMetadata*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.Aud
+  commentId: P:Supabase.Gotrue.User.Aud
+  id: Aud
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: Aud
+  nameWithType: User.Aud
+  fullName: Supabase.Gotrue.User.Aud
+  type: Property
+  source:
+    id: Aud
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 17
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string Aud { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Aud As String
+  overload: Supabase.Gotrue.User.Aud*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.Email
+  commentId: P:Supabase.Gotrue.User.Email
+  id: Email
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: Email
+  nameWithType: User.Email
+  fullName: Supabase.Gotrue.User.Email
+  type: Property
+  source:
+    id: Email
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 20
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string Email { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Email As String
+  overload: Supabase.Gotrue.User.Email*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.CreatedAt
+  commentId: P:Supabase.Gotrue.User.CreatedAt
+  id: CreatedAt
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: CreatedAt
+  nameWithType: User.CreatedAt
+  fullName: Supabase.Gotrue.User.CreatedAt
+  type: Property
+  source:
+    id: CreatedAt
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 23
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public DateTime CreatedAt { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property CreatedAt As Date
+  overload: Supabase.Gotrue.User.CreatedAt*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.ConfirmedAt
+  commentId: P:Supabase.Gotrue.User.ConfirmedAt
+  id: ConfirmedAt
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: ConfirmedAt
+  nameWithType: User.ConfirmedAt
+  fullName: Supabase.Gotrue.User.ConfirmedAt
+  type: Property
+  source:
+    id: ConfirmedAt
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 26
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public DateTime ConfirmedAt { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property ConfirmedAt As Date
+  overload: Supabase.Gotrue.User.ConfirmedAt*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.LastSignInAt
+  commentId: P:Supabase.Gotrue.User.LastSignInAt
+  id: LastSignInAt
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: LastSignInAt
+  nameWithType: User.LastSignInAt
+  fullName: Supabase.Gotrue.User.LastSignInAt
+  type: Property
+  source:
+    id: LastSignInAt
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 29
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public DateTime LastSignInAt { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property LastSignInAt As Date
+  overload: Supabase.Gotrue.User.LastSignInAt*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.Role
+  commentId: P:Supabase.Gotrue.User.Role
+  id: Role
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: Role
+  nameWithType: User.Role
+  fullName: Supabase.Gotrue.User.Role
+  type: Property
+  source:
+    id: Role
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 32
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string Role { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Role As String
+  overload: Supabase.Gotrue.User.Role*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.User.UpdatedAt
+  commentId: P:Supabase.Gotrue.User.UpdatedAt
+  id: UpdatedAt
+  parent: Supabase.Gotrue.User
+  langs:
+  - csharp
+  - vb
+  name: UpdatedAt
+  nameWithType: User.UpdatedAt
+  fullName: Supabase.Gotrue.User.UpdatedAt
+  type: Property
+  source:
+    id: UpdatedAt
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/User.cs
+    startLine: 35
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string UpdatedAt { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UpdatedAt As String
+  overload: Supabase.Gotrue.User.UpdatedAt*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+references:
+- uid: Supabase.Gotrue
+  commentId: N:Supabase.Gotrue
+  name: Supabase.Gotrue
+  nameWithType: Supabase.Gotrue
+  fullName: Supabase.Gotrue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Supabase.Gotrue.User.Id*
+  commentId: Overload:Supabase.Gotrue.User.Id
+  name: Id
+  nameWithType: User.Id
+  fullName: Supabase.Gotrue.User.Id
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Supabase.Gotrue.User.AppMetadata*
+  commentId: Overload:Supabase.Gotrue.User.AppMetadata
+  name: AppMetadata
+  nameWithType: User.AppMetadata
+  fullName: Supabase.Gotrue.User.AppMetadata
+- uid: Supabase.Gotrue.User.UserMetadata*
+  commentId: Overload:Supabase.Gotrue.User.UserMetadata
+  name: UserMetadata
+  nameWithType: User.UserMetadata
+  fullName: Supabase.Gotrue.User.UserMetadata
+- uid: Supabase.Gotrue.User.Aud*
+  commentId: Overload:Supabase.Gotrue.User.Aud
+  name: Aud
+  nameWithType: User.Aud
+  fullName: Supabase.Gotrue.User.Aud
+- uid: Supabase.Gotrue.User.Email*
+  commentId: Overload:Supabase.Gotrue.User.Email
+  name: Email
+  nameWithType: User.Email
+  fullName: Supabase.Gotrue.User.Email
+- uid: Supabase.Gotrue.User.CreatedAt*
+  commentId: Overload:Supabase.Gotrue.User.CreatedAt
+  name: CreatedAt
+  nameWithType: User.CreatedAt
+  fullName: Supabase.Gotrue.User.CreatedAt
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: Supabase.Gotrue.User.ConfirmedAt*
+  commentId: Overload:Supabase.Gotrue.User.ConfirmedAt
+  name: ConfirmedAt
+  nameWithType: User.ConfirmedAt
+  fullName: Supabase.Gotrue.User.ConfirmedAt
+- uid: Supabase.Gotrue.User.LastSignInAt*
+  commentId: Overload:Supabase.Gotrue.User.LastSignInAt
+  name: LastSignInAt
+  nameWithType: User.LastSignInAt
+  fullName: Supabase.Gotrue.User.LastSignInAt
+- uid: Supabase.Gotrue.User.Role*
+  commentId: Overload:Supabase.Gotrue.User.Role
+  name: Role
+  nameWithType: User.Role
+  fullName: Supabase.Gotrue.User.Role
+- uid: Supabase.Gotrue.User.UpdatedAt*
+  commentId: Overload:Supabase.Gotrue.User.UpdatedAt
+  name: UpdatedAt
+  nameWithType: User.UpdatedAt
+  fullName: Supabase.Gotrue.User.UpdatedAt

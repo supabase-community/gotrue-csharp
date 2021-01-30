@@ -1,0 +1,893 @@
+### YamlMime:ManagedReference
+items:
+- uid: Supabase.Gotrue.ClientOptions
+  commentId: T:Supabase.Gotrue.ClientOptions
+  id: ClientOptions
+  parent: Supabase.Gotrue
+  children:
+  - Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  - Supabase.Gotrue.ClientOptions.DetectSessionInUrl
+  - Supabase.Gotrue.ClientOptions.Headers
+  - Supabase.Gotrue.ClientOptions.PersistSession
+  - Supabase.Gotrue.ClientOptions.SessionDestroyer
+  - Supabase.Gotrue.ClientOptions.SessionPersistor
+  - Supabase.Gotrue.ClientOptions.Url
+  langs:
+  - csharp
+  - vb
+  name: ClientOptions
+  nameWithType: ClientOptions
+  fullName: Supabase.Gotrue.ClientOptions
+  type: Class
+  source:
+    id: ClientOptions
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 244
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public class ClientOptions
+    content.vb: Public Class ClientOptions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Supabase.Gotrue.ClientOptions.Url
+  commentId: P:Supabase.Gotrue.ClientOptions.Url
+  id: Url
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: Url
+  nameWithType: ClientOptions.Url
+  fullName: Supabase.Gotrue.ClientOptions.Url
+  type: Property
+  source:
+    id: Url
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 246
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string Url { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Url As String
+  overload: Supabase.Gotrue.ClientOptions.Url*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.ClientOptions.Headers
+  commentId: F:Supabase.Gotrue.ClientOptions.Headers
+  id: Headers
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: Headers
+  nameWithType: ClientOptions.Headers
+  fullName: Supabase.Gotrue.ClientOptions.Headers
+  type: Field
+  source:
+    id: Headers
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 247
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Dictionary<string, string> Headers
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+    content.vb: Public Headers As Dictionary(Of String, String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.ClientOptions.DetectSessionInUrl
+  commentId: P:Supabase.Gotrue.ClientOptions.DetectSessionInUrl
+  id: DetectSessionInUrl
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: DetectSessionInUrl
+  nameWithType: ClientOptions.DetectSessionInUrl
+  fullName: Supabase.Gotrue.ClientOptions.DetectSessionInUrl
+  type: Property
+  source:
+    id: DetectSessionInUrl
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 248
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public bool DetectSessionInUrl { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property DetectSessionInUrl As Boolean
+  overload: Supabase.Gotrue.ClientOptions.DetectSessionInUrl*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  commentId: P:Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  id: AutoRefreshToken
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: AutoRefreshToken
+  nameWithType: ClientOptions.AutoRefreshToken
+  fullName: Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  type: Property
+  source:
+    id: AutoRefreshToken
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 249
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public bool AutoRefreshToken { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property AutoRefreshToken As Boolean
+  overload: Supabase.Gotrue.ClientOptions.AutoRefreshToken*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.ClientOptions.PersistSession
+  commentId: P:Supabase.Gotrue.ClientOptions.PersistSession
+  id: PersistSession
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: PersistSession
+  nameWithType: ClientOptions.PersistSession
+  fullName: Supabase.Gotrue.ClientOptions.PersistSession
+  type: Property
+  source:
+    id: PersistSession
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 250
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public bool PersistSession { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property PersistSession As Boolean
+  overload: Supabase.Gotrue.ClientOptions.PersistSession*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.ClientOptions.SessionPersistor
+  commentId: F:Supabase.Gotrue.ClientOptions.SessionPersistor
+  id: SessionPersistor
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: SessionPersistor
+  nameWithType: ClientOptions.SessionPersistor
+  fullName: Supabase.Gotrue.ClientOptions.SessionPersistor
+  type: Field
+  source:
+    id: SessionPersistor
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 251
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Func<Session, bool> SessionPersistor
+    return:
+      type: System.Func{Supabase.Gotrue.Session,System.Boolean}
+    content.vb: Public SessionPersistor As Func(Of Session, Boolean)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.ClientOptions.SessionDestroyer
+  commentId: F:Supabase.Gotrue.ClientOptions.SessionDestroyer
+  id: SessionDestroyer
+  parent: Supabase.Gotrue.ClientOptions
+  langs:
+  - csharp
+  - vb
+  name: SessionDestroyer
+  nameWithType: ClientOptions.SessionDestroyer
+  fullName: Supabase.Gotrue.ClientOptions.SessionDestroyer
+  type: Field
+  source:
+    id: SessionDestroyer
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 252
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Func<bool> SessionDestroyer
+    return:
+      type: System.Func{System.Boolean}
+    content.vb: Public SessionDestroyer As Func(Of Boolean)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Supabase.Gotrue
+  commentId: N:Supabase.Gotrue
+  name: Supabase.Gotrue
+  nameWithType: Supabase.Gotrue
+  fullName: Supabase.Gotrue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Supabase.Gotrue.ClientOptions.Url*
+  commentId: Overload:Supabase.Gotrue.ClientOptions.Url
+  name: Url
+  nameWithType: ClientOptions.Url
+  fullName: Supabase.Gotrue.ClientOptions.Url
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  name: Dictionary<String, String>
+  nameWithType: Dictionary<String, String>
+  fullName: System.Collections.Generic.Dictionary<System.String, System.String>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of System.String, System.String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Supabase.Gotrue.ClientOptions.DetectSessionInUrl*
+  commentId: Overload:Supabase.Gotrue.ClientOptions.DetectSessionInUrl
+  name: DetectSessionInUrl
+  nameWithType: ClientOptions.DetectSessionInUrl
+  fullName: Supabase.Gotrue.ClientOptions.DetectSessionInUrl
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Supabase.Gotrue.ClientOptions.AutoRefreshToken*
+  commentId: Overload:Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  name: AutoRefreshToken
+  nameWithType: ClientOptions.AutoRefreshToken
+  fullName: Supabase.Gotrue.ClientOptions.AutoRefreshToken
+- uid: Supabase.Gotrue.ClientOptions.PersistSession*
+  commentId: Overload:Supabase.Gotrue.ClientOptions.PersistSession
+  name: PersistSession
+  nameWithType: ClientOptions.PersistSession
+  fullName: Supabase.Gotrue.ClientOptions.PersistSession
+- uid: System.Func{Supabase.Gotrue.Session,System.Boolean}
+  commentId: T:System.Func{Supabase.Gotrue.Session,System.Boolean}
+  parent: System
+  definition: System.Func`2
+  name: Func<Session, Boolean>
+  nameWithType: Func<Session, Boolean>
+  fullName: System.Func<Supabase.Gotrue.Session, System.Boolean>
+  nameWithType.vb: Func(Of Session, Boolean)
+  fullName.vb: System.Func(Of Supabase.Gotrue.Session, System.Boolean)
+  name.vb: Func(Of Session, Boolean)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Supabase.Gotrue.Session
+    name: Session
+    nameWithType: Session
+    fullName: Supabase.Gotrue.Session
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Supabase.Gotrue.Session
+    name: Session
+    nameWithType: Session
+    fullName: Supabase.Gotrue.Session
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func{System.Boolean}
+  commentId: T:System.Func{System.Boolean}
+  parent: System
+  definition: System.Func`1
+  name: Func<Boolean>
+  nameWithType: Func<Boolean>
+  fullName: System.Func<System.Boolean>
+  nameWithType.vb: Func(Of Boolean)
+  fullName.vb: System.Func(Of System.Boolean)
+  name.vb: Func(Of Boolean)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )

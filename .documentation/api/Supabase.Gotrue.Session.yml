@@ -1,0 +1,536 @@
+### YamlMime:ManagedReference
+items:
+- uid: Supabase.Gotrue.Session
+  commentId: T:Supabase.Gotrue.Session
+  id: Session
+  parent: Supabase.Gotrue
+  children:
+  - Supabase.Gotrue.Session.AccessToken
+  - Supabase.Gotrue.Session.ExpiresIn
+  - Supabase.Gotrue.Session.RefreshToken
+  - Supabase.Gotrue.Session.TokenType
+  - Supabase.Gotrue.Session.User
+  langs:
+  - csharp
+  - vb
+  name: Session
+  nameWithType: Session
+  fullName: Supabase.Gotrue.Session
+  type: Class
+  source:
+    id: Session
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Session.cs
+    startLine: 5
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public class Session
+    content.vb: Public Class Session
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Supabase.Gotrue.Session.AccessToken
+  commentId: P:Supabase.Gotrue.Session.AccessToken
+  id: AccessToken
+  parent: Supabase.Gotrue.Session
+  langs:
+  - csharp
+  - vb
+  name: AccessToken
+  nameWithType: Session.AccessToken
+  fullName: Supabase.Gotrue.Session.AccessToken
+  type: Property
+  source:
+    id: AccessToken
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Session.cs
+    startLine: 7
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string AccessToken { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property AccessToken As String
+  overload: Supabase.Gotrue.Session.AccessToken*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Session.ExpiresIn
+  commentId: P:Supabase.Gotrue.Session.ExpiresIn
+  id: ExpiresIn
+  parent: Supabase.Gotrue.Session
+  langs:
+  - csharp
+  - vb
+  name: ExpiresIn
+  nameWithType: Session.ExpiresIn
+  fullName: Supabase.Gotrue.Session.ExpiresIn
+  type: Property
+  source:
+    id: ExpiresIn
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Session.cs
+    startLine: 10
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string ExpiresIn { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ExpiresIn As String
+  overload: Supabase.Gotrue.Session.ExpiresIn*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Session.RefreshToken
+  commentId: P:Supabase.Gotrue.Session.RefreshToken
+  id: RefreshToken
+  parent: Supabase.Gotrue.Session
+  langs:
+  - csharp
+  - vb
+  name: RefreshToken
+  nameWithType: Session.RefreshToken
+  fullName: Supabase.Gotrue.Session.RefreshToken
+  type: Property
+  source:
+    id: RefreshToken
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Session.cs
+    startLine: 13
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string RefreshToken { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property RefreshToken As String
+  overload: Supabase.Gotrue.Session.RefreshToken*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Session.TokenType
+  commentId: P:Supabase.Gotrue.Session.TokenType
+  id: TokenType
+  parent: Supabase.Gotrue.Session
+  langs:
+  - csharp
+  - vb
+  name: TokenType
+  nameWithType: Session.TokenType
+  fullName: Supabase.Gotrue.Session.TokenType
+  type: Property
+  source:
+    id: TokenType
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Session.cs
+    startLine: 16
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string TokenType { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TokenType As String
+  overload: Supabase.Gotrue.Session.TokenType*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Session.User
+  commentId: P:Supabase.Gotrue.Session.User
+  id: User
+  parent: Supabase.Gotrue.Session
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: Session.User
+  fullName: Supabase.Gotrue.Session.User
+  type: Property
+  source:
+    id: User
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Session.cs
+    startLine: 19
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public User User { get; set; }
+    parameters: []
+    return:
+      type: Supabase.Gotrue.User
+    content.vb: Public Property User As User
+  overload: Supabase.Gotrue.Session.User*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+references:
+- uid: Supabase.Gotrue
+  commentId: N:Supabase.Gotrue
+  name: Supabase.Gotrue
+  nameWithType: Supabase.Gotrue
+  fullName: Supabase.Gotrue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Supabase.Gotrue.Session.AccessToken*
+  commentId: Overload:Supabase.Gotrue.Session.AccessToken
+  name: AccessToken
+  nameWithType: Session.AccessToken
+  fullName: Supabase.Gotrue.Session.AccessToken
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Supabase.Gotrue.Session.ExpiresIn*
+  commentId: Overload:Supabase.Gotrue.Session.ExpiresIn
+  name: ExpiresIn
+  nameWithType: Session.ExpiresIn
+  fullName: Supabase.Gotrue.Session.ExpiresIn
+- uid: Supabase.Gotrue.Session.RefreshToken*
+  commentId: Overload:Supabase.Gotrue.Session.RefreshToken
+  name: RefreshToken
+  nameWithType: Session.RefreshToken
+  fullName: Supabase.Gotrue.Session.RefreshToken
+- uid: Supabase.Gotrue.Session.TokenType*
+  commentId: Overload:Supabase.Gotrue.Session.TokenType
+  name: TokenType
+  nameWithType: Session.TokenType
+  fullName: Supabase.Gotrue.Session.TokenType
+- uid: Supabase.Gotrue.Session.User*
+  commentId: Overload:Supabase.Gotrue.Session.User
+  name: User
+  nameWithType: Session.User
+  fullName: Supabase.Gotrue.Session.User
+- uid: Supabase.Gotrue.User
+  commentId: T:Supabase.Gotrue.User
+  parent: Supabase.Gotrue
+  name: User
+  nameWithType: User
+  fullName: Supabase.Gotrue.User

@@ -1,0 +1,158 @@
+### YamlMime:ManagedReference
+items:
+- uid: Supabase.Gotrue.Client.AuthState
+  commentId: T:Supabase.Gotrue.Client.AuthState
+  id: Client.AuthState
+  parent: Supabase.Gotrue
+  children:
+  - Supabase.Gotrue.Client.AuthState.PasswordRecovery
+  - Supabase.Gotrue.Client.AuthState.SignedIn
+  - Supabase.Gotrue.Client.AuthState.SignedOut
+  - Supabase.Gotrue.Client.AuthState.UserUpdated
+  langs:
+  - csharp
+  - vb
+  name: Client.AuthState
+  nameWithType: Client.AuthState
+  fullName: Supabase.Gotrue.Client.AuthState
+  type: Enum
+  source:
+    id: AuthState
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 29
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public enum AuthState
+    content.vb: Public Enum AuthState
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: Supabase.Gotrue.Client.AuthState.SignedIn
+  commentId: F:Supabase.Gotrue.Client.AuthState.SignedIn
+  id: SignedIn
+  parent: Supabase.Gotrue.Client.AuthState
+  langs:
+  - csharp
+  - vb
+  name: SignedIn
+  nameWithType: Client.AuthState.SignedIn
+  fullName: Supabase.Gotrue.Client.AuthState.SignedIn
+  type: Field
+  source:
+    id: SignedIn
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 31
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: SignedIn = 0
+    return:
+      type: Supabase.Gotrue.Client.AuthState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.AuthState.SignedOut
+  commentId: F:Supabase.Gotrue.Client.AuthState.SignedOut
+  id: SignedOut
+  parent: Supabase.Gotrue.Client.AuthState
+  langs:
+  - csharp
+  - vb
+  name: SignedOut
+  nameWithType: Client.AuthState.SignedOut
+  fullName: Supabase.Gotrue.Client.AuthState.SignedOut
+  type: Field
+  source:
+    id: SignedOut
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 33
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: SignedOut = 1
+    return:
+      type: Supabase.Gotrue.Client.AuthState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.AuthState.UserUpdated
+  commentId: F:Supabase.Gotrue.Client.AuthState.UserUpdated
+  id: UserUpdated
+  parent: Supabase.Gotrue.Client.AuthState
+  langs:
+  - csharp
+  - vb
+  name: UserUpdated
+  nameWithType: Client.AuthState.UserUpdated
+  fullName: Supabase.Gotrue.Client.AuthState.UserUpdated
+  type: Field
+  source:
+    id: UserUpdated
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 35
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: UserUpdated = 2
+    return:
+      type: Supabase.Gotrue.Client.AuthState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: Supabase.Gotrue.Client.AuthState.PasswordRecovery
+  commentId: F:Supabase.Gotrue.Client.AuthState.PasswordRecovery
+  id: PasswordRecovery
+  parent: Supabase.Gotrue.Client.AuthState
+  langs:
+  - csharp
+  - vb
+  name: PasswordRecovery
+  nameWithType: Client.AuthState.PasswordRecovery
+  fullName: Supabase.Gotrue.Client.AuthState.PasswordRecovery
+  type: Field
+  source:
+    id: PasswordRecovery
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 37
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: PasswordRecovery = 3
+    return:
+      type: Supabase.Gotrue.Client.AuthState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: Supabase.Gotrue
+  commentId: N:Supabase.Gotrue
+  name: Supabase.Gotrue
+  nameWithType: Supabase.Gotrue
+  fullName: Supabase.Gotrue
+- uid: Supabase.Gotrue.Client.AuthState
+  commentId: T:Supabase.Gotrue.Client.AuthState
+  parent: Supabase.Gotrue
+  name: Client.AuthState
+  nameWithType: Client.AuthState
+  fullName: Supabase.Gotrue.Client.AuthState

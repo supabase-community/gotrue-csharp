@@ -1,0 +1,1419 @@
+### YamlMime:ManagedReference
+items:
+- uid: Supabase.Gotrue.Client
+  commentId: T:Supabase.Gotrue.Client
+  id: Client
+  parent: Supabase.Gotrue
+  children:
+  - Supabase.Gotrue.Client.AutoRefreshToken
+  - Supabase.Gotrue.Client.CurrentSession
+  - Supabase.Gotrue.Client.CurrentUser
+  - Supabase.Gotrue.Client.DetectSessionInUrl
+  - Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
+  - Supabase.Gotrue.Client.Instance
+  - Supabase.Gotrue.Client.SessionDestroyer
+  - Supabase.Gotrue.Client.SessionPersistor
+  - Supabase.Gotrue.Client.ShouldPersistSession
+  - Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
+  - Supabase.Gotrue.Client.SignIn(System.String)
+  - Supabase.Gotrue.Client.SignIn(System.String,System.String)
+  - Supabase.Gotrue.Client.SignOut
+  - Supabase.Gotrue.Client.SignUp(System.String,System.String)
+  - Supabase.Gotrue.Client.StateChanged
+  - Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
+  langs:
+  - csharp
+  - vb
+  name: Client
+  nameWithType: Client
+  fullName: Supabase.Gotrue.Client
+  type: Class
+  source:
+    id: Client
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 13
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public class Client
+    content.vb: Public Class Client
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: Supabase.Gotrue.Client.Instance
+  commentId: P:Supabase.Gotrue.Client.Instance
+  id: Instance
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: Instance
+  nameWithType: Client.Instance
+  fullName: Supabase.Gotrue.Client.Instance
+  type: Property
+  source:
+    id: Instance
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 42
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public static Client Instance { get; }
+    parameters: []
+    return:
+      type: Supabase.Gotrue.Client
+    content.vb: Public Shared ReadOnly Property Instance As Client
+  overload: Supabase.Gotrue.Client.Instance*
+  modifiers.csharp:
+  - public
+  - static
+  - get
+  modifiers.vb:
+  - Public
+  - Shared
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.StateChanged
+  commentId: F:Supabase.Gotrue.Client.StateChanged
+  id: StateChanged
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: StateChanged
+  nameWithType: Client.StateChanged
+  fullName: Supabase.Gotrue.Client.StateChanged
+  type: Field
+  source:
+    id: StateChanged
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 54
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public EventHandler<ClientStateChanged> StateChanged
+    return:
+      type: System.EventHandler{Supabase.Gotrue.ClientStateChanged}
+    content.vb: Public StateChanged As EventHandler(Of ClientStateChanged)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Client.CurrentUser
+  commentId: P:Supabase.Gotrue.Client.CurrentUser
+  id: CurrentUser
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: CurrentUser
+  nameWithType: Client.CurrentUser
+  fullName: Supabase.Gotrue.Client.CurrentUser
+  type: Property
+  source:
+    id: CurrentUser
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 56
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public User CurrentUser { get; }
+    parameters: []
+    return:
+      type: Supabase.Gotrue.User
+    content.vb: Public ReadOnly Property CurrentUser As User
+  overload: Supabase.Gotrue.Client.CurrentUser*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.CurrentSession
+  commentId: P:Supabase.Gotrue.Client.CurrentSession
+  id: CurrentSession
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: CurrentSession
+  nameWithType: Client.CurrentSession
+  fullName: Supabase.Gotrue.Client.CurrentSession
+  type: Property
+  source:
+    id: CurrentSession
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 57
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Session CurrentSession { get; }
+    parameters: []
+    return:
+      type: Supabase.Gotrue.Session
+    content.vb: Public ReadOnly Property CurrentSession As Session
+  overload: Supabase.Gotrue.Client.CurrentSession*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.AutoRefreshToken
+  commentId: P:Supabase.Gotrue.Client.AutoRefreshToken
+  id: AutoRefreshToken
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: AutoRefreshToken
+  nameWithType: Client.AutoRefreshToken
+  fullName: Supabase.Gotrue.Client.AutoRefreshToken
+  type: Property
+  source:
+    id: AutoRefreshToken
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 59
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: protected bool AutoRefreshToken { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Protected ReadOnly Property AutoRefreshToken As Boolean
+  overload: Supabase.Gotrue.Client.AutoRefreshToken*
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.DetectSessionInUrl
+  commentId: P:Supabase.Gotrue.Client.DetectSessionInUrl
+  id: DetectSessionInUrl
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: DetectSessionInUrl
+  nameWithType: Client.DetectSessionInUrl
+  fullName: Supabase.Gotrue.Client.DetectSessionInUrl
+  type: Property
+  source:
+    id: DetectSessionInUrl
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 60
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: protected bool DetectSessionInUrl { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Protected ReadOnly Property DetectSessionInUrl As Boolean
+  overload: Supabase.Gotrue.Client.DetectSessionInUrl*
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.ShouldPersistSession
+  commentId: P:Supabase.Gotrue.Client.ShouldPersistSession
+  id: ShouldPersistSession
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: ShouldPersistSession
+  nameWithType: Client.ShouldPersistSession
+  fullName: Supabase.Gotrue.Client.ShouldPersistSession
+  type: Property
+  source:
+    id: ShouldPersistSession
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 61
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: protected bool ShouldPersistSession { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Protected ReadOnly Property ShouldPersistSession As Boolean
+  overload: Supabase.Gotrue.Client.ShouldPersistSession*
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.SessionPersistor
+  commentId: P:Supabase.Gotrue.Client.SessionPersistor
+  id: SessionPersistor
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SessionPersistor
+  nameWithType: Client.SessionPersistor
+  fullName: Supabase.Gotrue.Client.SessionPersistor
+  type: Property
+  source:
+    id: SessionPersistor
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 62
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: protected Func<Session, bool> SessionPersistor { get; }
+    parameters: []
+    return:
+      type: System.Func{Supabase.Gotrue.Session,System.Boolean}
+    content.vb: Protected ReadOnly Property SessionPersistor As Func(Of Session, Boolean)
+  overload: Supabase.Gotrue.Client.SessionPersistor*
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.SessionDestroyer
+  commentId: P:Supabase.Gotrue.Client.SessionDestroyer
+  id: SessionDestroyer
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SessionDestroyer
+  nameWithType: Client.SessionDestroyer
+  fullName: Supabase.Gotrue.Client.SessionDestroyer
+  type: Property
+  source:
+    id: SessionDestroyer
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 63
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: protected Func<bool> SessionDestroyer { get; }
+    parameters: []
+    return:
+      type: System.Func{System.Boolean}
+    content.vb: Protected ReadOnly Property SessionDestroyer As Func(Of Boolean)
+  overload: Supabase.Gotrue.Client.SessionDestroyer*
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+- uid: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
+  commentId: M:Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
+  id: Initialize(Supabase.Gotrue.ClientOptions)
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: Initialize(ClientOptions)
+  nameWithType: Client.Initialize(ClientOptions)
+  fullName: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
+  type: Method
+  source:
+    id: Initialize
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 71
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public static Client Initialize(ClientOptions options = null)
+    parameters:
+    - id: options
+      type: Supabase.Gotrue.ClientOptions
+    return:
+      type: Supabase.Gotrue.Client
+    content.vb: Public Shared Function Initialize(options As ClientOptions = Nothing) As Client
+  overload: Supabase.Gotrue.Client.Initialize*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: Supabase.Gotrue.Client.SignUp(System.String,System.String)
+  commentId: M:Supabase.Gotrue.Client.SignUp(System.String,System.String)
+  id: SignUp(System.String,System.String)
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SignUp(String, String)
+  nameWithType: Client.SignUp(String, String)
+  fullName: Supabase.Gotrue.Client.SignUp(System.String, System.String)
+  type: Method
+  source:
+    id: SignUp
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 89
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Task<Session> SignUp(string email, string password)
+    parameters:
+    - id: email
+      type: System.String
+    - id: password
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{Supabase.Gotrue.Session}
+    content.vb: Public Function SignUp(email As String, password As String) As Task(Of Session)
+  overload: Supabase.Gotrue.Client.SignUp*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Client.SignIn(System.String)
+  commentId: M:Supabase.Gotrue.Client.SignIn(System.String)
+  id: SignIn(System.String)
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SignIn(String)
+  nameWithType: Client.SignIn(String)
+  fullName: Supabase.Gotrue.Client.SignIn(System.String)
+  type: Method
+  source:
+    id: SignIn
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 114
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Task<bool> SignIn(string email)
+    parameters:
+    - id: email
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function SignIn(email As String) As Task(Of Boolean)
+  overload: Supabase.Gotrue.Client.SignIn*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Client.SignIn(System.String,System.String)
+  commentId: M:Supabase.Gotrue.Client.SignIn(System.String,System.String)
+  id: SignIn(System.String,System.String)
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SignIn(String, String)
+  nameWithType: Client.SignIn(String, String)
+  fullName: Supabase.Gotrue.Client.SignIn(System.String, System.String)
+  type: Method
+  source:
+    id: SignIn
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 129
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Task<Session> SignIn(string email, string password)
+    parameters:
+    - id: email
+      type: System.String
+    - id: password
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{Supabase.Gotrue.Session}
+    content.vb: Public Function SignIn(email As String, password As String) As Task(Of Session)
+  overload: Supabase.Gotrue.Client.SignIn*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
+  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
+  id: SignIn(Supabase.Gotrue.Client.Provider)
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SignIn(Client.Provider)
+  nameWithType: Client.SignIn(Client.Provider)
+  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
+  type: Method
+  source:
+    id: SignIn
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 151
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public string SignIn(Client.Provider provider)
+    parameters:
+    - id: provider
+      type: Supabase.Gotrue.Client.Provider
+    return:
+      type: System.String
+    content.vb: Public Function SignIn(provider As Client.Provider) As String
+  overload: Supabase.Gotrue.Client.SignIn*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Client.SignOut
+  commentId: M:Supabase.Gotrue.Client.SignOut
+  id: SignOut
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: SignOut()
+  nameWithType: Client.SignOut()
+  fullName: Supabase.Gotrue.Client.SignOut()
+  type: Method
+  source:
+    id: SignOut
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 159
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Task SignOut()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function SignOut As Task
+  overload: Supabase.Gotrue.Client.SignOut*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
+  commentId: M:Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
+  id: Update(Supabase.Gotrue.UserAttributes)
+  parent: Supabase.Gotrue.Client
+  langs:
+  - csharp
+  - vb
+  name: Update(UserAttributes)
+  nameWithType: Client.Update(UserAttributes)
+  fullName: Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
+  type: Method
+  source:
+    id: Update
+    path: /Users/schultzjosephj/dev/gotrue-csharp/Gotrue/Client.cs
+    startLine: 169
+  assemblies:
+  - Gotrue
+  namespace: Supabase.Gotrue
+  syntax:
+    content: public Task<User> Update(UserAttributes attributes)
+    parameters:
+    - id: attributes
+      type: Supabase.Gotrue.UserAttributes
+    return:
+      type: System.Threading.Tasks.Task{Supabase.Gotrue.User}
+    content.vb: Public Function Update(attributes As UserAttributes) As Task(Of User)
+  overload: Supabase.Gotrue.Client.Update*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: Supabase.Gotrue
+  commentId: N:Supabase.Gotrue
+  name: Supabase.Gotrue
+  nameWithType: Supabase.Gotrue
+  fullName: Supabase.Gotrue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Supabase.Gotrue.Client.Instance*
+  commentId: Overload:Supabase.Gotrue.Client.Instance
+  name: Instance
+  nameWithType: Client.Instance
+  fullName: Supabase.Gotrue.Client.Instance
+- uid: Supabase.Gotrue.Client
+  commentId: T:Supabase.Gotrue.Client
+  parent: Supabase.Gotrue
+  name: Client
+  nameWithType: Client
+  fullName: Supabase.Gotrue.Client
+- uid: System.EventHandler{Supabase.Gotrue.ClientStateChanged}
+  commentId: T:System.EventHandler{Supabase.Gotrue.ClientStateChanged}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<ClientStateChanged>
+  nameWithType: EventHandler<ClientStateChanged>
+  fullName: System.EventHandler<Supabase.Gotrue.ClientStateChanged>
+  nameWithType.vb: EventHandler(Of ClientStateChanged)
+  fullName.vb: System.EventHandler(Of Supabase.Gotrue.ClientStateChanged)
+  name.vb: EventHandler(Of ClientStateChanged)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Supabase.Gotrue.ClientStateChanged
+    name: ClientStateChanged
+    nameWithType: ClientStateChanged
+    fullName: Supabase.Gotrue.ClientStateChanged
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Supabase.Gotrue.ClientStateChanged
+    name: ClientStateChanged
+    nameWithType: ClientStateChanged
+    fullName: Supabase.Gotrue.ClientStateChanged
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Supabase.Gotrue.Client.CurrentUser*
+  commentId: Overload:Supabase.Gotrue.Client.CurrentUser
+  name: CurrentUser
+  nameWithType: Client.CurrentUser
+  fullName: Supabase.Gotrue.Client.CurrentUser
+- uid: Supabase.Gotrue.User
+  commentId: T:Supabase.Gotrue.User
+  parent: Supabase.Gotrue
+  name: User
+  nameWithType: User
+  fullName: Supabase.Gotrue.User
+- uid: Supabase.Gotrue.Client.CurrentSession*
+  commentId: Overload:Supabase.Gotrue.Client.CurrentSession
+  name: CurrentSession
+  nameWithType: Client.CurrentSession
+  fullName: Supabase.Gotrue.Client.CurrentSession
+- uid: Supabase.Gotrue.Session
+  commentId: T:Supabase.Gotrue.Session
+  parent: Supabase.Gotrue
+  name: Session
+  nameWithType: Session
+  fullName: Supabase.Gotrue.Session
+- uid: Supabase.Gotrue.Client.AutoRefreshToken*
+  commentId: Overload:Supabase.Gotrue.Client.AutoRefreshToken
+  name: AutoRefreshToken
+  nameWithType: Client.AutoRefreshToken
+  fullName: Supabase.Gotrue.Client.AutoRefreshToken
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Supabase.Gotrue.Client.DetectSessionInUrl*
+  commentId: Overload:Supabase.Gotrue.Client.DetectSessionInUrl
+  name: DetectSessionInUrl
+  nameWithType: Client.DetectSessionInUrl
+  fullName: Supabase.Gotrue.Client.DetectSessionInUrl
+- uid: Supabase.Gotrue.Client.ShouldPersistSession*
+  commentId: Overload:Supabase.Gotrue.Client.ShouldPersistSession
+  name: ShouldPersistSession
+  nameWithType: Client.ShouldPersistSession
+  fullName: Supabase.Gotrue.Client.ShouldPersistSession
+- uid: Supabase.Gotrue.Client.SessionPersistor*
+  commentId: Overload:Supabase.Gotrue.Client.SessionPersistor
+  name: SessionPersistor
+  nameWithType: Client.SessionPersistor
+  fullName: Supabase.Gotrue.Client.SessionPersistor
+- uid: System.Func{Supabase.Gotrue.Session,System.Boolean}
+  commentId: T:System.Func{Supabase.Gotrue.Session,System.Boolean}
+  parent: System
+  definition: System.Func`2
+  name: Func<Session, Boolean>
+  nameWithType: Func<Session, Boolean>
+  fullName: System.Func<Supabase.Gotrue.Session, System.Boolean>
+  nameWithType.vb: Func(Of Session, Boolean)
+  fullName.vb: System.Func(Of Supabase.Gotrue.Session, System.Boolean)
+  name.vb: Func(Of Session, Boolean)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Supabase.Gotrue.Session
+    name: Session
+    nameWithType: Session
+    fullName: Supabase.Gotrue.Session
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Supabase.Gotrue.Session
+    name: Session
+    nameWithType: Session
+    fullName: Supabase.Gotrue.Session
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Supabase.Gotrue.Client.SessionDestroyer*
+  commentId: Overload:Supabase.Gotrue.Client.SessionDestroyer
+  name: SessionDestroyer
+  nameWithType: Client.SessionDestroyer
+  fullName: Supabase.Gotrue.Client.SessionDestroyer
+- uid: System.Func{System.Boolean}
+  commentId: T:System.Func{System.Boolean}
+  parent: System
+  definition: System.Func`1
+  name: Func<Boolean>
+  nameWithType: Func<Boolean>
+  fullName: System.Func<System.Boolean>
+  nameWithType.vb: Func(Of Boolean)
+  fullName.vb: System.Func(Of System.Boolean)
+  name.vb: Func(Of Boolean)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Supabase.Gotrue.Client.Initialize*
+  commentId: Overload:Supabase.Gotrue.Client.Initialize
+  name: Initialize
+  nameWithType: Client.Initialize
+  fullName: Supabase.Gotrue.Client.Initialize
+- uid: Supabase.Gotrue.ClientOptions
+  commentId: T:Supabase.Gotrue.ClientOptions
+  parent: Supabase.Gotrue
+  name: ClientOptions
+  nameWithType: ClientOptions
+  fullName: Supabase.Gotrue.ClientOptions
+- uid: Supabase.Gotrue.Client.SignUp*
+  commentId: Overload:Supabase.Gotrue.Client.SignUp
+  name: SignUp
+  nameWithType: Client.SignUp
+  fullName: Supabase.Gotrue.Client.SignUp
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Threading.Tasks.Task{Supabase.Gotrue.Session}
+  commentId: T:System.Threading.Tasks.Task{Supabase.Gotrue.Session}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Session>
+  nameWithType: Task<Session>
+  fullName: System.Threading.Tasks.Task<Supabase.Gotrue.Session>
+  nameWithType.vb: Task(Of Session)
+  fullName.vb: System.Threading.Tasks.Task(Of Supabase.Gotrue.Session)
+  name.vb: Task(Of Session)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Supabase.Gotrue.Session
+    name: Session
+    nameWithType: Session
+    fullName: Supabase.Gotrue.Session
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Supabase.Gotrue.Session
+    name: Session
+    nameWithType: Session
+    fullName: Supabase.Gotrue.Session
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Supabase.Gotrue.Client.SignIn*
+  commentId: Overload:Supabase.Gotrue.Client.SignIn
+  name: SignIn
+  nameWithType: Client.SignIn
+  fullName: Supabase.Gotrue.Client.SignIn
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Supabase.Gotrue.Client.Provider
+  commentId: T:Supabase.Gotrue.Client.Provider
+  parent: Supabase.Gotrue
+  name: Client.Provider
+  nameWithType: Client.Provider
+  fullName: Supabase.Gotrue.Client.Provider
+- uid: Supabase.Gotrue.Client.SignOut*
+  commentId: Overload:Supabase.Gotrue.Client.SignOut
+  name: SignOut
+  nameWithType: Client.SignOut
+  fullName: Supabase.Gotrue.Client.SignOut
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: Supabase.Gotrue.Client.Update*
+  commentId: Overload:Supabase.Gotrue.Client.Update
+  name: Update
+  nameWithType: Client.Update
+  fullName: Supabase.Gotrue.Client.Update
+- uid: Supabase.Gotrue.UserAttributes
+  commentId: T:Supabase.Gotrue.UserAttributes
+  parent: Supabase.Gotrue
+  name: UserAttributes
+  nameWithType: UserAttributes
+  fullName: Supabase.Gotrue.UserAttributes
+- uid: System.Threading.Tasks.Task{Supabase.Gotrue.User}
+  commentId: T:System.Threading.Tasks.Task{Supabase.Gotrue.User}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<User>
+  nameWithType: Task<User>
+  fullName: System.Threading.Tasks.Task<Supabase.Gotrue.User>
+  nameWithType.vb: Task(Of User)
+  fullName.vb: System.Threading.Tasks.Task(Of Supabase.Gotrue.User)
+  name.vb: Task(Of User)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Supabase.Gotrue.User
+    name: User
+    nameWithType: User
+    fullName: Supabase.Gotrue.User
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Supabase.Gotrue.User
+    name: User
+    nameWithType: User
+    fullName: Supabase.Gotrue.User
+  - name: )
+    nameWithType: )
+    fullName: )
