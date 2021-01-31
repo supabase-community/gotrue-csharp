@@ -1,0 +1,308 @@
+{
+  "homepages": [],
+  "source_base_path": "/github/workspace/.documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Api.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Api.html",
+          "hash": "MzUIgGP15SZQTn3En4XYQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Client.AuthState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Client.AuthState.html",
+          "hash": "UIkHTdp6jcPv8cg4vW9uiA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Client.Provider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Client.Provider.html",
+          "hash": "XoGdd0j735hjKqCmjwrJYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Client.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Client.html",
+          "hash": "16fDsYo0domV73KyI3evAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.ClientOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
+          "hash": "bHAIXF1JeFC5ikvE1JXSvw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.ClientStateChanged.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
+          "hash": "8hwyjeSeGUNi8W7Rj/rGrw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Constants.html",
+          "hash": "sDbkGDDrEwTZdPrBbb+G8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.ExistingUserException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.ExistingUserException.html",
+          "hash": "kicNQ907y+IENhI7C85mzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.InvalidEmailOrPasswordException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.InvalidEmailOrPasswordException.html",
+          "hash": "ycBtRXYjMkEuILjXclByPQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.RequestException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.RequestException.html",
+          "hash": "dxkYMcy0cPZG1r2HTPMXjQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Responses.BaseResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Responses.BaseResponse.html",
+          "hash": "I00XjZXhkUpW3KV3RhOX5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Responses.ErrorResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Responses.ErrorResponse.html",
+          "hash": "NJNnF7EwQFj38NLXU1sbig=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Responses.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Responses.html",
+          "hash": "hmC0fUhoQ3gCkaP/Yf6T4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Session.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Session.html",
+          "hash": "EgWS4igTwoGGwPVbAsRQdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.User.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.User.html",
+          "hash": "DU3v4VB2PxfeU7/R9ANvfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.UserAttributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.UserAttributes.html",
+          "hash": "lcCrdYMznRWU2k1uahHKLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.html",
+          "hash": "QDn1tnDznOYD8dCwBocA7g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "hYzOrqeER6w9HiM2IRiGTQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "fladW9Xm81qWaub4G0vVjQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "KGicDsjTN6/9UKIR0k2Qyw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "wDgNr2bQ8qpIdquWeq5zSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 2,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 17,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
