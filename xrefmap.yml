@@ -13,13 +13,13 @@ references:
   commentId: T:Supabase.Gotrue.Api
   fullName: Supabase.Gotrue.Api
   nameWithType: Api
-- uid: Supabase.Gotrue.Api.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
+- uid: Supabase.Gotrue.Api.#ctor(System.String,Dictionary{System.String,System.String})
   name: Api(String, Dictionary<String, String>)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api__ctor_System_String_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:Supabase.Gotrue.Api.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api__ctor_System_String_Dictionary_System_String_System_String__
+  commentId: M:Supabase.Gotrue.Api.#ctor(System.String,Dictionary{System.String,System.String})
   name.vb: Api(String, Dictionary(Of String, String))
-  fullName: Supabase.Gotrue.Api.Api(System.String, System.Collections.Generic.Dictionary<System.String, System.String>)
-  fullName.vb: Supabase.Gotrue.Api.Api(System.String, System.Collections.Generic.Dictionary(Of System.String, System.String))
+  fullName: Supabase.Gotrue.Api.Api(System.String, Dictionary<System.String, System.String>)
+  fullName.vb: Supabase.Gotrue.Api.Api(System.String, Dictionary(Of System.String, System.String))
   nameWithType: Api.Api(String, Dictionary<String, String>)
   nameWithType.vb: Api.Api(String, Dictionary(Of String, String))
 - uid: Supabase.Gotrue.Api.#ctor*
@@ -644,11 +644,11 @@ references:
   commentId: T:Supabase.Gotrue.RequestException
   fullName: Supabase.Gotrue.RequestException
   nameWithType: RequestException
-- uid: Supabase.Gotrue.RequestException.#ctor(System.Net.Http.HttpResponseMessage,Supabase.Gotrue.Responses.ErrorResponse)
+- uid: Supabase.Gotrue.RequestException.#ctor(HttpResponseMessage,Supabase.Gotrue.Responses.ErrorResponse)
   name: RequestException(HttpResponseMessage, ErrorResponse)
-  href: api/Supabase.Gotrue.RequestException.html#Supabase_Gotrue_RequestException__ctor_System_Net_Http_HttpResponseMessage_Supabase_Gotrue_Responses_ErrorResponse_
-  commentId: M:Supabase.Gotrue.RequestException.#ctor(System.Net.Http.HttpResponseMessage,Supabase.Gotrue.Responses.ErrorResponse)
-  fullName: Supabase.Gotrue.RequestException.RequestException(System.Net.Http.HttpResponseMessage, Supabase.Gotrue.Responses.ErrorResponse)
+  href: api/Supabase.Gotrue.RequestException.html#Supabase_Gotrue_RequestException__ctor_HttpResponseMessage_Supabase_Gotrue_Responses_ErrorResponse_
+  commentId: M:Supabase.Gotrue.RequestException.#ctor(HttpResponseMessage,Supabase.Gotrue.Responses.ErrorResponse)
+  fullName: Supabase.Gotrue.RequestException.RequestException(HttpResponseMessage, Supabase.Gotrue.Responses.ErrorResponse)
   nameWithType: RequestException.RequestException(HttpResponseMessage, ErrorResponse)
 - uid: Supabase.Gotrue.RequestException.#ctor*
   name: RequestException

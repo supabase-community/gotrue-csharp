@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Api.html",
-          "hash": "MzUIgGP15SZQTn3En4XYQA=="
+          "hash": "JwjLl6FsDuPFRQsFDEQv6w=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.AuthState.html",
-          "hash": "UIkHTdp6jcPv8cg4vW9uiA=="
+          "hash": "ZnqfCyyp+HJNRK+Cda8l1A=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.Provider.html",
-          "hash": "XoGdd0j735hjKqCmjwrJYQ=="
+          "hash": "Y8izdc1wgLzbjOm9CoNxcg=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "16fDsYo0domV73KyI3evAQ=="
+          "hash": "ArTzv9oQzQkEvmPlumdqnA=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "bHAIXF1JeFC5ikvE1JXSvw=="
+          "hash": "03au5gC1jszUbRjDhdhDhg=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "8hwyjeSeGUNi8W7Rj/rGrw=="
+          "hash": "3NqQ+oSjqE09D3DUaJdkog=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Constants.html",
-          "hash": "sDbkGDDrEwTZdPrBbb+G8A=="
+          "hash": "BCXZdpheBTuZOB1ZjNhb2g=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ExistingUserException.html",
-          "hash": "kicNQ907y+IENhI7C85mzg=="
+          "hash": "3lZiXd6EwKjWbZ3Kiyi7+A=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.InvalidEmailOrPasswordException.html",
-          "hash": "ycBtRXYjMkEuILjXclByPQ=="
+          "hash": "3Hpa63pjJ4ISmZd5kTTr5A=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.RequestException.html",
-          "hash": "dxkYMcy0cPZG1r2HTPMXjQ=="
+          "hash": "e4PknZG5vSsQDMLhVZyeaw=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Responses.BaseResponse.html",
-          "hash": "I00XjZXhkUpW3KV3RhOX5Q=="
+          "hash": "yP0XYXDZjwxlZ4QI9HPqcg=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Responses.ErrorResponse.html",
-          "hash": "NJNnF7EwQFj38NLXU1sbig=="
+          "hash": "AM30LxcNIDaaEhw1C+gOqw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Session.html",
-          "hash": "EgWS4igTwoGGwPVbAsRQdw=="
+          "hash": "hdNQ9D/cj4lf3eetIgZy6A=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.User.html",
-          "hash": "DU3v4VB2PxfeU7/R9ANvfA=="
+          "hash": "DAHOx2sx6NO0wzDz37iEmQ=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UserAttributes.html",
-          "hash": "lcCrdYMznRWU2k1uahHKLg=="
+          "hash": "2UQccQye41FaIz7IaTAQ0Q=="
         }
       },
       "is_incremental": false,
