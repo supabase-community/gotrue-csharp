@@ -13,22 +13,22 @@
 ## Status
 
 - [ ] API
-    - [ ] Sign Up with Email
-    - [ ] Sign In with Email
-    - [ ] Send Magic Link Email
-    - [ ] Invite User by Email
-    - [ ] Reset Password for Email
-    - [ ] Signout
-    - [ ] Get Url for Provider
-    - [ ] Get User
-    - [ ] Update User
-    - [ ] Refresh Access Token
+  - [x] Sign Up with Email
+  - [x] Sign In with Email
+  - [x] Send Magic Link Email
+  - [x] Invite User by Email
+  - [x] Reset Password for Email
+  - [x] Signout
+  - [x] Get Url for Provider
+  - [x] Get User
+  - [x] Update User
+  - [ ] Refresh Access Token
 - [ ] Client
-    - [ ] Get User
-    - [ ] Refresh Session
-    - [ ] Auth State Change Handler
-    - [ ] Provider Sign In
-- [ ] Provide Interfaces for Custom Token Persistence Functionality
+  - [x] Get User
+  - [ ] Refresh Session
+  - [x] Auth State Change Handler
+  - [x] Provider Sign In (Provides URL)
+- [x] Provide Interfaces for Custom Token Persistence Functionality
 - [ ] Unit Tests
 - [ ] Nuget Release
 
