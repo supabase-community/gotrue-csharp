@@ -19,7 +19,6 @@ namespace Supabase.Gotrue
 
         private static readonly HttpClient client = new HttpClient();
 
-
         /// <summary>
         /// Helper to make a request using the defined parameters to an API Endpoint and coerce into a model. 
         /// </summary>

@@ -6,9 +6,18 @@
 
 ---
 
-## This repo is currently public for the sake of contributions - it should NOT be used in anything remotely resembling production
+## Getting Started
 
----
+The Gotrue Client from this library uses a Singleton class to maintain in-memory state and timers. This is similar
+to the method that Firebase uses in its Client libraries.
+
+```c#
+var options = new ClientOptions { Url = "https://example.com/api" };
+var client = Client.Initialize(options);
+
+var user = await SignUp("new-user@example.com");
+```
+
 
 ## Status
 
@@ -29,6 +38,7 @@
   - [x] Auth State Change Handler
   - [x] Provider Sign In (Provides URL)
 - [x] Provide Interfaces for Custom Token Persistence Functionality
+- [ ] Documentation
 - [ ] Unit Tests
 - [ ] Nuget Release
 

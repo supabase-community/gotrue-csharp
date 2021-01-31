@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace Supabase.Gotrue
 {
+    /// <summary>
+    /// Represents a Gotrue User
+    /// </summary>
     public class User
     {
         [JsonProperty("id")]
