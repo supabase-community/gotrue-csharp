@@ -240,19 +240,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.CurrentUser
   nameWithType: Client.CurrentUser
-- uid: Supabase.Gotrue.Client.DetectSessionInUrl
-  name: DetectSessionInUrl
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_DetectSessionInUrl
-  commentId: P:Supabase.Gotrue.Client.DetectSessionInUrl
-  fullName: Supabase.Gotrue.Client.DetectSessionInUrl
-  nameWithType: Client.DetectSessionInUrl
-- uid: Supabase.Gotrue.Client.DetectSessionInUrl*
-  name: DetectSessionInUrl
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_DetectSessionInUrl_
-  commentId: Overload:Supabase.Gotrue.Client.DetectSessionInUrl
+- uid: Supabase.Gotrue.Client.GetSessionFromUrl(Uri,System.Boolean)
+  name: GetSessionFromUrl(Uri, Boolean)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetSessionFromUrl_Uri_System_Boolean_
+  commentId: M:Supabase.Gotrue.Client.GetSessionFromUrl(Uri,System.Boolean)
+  fullName: Supabase.Gotrue.Client.GetSessionFromUrl(Uri, System.Boolean)
+  nameWithType: Client.GetSessionFromUrl(Uri, Boolean)
+- uid: Supabase.Gotrue.Client.GetSessionFromUrl*
+  name: GetSessionFromUrl
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetSessionFromUrl_
+  commentId: Overload:Supabase.Gotrue.Client.GetSessionFromUrl
   isSpec: "True"
-  fullName: Supabase.Gotrue.Client.DetectSessionInUrl
-  nameWithType: Client.DetectSessionInUrl
+  fullName: Supabase.Gotrue.Client.GetSessionFromUrl
+  nameWithType: Client.GetSessionFromUrl
 - uid: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
   name: Initialize(ClientOptions)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Initialize_Supabase_Gotrue_ClientOptions_
@@ -315,6 +315,19 @@ references:
   commentId: F:Supabase.Gotrue.Client.Provider.Google
   fullName: Supabase.Gotrue.Client.Provider.Google
   nameWithType: Client.Provider.Google
+- uid: Supabase.Gotrue.Client.RefreshSession
+  name: RefreshSession()
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RefreshSession
+  commentId: M:Supabase.Gotrue.Client.RefreshSession
+  fullName: Supabase.Gotrue.Client.RefreshSession()
+  nameWithType: Client.RefreshSession()
+- uid: Supabase.Gotrue.Client.RefreshSession*
+  name: RefreshSession
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RefreshSession_
+  commentId: Overload:Supabase.Gotrue.Client.RefreshSession
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.RefreshSession
+  nameWithType: Client.RefreshSession
 - uid: Supabase.Gotrue.Client.SessionDestroyer
   name: SessionDestroyer
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SessionDestroyer
@@ -341,6 +354,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SessionPersistor
   nameWithType: Client.SessionPersistor
+- uid: Supabase.Gotrue.Client.SessionRetriever
+  name: SessionRetriever
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SessionRetriever
+  commentId: P:Supabase.Gotrue.Client.SessionRetriever
+  fullName: Supabase.Gotrue.Client.SessionRetriever
+  nameWithType: Client.SessionRetriever
+- uid: Supabase.Gotrue.Client.SessionRetriever*
+  name: SessionRetriever
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SessionRetriever_
+  commentId: Overload:Supabase.Gotrue.Client.SessionRetriever
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.SessionRetriever
+  nameWithType: Client.SessionRetriever
 - uid: Supabase.Gotrue.Client.ShouldPersistSession
   name: ShouldPersistSession
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ShouldPersistSession
@@ -443,19 +469,6 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.ClientOptions.AutoRefreshToken
   nameWithType: ClientOptions.AutoRefreshToken
-- uid: Supabase.Gotrue.ClientOptions.DetectSessionInUrl
-  name: DetectSessionInUrl
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_DetectSessionInUrl
-  commentId: P:Supabase.Gotrue.ClientOptions.DetectSessionInUrl
-  fullName: Supabase.Gotrue.ClientOptions.DetectSessionInUrl
-  nameWithType: ClientOptions.DetectSessionInUrl
-- uid: Supabase.Gotrue.ClientOptions.DetectSessionInUrl*
-  name: DetectSessionInUrl
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_DetectSessionInUrl_
-  commentId: Overload:Supabase.Gotrue.ClientOptions.DetectSessionInUrl
-  isSpec: "True"
-  fullName: Supabase.Gotrue.ClientOptions.DetectSessionInUrl
-  nameWithType: ClientOptions.DetectSessionInUrl
 - uid: Supabase.Gotrue.ClientOptions.Headers
   name: Headers
   href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_Headers
@@ -487,6 +500,12 @@ references:
   commentId: F:Supabase.Gotrue.ClientOptions.SessionPersistor
   fullName: Supabase.Gotrue.ClientOptions.SessionPersistor
   nameWithType: ClientOptions.SessionPersistor
+- uid: Supabase.Gotrue.ClientOptions.SessionRetriever
+  name: SessionRetriever
+  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_SessionRetriever
+  commentId: F:Supabase.Gotrue.ClientOptions.SessionRetriever
+  fullName: Supabase.Gotrue.ClientOptions.SessionRetriever
+  nameWithType: ClientOptions.SessionRetriever
 - uid: Supabase.Gotrue.ClientOptions.Url
   name: Url
   href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_Url
