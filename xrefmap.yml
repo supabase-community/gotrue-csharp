@@ -778,6 +778,32 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Session.AccessToken
   nameWithType: Session.AccessToken
+- uid: Supabase.Gotrue.Session.CreatedAt
+  name: CreatedAt
+  href: api/Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_CreatedAt
+  commentId: P:Supabase.Gotrue.Session.CreatedAt
+  fullName: Supabase.Gotrue.Session.CreatedAt
+  nameWithType: Session.CreatedAt
+- uid: Supabase.Gotrue.Session.CreatedAt*
+  name: CreatedAt
+  href: api/Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_CreatedAt_
+  commentId: Overload:Supabase.Gotrue.Session.CreatedAt
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Session.CreatedAt
+  nameWithType: Session.CreatedAt
+- uid: Supabase.Gotrue.Session.ExpiresAt
+  name: ExpiresAt()
+  href: api/Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_ExpiresAt
+  commentId: M:Supabase.Gotrue.Session.ExpiresAt
+  fullName: Supabase.Gotrue.Session.ExpiresAt()
+  nameWithType: Session.ExpiresAt()
+- uid: Supabase.Gotrue.Session.ExpiresAt*
+  name: ExpiresAt
+  href: api/Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_ExpiresAt_
+  commentId: Overload:Supabase.Gotrue.Session.ExpiresAt
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Session.ExpiresAt
+  nameWithType: Session.ExpiresAt
 - uid: Supabase.Gotrue.Session.ExpiresIn
   name: ExpiresIn
   href: api/Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_ExpiresIn
