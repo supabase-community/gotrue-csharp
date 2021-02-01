@@ -165,6 +165,38 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.Url
   nameWithType: Api.Url
+- uid: Supabase.Gotrue.BadRequestException
+  name: BadRequestException
+  href: api/Supabase.Gotrue.BadRequestException.html
+  commentId: T:Supabase.Gotrue.BadRequestException
+  fullName: Supabase.Gotrue.BadRequestException
+  nameWithType: BadRequestException
+- uid: Supabase.Gotrue.BadRequestException.#ctor(Supabase.Gotrue.RequestException)
+  name: BadRequestException(RequestException)
+  href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException__ctor_Supabase_Gotrue_RequestException_
+  commentId: M:Supabase.Gotrue.BadRequestException.#ctor(Supabase.Gotrue.RequestException)
+  fullName: Supabase.Gotrue.BadRequestException.BadRequestException(Supabase.Gotrue.RequestException)
+  nameWithType: BadRequestException.BadRequestException(RequestException)
+- uid: Supabase.Gotrue.BadRequestException.#ctor*
+  name: BadRequestException
+  href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException__ctor_
+  commentId: Overload:Supabase.Gotrue.BadRequestException.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.BadRequestException.BadRequestException
+  nameWithType: BadRequestException.BadRequestException
+- uid: Supabase.Gotrue.BadRequestException.Response
+  name: Response
+  href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException_Response
+  commentId: P:Supabase.Gotrue.BadRequestException.Response
+  fullName: Supabase.Gotrue.BadRequestException.Response
+  nameWithType: BadRequestException.Response
+- uid: Supabase.Gotrue.BadRequestException.Response*
+  name: Response
+  href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException_Response_
+  commentId: Overload:Supabase.Gotrue.BadRequestException.Response
+  isSpec: "True"
+  fullName: Supabase.Gotrue.BadRequestException.Response
+  nameWithType: BadRequestException.Response
 - uid: Supabase.Gotrue.Client
   name: Client
   href: api/Supabase.Gotrue.Client.html
@@ -625,6 +657,38 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.ExistingUserException.Response
   nameWithType: ExistingUserException.Response
+- uid: Supabase.Gotrue.ForbiddenException
+  name: ForbiddenException
+  href: api/Supabase.Gotrue.ForbiddenException.html
+  commentId: T:Supabase.Gotrue.ForbiddenException
+  fullName: Supabase.Gotrue.ForbiddenException
+  nameWithType: ForbiddenException
+- uid: Supabase.Gotrue.ForbiddenException.#ctor(Supabase.Gotrue.RequestException)
+  name: ForbiddenException(RequestException)
+  href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException__ctor_Supabase_Gotrue_RequestException_
+  commentId: M:Supabase.Gotrue.ForbiddenException.#ctor(Supabase.Gotrue.RequestException)
+  fullName: Supabase.Gotrue.ForbiddenException.ForbiddenException(Supabase.Gotrue.RequestException)
+  nameWithType: ForbiddenException.ForbiddenException(RequestException)
+- uid: Supabase.Gotrue.ForbiddenException.#ctor*
+  name: ForbiddenException
+  href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException__ctor_
+  commentId: Overload:Supabase.Gotrue.ForbiddenException.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.ForbiddenException.ForbiddenException
+  nameWithType: ForbiddenException.ForbiddenException
+- uid: Supabase.Gotrue.ForbiddenException.Response
+  name: Response
+  href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException_Response
+  commentId: P:Supabase.Gotrue.ForbiddenException.Response
+  fullName: Supabase.Gotrue.ForbiddenException.Response
+  nameWithType: ForbiddenException.Response
+- uid: Supabase.Gotrue.ForbiddenException.Response*
+  name: Response
+  href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException_Response_
+  commentId: Overload:Supabase.Gotrue.ForbiddenException.Response
+  isSpec: "True"
+  fullName: Supabase.Gotrue.ForbiddenException.Response
+  nameWithType: ForbiddenException.Response
 - uid: Supabase.Gotrue.InvalidEmailOrPasswordException
   name: InvalidEmailOrPasswordException
   href: api/Supabase.Gotrue.InvalidEmailOrPasswordException.html
@@ -856,6 +920,38 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Session.User
   nameWithType: Session.User
+- uid: Supabase.Gotrue.UnauthorizedException
+  name: UnauthorizedException
+  href: api/Supabase.Gotrue.UnauthorizedException.html
+  commentId: T:Supabase.Gotrue.UnauthorizedException
+  fullName: Supabase.Gotrue.UnauthorizedException
+  nameWithType: UnauthorizedException
+- uid: Supabase.Gotrue.UnauthorizedException.#ctor(Supabase.Gotrue.RequestException)
+  name: UnauthorizedException(RequestException)
+  href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException__ctor_Supabase_Gotrue_RequestException_
+  commentId: M:Supabase.Gotrue.UnauthorizedException.#ctor(Supabase.Gotrue.RequestException)
+  fullName: Supabase.Gotrue.UnauthorizedException.UnauthorizedException(Supabase.Gotrue.RequestException)
+  nameWithType: UnauthorizedException.UnauthorizedException(RequestException)
+- uid: Supabase.Gotrue.UnauthorizedException.#ctor*
+  name: UnauthorizedException
+  href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException__ctor_
+  commentId: Overload:Supabase.Gotrue.UnauthorizedException.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.UnauthorizedException.UnauthorizedException
+  nameWithType: UnauthorizedException.UnauthorizedException
+- uid: Supabase.Gotrue.UnauthorizedException.Response
+  name: Response
+  href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException_Response
+  commentId: P:Supabase.Gotrue.UnauthorizedException.Response
+  fullName: Supabase.Gotrue.UnauthorizedException.Response
+  nameWithType: UnauthorizedException.Response
+- uid: Supabase.Gotrue.UnauthorizedException.Response*
+  name: Response
+  href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException_Response_
+  commentId: Overload:Supabase.Gotrue.UnauthorizedException.Response
+  isSpec: "True"
+  fullName: Supabase.Gotrue.UnauthorizedException.Response
+  nameWithType: UnauthorizedException.Response
 - uid: Supabase.Gotrue.User
   name: User
   href: api/Supabase.Gotrue.User.html
