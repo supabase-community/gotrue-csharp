@@ -1,7 +1,12 @@
-﻿<p align="center">
+<p align="center">
 <img width="300" src=".github/supabase-gotrue.png"/>
-<br/>
-<img src="https://github.com/supabase/gotrue-csharp/workflows/Build%20And%20Test/badge.svg"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/supabase/gotrue-csharp/workflows/Build%20And%20Test/badge.svg"/>
+  <a href="https://www.nuget.org/packages/gotrue-csharp/">
+    <img src="https://img.shields.io/badge/dynamic/json?color=green&label=Nuget%20Release&query=data[0].version&url=https%3A%2F%2Fazuresearch-usnc.nuget.org%2Fquery%3Fq%3Dpackageid%3Agotrue-csharp"/>
+  </a>
 </p>
 
 ---
@@ -21,7 +26,7 @@ var user = await SignUp("new-user@example.com");
 
 ## Status
 
-- [ ] API
+- [x] API
   - [x] Sign Up with Email
   - [x] Sign In with Email
   - [x] Send Magic Link Email
@@ -31,16 +36,16 @@ var user = await SignUp("new-user@example.com");
   - [x] Get Url for Provider
   - [x] Get User
   - [x] Update User
-  - [ ] Refresh Access Token
-- [ ] Client
+  - [x] Refresh Access Token
+- [x] Client
   - [x] Get User
-  - [ ] Refresh Session
+  - [x] Refresh Session
   - [x] Auth State Change Handler
   - [x] Provider Sign In (Provides URL)
 - [x] Provide Interfaces for Custom Token Persistence Functionality
-- [ ] Documentation
-- [ ] Unit Tests
-- [ ] Nuget Release
+- [x] Documentation
+- [x] Unit Tests
+- [x] Nuget Release
 
 ## Package made possible through the efforts of:
 
