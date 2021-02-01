@@ -26,6 +26,12 @@ namespace Supabase.Gotrue
             Headers = headers;
         }
 
+        /// <summary>
+        /// Signs a user up using an email address and password.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public Task<Session> SignUpWithEmail(string email, string password)
         {
             var data = new Dictionary<string, string> { { "email", email }, { "password", password } };

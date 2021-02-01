@@ -128,7 +128,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public static Client Initialize(ClientOptions options = null)
         {
-            var instance = new Client();
+            instance = new Client();
 
             if (options == null)
                 options = new ClientOptions();
@@ -141,9 +141,11 @@ namespace Supabase.Gotrue
 
             instance.api = new Api(options.Url, options.Headers);
 
-            Client.instance = instance;
+            // Retrieve the session
+            if (instance.ShouldPersistSession)
+                instance.SessionRetriever?.Invoke();
 
-            return Client.instance;
+            return instance;
         }
 
         /// <summary>
@@ -160,7 +162,7 @@ namespace Supabase.Gotrue
             {
                 var result = await api.SignUpWithEmail(email, password);
 
-                if (result.User.ConfirmedAt != null)
+                if (result?.User?.ConfirmedAt != null)
                 {
                     await PersistSession(result);
 
@@ -172,8 +174,7 @@ namespace Supabase.Gotrue
             }
             catch (RequestException ex)
             {
-                Debug.WriteLine("Unable to process signup. Does the user already exist?");
-                throw new ExistingUserException(ex);
+                throw ParseRequestException(ex);
             }
         }
 
@@ -193,7 +194,7 @@ namespace Supabase.Gotrue
             }
             catch (RequestException ex)
             {
-                throw new InvalidEmailOrPasswordException(ex);
+                throw ParseRequestException(ex);
             }
         }
 
@@ -211,17 +212,18 @@ namespace Supabase.Gotrue
             {
                 var result = await api.SignInWithEmail(email, password);
 
-                if (result.User.ConfirmedAt != null)
+                if (result?.User?.ConfirmedAt != null)
                 {
                     await PersistSession(result);
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+                    return result;
                 }
 
-                return result;
+                return null;
             }
             catch (RequestException ex)
             {
-                throw new InvalidEmailOrPasswordException(ex);
+                throw ParseRequestException(ex);
             }
         }
 
@@ -276,13 +278,20 @@ namespace Supabase.Gotrue
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
 
-            var result = await api.UpdateUser(CurrentSession.AccessToken, attributes);
+            try
+            {
+                var result = await api.UpdateUser(CurrentSession.AccessToken, attributes);
 
-            CurrentUser = result;
+                CurrentUser = result;
 
-            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.UserUpdated));
+                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.UserUpdated));
 
-            return result;
+                return result;
+            }
+            catch (RequestException ex)
+            {
+                throw ParseRequestException(ex);
+            }
         }
 
         /// <summary>
@@ -384,7 +393,7 @@ namespace Supabase.Gotrue
 
             var session = await SessionRetriever?.Invoke();
 
-            if (session.ExpiresAt() < DateTime.Now)
+            if (session?.ExpiresAt() < DateTime.Now)
             {
                 if (AutoRefreshToken && session.RefreshToken != null)
                 {
@@ -456,6 +465,23 @@ namespace Supabase.Gotrue
                 await RefreshToken();
             }, null, (CurrentSession.ExpiresIn - 60) * 1000, Timeout.Infinite);
         }
+
+        private Exception ParseRequestException(RequestException ex)
+        {
+            switch (ex.Response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.Unauthorized:
+                    Debug.WriteLine(ex.Message);
+                    return new UnauthorizedException(ex);
+                case System.Net.HttpStatusCode.BadRequest:
+                    Debug.WriteLine("Bad Request, this is may be a user that has not confirmed their email.");
+                    return new BadRequestException(ex);
+                case System.Net.HttpStatusCode.Forbidden:
+                    Debug.WriteLine("Forbidden, are sign-ups disabled?");
+                    return new ForbiddenException(ex);
+            }
+            return ex;
+        }
     }
 
     /// <summary>
@@ -510,6 +536,33 @@ namespace Supabase.Gotrue
         /// Function to destroy a session.
         /// </summary>
         public Func<Task<bool>> SessionDestroyer = () => Task.FromResult<bool>(true);
+    }
+
+    public class UnauthorizedException : Exception
+    {
+        public HttpResponseMessage Response { get; private set; }
+        public UnauthorizedException(RequestException exception)
+        {
+            Response = exception.Response;
+        }
+    }
+
+    public class BadRequestException : Exception
+    {
+        public HttpResponseMessage Response { get; private set; }
+        public BadRequestException(RequestException exception)
+        {
+            Response = exception.Response;
+        }
+    }
+
+    public class ForbiddenException : Exception
+    {
+        public HttpResponseMessage Response { get; private set; }
+        public ForbiddenException(RequestException exception)
+        {
+            Response = exception.Response;
+        }
     }
 
     public class InvalidEmailOrPasswordException : Exception
