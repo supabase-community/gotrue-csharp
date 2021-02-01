@@ -66,9 +66,9 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Returns Auth Url for Provider")]
-        public void ClientReturnsAuthUrlForProvider()
+        public async Task ClientReturnsAuthUrlForProvider()
         {
-            var result = client.SignIn(Provider.Google);
+            var result = await client.SignIn(Provider.Google);
             Assert.AreEqual("http://localhost:9999/authorize?provider=google", result);
         }
     }

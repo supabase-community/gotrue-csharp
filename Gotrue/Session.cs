@@ -22,5 +22,10 @@ namespace Supabase.Gotrue
 
         [JsonProperty("user")]
         public User User { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+
+        public DateTime ExpiresAt() => new DateTime(CreatedAt.Ticks).AddSeconds(ExpiresIn);
     }
 }

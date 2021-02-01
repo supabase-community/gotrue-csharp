@@ -93,17 +93,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to persist the session.
         /// </summary>
-        protected Func<Session, bool> SessionPersistor { get; private set; }
+        protected Func<Session, Task<bool>> SessionPersistor { get; private set; }
 
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to retrieve the session.
         /// </summary>
-        protected Func<Session> SessionRetriever { get; private set; }
+        protected Func<Task<Session>> SessionRetriever { get; private set; }
 
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to destroy the session.
         /// </summary>
-        protected Func<bool> SessionDestroyer { get; private set; }
+        protected Func<Task<bool>> SessionDestroyer { get; private set; }
 
         /// <summary>
         /// Internal timer reference for Refreshing Tokens (<see cref="AutoRefreshToken"/>)
@@ -141,7 +141,9 @@ namespace Supabase.Gotrue
 
             instance.api = new Api(options.Url, options.Headers);
 
-            return instance;
+            Client.instance = instance;
+
+            return Client.instance;
         }
 
         /// <summary>
@@ -152,7 +154,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public async Task<Session> SignUp(string email, string password)
         {
-            DestroySession();
+            await DestroySession();
 
             try
             {
@@ -160,7 +162,7 @@ namespace Supabase.Gotrue
 
                 if (result.User.ConfirmedAt != null)
                 {
-                    PersistSession(result);
+                    await PersistSession(result);
 
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
 
@@ -182,7 +184,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public async Task<bool> SignIn(string email)
         {
-            DestroySession();
+            await DestroySession();
 
             try
             {
@@ -203,7 +205,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public async Task<Session> SignIn(string email, string password)
         {
-            DestroySession();
+            await DestroySession();
 
             try
             {
@@ -211,7 +213,7 @@ namespace Supabase.Gotrue
 
                 if (result.User.ConfirmedAt != null)
                 {
-                    PersistSession(result);
+                    await PersistSession(result);
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
                 }
 
@@ -242,9 +244,9 @@ namespace Supabase.Gotrue
         /// </example>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public string SignIn(Provider provider)
+        public async Task<string> SignIn(Provider provider)
         {
-            DestroySession();
+            await DestroySession();
 
             var url = api.GetUrlForProvider(provider);
             return url;
@@ -259,7 +261,7 @@ namespace Supabase.Gotrue
             if (CurrentSession != null)
             {
                 await api.SignOut(CurrentSession.AccessToken);
-                DestroySession();
+                await DestroySession();
                 StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
             }
         }
@@ -347,7 +349,13 @@ namespace Supabase.Gotrue
             };
 
             if (storeSession)
-                PersistSession(session);
+            {
+                await PersistSession(session);
+                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+
+                if (query.Get("type") == "recovery")
+                    StateChanged?.Invoke(this, new ClientStateChanged(AuthState.PasswordRecovery));
+            }
 
             return session;
         }
@@ -356,7 +364,7 @@ namespace Supabase.Gotrue
         /// Persists a Session in memory and calls (if specified) <see cref="ClientOptions.SessionPersistor"/>
         /// </summary>
         /// <param name="session"></param>
-        internal void PersistSession(Session session)
+        internal async Task PersistSession(Session session)
         {
             CurrentSession = session;
             CurrentUser = session.User;
@@ -364,28 +372,56 @@ namespace Supabase.Gotrue
             var expiration = session.ExpiresIn;
 
             if (AutoRefreshToken && expiration != default)
-            {
-                refreshTimer = new Timer(async (obj) =>
-                {
-                    await RefreshToken();
-                    refreshTimer.Dispose();
-                });
-            }
+                InitRefreshTimer();
 
             if (ShouldPersistSession)
-                SessionPersistor?.Invoke(session);
+                await SessionPersistor?.Invoke(session);
+        }
+
+        internal async Task RetreiveSession()
+        {
+            if (SessionRetriever == null) return;
+
+            var session = await SessionRetriever?.Invoke();
+
+            if (session.ExpiresAt() < DateTime.Now)
+            {
+                if (AutoRefreshToken && session.RefreshToken != null)
+                {
+                    try { await RefreshToken(); }
+                    catch { await DestroySession(); }
+                }
+                else
+                {
+                    await DestroySession();
+                }
+            }
+            else if (session == null || session.User == null)
+            {
+                Debug.WriteLine("Stored Session is missing data.");
+                await DestroySession();
+            }
+            else
+            {
+                CurrentSession = session;
+                CurrentUser = session.User;
+
+                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+
+                InitRefreshTimer();
+            }
         }
 
         /// <summary>
         /// Persists a Session in memory and calls (if specified) <see cref="ClientOptions.SessionDestroyer"/>
         /// </summary>
-        internal void DestroySession()
+        internal async Task DestroySession()
         {
             CurrentSession = null;
             CurrentUser = null;
 
             if (ShouldPersistSession)
-                SessionDestroyer?.Invoke();
+                await SessionDestroyer?.Invoke();
         }
 
         /// <summary>
@@ -396,21 +432,29 @@ namespace Supabase.Gotrue
         {
             if (string.IsNullOrEmpty(CurrentSession.RefreshToken))
                 throw new Exception("No current session.");
-            try
+
+            var result = await api.RefreshAccessToken(CurrentSession.RefreshToken);
+
+            if (string.IsNullOrEmpty(result.AccessToken))
+                throw new Exception("Could not refresh token from provided session.");
+
+            CurrentSession = result;
+            CurrentUser = result.User;
+
+            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+
+            if (AutoRefreshToken && CurrentSession.ExpiresIn != default)
+                InitRefreshTimer();
+        }
+
+        internal void InitRefreshTimer()
+        {
+            refreshTimer?.Dispose();
+            refreshTimer = new Timer(async (obj) =>
             {
-                var result = await api.RefreshAccessToken(CurrentSession.RefreshToken);
-
-                if (string.IsNullOrEmpty(result.AccessToken))
-                    throw new Exception("Could not refresh token from provided session.");
-
-                CurrentSession = result;
-                CurrentUser = result.User;
-
-                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-
-                // Todo: Setup timer
-            }
-            catch (Exception ex) { }
+                refreshTimer.Dispose();
+                await RefreshToken();
+            }, null, (CurrentSession.ExpiresIn - 60) * 1000, Timeout.Infinite);
         }
     }
 
@@ -455,17 +499,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Function called to persist the session (probably on a filesystem or cookie)
         /// </summary>
-        public Func<Session, bool> SessionPersistor = null;
+        public Func<Session, Task<bool>> SessionPersistor = (Session session) => Task.FromResult<bool>(true);
 
         /// <summary>
         /// Function to retrieve a session (probably from the filesystem or cookie)
         /// </summary>
-        public Func<Session> SessionRetriever = null;
+        public Func<Task<Session>> SessionRetriever = () => Task.FromResult<Session>(null);
 
         /// <summary>
         /// Function to destroy a session.
         /// </summary>
-        public Func<bool> SessionDestroyer = null;
+        public Func<Task<bool>> SessionDestroyer = () => Task.FromResult<bool>(true);
     }
 
     public class InvalidEmailOrPasswordException : Exception

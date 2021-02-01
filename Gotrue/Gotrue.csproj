@@ -1,24 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <PackOnBuild>true</PackOnBuild>
-    <PackageId>gotrue-csharp</PackageId>
-    <Authors>Joseph Schultz &lt;joseph@acupofjose.com&gt;</Authors>
-    <Copyright>MIT</Copyright>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Owners>Joseph Schultz &lt;joseph@acupofjose.com&gt;</Owners>
-    <Summary>A C# client for gotrue</Summary>
-    <Title>Gotrue</Title>
-    <Description>A C# client for gotrue</Description>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
-    <RootNamespace>Supabase.Gotrue</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <PackOnBuild>true</PackOnBuild>
+        <PackageId>gotrue-csharp</PackageId>
+        <Authors>Joseph Schultz &lt;joseph@acupofjose.com&gt;</Authors>
+        <Copyright>MIT</Copyright>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Owners>Joseph Schultz &lt;joseph@acupofjose.com&gt;</Owners>
+        <Summary>A C# client for gotrue</Summary>
+        <Title>Gotrue</Title>
+        <Description>A C# client for gotrue</Description>
+        <ReleaseVersion>1.0.0</ReleaseVersion>
+        <PackageVersion>1.0.0</PackageVersion>
+        <RootNamespace>Supabase.Gotrue</RootNamespace>
+        <PackageIconUrl>https://avatars.githubusercontent.com/u/54469796?s=200&amp;v=4</PackageIconUrl>
+        <PackageLicenseUrl>https://github.com/supabase/gotrue-csharp/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/supabase/gotrue-csharp</PackageProjectUrl>
+        <PackageTags>supabase, gotrue</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Attributes\" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
 </Project>
