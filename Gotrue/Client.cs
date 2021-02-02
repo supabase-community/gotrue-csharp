@@ -5,9 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Newtonsoft.Json;
 using Supabase.Gotrue.Attributes;
-using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
 
 namespace Supabase.Gotrue
@@ -143,8 +141,8 @@ namespace Supabase.Gotrue
             instance.api = new Api(options.Url, options.Headers);
 
             // Retrieve the session
-            if (instance.ShouldPersistSession && instance.SessionRetriever != null)
-                await instance.SessionRetriever.Invoke();
+            if (instance.ShouldPersistSession)
+                await instance.RetrieveSession();
 
             return instance;
         }
@@ -380,7 +378,7 @@ namespace Supabase.Gotrue
 
             var session = await SessionRetriever?.Invoke();
 
-            if (session?.ExpiresAt() < DateTime.Now)
+            if (session != null && session.ExpiresAt() < DateTime.Now)
             {
                 if (AutoRefreshToken && session.RefreshToken != null)
                 {
@@ -475,7 +473,11 @@ namespace Supabase.Gotrue
 
         internal void InitRefreshTimer()
         {
-            refreshTimer?.Dispose();
+            if (CurrentSession == null || CurrentSession.ExpiresIn == default) return;
+
+            if (refreshTimer != null)
+                refreshTimer.Dispose();
+
             refreshTimer = new Timer(async (obj) =>
             {
                 refreshTimer.Dispose();
