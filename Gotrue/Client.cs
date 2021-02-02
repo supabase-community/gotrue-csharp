@@ -122,11 +122,12 @@ namespace Supabase.Gotrue
         ///
         /// Though <see cref="ClientOptions"/> <paramref name="options"/> are ... optional, one will likely
         /// need to define, at the very least, <see cref="ClientOptions.Url"/>.
-        /// 
+        ///
+        /// If awaited, will asyncronously grab the session via <see cref="SessionRetriever"/>
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static Client Initialize(ClientOptions options = null)
+        public static async Task<Client> Initialize(ClientOptions options = null)
         {
             instance = new Client();
 
@@ -142,8 +143,8 @@ namespace Supabase.Gotrue
             instance.api = new Api(options.Url, options.Headers);
 
             // Retrieve the session
-            if (instance.ShouldPersistSession)
-                instance.SessionRetriever?.Invoke();
+            if (instance.ShouldPersistSession && instance.SessionRetriever != null)
+                await instance.SessionRetriever.Invoke();
 
             return instance;
         }
@@ -370,6 +371,56 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Retrieves the Session by calling <see cref="SessionRetriever"/> - sets internal state and timers.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Session> RetrieveSession()
+        {
+            if (SessionRetriever == null) return null;
+
+            var session = await SessionRetriever?.Invoke();
+
+            if (session?.ExpiresAt() < DateTime.Now)
+            {
+                if (AutoRefreshToken && session.RefreshToken != null)
+                {
+                    try
+                    {
+                        await RefreshToken();
+                        return CurrentSession;
+                    }
+                    catch
+                    {
+                        await DestroySession();
+                        return null;
+                    }
+                }
+                else
+                {
+                    await DestroySession();
+                    return null;
+                }
+            }
+            else if (session == null || session.User == null)
+            {
+                Debug.WriteLine("Stored Session is missing data.");
+                await DestroySession();
+                return null;
+            }
+            else
+            {
+                CurrentSession = session;
+                CurrentUser = session.User;
+
+                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+
+                InitRefreshTimer();
+
+                return CurrentSession;
+            }
+        }
+
+        /// <summary>
         /// Persists a Session in memory and calls (if specified) <see cref="ClientOptions.SessionPersistor"/>
         /// </summary>
         /// <param name="session"></param>
@@ -385,40 +436,6 @@ namespace Supabase.Gotrue
 
             if (ShouldPersistSession)
                 await SessionPersistor?.Invoke(session);
-        }
-
-        internal async Task RetreiveSession()
-        {
-            if (SessionRetriever == null) return;
-
-            var session = await SessionRetriever?.Invoke();
-
-            if (session?.ExpiresAt() < DateTime.Now)
-            {
-                if (AutoRefreshToken && session.RefreshToken != null)
-                {
-                    try { await RefreshToken(); }
-                    catch { await DestroySession(); }
-                }
-                else
-                {
-                    await DestroySession();
-                }
-            }
-            else if (session == null || session.User == null)
-            {
-                Debug.WriteLine("Stored Session is missing data.");
-                await DestroySession();
-            }
-            else
-            {
-                CurrentSession = session;
-                CurrentUser = session.User;
-
-                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-
-                InitRefreshTimer();
-            }
         }
 
         /// <summary>
