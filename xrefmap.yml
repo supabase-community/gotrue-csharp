@@ -360,6 +360,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.RefreshSession
   nameWithType: Client.RefreshSession
+- uid: Supabase.Gotrue.Client.RetrieveSession
+  name: RetrieveSession()
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RetrieveSession
+  commentId: M:Supabase.Gotrue.Client.RetrieveSession
+  fullName: Supabase.Gotrue.Client.RetrieveSession()
+  nameWithType: Client.RetrieveSession()
+- uid: Supabase.Gotrue.Client.RetrieveSession*
+  name: RetrieveSession
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RetrieveSession_
+  commentId: Overload:Supabase.Gotrue.Client.RetrieveSession
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.RetrieveSession
+  nameWithType: Client.RetrieveSession
 - uid: Supabase.Gotrue.Client.SessionDestroyer
   name: SessionDestroyer
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SessionDestroyer
