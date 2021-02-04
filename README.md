@@ -18,10 +18,77 @@ to the method that Firebase uses in its Client libraries.
 
 ```c#
 var options = new ClientOptions { Url = "https://example.com/api" };
-var client = Client.Initialize(options);
+var client = await Client.Initialize(options);
 
 var user = await SignUp("new-user@example.com");
 ```
+
+## Persisting, Retrieving, and Destroying Sessions.
+
+This Gotrue client is written to be agnostic when it comes to session persistance, retrieval, and destruction. `ClientOptions` exposes
+properties that allow these to be specified.
+
+In the event these are specified and the `AutoRefreshToken` option is set, as the `Client` Initializes, it will also attempt to
+retrieve, set, and refresh an existing session.
+
+For example, using `Xamarin.Essentials` in `Xamarin.Forms`, this might look like:
+
+```c#
+
+var cacheFileName = ".gotrue.cache";
+
+async void Initialize() {
+    var options = new ClientOptions
+    {
+        Url = GOTRUE_URL,
+        SessionPersistor = SessionPersistor,
+        SessionRetriever = SessionRetriever,
+        SessionDestroyer = SessionDestroyer
+    };
+    await Client.Initialize(options);
+}
+
+//...
+
+internal Task<bool> SessionPersistor(Session session)
+{
+    try
+    {
+        var cacheDir = FileSystem.CacheDirectory;
+        var path = Path.Join(cacheDir, cacheFileName);
+        var str = JsonConvert.SerializeObject(session);
+
+        using (StreamWriter file = new StreamWriter(path))
+        {
+            file.Write(str);
+            file.Dispose();
+            return Task.FromResult(true);
+        };
+    }
+    catch (Exception err)
+    {
+        Debug.WriteLine("Unable to write cache file.");
+        throw err;
+    }
+}
+```
+
+## 3rd Party Authentication and Callbacks.
+
+Once again, Gotrue client is written to be agnostic of platform. In order for Gotrue to sign in a user from an Oauth
+callback:
+
+1) The Callback Url must be set in the Supabase Admin panel
+2) The Application should recieve that Callback
+3) In the Callback, the `Uri` should be passed to `Client.Instance.GetSessionFromUrl(uri)`
+
+Setting the second parameter of `GetSessionFromUrl` to `false` will prevent the storage of the parsed `Session` object.
+
+## Troubleshooting
+
+**I've created a User but while attempting to log in it throws an exception:**
+
+Provided the credentials are correct, make sure that the User has also confirmed their email.
 
 
 ## Status
