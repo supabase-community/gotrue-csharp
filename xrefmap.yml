@@ -184,6 +184,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.BadRequestException.BadRequestException
   nameWithType: BadRequestException.BadRequestException
+- uid: Supabase.Gotrue.BadRequestException.Content
+  name: Content
+  href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException_Content
+  commentId: P:Supabase.Gotrue.BadRequestException.Content
+  fullName: Supabase.Gotrue.BadRequestException.Content
+  nameWithType: BadRequestException.Content
+- uid: Supabase.Gotrue.BadRequestException.Content*
+  name: Content
+  href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException_Content_
+  commentId: Overload:Supabase.Gotrue.BadRequestException.Content
+  isSpec: "True"
+  fullName: Supabase.Gotrue.BadRequestException.Content
+  nameWithType: BadRequestException.Content
 - uid: Supabase.Gotrue.BadRequestException.Response
   name: Response
   href: api/Supabase.Gotrue.BadRequestException.html#Supabase_Gotrue_BadRequestException_Response
@@ -657,6 +670,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.ExistingUserException.ExistingUserException
   nameWithType: ExistingUserException.ExistingUserException
+- uid: Supabase.Gotrue.ExistingUserException.Content
+  name: Content
+  href: api/Supabase.Gotrue.ExistingUserException.html#Supabase_Gotrue_ExistingUserException_Content
+  commentId: P:Supabase.Gotrue.ExistingUserException.Content
+  fullName: Supabase.Gotrue.ExistingUserException.Content
+  nameWithType: ExistingUserException.Content
+- uid: Supabase.Gotrue.ExistingUserException.Content*
+  name: Content
+  href: api/Supabase.Gotrue.ExistingUserException.html#Supabase_Gotrue_ExistingUserException_Content_
+  commentId: Overload:Supabase.Gotrue.ExistingUserException.Content
+  isSpec: "True"
+  fullName: Supabase.Gotrue.ExistingUserException.Content
+  nameWithType: ExistingUserException.Content
 - uid: Supabase.Gotrue.ExistingUserException.Response
   name: Response
   href: api/Supabase.Gotrue.ExistingUserException.html#Supabase_Gotrue_ExistingUserException_Response
@@ -689,6 +715,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.ForbiddenException.ForbiddenException
   nameWithType: ForbiddenException.ForbiddenException
+- uid: Supabase.Gotrue.ForbiddenException.Content
+  name: Content
+  href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException_Content
+  commentId: P:Supabase.Gotrue.ForbiddenException.Content
+  fullName: Supabase.Gotrue.ForbiddenException.Content
+  nameWithType: ForbiddenException.Content
+- uid: Supabase.Gotrue.ForbiddenException.Content*
+  name: Content
+  href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException_Content_
+  commentId: Overload:Supabase.Gotrue.ForbiddenException.Content
+  isSpec: "True"
+  fullName: Supabase.Gotrue.ForbiddenException.Content
+  nameWithType: ForbiddenException.Content
 - uid: Supabase.Gotrue.ForbiddenException.Response
   name: Response
   href: api/Supabase.Gotrue.ForbiddenException.html#Supabase_Gotrue_ForbiddenException_Response
@@ -721,6 +760,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.InvalidEmailOrPasswordException.InvalidEmailOrPasswordException
   nameWithType: InvalidEmailOrPasswordException.InvalidEmailOrPasswordException
+- uid: Supabase.Gotrue.InvalidEmailOrPasswordException.Content
+  name: Content
+  href: api/Supabase.Gotrue.InvalidEmailOrPasswordException.html#Supabase_Gotrue_InvalidEmailOrPasswordException_Content
+  commentId: P:Supabase.Gotrue.InvalidEmailOrPasswordException.Content
+  fullName: Supabase.Gotrue.InvalidEmailOrPasswordException.Content
+  nameWithType: InvalidEmailOrPasswordException.Content
+- uid: Supabase.Gotrue.InvalidEmailOrPasswordException.Content*
+  name: Content
+  href: api/Supabase.Gotrue.InvalidEmailOrPasswordException.html#Supabase_Gotrue_InvalidEmailOrPasswordException_Content_
+  commentId: Overload:Supabase.Gotrue.InvalidEmailOrPasswordException.Content
+  isSpec: "True"
+  fullName: Supabase.Gotrue.InvalidEmailOrPasswordException.Content
+  nameWithType: InvalidEmailOrPasswordException.Content
 - uid: Supabase.Gotrue.InvalidEmailOrPasswordException.Response
   name: Response
   href: api/Supabase.Gotrue.InvalidEmailOrPasswordException.html#Supabase_Gotrue_InvalidEmailOrPasswordException_Response
@@ -952,6 +1004,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.UnauthorizedException.UnauthorizedException
   nameWithType: UnauthorizedException.UnauthorizedException
+- uid: Supabase.Gotrue.UnauthorizedException.Content
+  name: Content
+  href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException_Content
+  commentId: P:Supabase.Gotrue.UnauthorizedException.Content
+  fullName: Supabase.Gotrue.UnauthorizedException.Content
+  nameWithType: UnauthorizedException.Content
+- uid: Supabase.Gotrue.UnauthorizedException.Content*
+  name: Content
+  href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException_Content_
+  commentId: Overload:Supabase.Gotrue.UnauthorizedException.Content
+  isSpec: "True"
+  fullName: Supabase.Gotrue.UnauthorizedException.Content
+  nameWithType: UnauthorizedException.Content
 - uid: Supabase.Gotrue.UnauthorizedException.Response
   name: Response
   href: api/Supabase.Gotrue.UnauthorizedException.html#Supabase_Gotrue_UnauthorizedException_Response
