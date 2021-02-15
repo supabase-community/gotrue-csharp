@@ -15,6 +15,8 @@ namespace GotrueTests
         private string password = "I@M@SuperP@ssWord";
 
         private static Random random = new Random();
+
+
         private static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -26,16 +28,30 @@ namespace GotrueTests
         public async Task TestInitializer()
         {
             client = await Initialize();
+
         }
 
         [TestMethod("Client: Signs Up User")]
         public async Task ClientSignsUpUser()
         {
-            var result = await client.SignUp($"{RandomString(12)}@supabase.io", password);
+            var email = $"{RandomString(12)}@supabase.io";
+            var result = await client.SignUp(email, password);
 
             Assert.IsNotNull(result.AccessToken);
             Assert.IsNotNull(result.RefreshToken);
             Assert.IsInstanceOfType(result.User, typeof(User));
+        }
+
+        [TestMethod("Client: Signs Up the same user twice should throw an error")]
+        public async Task ClientSignsUpUserTwiceShouldThrowError()
+        {
+            var email = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(email, password);
+            await Assert.ThrowsExceptionAsync<BadRequestException>(async () =>
+            {
+                var result = await client.SignUp(email, password);
+            });
+
         }
 
         [TestMethod("Client: Signs In User with Email & Password")]
