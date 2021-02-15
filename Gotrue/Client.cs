@@ -478,11 +478,21 @@ namespace Supabase.Gotrue
             if (refreshTimer != null)
                 refreshTimer.Dispose();
 
-            refreshTimer = new Timer(async (obj) =>
+            try
             {
-                refreshTimer.Dispose();
-                await RefreshToken();
-            }, null, (CurrentSession.ExpiresIn - 60) * 1000, Timeout.Infinite);
+                int timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(CurrentSession.ExpiresIn - 60) - DateTime.Now).TotalSeconds);
+                TimeSpan timeout = TimeSpan.FromSeconds(timeoutSeconds);
+
+                refreshTimer = new Timer(async (obj) =>
+                {
+                    refreshTimer.Dispose();
+                    await RefreshToken();
+                }, null, timeout, Timeout.InfiniteTimeSpan);
+            }
+            catch
+            {
+                Debug.WriteLine("Unable to parse session timestamp, refresh timer will not work. If persisting, open issue on Github");
+            }
         }
 
         private Exception ParseRequestException(RequestException ex)
