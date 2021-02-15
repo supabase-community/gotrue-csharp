@@ -93,7 +93,11 @@ namespace Supabase.Gotrue
                         obj = new ErrorResponse { Message = "Invalid or Empty response received. Are you trying to update or delete a record that does not exist?", ResponseMessage = response };
                     }
 
-                    obj.Content = content;
+                    obj = new ErrorResponse
+                    {
+                        Content = content,
+                        Message = content
+                    };
                     throw new RequestException(response, obj);
                 }
                 else
