@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Client;
 
@@ -86,6 +88,24 @@ namespace GotrueTests
         {
             var result = await client.SignIn(Provider.Google);
             Assert.AreEqual("http://localhost:9999/authorize?provider=google", result);
+        }
+
+        [TestMethod("Client: Update user")]
+        public async Task ClientUpdateUser()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(user, password);
+
+            var attributes = new UserAttributes
+            {
+                Data = new Dictionary<string, object>
+                {
+                    {"hello", "world" }
+                }
+            };
+            await client.Update(attributes);
+            Assert.AreEqual(user, client.CurrentUser.Email);
+            Assert.IsNotNull(client.CurrentUser.UserMetadata);
         }
     }
 }
