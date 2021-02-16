@@ -144,7 +144,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public Task<User> UpdateUser(string jwt, UserAttributes attributes)
         {
-            return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/recover", attributes, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/user", attributes, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
