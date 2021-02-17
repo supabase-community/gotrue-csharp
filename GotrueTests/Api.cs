@@ -107,5 +107,40 @@ namespace GotrueTests
             Assert.AreEqual(user, client.CurrentUser.Email);
             Assert.IsNotNull(client.CurrentUser.UserMetadata);
         }
+
+        [TestMethod("Client: Returns current user")]
+        public async Task ClientGetUser()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(user, password);
+
+            Assert.AreEqual(user, client.CurrentUser.Email);
+        }
+
+        [TestMethod("Client: Get user after logging out")]
+        public async Task ClientGetUserAfterLogOut()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(user, password);
+
+            await client.SignOut();
+
+            Assert.IsNull(client.CurrentUser);
+        }
+
+        [TestMethod("Client: Signs In User with email and wrong password")]
+        public async Task ClientSignsInUserWrongPassword()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(user, password);
+
+            await client.SignOut();
+
+            await Assert.ThrowsExceptionAsync<BadRequestException>(async () =>
+            {
+                var result = await client.SignIn(user, password + "$");
+            });
+
+        }
     }
 }
