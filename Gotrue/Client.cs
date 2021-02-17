@@ -66,7 +66,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
         /// </summary>
-        public EventHandler<ClientStateChanged> StateChanged;
+        public event EventHandler<ClientStateChanged> StateChanged;
 
         /// <summary>
         /// The current User
