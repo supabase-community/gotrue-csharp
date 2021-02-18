@@ -492,7 +492,7 @@ references:
 - uid: Supabase.Gotrue.Client.StateChanged
   name: StateChanged
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_StateChanged
-  commentId: F:Supabase.Gotrue.Client.StateChanged
+  commentId: E:Supabase.Gotrue.Client.StateChanged
   fullName: Supabase.Gotrue.Client.StateChanged
   nameWithType: Client.StateChanged
 - uid: Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
