@@ -125,7 +125,19 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static async Task<Client> Initialize(ClientOptions options = null)
+        public static Client Initialize(ClientOptions options = null) => AsyncHelper.RunSync<Client>(() => InitializeAsync(options));
+
+        /// <summary>
+        /// Initializes a Client Asynchronously.
+        ///
+        /// Though <see cref="ClientOptions"/> <paramref name="options"/> are ... optional, one will likely
+        /// need to define, at the very least, <see cref="ClientOptions.Url"/>.
+        ///
+        /// If awaited, will asyncronously grab the session via <see cref="SessionRetriever"/>
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static async Task<Client> InitializeAsync(ClientOptions options = null)
         {
             instance = new Client();
 
