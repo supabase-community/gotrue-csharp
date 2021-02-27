@@ -311,6 +311,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.Initialize
   nameWithType: Client.Initialize
+- uid: Supabase.Gotrue.Client.InitializeAsync(Supabase.Gotrue.ClientOptions)
+  name: InitializeAsync(ClientOptions)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_InitializeAsync_Supabase_Gotrue_ClientOptions_
+  commentId: M:Supabase.Gotrue.Client.InitializeAsync(Supabase.Gotrue.ClientOptions)
+  fullName: Supabase.Gotrue.Client.InitializeAsync(Supabase.Gotrue.ClientOptions)
+  nameWithType: Client.InitializeAsync(ClientOptions)
+- uid: Supabase.Gotrue.Client.InitializeAsync*
+  name: InitializeAsync
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_InitializeAsync_
+  commentId: Overload:Supabase.Gotrue.Client.InitializeAsync
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.InitializeAsync
+  nameWithType: Client.InitializeAsync
 - uid: Supabase.Gotrue.Client.Instance
   name: Instance
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Instance
