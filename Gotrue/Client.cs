@@ -200,7 +200,7 @@ namespace Supabase.Gotrue
 
             try
             {
-                var result = await api.SendMagicLinkEmail(email);
+                await api.SendMagicLinkEmail(email);
                 return true;
             }
             catch (RequestException ex)

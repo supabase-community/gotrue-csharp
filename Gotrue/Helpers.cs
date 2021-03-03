@@ -45,25 +45,24 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object data = null, Dictionary<string, string> headers = null)
         {
-            try
+            var builder = new UriBuilder(url);
+            var query = HttpUtility.ParseQueryString(builder.Query);
+
+            if (data != null && method == HttpMethod.Get)
             {
-                var builder = new UriBuilder(url);
-                var query = HttpUtility.ParseQueryString(builder.Query);
-
-                if (data != null && method == HttpMethod.Get)
+                // Case if it's a Get request the data object is a dictionary<string,string>
+                if (data is Dictionary<string, string> reqParams)
                 {
-                    // Case if it's a Get request the data object is a dictionary<string,string>
-                    if (data is Dictionary<string, string> reqParams)
-                    {
-                        foreach (var param in reqParams)
-                            query[param.Key] = param.Value;
-                    }
-
+                    foreach (var param in reqParams)
+                        query[param.Key] = param.Value;
                 }
 
-                builder.Query = query.ToString();
+            }
 
-                var requestMessage = new HttpRequestMessage(method, builder.Uri);
+            builder.Query = query.ToString();
+
+            using (var requestMessage = new HttpRequestMessage(method, builder.Uri))
+            {
 
                 if (data != null && method != HttpMethod.Get)
                 {
@@ -83,18 +82,7 @@ namespace Supabase.Gotrue
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    ErrorResponse obj = null;
-
-                    try
-                    {
-                        obj = JsonConvert.DeserializeObject<ErrorResponse>(content);
-                    }
-                    catch (JsonSerializationException)
-                    {
-                        obj = new ErrorResponse { Message = "Invalid or Empty response received. Are you trying to update or delete a record that does not exist?", ResponseMessage = response };
-                    }
-
-                    obj = new ErrorResponse
+                    var obj = new ErrorResponse
                     {
                         Content = content,
                         Message = content
@@ -105,11 +93,6 @@ namespace Supabase.Gotrue
                 {
                     return new BaseResponse { Content = content, ResponseMessage = response };
                 }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                throw e;
             }
         }
     }
