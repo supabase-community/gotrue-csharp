@@ -189,6 +189,7 @@ namespace Supabase.Gotrue
             }
         }
 
+
         /// <summary>
         /// Sends a Magic email login link to the specified email.
         /// </summary>
@@ -208,6 +209,14 @@ namespace Supabase.Gotrue
                 throw ParseRequestException(ex);
             }
         }
+
+        /// <summary>
+        /// Sends a Magic email login link to the specified email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Task<bool> SendMagicLink(String email) => SignIn(email);
+
 
         /// <summary>
         /// Signs in a User.
