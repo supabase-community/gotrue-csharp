@@ -82,6 +82,18 @@ namespace GotrueTests
             Assert.IsTrue(result);
         }
 
+        [TestMethod("Client: Sends Magic Login Email (Alias)")]
+        public async Task ClientSendsMagicLoginEmailAlias()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(user, password);
+
+            await client.SignOut();
+
+            var result = await client.SendMagicLink(user);
+            Assert.IsTrue(result);
+        }
+
         [TestMethod("Client: Returns Auth Url for Provider")]
         public async Task ClientReturnsAuthUrlForProvider()
         {
