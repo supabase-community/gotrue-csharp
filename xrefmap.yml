@@ -285,19 +285,6 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.CurrentUser
   nameWithType: Client.CurrentUser
-- uid: Supabase.Gotrue.Client.GetMagicLink(Supabase.Gotrue.Client.Provider)
-  name: GetMagicLink(Client.Provider)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetMagicLink_Supabase_Gotrue_Client_Provider_
-  commentId: M:Supabase.Gotrue.Client.GetMagicLink(Supabase.Gotrue.Client.Provider)
-  fullName: Supabase.Gotrue.Client.GetMagicLink(Supabase.Gotrue.Client.Provider)
-  nameWithType: Client.GetMagicLink(Client.Provider)
-- uid: Supabase.Gotrue.Client.GetMagicLink*
-  name: GetMagicLink
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetMagicLink_
-  commentId: Overload:Supabase.Gotrue.Client.GetMagicLink
-  isSpec: "True"
-  fullName: Supabase.Gotrue.Client.GetMagicLink
-  nameWithType: Client.GetMagicLink
 - uid: Supabase.Gotrue.Client.GetSessionFromUrl(Uri,System.Boolean)
   name: GetSessionFromUrl(Uri, Boolean)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetSessionFromUrl_Uri_System_Boolean_
@@ -412,6 +399,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.RetrieveSession
   nameWithType: Client.RetrieveSession
+- uid: Supabase.Gotrue.Client.SendMagicLink(String)
+  name: SendMagicLink(String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SendMagicLink_String_
+  commentId: M:Supabase.Gotrue.Client.SendMagicLink(String)
+  fullName: Supabase.Gotrue.Client.SendMagicLink(String)
+  nameWithType: Client.SendMagicLink(String)
+- uid: Supabase.Gotrue.Client.SendMagicLink*
+  name: SendMagicLink
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SendMagicLink_
+  commentId: Overload:Supabase.Gotrue.Client.SendMagicLink
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.SendMagicLink
+  nameWithType: Client.SendMagicLink
 - uid: Supabase.Gotrue.Client.SessionDestroyer
   name: SessionDestroyer
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SessionDestroyer
