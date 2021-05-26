@@ -27,9 +27,9 @@ namespace GotrueTests
         }
 
         [TestInitialize]
-        public void TestInitializer()
+        public async Task TestInitializer()
         {
-            client = Initialize();
+            client = await InitializeAsync();
         }
 
         [TestMethod("Client: Signs Up User")]
