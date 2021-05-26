@@ -125,7 +125,14 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static Client Initialize(ClientOptions options = null) => AsyncHelper.RunSync<Client>(() => InitializeAsync(options));
+        public static void Initialize(ClientOptions options = null, Action<Client> callback = null)
+        {
+            Task.Run(async () =>
+            {
+                var client = await InitializeAsync(options);
+                callback?.Invoke(client);
+            });
+        }
 
         /// <summary>
         /// Initializes a Client Asynchronously.
@@ -154,7 +161,7 @@ namespace Supabase.Gotrue
 
             // Retrieve the session
             if (instance.ShouldPersistSession)
-                await instance.RetrieveSession();
+                await instance.RetrieveSessionAsync();
 
             return instance;
         }
@@ -393,7 +400,7 @@ namespace Supabase.Gotrue
         /// Retrieves the Session by calling <see cref="SessionRetriever"/> - sets internal state and timers.
         /// </summary>
         /// <returns></returns>
-        public async Task<Session> RetrieveSession()
+        public async Task<Session> RetrieveSessionAsync()
         {
             if (SessionRetriever == null) return null;
 
