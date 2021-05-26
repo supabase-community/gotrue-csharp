@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.BadRequestException.html",
-          "hash": "7Dgfd6p0yKasP60o3Cw+VA=="
+          "hash": "ZQgLk/OLwPInD4yHcAkIdw=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "KxrhWE9M0C+75z0Hxuf7Ew=="
+          "hash": "LvqxX6qgwTUwehl4tklfiQ=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "4VHXpvwPVIC4OEtblq74ig=="
+          "hash": "TbKIkCDe42hX121Li2+3gg=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "UcDOc6E3L6lxcESYoAPFFQ=="
+          "hash": "JTPs/Rnv7urW9+oprgFESA=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ExistingUserException.html",
-          "hash": "IYmCVcNTZ70+wXRnvkI13w=="
+          "hash": "ix4+8pDK+N1BVNbEDVW7Ww=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ForbiddenException.html",
-          "hash": "Pz4X8LTfBK7xSrGTq4gtbw=="
+          "hash": "9jF4FaH3LScu9E3szyg1fw=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.InvalidEmailOrPasswordException.html",
-          "hash": "6fHpUaiPmq23q+HjM9Rlfw=="
+          "hash": "a+V7083+zcoB8iIr/eeapA=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.RequestException.html",
-          "hash": "7MpCBt/YwYs4+4d3SHD7tw=="
+          "hash": "L22NsZbEY2VKa4PwKHLVPw=="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UnauthorizedException.html",
-          "hash": "MM/x3lQVHiILqWsHOtxJWQ=="
+          "hash": "qz9UgMTvkq1yfqEN0Ssz1g=="
         }
       },
       "is_incremental": false,

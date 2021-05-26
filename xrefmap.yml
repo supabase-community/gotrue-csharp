@@ -298,12 +298,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.GetSessionFromUrl
   nameWithType: Client.GetSessionFromUrl
-- uid: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
-  name: Initialize(ClientOptions)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Initialize_Supabase_Gotrue_ClientOptions_
-  commentId: M:Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
-  fullName: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions)
-  nameWithType: Client.Initialize(ClientOptions)
+- uid: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions,Action{Supabase.Gotrue.Client})
+  name: Initialize(ClientOptions, Action<Client>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Initialize_Supabase_Gotrue_ClientOptions_Action_Supabase_Gotrue_Client__
+  commentId: M:Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions,Action{Supabase.Gotrue.Client})
+  name.vb: Initialize(ClientOptions, Action(Of Client))
+  fullName: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions, Action<Supabase.Gotrue.Client>)
+  fullName.vb: Supabase.Gotrue.Client.Initialize(Supabase.Gotrue.ClientOptions, Action(Of Supabase.Gotrue.Client))
+  nameWithType: Client.Initialize(ClientOptions, Action<Client>)
+  nameWithType.vb: Client.Initialize(ClientOptions, Action(Of Client))
 - uid: Supabase.Gotrue.Client.Initialize*
   name: Initialize
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Initialize_
@@ -386,19 +389,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.RefreshSession
   nameWithType: Client.RefreshSession
-- uid: Supabase.Gotrue.Client.RetrieveSession
-  name: RetrieveSession()
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RetrieveSession
-  commentId: M:Supabase.Gotrue.Client.RetrieveSession
-  fullName: Supabase.Gotrue.Client.RetrieveSession()
-  nameWithType: Client.RetrieveSession()
-- uid: Supabase.Gotrue.Client.RetrieveSession*
-  name: RetrieveSession
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RetrieveSession_
-  commentId: Overload:Supabase.Gotrue.Client.RetrieveSession
+- uid: Supabase.Gotrue.Client.RetrieveSessionAsync
+  name: RetrieveSessionAsync()
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RetrieveSessionAsync
+  commentId: M:Supabase.Gotrue.Client.RetrieveSessionAsync
+  fullName: Supabase.Gotrue.Client.RetrieveSessionAsync()
+  nameWithType: Client.RetrieveSessionAsync()
+- uid: Supabase.Gotrue.Client.RetrieveSessionAsync*
+  name: RetrieveSessionAsync
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RetrieveSessionAsync_
+  commentId: Overload:Supabase.Gotrue.Client.RetrieveSessionAsync
   isSpec: "True"
-  fullName: Supabase.Gotrue.Client.RetrieveSession
-  nameWithType: Client.RetrieveSession
+  fullName: Supabase.Gotrue.Client.RetrieveSessionAsync
+  nameWithType: Client.RetrieveSessionAsync
 - uid: Supabase.Gotrue.Client.SendMagicLink(String)
   name: SendMagicLink(String)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SendMagicLink_String_
