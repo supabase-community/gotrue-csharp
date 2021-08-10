@@ -153,5 +153,14 @@ namespace GotrueTests
             });
 
         }
+        
+        [TestMethod("Client: Sends Invite Email")]
+        public async Task ClientSendsInviteEmail()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            
+            var result = await client.InviteUserByEmail(user);
+            Assert.IsTrue(result);
+        }
     }
 }
