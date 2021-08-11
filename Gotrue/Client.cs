@@ -320,6 +320,32 @@ namespace Supabase.Gotrue
                 throw ParseRequestException(ex);
             }
         }
+        
+        /// <summary>
+        /// Deletes a User.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public async Task<User> DeleteUser(string uid)
+        {
+            if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+                throw new Exception("Not Logged in.");
+
+            try
+            {
+                var result = await api.DeleteUser(uid,CurrentSession.AccessToken);
+
+                CurrentUser = result;
+
+                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
+
+                return result;
+            }
+            catch (RequestException ex)
+            {
+                throw ParseRequestException(ex);
+            }
+        }
 
         /// <summary>
         /// Refreshes the currently logged in User's Session.
