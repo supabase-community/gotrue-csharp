@@ -320,6 +320,25 @@ namespace Supabase.Gotrue
                 throw ParseRequestException(ex);
             }
         }
+        
+        /// <summary>
+        /// Sends an invite email link to the specified email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<bool> InviteUserByEmail(string email,string jwt)
+        {
+            try
+            {
+                var response = await api.InviteUserByEmail(email, jwt);
+                response.ResponseMessage.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (RequestException ex)
+            {
+                throw ParseRequestException(ex);
+            }
+        }
 
         /// <summary>
         /// Refreshes the currently logged in User's Session.

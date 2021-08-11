@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Client;
 
@@ -21,9 +23,32 @@ namespace GotrueTests
 
         private static string RandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+        
+        private string GenerateServiceRoleToken()
+        {
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                IssuedAt = DateTime.Now,
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials =
+                    new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
+                Claims = new Dictionary<string, object>()
+                {
+                    {
+                        "role", "service_role"
+                    }
+                }
+            };
+            
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(securityToken);
         }
 
         [TestInitialize]
@@ -152,6 +177,15 @@ namespace GotrueTests
                 var result = await client.SignIn(user, password + "$");
             });
 
+        }
+        
+        [TestMethod("Client: Sends Invite Email")]
+        public async Task ClientSendsInviteEmail()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await client.InviteUserByEmail(user, service_role_key);
+            Assert.IsTrue(result);
         }
     }
 }
