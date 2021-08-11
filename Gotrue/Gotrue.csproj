@@ -11,13 +11,13 @@
         <Summary>A C# client for gotrue</Summary>
         <Title>Gotrue</Title>
         <Description>A C# client for gotrue</Description>
-        <PackageVersion>2.1.0</PackageVersion>
+        <PackageVersion>2.1.1</PackageVersion>
         <RootNamespace>Supabase.Gotrue</RootNamespace>
         <PackageIconUrl>https://avatars.githubusercontent.com/u/54469796?s=200&amp;v=4</PackageIconUrl>
         <PackageLicenseUrl>https://github.com/supabase/gotrue-csharp/blob/master/LICENSE</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/supabase/gotrue-csharp</PackageProjectUrl>
         <PackageTags>supabase, gotrue</PackageTags>
-        <ReleaseVersion>2.1.0</ReleaseVersion>
+        <ReleaseVersion>2.1.1</ReleaseVersion>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Attributes\" />
