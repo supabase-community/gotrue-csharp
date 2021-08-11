@@ -326,11 +326,11 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<bool> InviteUserByEmail(string email)
+        public async Task<bool> InviteUserByEmail(string email,string jwt)
         {
             try
             {
-                var response = await api.InviteUserByEmail(email);
+                var response = await api.InviteUserByEmail(email, jwt);
                 response.ResponseMessage.EnsureSuccessStatusCode();
                 return true;
             }
