@@ -48,12 +48,12 @@ references:
   commentId: F:Supabase.Gotrue.Api.Headers
   fullName: Supabase.Gotrue.Api.Headers
   nameWithType: Api.Headers
-- uid: Supabase.Gotrue.Api.InviteUserByEmail(System.String)
-  name: InviteUserByEmail(String)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_InviteUserByEmail_System_String_
-  commentId: M:Supabase.Gotrue.Api.InviteUserByEmail(System.String)
-  fullName: Supabase.Gotrue.Api.InviteUserByEmail(System.String)
-  nameWithType: Api.InviteUserByEmail(String)
+- uid: Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String)
+  name: InviteUserByEmail(String, String)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_InviteUserByEmail_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String)
+  fullName: Supabase.Gotrue.Api.InviteUserByEmail(System.String, System.String)
+  nameWithType: Api.InviteUserByEmail(String, String)
 - uid: Supabase.Gotrue.Api.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_InviteUserByEmail_
@@ -340,6 +340,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.Instance
   nameWithType: Client.Instance
+- uid: Supabase.Gotrue.Client.InviteUserByEmail(System.String,System.String)
+  name: InviteUserByEmail(String, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_InviteUserByEmail_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.InviteUserByEmail(System.String,System.String)
+  fullName: Supabase.Gotrue.Client.InviteUserByEmail(System.String, System.String)
+  nameWithType: Client.InviteUserByEmail(String, String)
+- uid: Supabase.Gotrue.Client.InviteUserByEmail*
+  name: InviteUserByEmail
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_InviteUserByEmail_
+  commentId: Overload:Supabase.Gotrue.Client.InviteUserByEmail
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.InviteUserByEmail
+  nameWithType: Client.InviteUserByEmail
 - uid: Supabase.Gotrue.Client.Provider
   name: Client.Provider
   href: api/Supabase.Gotrue.Client.Provider.html
