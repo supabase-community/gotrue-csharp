@@ -154,10 +154,10 @@ namespace Supabase.Gotrue
         /// <param name="uid">The user uid you want to remove.</param>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <returns></returns>
-        public Task<User> DeleteUser(string uid, string jwt)
+        public Task<BaseResponse> DeleteUser(string uid, string jwt)
         {
             var data = new Dictionary<string, string> { };
-            return Helpers.MakeRequest<User>(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>

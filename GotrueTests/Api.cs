@@ -187,5 +187,18 @@ namespace GotrueTests
             var result = await client.InviteUserByEmail(user, service_role_key);
             Assert.IsTrue(result);
         }
+        
+        [TestMethod("Client: Deletes User")]
+        public async Task ClientDeletesUser()
+        {
+            var user = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(user, password);
+            var uid = client.CurrentUser.Id;
+            
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await client.DeleteUser(uid, service_role_key);
+            
+            Assert.IsTrue(result);
+        }
     }
 }
