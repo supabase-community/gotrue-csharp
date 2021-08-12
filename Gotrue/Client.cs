@@ -33,7 +33,17 @@ namespace Supabase.Gotrue
             [MapTo("google")]
             Google,
             [MapTo("azure")]
-            Azure
+            Azure,
+            [MapTo("apple")]
+            Apple,
+            [MapTo("discord")]
+            Discord,
+            [MapTo("facebook")]
+            Facebook,
+            [MapTo("twitch")]
+            Twitch,
+            [MapTo("twitter")]
+            Twitter,
         };
 
         /// <summary>
