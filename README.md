@@ -118,9 +118,9 @@ Provided the credentials are correct, make sure that the User has also confirmed
 
 Join the ranks! See a problem? Help fix it!
 
-| <img src="https://github.com/acupofjose.png" width="150" height="150"> |
-| :--------------------------------------------------------------------: |
-|              [acupofjose](https://github.com/acupofjose)               |
+| <img src="https://github.com/acupofjose.png" width="150" height="150"> | <img src="https://github.com/elrhomariyounes.png" width="150" height="150"> | <img src="https://github.com/phxtho.png" width="150" height="150"> |
+| :--------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :----------------------------------------------------------------: |
+|              [acupofjose](https://github.com/acupofjose)               |              [elrhomariyounes](https://github.com/elrhomariyounes)          |                [phxtho](https://github.com/phxtho)                 |
 
 ## Contributing
 
