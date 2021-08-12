@@ -65,11 +65,12 @@ namespace Supabase.Gotrue
         /// Sends an invite link to an email address.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <returns></returns>
-        public Task<BaseResponse> InviteUserByEmail(string email)
+        public Task<BaseResponse> InviteUserByEmail(string email, string jwt)
         {
             var data = new Dictionary<string, string> { { "email", email } };
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/invite", data, Headers);
+            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/invite", data,  CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>

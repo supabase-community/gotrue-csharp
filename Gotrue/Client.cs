@@ -322,24 +322,17 @@ namespace Supabase.Gotrue
         }
         
         /// <summary>
-        /// Deletes a User.
+        /// Sends an invite email link to the specified email.
         /// </summary>
-        /// <param name="uid"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<User> DeleteUser(string uid)
+        public async Task<bool> InviteUserByEmail(string email,string jwt)
         {
-            if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
-                throw new Exception("Not Logged in.");
-
             try
             {
-                var result = await api.DeleteUser(uid,CurrentSession.AccessToken);
-
-                CurrentUser = result;
-
-                StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
-
-                return result;
+                var response = await api.InviteUserByEmail(email, jwt);
+                response.ResponseMessage.EnsureSuccessStatusCode();
+                return true;
             }
             catch (RequestException ex)
             {
