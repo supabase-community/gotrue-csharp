@@ -1,9 +1,9 @@
-﻿version: '3'
+﻿version: "3"
 services:
   gotrue:
     image: supabase/gotrue:latest
     ports:
-      - '9999:9999'
+      - "9999:9999"
     environment:
       GOTRUE_JWT_SECRET: "37c304f8-51aa-419a-a1af-06154e63707a"
       GOTRUE_JWT_EXP: 3600
@@ -24,10 +24,11 @@ services:
       GOTRUE_EXTERNAL_GOOGLE_REDIRECT_URI: http://localhost:9999/callback
     depends_on:
       - db
+    restart: unless-stopped
   db:
     image: supabase/postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - ./GotrueTests/db:/docker-entrypoint-initdb.d/
     environment:
