@@ -29,6 +29,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.Api
   nameWithType: Api.Api
+- uid: Supabase.Gotrue.Api.DeleteUser(System.String,System.String)
+  name: DeleteUser(String, String)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_DeleteUser_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Api.DeleteUser(System.String,System.String)
+  fullName: Supabase.Gotrue.Api.DeleteUser(System.String, System.String)
+  nameWithType: Api.DeleteUser(String, String)
+- uid: Supabase.Gotrue.Api.DeleteUser*
+  name: DeleteUser
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_DeleteUser_
+  commentId: Overload:Supabase.Gotrue.Api.DeleteUser
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.DeleteUser
+  nameWithType: Api.DeleteUser
 - uid: Supabase.Gotrue.Api.GetUser(System.String)
   name: GetUser(String)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetUser_System_String_
@@ -285,6 +298,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.CurrentUser
   nameWithType: Client.CurrentUser
+- uid: Supabase.Gotrue.Client.DeleteUser(System.String,System.String)
+  name: DeleteUser(String, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_DeleteUser_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.DeleteUser(System.String,System.String)
+  fullName: Supabase.Gotrue.Client.DeleteUser(System.String, System.String)
+  nameWithType: Client.DeleteUser(String, String)
+- uid: Supabase.Gotrue.Client.DeleteUser*
+  name: DeleteUser
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_DeleteUser_
+  commentId: Overload:Supabase.Gotrue.Client.DeleteUser
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.DeleteUser
+  nameWithType: Client.DeleteUser
 - uid: Supabase.Gotrue.Client.GetSessionFromUrl(Uri,System.Boolean)
   name: GetSessionFromUrl(Uri, Boolean)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetSessionFromUrl_Uri_System_Boolean_
@@ -359,6 +385,12 @@ references:
   commentId: T:Supabase.Gotrue.Client.Provider
   fullName: Supabase.Gotrue.Client.Provider
   nameWithType: Client.Provider
+- uid: Supabase.Gotrue.Client.Provider.Apple
+  name: Apple
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Apple
+  commentId: F:Supabase.Gotrue.Client.Provider.Apple
+  fullName: Supabase.Gotrue.Client.Provider.Apple
+  nameWithType: Client.Provider.Apple
 - uid: Supabase.Gotrue.Client.Provider.Azure
   name: Azure
   href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Azure
@@ -371,6 +403,18 @@ references:
   commentId: F:Supabase.Gotrue.Client.Provider.Bitbucket
   fullName: Supabase.Gotrue.Client.Provider.Bitbucket
   nameWithType: Client.Provider.Bitbucket
+- uid: Supabase.Gotrue.Client.Provider.Discord
+  name: Discord
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Discord
+  commentId: F:Supabase.Gotrue.Client.Provider.Discord
+  fullName: Supabase.Gotrue.Client.Provider.Discord
+  nameWithType: Client.Provider.Discord
+- uid: Supabase.Gotrue.Client.Provider.Facebook
+  name: Facebook
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Facebook
+  commentId: F:Supabase.Gotrue.Client.Provider.Facebook
+  fullName: Supabase.Gotrue.Client.Provider.Facebook
+  nameWithType: Client.Provider.Facebook
 - uid: Supabase.Gotrue.Client.Provider.Github
   name: Github
   href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Github
@@ -389,6 +433,18 @@ references:
   commentId: F:Supabase.Gotrue.Client.Provider.Google
   fullName: Supabase.Gotrue.Client.Provider.Google
   nameWithType: Client.Provider.Google
+- uid: Supabase.Gotrue.Client.Provider.Twitch
+  name: Twitch
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Twitch
+  commentId: F:Supabase.Gotrue.Client.Provider.Twitch
+  fullName: Supabase.Gotrue.Client.Provider.Twitch
+  nameWithType: Client.Provider.Twitch
+- uid: Supabase.Gotrue.Client.Provider.Twitter
+  name: Twitter
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Twitter
+  commentId: F:Supabase.Gotrue.Client.Provider.Twitter
+  fullName: Supabase.Gotrue.Client.Provider.Twitter
+  nameWithType: Client.Provider.Twitter
 - uid: Supabase.Gotrue.Client.RefreshSession
   name: RefreshSession()
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RefreshSession
