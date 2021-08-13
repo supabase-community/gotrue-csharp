@@ -33,7 +33,17 @@ namespace Supabase.Gotrue
             [MapTo("google")]
             Google,
             [MapTo("azure")]
-            Azure
+            Azure,
+            [MapTo("apple")]
+            Apple,
+            [MapTo("discord")]
+            Discord,
+            [MapTo("facebook")]
+            Facebook,
+            [MapTo("twitch")]
+            Twitch,
+            [MapTo("twitter")]
+            Twitter,
         };
 
         /// <summary>
@@ -325,6 +335,7 @@ namespace Supabase.Gotrue
         /// Sends an invite email link to the specified email.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <returns></returns>
         public async Task<bool> InviteUserByEmail(string email,string jwt)
         {
@@ -332,6 +343,26 @@ namespace Supabase.Gotrue
             {
                 var response = await api.InviteUserByEmail(email, jwt);
                 response.ResponseMessage.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (RequestException ex)
+            {
+                throw ParseRequestException(ex);
+            }
+        }
+        
+        /// <summary>
+        /// Deletes a User.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteUser(string uid, string jwt)
+        {
+            try
+            {
+                var result = await api.DeleteUser(uid,jwt);
+                result.ResponseMessage.EnsureSuccessStatusCode();
                 return true;
             }
             catch (RequestException ex)
