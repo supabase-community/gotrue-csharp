@@ -27,6 +27,7 @@ services:
     restart: unless-stopped
   db:
     image: supabase/postgres
+    restart: unless-stopped
     ports:
       - "5432:5432"
     volumes:
