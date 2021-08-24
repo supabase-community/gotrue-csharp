@@ -11,18 +11,25 @@
         <Summary>A C# client for gotrue</Summary>
         <Title>Gotrue</Title>
         <Description>A C# client for gotrue</Description>
-        <PackageVersion>2.1.1</PackageVersion>
         <RootNamespace>Supabase.Gotrue</RootNamespace>
         <PackageIconUrl>https://avatars.githubusercontent.com/u/54469796?s=200&amp;v=4</PackageIconUrl>
         <PackageLicenseUrl>https://github.com/supabase/gotrue-csharp/blob/master/LICENSE</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/supabase/gotrue-csharp</PackageProjectUrl>
         <PackageTags>supabase, gotrue</PackageTags>
-        <ReleaseVersion>2.1.1</ReleaseVersion>
+        <PackageVersion>2.1.2</PackageVersion>
+        <ReleaseVersion>2.1.2</ReleaseVersion>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Version)' == '' ">
+		<VersionPrefix Condition=" '$(VersionPrefix)' == '' ">2.1.2</VersionPrefix>
+		<VersionSuffix Condition=" '$(VersionSuffix)' == '' ">
+		</VersionSuffix>
+		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+		<Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
+	</PropertyGroup>
     <ItemGroup>
         <Folder Include="Attributes\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 </Project>
