@@ -1322,3 +1322,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.UserAttributes.Password
   nameWithType: UserAttributes.Password
+- uid: Supabase.Gotrue.Util
+  name: Util
+  href: api/Supabase.Gotrue.Util.html
+  commentId: T:Supabase.Gotrue.Util
+  fullName: Supabase.Gotrue.Util
+  nameWithType: Util
+- uid: Supabase.Gotrue.Util.GetAssemblyVersion
+  name: GetAssemblyVersion()
+  href: api/Supabase.Gotrue.Util.html#Supabase_Gotrue_Util_GetAssemblyVersion
+  commentId: M:Supabase.Gotrue.Util.GetAssemblyVersion
+  fullName: Supabase.Gotrue.Util.GetAssemblyVersion()
+  nameWithType: Util.GetAssemblyVersion()
+- uid: Supabase.Gotrue.Util.GetAssemblyVersion*
+  name: GetAssemblyVersion
+  href: api/Supabase.Gotrue.Util.html#Supabase_Gotrue_Util_GetAssemblyVersion_
+  commentId: Overload:Supabase.Gotrue.Util.GetAssemblyVersion
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Util.GetAssemblyVersion
+  nameWithType: Util.GetAssemblyVersion
