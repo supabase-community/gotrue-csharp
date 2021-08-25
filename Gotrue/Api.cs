@@ -25,7 +25,10 @@ namespace Supabase.Gotrue
             Url = url;
             Headers = headers;
 
-            Headers.Add("X-Client-Info", Util.GetAssemblyVersion());
+            if (!Headers.ContainsKey("X-Client-Info"))
+            {
+                Headers.Add("X-Client-Info", Util.GetAssemblyVersion());
+            }
         }
 
         /// <summary>
