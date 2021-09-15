@@ -75,7 +75,7 @@ namespace Supabase.Gotrue
         public Task<BaseResponse> InviteUserByEmail(string email, string jwt)
         {
             var data = new Dictionary<string, string> { { "email", email } };
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/invite", data,  CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/invite", data, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Supabase.Gotrue
         {
             return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/user", attributes, CreateAuthedRequestHeaders(jwt));
         }
-        
+
         /// <summary>
         /// Delete a user
         /// </summary>
