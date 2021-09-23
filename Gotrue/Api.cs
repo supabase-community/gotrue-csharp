@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Attributes;
 using Supabase.Gotrue.Responses;
@@ -79,6 +80,65 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Signs up a new user using their phone number and a password.The phone number of the user.
+        /// </summary>
+        /// <param name="phone">The phone number of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <param name="metadata">User Metadata (optional)</param>
+        /// <returns></returns>
+        public Task<Session> SignUpWithPhone(string phone, string password, Dictionary<string, string> metadata = null)
+        {
+            var data = new Dictionary<string, object> {
+                { "phone", phone },
+                { "password", password },
+                { "data", metadata }
+            };
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", data, Headers);
+        }
+
+        /// <summary>
+        /// Logs in an existing user using their phone number and password.
+        /// </summary>
+        /// <param name="phone">The phone number of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <returns></returns>
+        public Task<Session> SignInWithPhone(string phone, string password)
+        {
+            var data = new Dictionary<string, object> {
+                { "phone", phone },
+                { "password", password },
+            };
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", data, Headers);
+        }
+
+        /// <summary>
+        /// Sends a mobile OTP via SMS. Will register the account if it doesn't already exist
+        /// </summary>
+        /// <param name="phone">phone The user's phone number WITH international prefix</param>
+        /// <returns></returns>
+        public Task<BaseResponse> SendMobileOTP(string phone)
+        {
+            var data = new Dictionary<string, string> { { "phone", phone } };
+            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/otp", data, Headers);
+        }
+
+        /// <summary>
+        /// Send User supplied Mobile OTP to be verified
+        /// </summary>
+        /// <param name="phone">The user's phone number WITH international prefix</param>
+        /// <param name="token">token that user was sent to their mobile phone</param>
+        /// <returns></returns>
+        public Task<Session> VerifyMobileOTP(string phone, string token)
+        {
+            var data = new Dictionary<string, string> {
+                { "phone", phone },
+                { "token", token },
+                { "type", "sms" }
+            };
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
+        }
+
+        /// <summary>
         /// Sends a reset request to an email address.
         /// </summary>
         /// <param name="email"></param>
@@ -107,14 +167,23 @@ namespace Supabase.Gotrue
         /// Generates the relevant login URL for a third-party provider.
         /// </summary>
         /// <param name="provider"></param>
+        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        internal string GetUrlForProvider(Provider provider)
+        internal string GetUrlForProvider(Provider provider, string scopes = null)
         {
+            var builder = new UriBuilder($"{Url}/authorize");
             var attr = provider.GetType().GetField(provider.ToString()).GetCustomAttributes(typeof(MapToAttribute), true).First();
+
             if (attr is MapToAttribute mappedAttr)
             {
-                return $"{Url}/authorize?provider={mappedAttr.Mapping}";
+                var query = HttpUtility.ParseQueryString("");
+                query.Add("provider", mappedAttr.Mapping);
+                query.Add("scopes", scopes);
+
+                builder.Query = query.ToString();
+                return builder.ToString();
             }
+
             throw new Exception("Unknown provider");
         }
 

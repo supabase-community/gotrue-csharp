@@ -122,8 +122,11 @@ namespace GotrueTests
         [TestMethod("Client: Returns Auth Url for Provider")]
         public async Task ClientReturnsAuthUrlForProvider()
         {
-            var result = await client.SignIn(Provider.Google);
-            Assert.AreEqual("http://localhost:9999/authorize?provider=google", result);
+            var result1 = await client.SignIn(Provider.Google);
+            Assert.AreEqual("http://localhost:9999/authorize?provider=google", result1);
+
+            var result2 = await client.SignIn(Provider.Google, "special scopes please");
+            Assert.AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2);
         }
 
         [TestMethod("Client: Update user")]

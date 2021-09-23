@@ -54,4 +54,13 @@ namespace Supabase.Gotrue
         [JsonProperty("data")]
         public Dictionary<string, object> Data { get; set; }
     }
+
+    public class VerifyOTPParams
+    {
+        [JsonProperty("phone")]
+        public string Phone { get; set; }
+
+        [JsonProperty("token")]
+        public string Token { get; set; }
+    }
 }

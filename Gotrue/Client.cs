@@ -20,24 +20,34 @@ namespace Supabase.Gotrue
     public class Client
     {
         /// <summary>
+        /// Specifies the functionality expected from the `SignIn` function
+        /// </summary>
+        public enum SignInType
+        {
+            Email,
+            Phone,
+            RefreshToken,
+        }
+
+        /// <summary>
         /// Providers available to Supabase
         /// </summary>
         public enum Provider
         {
+            [MapTo("apple")]
+            Apple,
+            [MapTo("azure")]
+            Azure,
             [MapTo("bitbucket")]
             Bitbucket,
+            [MapTo("discord")]
+            Discord,
             [MapTo("github")]
             Github,
             [MapTo("gitlab")]
             Gitlab,
             [MapTo("google")]
             Google,
-            [MapTo("azure")]
-            Azure,
-            [MapTo("apple")]
-            Apple,
-            [MapTo("discord")]
-            Discord,
             [MapTo("facebook")]
             Facebook,
             [MapTo("twitch")]
@@ -232,7 +242,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<bool> SendMagicLink(String email) => SignIn(email);
+        public Task<bool> SendMagicLink(string email) => SignIn(email);
 
 
         /// <summary>
@@ -241,19 +251,55 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<Session> SignIn(string email, string password)
+        public Task<Session> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
+
+        /// <summary>
+        /// Log in an existing user, or login via a third-party provider.
+        /// </summary>
+        /// <param name="type">Type of Credentials being passed</param>
+        /// <param name="identifierOrToken">An email, phone, or RefreshToken</param>
+        /// <param name="password">Password to account (optional if `RefreshToken`)</param>
+        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
+        /// <returns></returns>
+        public async Task<Session> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null)
         {
             await DestroySession();
 
             try
             {
-                var result = await api.SignInWithEmail(email, password);
-
-                if (result?.User?.ConfirmedAt != null)
+                switch (type)
                 {
-                    await PersistSession(result);
-                    StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-                    return result;
+                    case SignInType.Email:
+                        var emailResult = await api.SignInWithEmail(identifierOrToken, password);
+
+                        if (emailResult?.User?.ConfirmedAt != null)
+                        {
+                            await PersistSession(emailResult);
+                            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+                            return emailResult;
+                        }
+
+                        return null;
+
+                    case SignInType.Phone:
+                        var phoneResult = await api.SignInWithPhone(identifierOrToken, password);
+
+                        if (phoneResult?.User?.ConfirmedAt != null)
+                        {
+                            await PersistSession(phoneResult);
+                            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+                            return phoneResult;
+                        }
+
+                        return null;
+
+                    case SignInType.RefreshToken:
+                        CurrentSession = new Session();
+                        CurrentSession.RefreshToken = identifierOrToken;
+
+                        await RefreshToken();
+
+                        return CurrentSession;
                 }
 
                 return null;
@@ -282,13 +328,43 @@ namespace Supabase.Gotrue
         /// }
         /// </example>
         /// <param name="provider"></param>
+        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public async Task<string> SignIn(Provider provider)
+        public async Task<string> SignIn(Provider provider, string scopes = null)
         {
             await DestroySession();
 
-            var url = api.GetUrlForProvider(provider);
+            var url = api.GetUrlForProvider(provider, scopes);
             return url;
+        }
+
+        /// <summary>
+        /// Log in a user given a User supplied OTP received via mobile.
+        /// </summary>
+        /// <param name="phone">The user's phone number.</param>
+        /// <param name="token">Token sent to the user's phone.</param>
+        /// <returns></returns>
+        public async Task<Session> VerifyOTP(string phone, string token)
+        {
+            try
+            {
+                await DestroySession();
+
+                var result = await api.VerifyMobileOTP(phone, token);
+
+                if (result?.AccessToken != null)
+                {
+                    await PersistSession(result);
+                    StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+                    return result;
+                }
+
+                return null;
+            }
+            catch (RequestException ex)
+            {
+                throw ParseRequestException(ex);
+            }
         }
 
         /// <summary>
@@ -330,14 +406,14 @@ namespace Supabase.Gotrue
                 throw ParseRequestException(ex);
             }
         }
-        
+
         /// <summary>
         /// Sends an invite email link to the specified email.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <returns></returns>
-        public async Task<bool> InviteUserByEmail(string email,string jwt)
+        public async Task<bool> InviteUserByEmail(string email, string jwt)
         {
             try
             {
@@ -350,7 +426,7 @@ namespace Supabase.Gotrue
                 throw ParseRequestException(ex);
             }
         }
-        
+
         /// <summary>
         /// Deletes a User.
         /// </summary>
@@ -361,7 +437,7 @@ namespace Supabase.Gotrue
         {
             try
             {
-                var result = await api.DeleteUser(uid,jwt);
+                var result = await api.DeleteUser(uid, jwt);
                 result.ResponseMessage.EnsureSuccessStatusCode();
                 return true;
             }
