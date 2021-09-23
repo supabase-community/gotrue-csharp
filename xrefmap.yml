@@ -113,6 +113,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.SendMagicLinkEmail
   nameWithType: Api.SendMagicLinkEmail
+- uid: Supabase.Gotrue.Api.SendMobileOTP(System.String)
+  name: SendMobileOTP(String)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SendMobileOTP_System_String_
+  commentId: M:Supabase.Gotrue.Api.SendMobileOTP(System.String)
+  fullName: Supabase.Gotrue.Api.SendMobileOTP(System.String)
+  nameWithType: Api.SendMobileOTP(String)
+- uid: Supabase.Gotrue.Api.SendMobileOTP*
+  name: SendMobileOTP
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SendMobileOTP_
+  commentId: Overload:Supabase.Gotrue.Api.SendMobileOTP
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.SendMobileOTP
+  nameWithType: Api.SendMobileOTP
 - uid: Supabase.Gotrue.Api.SignInWithEmail(System.String,System.String)
   name: SignInWithEmail(String, String)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithEmail_System_String_System_String_
@@ -126,6 +139,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.SignInWithEmail
   nameWithType: Api.SignInWithEmail
+- uid: Supabase.Gotrue.Api.SignInWithPhone(System.String,System.String)
+  name: SignInWithPhone(String, String)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithPhone_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Api.SignInWithPhone(System.String,System.String)
+  fullName: Supabase.Gotrue.Api.SignInWithPhone(System.String, System.String)
+  nameWithType: Api.SignInWithPhone(String, String)
+- uid: Supabase.Gotrue.Api.SignInWithPhone*
+  name: SignInWithPhone
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithPhone_
+  commentId: Overload:Supabase.Gotrue.Api.SignInWithPhone
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.SignInWithPhone
+  nameWithType: Api.SignInWithPhone
 - uid: Supabase.Gotrue.Api.SignOut(System.String)
   name: SignOut(String)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignOut_System_String_
@@ -152,6 +178,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.SignUpWithEmail
   nameWithType: Api.SignUpWithEmail
+- uid: Supabase.Gotrue.Api.SignUpWithPhone(System.String,System.String,Dictionary{System.String,System.String})
+  name: SignUpWithPhone(String, String, Dictionary<String, String>)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignUpWithPhone_System_String_System_String_Dictionary_System_String_System_String__
+  commentId: M:Supabase.Gotrue.Api.SignUpWithPhone(System.String,System.String,Dictionary{System.String,System.String})
+  name.vb: SignUpWithPhone(String, String, Dictionary(Of String, String))
+  fullName: Supabase.Gotrue.Api.SignUpWithPhone(System.String, System.String, Dictionary<System.String, System.String>)
+  fullName.vb: Supabase.Gotrue.Api.SignUpWithPhone(System.String, System.String, Dictionary(Of System.String, System.String))
+  nameWithType: Api.SignUpWithPhone(String, String, Dictionary<String, String>)
+  nameWithType.vb: Api.SignUpWithPhone(String, String, Dictionary(Of String, String))
+- uid: Supabase.Gotrue.Api.SignUpWithPhone*
+  name: SignUpWithPhone
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignUpWithPhone_
+  commentId: Overload:Supabase.Gotrue.Api.SignUpWithPhone
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.SignUpWithPhone
+  nameWithType: Api.SignUpWithPhone
 - uid: Supabase.Gotrue.Api.UpdateUser(System.String,Supabase.Gotrue.UserAttributes)
   name: UpdateUser(String, UserAttributes)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_UpdateUser_System_String_Supabase_Gotrue_UserAttributes_
@@ -178,6 +220,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.Url
   nameWithType: Api.Url
+- uid: Supabase.Gotrue.Api.VerifyMobileOTP(System.String,System.String)
+  name: VerifyMobileOTP(String, String)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyMobileOTP_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Api.VerifyMobileOTP(System.String,System.String)
+  fullName: Supabase.Gotrue.Api.VerifyMobileOTP(System.String, System.String)
+  nameWithType: Api.VerifyMobileOTP(String, String)
+- uid: Supabase.Gotrue.Api.VerifyMobileOTP*
+  name: VerifyMobileOTP
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyMobileOTP_
+  commentId: Overload:Supabase.Gotrue.Api.VerifyMobileOTP
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.VerifyMobileOTP
+  nameWithType: Api.VerifyMobileOTP
 - uid: Supabase.Gotrue.BadRequestException
   name: BadRequestException
   href: api/Supabase.Gotrue.BadRequestException.html
@@ -471,11 +526,11 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.RetrieveSessionAsync
   nameWithType: Client.RetrieveSessionAsync
-- uid: Supabase.Gotrue.Client.SendMagicLink(String)
+- uid: Supabase.Gotrue.Client.SendMagicLink(System.String)
   name: SendMagicLink(String)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SendMagicLink_String_
-  commentId: M:Supabase.Gotrue.Client.SendMagicLink(String)
-  fullName: Supabase.Gotrue.Client.SendMagicLink(String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SendMagicLink_System_String_
+  commentId: M:Supabase.Gotrue.Client.SendMagicLink(System.String)
+  fullName: Supabase.Gotrue.Client.SendMagicLink(System.String)
   nameWithType: Client.SendMagicLink(String)
 - uid: Supabase.Gotrue.Client.SendMagicLink*
   name: SendMagicLink
@@ -536,12 +591,18 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.ShouldPersistSession
   nameWithType: Client.ShouldPersistSession
-- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
-  name: SignIn(Client.Provider)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Client_Provider_
-  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
-  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider)
-  nameWithType: Client.SignIn(Client.Provider)
+- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider,System.String)
+  name: SignIn(Client.Provider, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Client_Provider_System_String_
+  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider,System.String)
+  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.Provider, System.String)
+  nameWithType: Client.SignIn(Client.Provider, String)
+- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.SignInType,System.String,System.String,System.String)
+  name: SignIn(Client.SignInType, String, String, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Client_SignInType_System_String_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.SignInType,System.String,System.String,System.String)
+  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Client.SignInType, System.String, System.String, System.String)
+  nameWithType: Client.SignIn(Client.SignInType, String, String, String)
 - uid: Supabase.Gotrue.Client.SignIn(System.String)
   name: SignIn(String)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_System_String_
@@ -561,6 +622,30 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SignIn
   nameWithType: Client.SignIn
+- uid: Supabase.Gotrue.Client.SignInType
+  name: Client.SignInType
+  href: api/Supabase.Gotrue.Client.SignInType.html
+  commentId: T:Supabase.Gotrue.Client.SignInType
+  fullName: Supabase.Gotrue.Client.SignInType
+  nameWithType: Client.SignInType
+- uid: Supabase.Gotrue.Client.SignInType.Email
+  name: Email
+  href: api/Supabase.Gotrue.Client.SignInType.html#Supabase_Gotrue_Client_SignInType_Email
+  commentId: F:Supabase.Gotrue.Client.SignInType.Email
+  fullName: Supabase.Gotrue.Client.SignInType.Email
+  nameWithType: Client.SignInType.Email
+- uid: Supabase.Gotrue.Client.SignInType.Phone
+  name: Phone
+  href: api/Supabase.Gotrue.Client.SignInType.html#Supabase_Gotrue_Client_SignInType_Phone
+  commentId: F:Supabase.Gotrue.Client.SignInType.Phone
+  fullName: Supabase.Gotrue.Client.SignInType.Phone
+  nameWithType: Client.SignInType.Phone
+- uid: Supabase.Gotrue.Client.SignInType.RefreshToken
+  name: RefreshToken
+  href: api/Supabase.Gotrue.Client.SignInType.html#Supabase_Gotrue_Client_SignInType_RefreshToken
+  commentId: F:Supabase.Gotrue.Client.SignInType.RefreshToken
+  fullName: Supabase.Gotrue.Client.SignInType.RefreshToken
+  nameWithType: Client.SignInType.RefreshToken
 - uid: Supabase.Gotrue.Client.SignOut
   name: SignOut()
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignOut
@@ -606,6 +691,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.Update
   nameWithType: Client.Update
+- uid: Supabase.Gotrue.Client.VerifyOTP(System.String,System.String)
+  name: VerifyOTP(String, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_VerifyOTP_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.VerifyOTP(System.String,System.String)
+  fullName: Supabase.Gotrue.Client.VerifyOTP(System.String, System.String)
+  nameWithType: Client.VerifyOTP(String, String)
+- uid: Supabase.Gotrue.Client.VerifyOTP*
+  name: VerifyOTP
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_VerifyOTP_
+  commentId: Overload:Supabase.Gotrue.Client.VerifyOTP
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.VerifyOTP
+  nameWithType: Client.VerifyOTP
 - uid: Supabase.Gotrue.ClientOptions
   name: ClientOptions
   href: api/Supabase.Gotrue.ClientOptions.html
@@ -1341,3 +1439,35 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Util.GetAssemblyVersion
   nameWithType: Util.GetAssemblyVersion
+- uid: Supabase.Gotrue.VerifyOTPParams
+  name: VerifyOTPParams
+  href: api/Supabase.Gotrue.VerifyOTPParams.html
+  commentId: T:Supabase.Gotrue.VerifyOTPParams
+  fullName: Supabase.Gotrue.VerifyOTPParams
+  nameWithType: VerifyOTPParams
+- uid: Supabase.Gotrue.VerifyOTPParams.Phone
+  name: Phone
+  href: api/Supabase.Gotrue.VerifyOTPParams.html#Supabase_Gotrue_VerifyOTPParams_Phone
+  commentId: P:Supabase.Gotrue.VerifyOTPParams.Phone
+  fullName: Supabase.Gotrue.VerifyOTPParams.Phone
+  nameWithType: VerifyOTPParams.Phone
+- uid: Supabase.Gotrue.VerifyOTPParams.Phone*
+  name: Phone
+  href: api/Supabase.Gotrue.VerifyOTPParams.html#Supabase_Gotrue_VerifyOTPParams_Phone_
+  commentId: Overload:Supabase.Gotrue.VerifyOTPParams.Phone
+  isSpec: "True"
+  fullName: Supabase.Gotrue.VerifyOTPParams.Phone
+  nameWithType: VerifyOTPParams.Phone
+- uid: Supabase.Gotrue.VerifyOTPParams.Token
+  name: Token
+  href: api/Supabase.Gotrue.VerifyOTPParams.html#Supabase_Gotrue_VerifyOTPParams_Token
+  commentId: P:Supabase.Gotrue.VerifyOTPParams.Token
+  fullName: Supabase.Gotrue.VerifyOTPParams.Token
+  nameWithType: VerifyOTPParams.Token
+- uid: Supabase.Gotrue.VerifyOTPParams.Token*
+  name: Token
+  href: api/Supabase.Gotrue.VerifyOTPParams.html#Supabase_Gotrue_VerifyOTPParams_Token_
+  commentId: Overload:Supabase.Gotrue.VerifyOTPParams.Token
+  isSpec: "True"
+  fullName: Supabase.Gotrue.VerifyOTPParams.Token
+  nameWithType: VerifyOTPParams.Token

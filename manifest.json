@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Api.html",
-          "hash": "tcFVHNMk8D5cCSqmwUiwyQ=="
+          "hash": "nPTamqCTuJ0aKpfO3V4W0g=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.BadRequestException.html",
-          "hash": "B7HcjTSsniG9SxjcDycggw=="
+          "hash": "t9U1vrVWAeCKll0nb4qHDw=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.AuthState.html",
-          "hash": "6mHpIoF2roKW33zXEa6V6Q=="
+          "hash": "iCwEpchkWk4g/F0rjVap1g=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.Provider.html",
-          "hash": "CZQgkjB8YVQW8RhWRzVSvA=="
+          "hash": "0G0gqGf3qimOePWliffE8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.Client.SignInType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.Client.SignInType.html",
+          "hash": "UB3Ha6IJhHwQwA61b61oGQ=="
         }
       },
       "is_incremental": false,
@@ -57,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "oVAkQXzLod5AgBtpoDMBAQ=="
+          "hash": "K8/StHn7hg15PjS0t2ZWYA=="
         }
       },
       "is_incremental": false,
@@ -69,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "NqEHC6YFj2dfjp7BnitQZA=="
+          "hash": "/mAcH4waaO/ZBzbLh42Lpw=="
         }
       },
       "is_incremental": false,
@@ -81,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "kyEq/3A5COW834QJ0ZOD3A=="
+          "hash": "LzXeYuyhxSgTjqr+ExA1Bg=="
         }
       },
       "is_incremental": false,
@@ -105,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ExistingUserException.html",
-          "hash": "58vHEd7/PpA8+RG/3whBJw=="
+          "hash": "Z7pVh9nw5FajAEQ6iDKrXQ=="
         }
       },
       "is_incremental": false,
@@ -117,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ForbiddenException.html",
-          "hash": "8R+o3UWXNdZg5SQx7xtHsw=="
+          "hash": "TrSlH7PzE40X7k2LBXVaVg=="
         }
       },
       "is_incremental": false,
@@ -129,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.InvalidEmailOrPasswordException.html",
-          "hash": "4e/xUZxtWClEGHGVgaCDTQ=="
+          "hash": "2AWHRpZpmzJIgiy+iagr1Q=="
         }
       },
       "is_incremental": false,
@@ -201,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UnauthorizedException.html",
-          "hash": "0FUVKnocUrPQUBkVm+8BtA=="
+          "hash": "Es2F1wFJAuR0zjP54o/+HQ=="
         }
       },
       "is_incremental": false,
@@ -245,11 +257,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.VerifyOTPParams.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.VerifyOTPParams.html",
+          "hash": "2uBkIWvWvyhQN/Lvguj7jw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Supabase.Gotrue.yml",
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.html",
-          "hash": "3Bpy51atW1DOIpGJOS4LTA=="
+          "hash": "u/QrmUj0pcht6LjQMWS8qw=="
         }
       },
       "is_incremental": false,
@@ -273,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "UyMnRw1iTTwhes5APrbg4Q=="
+          "hash": "HgpbWp6cvCIABEfpge9zIA=="
         }
       },
       "is_incremental": false,
@@ -324,7 +348,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 21,
+          "total_file_count": 23,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
