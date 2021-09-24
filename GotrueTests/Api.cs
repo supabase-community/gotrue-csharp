@@ -20,14 +20,22 @@ namespace GotrueTests
 
         private static Random random = new Random();
 
-
         private static string RandomString(int length)
         {
             const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        
+
+        private static string GetRandomPhoneNumber()
+        {
+            const string chars = "123456789";
+            var inner = new string(Enumerable.Repeat(chars, 10)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            return $"+1{inner}";
+        }
+
         private string GenerateServiceRoleToken()
         {
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
@@ -45,7 +53,7 @@ namespace GotrueTests
                     }
                 }
             };
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(securityToken);
@@ -60,12 +68,19 @@ namespace GotrueTests
         [TestMethod("Client: Signs Up User")]
         public async Task ClientSignsUpUser()
         {
+            Session session = null;
             var email = $"{RandomString(12)}@supabase.io";
-            var result = await client.SignUp(email, password);
+            session = await client.SignUp(email, password);
 
-            Assert.IsNotNull(result.AccessToken);
-            Assert.IsNotNull(result.RefreshToken);
-            Assert.IsInstanceOfType(result.User, typeof(User));
+            Assert.IsNotNull(session.AccessToken);
+            Assert.IsNotNull(session.RefreshToken);
+            Assert.IsInstanceOfType(session.User, typeof(User));
+
+
+            var phone1 = GetRandomPhoneNumber();
+            session = await client.SignUp(SignUpType.Phone, phone1, password);
+
+            Assert.IsNotNull(session.AccessToken);
         }
 
         [TestMethod("Client: Signs Up the same user twice should throw an error")]
@@ -77,22 +92,46 @@ namespace GotrueTests
             {
                 var result = await client.SignUp(email, password);
             });
-
         }
 
-        [TestMethod("Client: Signs In User with Email & Password")]
-        public async Task ClientSignsInUser()
+        [TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
+        public async Task ClientSignsIn()
         {
-            var user = $"{RandomString(12)}@supabase.io";
-            await client.SignUp(user, password);
+            Session session = null;
+            string refreshToken = "";
+
+            // Emails
+            var email = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(email, password);
 
             await client.SignOut();
 
-            var result = await client.SignIn(user, password);
+            session = await client.SignIn(email, password);
 
-            Assert.IsNotNull(result.AccessToken);
-            Assert.IsNotNull(result.RefreshToken);
-            Assert.IsInstanceOfType(result.User, typeof(User));
+            Assert.IsNotNull(session.AccessToken);
+            Assert.IsNotNull(session.RefreshToken);
+            Assert.IsInstanceOfType(session.User, typeof(User));
+
+            // Phones
+            var phone = GetRandomPhoneNumber();
+            await client.SignUp(SignUpType.Phone, phone, password);
+
+            await client.SignOut();
+
+            session = await client.SignIn(SignInType.Phone, phone, password);
+
+            Assert.IsNotNull(session.AccessToken);
+            Assert.IsNotNull(session.RefreshToken);
+            Assert.IsInstanceOfType(session.User, typeof(User));
+
+            // Refresh Token
+            refreshToken = session.RefreshToken;
+
+            var newSession = await client.SignIn(SignInType.RefreshToken, refreshToken);
+
+            Assert.IsNotNull(newSession.AccessToken);
+            Assert.IsNotNull(newSession.RefreshToken);
+            Assert.IsInstanceOfType(newSession.User, typeof(User));
         }
 
         [TestMethod("Client: Sends Magic Login Email")]
@@ -181,7 +220,7 @@ namespace GotrueTests
             });
 
         }
-        
+
         [TestMethod("Client: Sends Invite Email")]
         public async Task ClientSendsInviteEmail()
         {
@@ -190,17 +229,17 @@ namespace GotrueTests
             var result = await client.InviteUserByEmail(user, service_role_key);
             Assert.IsTrue(result);
         }
-        
+
         [TestMethod("Client: Deletes User")]
         public async Task ClientDeletesUser()
         {
             var user = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
             var uid = client.CurrentUser.Id;
-            
+
             var service_role_key = GenerateServiceRoleToken();
             var result = await client.DeleteUser(uid, service_role_key);
-            
+
             Assert.IsTrue(result);
         }
     }

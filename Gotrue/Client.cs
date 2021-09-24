@@ -20,13 +20,22 @@ namespace Supabase.Gotrue
     public class Client
     {
         /// <summary>
-        /// Specifies the functionality expected from the `SignIn` function
+        /// Specifies the functionality expected from the `SignIn` method
         /// </summary>
         public enum SignInType
         {
             Email,
             Phone,
             RefreshToken,
+        }
+
+        /// <summary>
+        /// Specifies the functionality expected from the `SignUp` method
+        /// </summary>
+        public enum SignUpType
+        {
+            Email,
+            Phone
         }
 
         /// <summary>
@@ -187,27 +196,46 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        /// Signs up a user
+        /// Signs up a user by email address
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<Session> SignUp(string email, string password)
+        public Task<Session> SignUp(string email, string password) => SignUp(SignUpType.Email, email, password);
+
+        /// <summary>
+        /// Signs up a user
+        /// </summary>
+        /// <param name="type">Type of signup</param>
+        /// <param name="identifier">Phone or Email</param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<Session> SignUp(SignUpType type, string identifier, string password)
         {
             await DestroySession();
 
             try
             {
-                var result = await api.SignUpWithEmail(email, password);
-
-                if (result?.User?.ConfirmedAt != null)
+                Session session = null;
+                switch (type)
                 {
-                    await PersistSession(result);
+                    case SignUpType.Email:
+                        session = await api.SignUpWithEmail(identifier, password);
+                        break;
+                    case SignUpType.Phone:
+                        session = await api.SignUpWithPhone(identifier, password);
+                        break;
+                }
+
+                if (session?.User?.ConfirmedAt != null)
+                {
+                    await PersistSession(session);
 
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
 
                     return CurrentSession;
                 }
+
                 return null;
             }
             catch (RequestException ex)
@@ -267,32 +295,23 @@ namespace Supabase.Gotrue
 
             try
             {
+                Session session = null;
                 switch (type)
                 {
                     case SignInType.Email:
-                        var emailResult = await api.SignInWithEmail(identifierOrToken, password);
-
-                        if (emailResult?.User?.ConfirmedAt != null)
-                        {
-                            await PersistSession(emailResult);
-                            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-                            return emailResult;
-                        }
-
-                        return null;
-
+                        session = await api.SignInWithEmail(identifierOrToken, password);
+                        break;
                     case SignInType.Phone:
-                        var phoneResult = await api.SignInWithPhone(identifierOrToken, password);
-
-                        if (phoneResult?.User?.ConfirmedAt != null)
+                        if (string.IsNullOrEmpty(password))
                         {
-                            await PersistSession(phoneResult);
-                            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-                            return phoneResult;
+                            var response = await api.SendMobileOTP(identifierOrToken);
+                            return null;
                         }
-
-                        return null;
-
+                        else
+                        {
+                            session = await api.SignInWithPhone(identifierOrToken, password);
+                        }
+                        break;
                     case SignInType.RefreshToken:
                         CurrentSession = new Session();
                         CurrentSession.RefreshToken = identifierOrToken;
@@ -300,6 +319,13 @@ namespace Supabase.Gotrue
                         await RefreshToken();
 
                         return CurrentSession;
+                }
+
+                if (session?.User?.ConfirmedAt != null)
+                {
+                    await PersistSession(session);
+                    StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+                    return CurrentSession;
                 }
 
                 return null;
@@ -350,13 +376,13 @@ namespace Supabase.Gotrue
             {
                 await DestroySession();
 
-                var result = await api.VerifyMobileOTP(phone, token);
+                var session = await api.VerifyMobileOTP(phone, token);
 
-                if (result?.AccessToken != null)
+                if (session?.AccessToken != null)
                 {
-                    await PersistSession(result);
+                    await PersistSession(session);
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-                    return result;
+                    return session;
                 }
 
                 return null;
