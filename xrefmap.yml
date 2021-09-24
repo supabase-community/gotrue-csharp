@@ -659,6 +659,12 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SignOut
   nameWithType: Client.SignOut
+- uid: Supabase.Gotrue.Client.SignUp(Supabase.Gotrue.Client.SignUpType,System.String,System.String)
+  name: SignUp(Client.SignUpType, String, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignUp_Supabase_Gotrue_Client_SignUpType_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.SignUp(Supabase.Gotrue.Client.SignUpType,System.String,System.String)
+  fullName: Supabase.Gotrue.Client.SignUp(Supabase.Gotrue.Client.SignUpType, System.String, System.String)
+  nameWithType: Client.SignUp(Client.SignUpType, String, String)
 - uid: Supabase.Gotrue.Client.SignUp(System.String,System.String)
   name: SignUp(String, String)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignUp_System_String_System_String_
@@ -672,6 +678,24 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SignUp
   nameWithType: Client.SignUp
+- uid: Supabase.Gotrue.Client.SignUpType
+  name: Client.SignUpType
+  href: api/Supabase.Gotrue.Client.SignUpType.html
+  commentId: T:Supabase.Gotrue.Client.SignUpType
+  fullName: Supabase.Gotrue.Client.SignUpType
+  nameWithType: Client.SignUpType
+- uid: Supabase.Gotrue.Client.SignUpType.Email
+  name: Email
+  href: api/Supabase.Gotrue.Client.SignUpType.html#Supabase_Gotrue_Client_SignUpType_Email
+  commentId: F:Supabase.Gotrue.Client.SignUpType.Email
+  fullName: Supabase.Gotrue.Client.SignUpType.Email
+  nameWithType: Client.SignUpType.Email
+- uid: Supabase.Gotrue.Client.SignUpType.Phone
+  name: Phone
+  href: api/Supabase.Gotrue.Client.SignUpType.html#Supabase_Gotrue_Client_SignUpType_Phone
+  commentId: F:Supabase.Gotrue.Client.SignUpType.Phone
+  fullName: Supabase.Gotrue.Client.SignUpType.Phone
+  nameWithType: Client.SignUpType.Phone
 - uid: Supabase.Gotrue.Client.StateChanged
   name: StateChanged
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_StateChanged
