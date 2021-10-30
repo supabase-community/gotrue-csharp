@@ -62,7 +62,7 @@ namespace Supabase.Gotrue
             [MapTo("slack")]
             Slack,
             [MapTo("spotify")]
-            Spotify
+            Spotify,
             [MapTo("twitch")]
             Twitch,
             [MapTo("twitter")]
