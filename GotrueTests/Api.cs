@@ -83,15 +83,14 @@ namespace GotrueTests
             Assert.IsNotNull(session.AccessToken);
         }
 
-        [TestMethod("Client: Signs Up the same user twice should throw an error")]
-        public async Task ClientSignsUpUserTwiceShouldThrowError()
+        [TestMethod("Client: Signs Up the same user twice should return null")]
+        public async Task ClientSignsUpUserTwiceShouldReturnNull()
         {
             var email = $"{RandomString(12)}@supabase.io";
-            await client.SignUp(email, password);
-            await Assert.ThrowsExceptionAsync<BadRequestException>(async () =>
-            {
-                var result = await client.SignUp(email, password);
-            });
+            var result1 = await client.SignUp(email, password);
+            var result2 = await client.SignUp(email, password);
+
+            Assert.AreNotEqual(result1, result2);
         }
 
         [TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
