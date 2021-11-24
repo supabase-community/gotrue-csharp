@@ -12,9 +12,9 @@ using static Supabase.Gotrue.Client;
 namespace GotrueTests
 {
     [TestClass]
-    public class Api
+    public class Client
     {
-        private Client client;
+        private Supabase.Gotrue.Client client;
 
         private string password = "I@M@SuperP@ssWord";
 
@@ -83,14 +83,16 @@ namespace GotrueTests
             Assert.IsNotNull(session.AccessToken);
         }
 
-        [TestMethod("Client: Signs Up the same user twice should return null")]
-        public async Task ClientSignsUpUserTwiceShouldReturnNull()
+        [TestMethod("Client: Signs Up the same user twice should throw BadRequestException")]
+        public async Task ClientSignsUpUserTwiceShouldReturnBadRequest()
         {
             var email = $"{RandomString(12)}@supabase.io";
             var result1 = await client.SignUp(email, password);
-            var result2 = await client.SignUp(email, password);
 
-            Assert.AreNotEqual(result1, result2);
+            await Assert.ThrowsExceptionAsync<BadRequestException>(async () =>
+            {
+                await client.SignUp(email, password);
+            });
         }
 
         [TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
