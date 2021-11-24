@@ -13,14 +13,23 @@
 
 ## Getting Started
 
-The Gotrue Client from this library uses a Singleton class to maintain in-memory state and timers. This is similar
-to the method that Firebase uses in its Client libraries.
+The Gotrue `Client` from this library uses a Singleton class to maintain in-memory state and timers. This is similar
+to the method that Firebase uses in its Client libraries. It can maintain sessions, refresh tokens, persistence, etc.
+for the developer, rather than having to do that yourself.
+
+Alternatively, a `StatelessClient` is also provided within this library that allows interactions directly with the API
+without requiring initialization.
 
 ```c#
 var options = new ClientOptions { Url = "https://example.com/api" };
 var client = await Client.Initialize(options);
 
 var user = await SignUp("new-user@example.com");
+
+// Alternatively, you can use a StatelessClient and do API interactions that way
+var options = new StatelessClientOptions { Url = "https://example.com/api" }
+await Client.SignUp("new-user@example.com", options);
+
 ```
 
 ## Persisting, Retrieving, and Destroying Sessions.
