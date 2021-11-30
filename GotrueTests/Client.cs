@@ -95,6 +95,29 @@ namespace GotrueTests
             });
         }
 
+        [TestMethod("Client: Triggers Token Refreshed Event")]
+        public async Task ClientTriggersTokenRefreshedEvent()
+        {
+            var tsc = new TaskCompletionSource<string>();
+
+            var email = $"{RandomString(12)}@supabase.io";
+            var user = await client.SignUp(email, password);
+
+            client.StateChanged += (sender, args) =>
+            {
+                if (args.State == AuthState.TokenRefreshed)
+                {
+                    tsc.SetResult(client.CurrentSession.AccessToken);
+                }
+            };
+
+            await client.RefreshSession();
+
+            var newToken = await tsc.Task;
+
+            Assert.AreNotEqual(user.RefreshToken, client.CurrentSession.RefreshToken);
+        }
+
         [TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
         public async Task ClientSignsIn()
         {

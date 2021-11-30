@@ -78,6 +78,7 @@ namespace Supabase.Gotrue
             SignedOut,
             UserUpdated,
             PasswordRecovery,
+            TokenRefreshed
         };
 
         private static Client instance;
@@ -649,6 +650,7 @@ namespace Supabase.Gotrue
             CurrentSession = result;
             CurrentUser = result.User;
 
+            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
             StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
 
             if (AutoRefreshToken && CurrentSession.ExpiresIn != default)

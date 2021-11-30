@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.2.2 - 2021-11-29
+
+- [#12](https://github.com/supabase-community/supabase-csharp/issues/12) Add a `AuthState.TokenRefreshed` trigger on Token Refresh (along with test).
+
 ## 2.2.1 - 2021-11-24
 
 - [#7](https://github.com/supabase-community/supabase-csharp/issues/7) Add a `StatelessClient` static class that enables API interactions through specifying `StatelessClientOptions`
