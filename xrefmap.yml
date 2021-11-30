@@ -308,6 +308,12 @@ references:
   commentId: F:Supabase.Gotrue.Client.AuthState.SignedOut
   fullName: Supabase.Gotrue.Client.AuthState.SignedOut
   nameWithType: Client.AuthState.SignedOut
+- uid: Supabase.Gotrue.Client.AuthState.TokenRefreshed
+  name: TokenRefreshed
+  href: api/Supabase.Gotrue.Client.AuthState.html#Supabase_Gotrue_Client_AuthState_TokenRefreshed
+  commentId: F:Supabase.Gotrue.Client.AuthState.TokenRefreshed
+  fullName: Supabase.Gotrue.Client.AuthState.TokenRefreshed
+  nameWithType: Client.AuthState.TokenRefreshed
 - uid: Supabase.Gotrue.Client.AuthState.UserUpdated
   name: UserUpdated
   href: api/Supabase.Gotrue.Client.AuthState.html#Supabase_Gotrue_Client_AuthState_UserUpdated

@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.AuthState.html",
-          "hash": "zamakLJJUHt8dK8yeU9D1Q=="
+          "hash": "RakRlTsElnza4ZXX7TGXZQ=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "pfx8plykJrk/YAnVMvqdzw=="
+          "hash": "tlJnkADYHxbPoXXMmv2FwQ=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "pDo+evWJvEWXVbEaXhv28Q=="
+          "hash": "DfqU39xuIGEgoSBUNz+zaA=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "+s7ygpxv1OuS5gxGRx469A=="
+          "hash": "uIBfYIISAfdS+bOjgsPs8g=="
         }
       },
       "is_incremental": false,
