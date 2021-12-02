@@ -234,6 +234,26 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Sends a reset request to an email address.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static async Task<bool> ResetPasswordForEmail(string email, StatelessClientOptions options)
+        {
+            try
+            {
+                var result = await GetApi(options).ResetPasswordForEmail(email);
+                result.ResponseMessage.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
         /// Deletes a User.
         /// </summary>
         /// <param name="uid"></param>

@@ -15,8 +15,6 @@ namespace GotrueTests
     [TestClass]
     public class StatelessClient
     {
-        private Client client;
-
         private string password = "I@M@SuperP@ssWord";
 
         private static Random random = new Random();
@@ -219,6 +217,15 @@ namespace GotrueTests
             var service_role_key = GenerateServiceRoleToken();
             var result = await DeleteUser(uid, service_role_key, options);
 
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod("StatelessClient: Sends Reset Password Email")]
+        public async Task ClientSendsResetPasswordForEmail()
+        {
+            var email = $"{RandomString(12)}@supabase.io";
+            await SignUp(email, password, options);
+            var result = await ResetPasswordForEmail(email, options);
             Assert.IsTrue(result);
         }
     }
