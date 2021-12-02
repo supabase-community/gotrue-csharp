@@ -477,6 +477,26 @@ namespace Supabase.Gotrue
                 throw ExceptionHandler.Parse(ex);
             }
         }
+        
+        /// <summary>
+        /// Sends a reset request to an email address.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<bool> ResetPasswordForEmail(string email)
+        {
+            try
+            {
+                var result = await api.ResetPasswordForEmail(email);
+                result.ResponseMessage.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
 
         /// <summary>
         /// Refreshes the currently logged in User's Session.

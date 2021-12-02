@@ -266,5 +266,14 @@ namespace GotrueTests
 
             Assert.IsTrue(result);
         }
+        
+        [TestMethod("Client: Sends Reset Password Email")]
+        public async Task ClientSendsResetPasswordForEmail()
+        {
+            var email = $"{RandomString(12)}@supabase.io";
+            await client.SignUp(email, password);
+            var result = await client.ResetPasswordForEmail(email);
+            Assert.IsTrue(result);
+        }
     }
 }
