@@ -266,7 +266,7 @@ namespace GotrueTests
 
             Assert.IsTrue(result);
         }
-        
+
         [TestMethod("Client: Sends Reset Password Email")]
         public async Task ClientSendsResetPasswordForEmail()
         {
