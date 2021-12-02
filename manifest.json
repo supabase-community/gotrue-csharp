@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Api.html",
-          "hash": "nPTamqCTuJ0aKpfO3V4W0g=="
+          "hash": "LYuKCBx202SHO4Vbi/0XZg=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.BadRequestException.html",
-          "hash": "d5c/3a530OZ4KvCwZS+TbA=="
+          "hash": "U2e/9dfthcBvIZuvVtyxEQ=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.AuthState.html",
-          "hash": "RakRlTsElnza4ZXX7TGXZQ=="
+          "hash": "3uUiP1a8RvU5zqy8GCc+fg=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.Provider.html",
-          "hash": "NgAuZ0fX4JNw9FBQ7qXWmg=="
+          "hash": "ZH0KDR6k6hFXQGc1LrdVPw=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.SignInType.html",
-          "hash": "ups2xhR37FIbb5Ybv6WeMg=="
+          "hash": "VObiuO24MZfc2mugjbx13g=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.SignUpType.html",
-          "hash": "Ln3X+ZMW7ge6E8wMSsxxkw=="
+          "hash": "dHPJzJ3hyUp/h/PIKDE5Vw=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "w04ysIS7Gf50MLa6JMTHRg=="
+          "hash": "l8533AfRgx36V6pSVSWy6g=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "B2Py6NxM0IlFWtn2MYFrVg=="
+          "hash": "UJz6cgFHobNKcTZ3zx/0LA=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "GtreP54tJ4mwPwzfMNvf0Q=="
+          "hash": "RzeY3mN+45Ut6piGtWTX7Q=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Constants.html",
-          "hash": "DtDwfPidLkiZm0Ipks+NMg=="
+          "hash": "RaHkSAJIU6Ig6n/86FzztQ=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ExistingUserException.html",
-          "hash": "wKPA4UJrCMVR0NAW98CtaA=="
+          "hash": "lm5t5tBe2PE+OgiodlCHsg=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ForbiddenException.html",
-          "hash": "B0csUZKVYwfBtK6xhYZTEw=="
+          "hash": "NFvTvBiGKujtERDVkYHRDA=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.InvalidEmailOrPasswordException.html",
-          "hash": "VVDRQXimSX7smq3/gmyLmw=="
+          "hash": "gos+uO4rlil9bQauZuEZXg=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.RequestException.html",
-          "hash": "1urFIEZnfJKYyAN8/HKsFg=="
+          "hash": "1a9AiZlM2cBlGt6CrKVdsQ=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Responses.BaseResponse.html",
-          "hash": "bRrMdh1LiZ3mifHqtHMmWA=="
+          "hash": "YrURrbcsijW9DNJ4RlbChw=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Responses.ErrorResponse.html",
-          "hash": "dAO0Y3UQGSbsj+olNJR7uw=="
+          "hash": "NfjxURGkfmjZKsA8AU0/bA=="
         }
       },
       "is_incremental": false,
@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Session.html",
-          "hash": "Y4pb1tZKIC5D828Qqi7rhQ=="
+          "hash": "lSG1ROy7y9XMdtWsiIiTDg=="
         }
       },
       "is_incremental": false,
@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.StatelessClient.StatelessClientOptions.html",
-          "hash": "GQBVRYkLPVHjAwy3lwuOiw=="
+          "hash": "gU3btSy9O4sWTD9IhSgl9A=="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.StatelessClient.html",
-          "hash": "UyldFdph988mZDuZV/1XSg=="
+          "hash": "wqR2P4bj6cTHXeLSdaIjow=="
         }
       },
       "is_incremental": false,
@@ -249,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UnauthorizedException.html",
-          "hash": "QMOj1P4cYt+1x2HyKe2G/A=="
+          "hash": "G6tU6EAVGuNzlsxfXkbq+g=="
         }
       },
       "is_incremental": false,
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.User.html",
-          "hash": "i7Kn7EBF6w5wmvull7j1pw=="
+          "hash": "gOap7A/qiEwXrmwhzLlVoQ=="
         }
       },
       "is_incremental": false,
@@ -273,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UserAttributes.html",
-          "hash": "P3iQ7NR9XNMRSTApE9bY6w=="
+          "hash": "t0QXV9M3gJ8hPvCD4Pq9KA=="
         }
       },
       "is_incremental": false,
@@ -285,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Util.html",
-          "hash": "GX5I9m984+Plje2WthS7FQ=="
+          "hash": "EQl4vZrqdsQXwgDunXBjFQ=="
         }
       },
       "is_incremental": false,
@@ -297,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.VerifyOTPParams.html",
-          "hash": "2uBkIWvWvyhQN/Lvguj7jw=="
+          "hash": "LNksbq7c+rrWF+FI5d0iWQ=="
         }
       },
       "is_incremental": false,
@@ -321,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "WmTLcTcH6T1xuk5xvtLGeQ=="
+          "hash": "dME0+zaSkp0m8lGBYSLyCA=="
         }
       },
       "is_incremental": false,
@@ -345,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "QBxwIGRrGonQNcdm7+I7pQ=="
+          "hash": "HomqrmycGvWXtLSqAGm5Lw=="
         }
       },
       "is_incremental": false,
