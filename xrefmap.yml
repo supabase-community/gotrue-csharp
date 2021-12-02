@@ -1307,6 +1307,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.RefreshToken
   nameWithType: StatelessClient.RefreshToken
+- uid: Supabase.Gotrue.StatelessClient.ResetPasswordForEmail(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name: ResetPasswordForEmail(String, StatelessClient.StatelessClientOptions)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ResetPasswordForEmail_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
+  commentId: M:Supabase.Gotrue.StatelessClient.ResetPasswordForEmail(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  fullName: Supabase.Gotrue.StatelessClient.ResetPasswordForEmail(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  nameWithType: StatelessClient.ResetPasswordForEmail(String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.StatelessClient.ResetPasswordForEmail*
+  name: ResetPasswordForEmail
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ResetPasswordForEmail_
+  commentId: Overload:Supabase.Gotrue.StatelessClient.ResetPasswordForEmail
+  isSpec: "True"
+  fullName: Supabase.Gotrue.StatelessClient.ResetPasswordForEmail
+  nameWithType: StatelessClient.ResetPasswordForEmail
 - uid: Supabase.Gotrue.StatelessClient.SendMagicLink(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
   name: SendMagicLink(String, StatelessClient.StatelessClientOptions)
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_SendMagicLink_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
