@@ -127,9 +127,11 @@ Provided the credentials are correct, make sure that the User has also confirmed
 
 Join the ranks! See a problem? Help fix it!
 
-| <img src="https://github.com/acupofjose.png" width="150" height="150"> | <img src="https://github.com/elrhomariyounes.png" width="150" height="150"> | <img src="https://github.com/phxtho.png" width="150" height="150"> |
-| :--------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :----------------------------------------------------------------: |
-|              [acupofjose](https://github.com/acupofjose)               |              [elrhomariyounes](https://github.com/elrhomariyounes)          |                [phxtho](https://github.com/phxtho)                 |
+<a href="https://github.com/supabase-community/gotrue-csharp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=supabase-community/gotrue-csharp" />
+</a>
+
+<small>Made with [contrib.rocks](https://contrib.rocks).</small>
 
 ## Contributing
 
