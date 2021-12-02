@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.2.3 - 2021-12-2
+
+- [#11](https://github.com/supabase-community/gotrue-csharp/pull/11) Add reset password capability (Thanks [@phxtho](https://github.com/phxtho)!)
+
 ## 2.2.2 - 2021-11-29
 
 - [#12](https://github.com/supabase-community/supabase-csharp/issues/12) Add a `AuthState.TokenRefreshed` trigger on Token Refresh (along with test).
