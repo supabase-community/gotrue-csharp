@@ -1,5 +1,6 @@
 ﻿version: "3"
 services:
+
   gotrue:
     image: supabase/gotrue:latest
     ports:
@@ -25,8 +26,9 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+
   db:
-    image: supabase/postgres
+    image: postgres:13
     restart: unless-stopped
     ports:
       - "5432:5432"
