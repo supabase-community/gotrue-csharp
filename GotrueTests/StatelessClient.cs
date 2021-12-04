@@ -228,5 +228,51 @@ namespace GotrueTests
             var result = await ResetPasswordForEmail(email, options);
             Assert.IsTrue(result);
         }
+
+        [TestMethod("Client: Lists users")]
+        public async Task ClientListUsers()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await ListUsers(service_role_key, options);
+
+            Assert.IsTrue(result.Users.Count > 0);
+        }
+
+        [TestMethod("Client: Lists users pagination")]
+        public async Task ClientListUsersPagination()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+
+            var page1 = await ListUsers(service_role_key, options, page: 1, perPage: 1);
+            var page2 = await ListUsers(service_role_key, options, page: 2, perPage: 1);
+
+            Assert.AreEqual(page1.Users.Count, 1);
+            Assert.AreEqual(page2.Users.Count, 1);
+            Assert.AreNotEqual(page1.Users[0].Id, page2.Users[0].Id);
+        }
+
+        [TestMethod("Client: Lists users sort")]
+        public async Task ClientListUsersSort()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+
+            var result1 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: Constants.SORT_ORDER.DESC);
+            var result2 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: Constants.SORT_ORDER.ASC);
+
+            Assert.AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
+        }
+
+        [TestMethod("Client: Lists users filter")]
+        public async Task ClientListUsersFilter()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+
+            var result1 = await ListUsers(service_role_key, options, filter: "@nonexistingrandomemailprovider.com");
+            var result2 = await ListUsers(service_role_key, options, filter: "@supabase.io");
+
+            Assert.AreNotEqual(result2.Users.Count, 0);
+            Assert.AreEqual(result1.Users.Count, 0);
+            Assert.AreNotEqual(result1.Users.Count, result2.Users.Count);
+        }
     }
 }
