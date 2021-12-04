@@ -281,6 +281,26 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="userData"></param>
+        /// <returns></returns>
+        public Task<User> CreateUser(string jwt, string email, string password, object userData = null)
+        {
+            var data = new Dictionary<string, object> { { "email", email }, { "password", password } };
+
+            if(userData != null)
+            {
+                data.Add("data", userData);
+            }
+
+            return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
+        }
+
+        /// <summary>
         /// Delete a user
         /// </summary>
         /// <param name="uid">The user uid you want to remove.</param>
