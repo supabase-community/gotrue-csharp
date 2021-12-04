@@ -100,15 +100,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.InviteUserByEmail
   nameWithType: Api.InviteUserByEmail
-- uid: Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SORT_ORDER,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, String, String, Constants.SORT_ORDER, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SORT_ORDER_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SORT_ORDER,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, String, String, Constants.SORT_ORDER, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Api.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SORT_ORDER, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Api.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SORT_ORDER, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: Api.ListUsers(String, String, String, Constants.SORT_ORDER, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: Api.ListUsers(String, String, String, Constants.SORT_ORDER, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Api.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Api.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: Api.ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: Api.ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Api.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_
@@ -521,15 +521,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.InviteUserByEmail
   nameWithType: Client.InviteUserByEmail
-- uid: Supabase.Gotrue.Client.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SORT_ORDER,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, String, String, Constants.SORT_ORDER, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SORT_ORDER_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Client.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SORT_ORDER,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, String, String, Constants.SORT_ORDER, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Client.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SORT_ORDER, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Client.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SORT_ORDER, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: Client.ListUsers(String, String, String, Constants.SORT_ORDER, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: Client.ListUsers(String, String, String, Constants.SORT_ORDER, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Client.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Client.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Client.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Client.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: Client.ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: Client.ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Client.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListUsers_
@@ -1006,24 +1006,24 @@ references:
   commentId: F:Supabase.Gotrue.Constants.GOTRUE_URL
   fullName: Supabase.Gotrue.Constants.GOTRUE_URL
   nameWithType: Constants.GOTRUE_URL
-- uid: Supabase.Gotrue.Constants.SORT_ORDER
-  name: Constants.SORT_ORDER
-  href: api/Supabase.Gotrue.Constants.SORT_ORDER.html
-  commentId: T:Supabase.Gotrue.Constants.SORT_ORDER
-  fullName: Supabase.Gotrue.Constants.SORT_ORDER
-  nameWithType: Constants.SORT_ORDER
-- uid: Supabase.Gotrue.Constants.SORT_ORDER.ASC
-  name: ASC
-  href: api/Supabase.Gotrue.Constants.SORT_ORDER.html#Supabase_Gotrue_Constants_SORT_ORDER_ASC
-  commentId: F:Supabase.Gotrue.Constants.SORT_ORDER.ASC
-  fullName: Supabase.Gotrue.Constants.SORT_ORDER.ASC
-  nameWithType: Constants.SORT_ORDER.ASC
-- uid: Supabase.Gotrue.Constants.SORT_ORDER.DESC
-  name: DESC
-  href: api/Supabase.Gotrue.Constants.SORT_ORDER.html#Supabase_Gotrue_Constants_SORT_ORDER_DESC
-  commentId: F:Supabase.Gotrue.Constants.SORT_ORDER.DESC
-  fullName: Supabase.Gotrue.Constants.SORT_ORDER.DESC
-  nameWithType: Constants.SORT_ORDER.DESC
+- uid: Supabase.Gotrue.Constants.SortOrder
+  name: Constants.SortOrder
+  href: api/Supabase.Gotrue.Constants.SortOrder.html
+  commentId: T:Supabase.Gotrue.Constants.SortOrder
+  fullName: Supabase.Gotrue.Constants.SortOrder
+  nameWithType: Constants.SortOrder
+- uid: Supabase.Gotrue.Constants.SortOrder.Ascending
+  name: Ascending
+  href: api/Supabase.Gotrue.Constants.SortOrder.html#Supabase_Gotrue_Constants_SortOrder_Ascending
+  commentId: F:Supabase.Gotrue.Constants.SortOrder.Ascending
+  fullName: Supabase.Gotrue.Constants.SortOrder.Ascending
+  nameWithType: Constants.SortOrder.Ascending
+- uid: Supabase.Gotrue.Constants.SortOrder.Descending
+  name: Descending
+  href: api/Supabase.Gotrue.Constants.SortOrder.html#Supabase_Gotrue_Constants_SortOrder_Descending
+  commentId: F:Supabase.Gotrue.Constants.SortOrder.Descending
+  fullName: Supabase.Gotrue.Constants.SortOrder.Descending
+  nameWithType: Constants.SortOrder.Descending
 - uid: Supabase.Gotrue.Constants.STORAGE_KEY
   name: STORAGE_KEY
   href: api/Supabase.Gotrue.Constants.html#Supabase_Gotrue_Constants_STORAGE_KEY
@@ -1448,15 +1448,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.InviteUserByEmail
   nameWithType: StatelessClient.InviteUserByEmail
-- uid: Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SORT_ORDER,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SORT_ORDER, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ListUsers_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_System_String_Supabase_Gotrue_Constants_SORT_ORDER_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SORT_ORDER,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SORT_ORDER, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SORT_ORDER, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SORT_ORDER, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SORT_ORDER, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SORT_ORDER, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ListUsers_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.StatelessClient.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ListUsers_
