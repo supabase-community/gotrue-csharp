@@ -313,6 +313,15 @@ namespace GotrueTests
             Assert.AreEqual(userResult.Email, userByIdResult.Email);
         }
 
+        [TestMethod("Client: Create a user")]
+        public async Task ClientCreateUser()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await client.CreateUser(service_role_key, $"{RandomString(12)}@supabase.io", password);
+
+            Assert.IsNotNull(result);
+        }
+
         [TestMethod("Client: Deletes User")]
         public async Task ClientDeletesUser()
         {

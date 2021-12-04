@@ -287,5 +287,14 @@ namespace GotrueTests
             Assert.AreEqual(userResult.Id, userByIdResult.Id);
             Assert.AreEqual(userResult.Email, userByIdResult.Email);
         }
+
+        [TestMethod("Client: Create a user")]
+        public async Task ClientCreateUser()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await CreateUser(service_role_key, options, $"{RandomString(12)}@supabase.io", password);
+
+            Assert.IsNotNull(result);
+        }
     }
 }
