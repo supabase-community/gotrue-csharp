@@ -213,6 +213,19 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Get User details by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Task<User> GetUserById(string jwt,string userId)
+        {
+            var data = new Dictionary<string, string> { };
+
+            return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/admin/users/{userId}", data, CreateAuthedRequestHeaders(jwt));
+        }
+
+        /// <summary>
         /// Updates the User data
         /// </summary>
         /// <param name="jwt"></param>
