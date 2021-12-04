@@ -277,6 +277,24 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Get User details by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static async Task<User> GetUserById(string jwt, StatelessClientOptions options, string userId)
+        {
+            try
+            {
+                return await GetApi(options).GetUserById(jwt, userId);
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
         /// Deletes a User.
         /// </summary>
         /// <param name="uid"></param>

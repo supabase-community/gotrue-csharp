@@ -502,6 +502,24 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Get User details by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<User> GetUserById(string jwt, string userId)
+        {
+            try
+            {
+                return await api.GetUserById(jwt, userId);
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
         /// Sends a reset request to an email address.
         /// </summary>
         /// <param name="email"></param>
