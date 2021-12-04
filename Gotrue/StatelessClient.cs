@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Attributes;
+using static Supabase.Gotrue.Api;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
 
@@ -264,7 +265,7 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public static async Task<UserList> ListUsers(string jwt, StatelessClientOptions options, string filter = null, string sortBy = null, SORT_ORDER sortOrder = SORT_ORDER.DESC, int? page = null, int? perPage = null)
+        public static async Task<UserList> ListUsers(string jwt, StatelessClientOptions options, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             try
             {

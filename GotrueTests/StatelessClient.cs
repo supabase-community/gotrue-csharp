@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.StatelessClient;
+using static Supabase.Gotrue.Constants;
 
 namespace GotrueTests
 {
@@ -256,8 +257,8 @@ namespace GotrueTests
         {
             var service_role_key = GenerateServiceRoleToken();
 
-            var result1 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: Constants.SORT_ORDER.DESC);
-            var result2 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: Constants.SORT_ORDER.ASC);
+            var result1 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: SortOrder.Descending);
+            var result2 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: SortOrder.Ascending);
 
             Assert.AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
         }

@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 using Supabase.Gotrue.Responses;
 using System.Threading;
+using Supabase.Gotrue.Attributes;
+using System.Linq;
 
 namespace Supabase.Gotrue
 {
@@ -17,6 +19,14 @@ namespace Supabase.Gotrue
         public static T GetPropertyValue<T>(object obj, string propName) => (T)obj.GetType().GetProperty(propName).GetValue(obj, null);
         public static T GetCustomAttribute<T>(object obj) where T : Attribute => (T)Attribute.GetCustomAttribute(obj.GetType(), typeof(T));
         public static T GetCustomAttribute<T>(Type type) where T : Attribute => (T)Attribute.GetCustomAttribute(type, typeof(T));
+
+        public static MapToAttribute GetMappedToAttr(Enum obj)
+        {
+            var type = obj.GetType();
+            var name = Enum.GetName(type, obj);
+
+            return type.GetField(name).GetCustomAttributes(false).OfType<MapToAttribute>().SingleOrDefault();
+        }
 
         private static readonly HttpClient client = new HttpClient();
 

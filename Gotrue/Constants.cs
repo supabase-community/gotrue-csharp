@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Supabase.Gotrue.Attributes;
 
 namespace Supabase.Gotrue
 {
@@ -17,10 +18,13 @@ namespace Supabase.Gotrue
             { "path", "/" },
             { "sameSite", "lax" }
         };
-        public enum SORT_ORDER
+
+        public enum SortOrder
         {
-            ASC,
-            DESC
+            [MapTo("asc")]
+            Ascending,
+            [MapTo("desc")]
+            Descending
         }
     }
 }

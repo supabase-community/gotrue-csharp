@@ -173,7 +173,7 @@ namespace Supabase.Gotrue
         internal string GetUrlForProvider(Provider provider, string scopes = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
-            var attr = provider.GetType().GetField(provider.ToString()).GetCustomAttributes(typeof(MapToAttribute), true).First();
+            var attr = Helpers.GetMappedToAttr(provider);
 
             if (attr is MapToAttribute mappedAttr)
             {
@@ -218,7 +218,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Task<User> GetUserById(string jwt,string userId)
+        public Task<User> GetUserById(string jwt, string userId)
         {
             var data = new Dictionary<string, string> { };
 
@@ -246,14 +246,14 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SORT_ORDER sortOrder = SORT_ORDER.DESC, int? page = null, int? perPage = null)
+        public Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             var data = TransformListUsersParams(filter, sortBy, sortOrder, page, perPage);
 
             return Helpers.MakeRequest<UserList>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
         }
 
-        internal Dictionary<string, string> TransformListUsersParams(string filter = null, string sortBy = null, SORT_ORDER sortOrder = SORT_ORDER.DESC, int? page = null, int? perPage = null)
+        internal Dictionary<string, string> TransformListUsersParams(string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             var query = new Dictionary<string, string> { };
 
@@ -264,7 +264,8 @@ namespace Supabase.Gotrue
 
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
-                query.Add("sort", $"{sortBy} {sortOrder.ToString().ToLower()}");
+                var mapTo = Helpers.GetMappedToAttr(sortOrder);
+                query.Add("sort", $"{sortBy} {mapTo.Mapping}");
             }
 
             if (page.HasValue)
@@ -292,7 +293,7 @@ namespace Supabase.Gotrue
         {
             var data = new Dictionary<string, object> { { "email", email }, { "password", password } };
 
-            if(userData != null)
+            if (userData != null)
             {
                 data.Add("data", userData);
             }
