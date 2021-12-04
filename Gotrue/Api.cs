@@ -301,6 +301,18 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Update user by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public Task<User> UpdateUserById(string jwt, string userId, UserAttributes userData)
+        {
+            return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/admin/users/{userId}", userData, CreateAuthedRequestHeaders(jwt));
+        }
+
+        /// <summary>
         /// Delete a user
         /// </summary>
         /// <param name="uid">The user uid you want to remove.</param>
