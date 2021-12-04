@@ -114,6 +114,7 @@ Provided the credentials are correct, make sure that the User has also confirmed
   - [x] Update User
   - [x] Refresh Access Token
   - [x] List users (includes filtering, sorting, pagination)
+  - [x] Get user by Id
 - [x] Client
   - [x] Get User
   - [x] Refresh Session
