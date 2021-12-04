@@ -520,6 +520,26 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="userData"></param>
+        /// <returns></returns>
+        public async Task<User> CreateUser(string jwt, string email, string password, object userData = null)
+        {
+            try
+            {
+                return await api.CreateUser(jwt, email, password, userData);
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
         /// Sends a reset request to an email address.
         /// </summary>
         /// <param name="email"></param>
