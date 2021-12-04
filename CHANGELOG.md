@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.2.4 - 2021-12-4
+
+- [#14](https://github.com/supabase-community/gotrue-csharp/pull/14) Implemented `ListUsers` (paginate, sort, filter), `GetUserById`, `CreateUser`, `UpdateById` (Thanks [@TheOnlyBeardedBeast](https://github.com/TheOnlyBeardedBeast])!)
+
 ## 2.2.3 - 2021-12-2
 
 - [#11](https://github.com/supabase-community/gotrue-csharp/pull/11) Add reset password capability (Thanks [@phxtho](https://github.com/phxtho)!)
