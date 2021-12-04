@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Supabase.Gotrue.Attributes;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
+using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
@@ -220,6 +221,50 @@ namespace Supabase.Gotrue
         public Task<User> UpdateUser(string jwt, UserAttributes attributes)
         {
             return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/user", attributes, CreateAuthedRequestHeaders(jwt));
+        }
+
+        /// <summary>
+        /// Lists users
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="filter">A string for example part of the email</param>
+        /// <param name="sortBy">Snake case string of the given key, currently only created_at is suppported</param>
+        /// <param name="sortOrder">asc or desc, if null desc is used</param>
+        /// <param name="page">page to show for pagination</param>
+        /// <param name="perPage">items per page for pagination</param>
+        /// <returns></returns>
+        public Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SORT_ORDER sortOrder = SORT_ORDER.DESC, int? page = null, int? perPage = null)
+        {
+            var data = TransformListUsersParams(filter, sortBy, sortOrder, page, perPage);
+
+            return Helpers.MakeRequest<UserList>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
+        }
+
+        internal Dictionary<string, string> TransformListUsersParams(string filter = null, string sortBy = null, SORT_ORDER sortOrder = SORT_ORDER.DESC, int? page = null, int? perPage = null)
+        {
+            var query = new Dictionary<string, string> { };
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                query.Add("filter", filter);
+            }
+
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                query.Add("sort", $"{sortBy} {sortOrder.ToString().ToLower()}");
+            }
+
+            if (page.HasValue)
+            {
+                query.Add("page", page.Value.ToString());
+            }
+
+            if (perPage.HasValue)
+            {
+                query.Add("per_page", perPage.Value.ToString());
+            }
+
+            return query;
         }
 
         /// <summary>
