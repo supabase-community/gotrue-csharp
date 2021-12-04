@@ -113,6 +113,10 @@ Provided the credentials are correct, make sure that the User has also confirmed
   - [x] Get User
   - [x] Update User
   - [x] Refresh Access Token
+  - [x] List Users (includes filtering, sorting, pagination)
+  - [x] Get User by Id
+  - [x] Create User
+  - [x] Update User by Id
 - [x] Client
   - [x] Get User
   - [x] Refresh Session

@@ -63,4 +63,13 @@ namespace Supabase.Gotrue
         [JsonProperty("token")]
         public string Token { get; set; }
     }
+
+    public class UserList
+    {
+        [JsonProperty("aud")]
+        public string Aud { get; set; }
+
+        [JsonProperty("users")]
+        public List<User> Users { get; set; }
+    }
 }

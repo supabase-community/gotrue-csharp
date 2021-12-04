@@ -17,5 +17,10 @@ namespace Supabase.Gotrue
             { "path", "/" },
             { "sameSite", "lax" }
         };
+        public enum SORT_ORDER
+        {
+            ASC,
+            DESC
+        }
     }
 }

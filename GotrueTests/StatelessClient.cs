@@ -228,5 +228,89 @@ namespace GotrueTests
             var result = await ResetPasswordForEmail(email, options);
             Assert.IsTrue(result);
         }
+
+        [TestMethod("Client: Lists users")]
+        public async Task ClientListUsers()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await ListUsers(service_role_key, options);
+
+            Assert.IsTrue(result.Users.Count > 0);
+        }
+
+        [TestMethod("Client: Lists users pagination")]
+        public async Task ClientListUsersPagination()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+
+            var page1 = await ListUsers(service_role_key, options, page: 1, perPage: 1);
+            var page2 = await ListUsers(service_role_key, options, page: 2, perPage: 1);
+
+            Assert.AreEqual(page1.Users.Count, 1);
+            Assert.AreEqual(page2.Users.Count, 1);
+            Assert.AreNotEqual(page1.Users[0].Id, page2.Users[0].Id);
+        }
+
+        [TestMethod("Client: Lists users sort")]
+        public async Task ClientListUsersSort()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+
+            var result1 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: Constants.SORT_ORDER.DESC);
+            var result2 = await ListUsers(service_role_key, options, sortBy: "created_at", sortOrder: Constants.SORT_ORDER.ASC);
+
+            Assert.AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
+        }
+
+        [TestMethod("Client: Lists users filter")]
+        public async Task ClientListUsersFilter()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+
+            var result1 = await ListUsers(service_role_key, options, filter: "@nonexistingrandomemailprovider.com");
+            var result2 = await ListUsers(service_role_key, options, filter: "@supabase.io");
+
+            Assert.AreNotEqual(result2.Users.Count, 0);
+            Assert.AreEqual(result1.Users.Count, 0);
+            Assert.AreNotEqual(result1.Users.Count, result2.Users.Count);
+        }
+
+        [TestMethod("Client: Get User by Id")]
+        public async Task ClientGetUserById()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await ListUsers(service_role_key, options, page: 1, perPage: 1);
+
+            var userResult = result.Users[0];
+            var userByIdResult = await GetUserById(service_role_key, options, userResult.Id);
+
+            Assert.AreEqual(userResult.Id, userByIdResult.Id);
+            Assert.AreEqual(userResult.Email, userByIdResult.Email);
+        }
+
+        [TestMethod("Client: Create a user")]
+        public async Task ClientCreateUser()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await CreateUser(service_role_key, options, $"{RandomString(12)}@supabase.io", password);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod("Client: Update User by Id")]
+        public async Task ClientUpdateUserById()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var createdUser = await CreateUser(service_role_key, options, $"{RandomString(12)}@supabase.io", password);
+
+            Assert.IsNotNull(createdUser);
+
+            var updatedUser = await UpdateUserById(service_role_key, options, createdUser.Id, new UserAttributes { Email = $"{RandomString(12)}@supabase.io" });
+
+            Assert.IsNotNull(updatedUser);
+
+            Assert.AreEqual(createdUser.Id, updatedUser.Id);
+            Assert.AreNotEqual(createdUser.Email, updatedUser.Email);
+        }
     }
 }
