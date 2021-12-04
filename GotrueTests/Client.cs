@@ -322,6 +322,23 @@ namespace GotrueTests
             Assert.IsNotNull(result);
         }
 
+
+        [TestMethod("Client: Update User by Id")]
+        public async Task ClientUpdateUserById()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var createdUser = await client.CreateUser(service_role_key, $"{RandomString(12)}@supabase.io", password);
+
+            Assert.IsNotNull(createdUser);
+
+            var updatedUser = await client.UpdateUserById(service_role_key, createdUser.Id, new UserAttributes { Email = $"{RandomString(12)}@supabase.io" });
+
+            Assert.IsNotNull(updatedUser);
+
+            Assert.AreEqual(createdUser.Id, updatedUser.Id);
+            Assert.AreNotEqual(createdUser.Email, updatedUser.Email);
+        }
+
         [TestMethod("Client: Deletes User")]
         public async Task ClientDeletesUser()
         {
