@@ -300,6 +300,19 @@ namespace GotrueTests
             Assert.AreNotEqual(result1.Users.Count, result2.Users.Count);
         }
 
+        [TestMethod("Client: Get User by Id")]
+        public async Task ClientGetUserById()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await client.ListUsers(service_role_key,page:1,perPage:1);
+
+            var userResult = result.Users[0];
+            var userByIdResult = await client.GetUserById(service_role_key, userResult.Id);
+
+            Assert.AreEqual(userResult.Id, userByIdResult.Id);
+            Assert.AreEqual(userResult.Email, userByIdResult.Email);
+        }
+
         [TestMethod("Client: Deletes User")]
         public async Task ClientDeletesUser()
         {

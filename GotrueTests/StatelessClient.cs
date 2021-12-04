@@ -274,5 +274,18 @@ namespace GotrueTests
             Assert.AreEqual(result1.Users.Count, 0);
             Assert.AreNotEqual(result1.Users.Count, result2.Users.Count);
         }
+
+        [TestMethod("Client: Get User by Id")]
+        public async Task ClientGetUserById()
+        {
+            var service_role_key = GenerateServiceRoleToken();
+            var result = await ListUsers(service_role_key, options, page: 1, perPage: 1);
+
+            var userResult = result.Users[0];
+            var userByIdResult = await GetUserById(service_role_key, options, userResult.Id);
+
+            Assert.AreEqual(userResult.Id, userByIdResult.Id);
+            Assert.AreEqual(userResult.Email, userByIdResult.Email);
+        }
     }
 }
