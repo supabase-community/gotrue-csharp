@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 2.3.0 - 2021-12-23
+
+- [#15](https://github.com/supabase-community/gotrue-csharp/issues/15) Added optional `metadata` parameter for user `SignUp` functions.
+- Introduces a change into `User.AppMetadata` and `User.UserMetadata` where types are now `Dictionary<string,object>` rather than just `object`.
+
 ## 2.2.4 - 2021-12-4
 
 - [#14](https://github.com/supabase-community/gotrue-csharp/pull/14) Implemented `ListUsers` (paginate, sort, filter), `GetUserById`, `CreateUser`, `UpdateById` (Thanks [@TheOnlyBeardedBeast](https://github.com/TheOnlyBeardedBeast])!)
