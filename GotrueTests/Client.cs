@@ -79,9 +79,10 @@ namespace GotrueTests
 
 
             var phone1 = GetRandomPhoneNumber();
-            session = await client.SignUp(SignUpType.Phone, phone1, password);
+            session = await client.SignUp(SignUpType.Phone, phone1, password, new Dictionary<string, object> { { "firstName", "Testing" } });
 
             Assert.IsNotNull(session.AccessToken);
+            Assert.AreEqual("Testing", session.User.UserMetadata["firstName"]);
         }
 
         [TestMethod("Client: Signs Up the same user twice should throw BadRequestException")]
@@ -269,12 +270,12 @@ namespace GotrueTests
         {
             var service_role_key = GenerateServiceRoleToken();
 
-            var page1 = await client.ListUsers(service_role_key,page:1,perPage:1);
+            var page1 = await client.ListUsers(service_role_key, page: 1, perPage: 1);
             var page2 = await client.ListUsers(service_role_key, page: 2, perPage: 1);
 
             Assert.AreEqual(page1.Users.Count, 1);
-            Assert.AreEqual(page2.Users.Count,1);
-            Assert.AreNotEqual(page1.Users[0].Id,page2.Users[0].Id);
+            Assert.AreEqual(page2.Users.Count, 1);
+            Assert.AreNotEqual(page1.Users[0].Id, page2.Users[0].Id);
         }
 
         [TestMethod("Client: Lists users sort")]
@@ -282,7 +283,7 @@ namespace GotrueTests
         {
             var service_role_key = GenerateServiceRoleToken();
 
-            var result1 = await client.ListUsers(service_role_key, sortBy:"created_at", sortOrder: SortOrder.Ascending);
+            var result1 = await client.ListUsers(service_role_key, sortBy: "created_at", sortOrder: SortOrder.Ascending);
             var result2 = await client.ListUsers(service_role_key, sortBy: "created_at", sortOrder: SortOrder.Descending);
 
             Assert.AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
@@ -305,7 +306,7 @@ namespace GotrueTests
         public async Task ClientGetUserById()
         {
             var service_role_key = GenerateServiceRoleToken();
-            var result = await client.ListUsers(service_role_key,page:1,perPage:1);
+            var result = await client.ListUsers(service_role_key, page: 1, perPage: 1);
 
             var userResult = result.Users[0];
             var userByIdResult = await client.GetUserById(service_role_key, userResult.Id);
@@ -362,6 +363,6 @@ namespace GotrueTests
             Assert.IsTrue(result);
         }
 
-        
+
     }
 }

@@ -30,7 +30,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static Task<Session> SignUp(string email, string password, StatelessClientOptions options) => SignUp(SignUpType.Email, email, password, options);
+        public static Task<Session> SignUp(string email, string password, StatelessClientOptions options, Dictionary<string, object> metadata = null) => SignUp(SignUpType.Email, email, password, options, metadata);
 
         /// <summary>
         /// Signs up a user
@@ -39,7 +39,7 @@ namespace Supabase.Gotrue
         /// <param name="identifier">Phone or Email</param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static async Task<Session> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options)
+        public static async Task<Session> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, Dictionary<string, object> metadata = null)
         {
             try
             {
@@ -48,10 +48,10 @@ namespace Supabase.Gotrue
                 switch (type)
                 {
                     case SignUpType.Email:
-                        session = await api.SignUpWithEmail(identifier, password);
+                        session = await api.SignUpWithEmail(identifier, password, metadata);
                         break;
                     case SignUpType.Phone:
-                        session = await api.SignUpWithPhone(identifier, password);
+                        session = await api.SignUpWithPhone(identifier, password, metadata);
                         break;
                 }
 

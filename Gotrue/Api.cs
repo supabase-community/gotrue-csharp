@@ -39,10 +39,10 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<Session> SignUpWithEmail(string email, string password)
+        public Task<Session> SignUpWithEmail(string email, string password, Dictionary<string, object> metadata = null)
         {
-            var data = new Dictionary<string, string> { { "email", email }, { "password", password } };
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", data, Headers);
+            var body = new Dictionary<string, object> { { "email", email }, { "password", password }, { "data", metadata } };
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
         }
 
         /// <summary>
@@ -53,8 +53,8 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public Task<Session> SignInWithEmail(string email, string password)
         {
-            var data = new Dictionary<string, string> { { "email", email }, { "password", password } };
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", data, Headers);
+            var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", body, Headers);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Supabase.Gotrue
         /// <param name="password">The password of the user.</param>
         /// <param name="metadata">User Metadata (optional)</param>
         /// <returns></returns>
-        public Task<Session> SignUpWithPhone(string phone, string password, Dictionary<string, string> metadata = null)
+        public Task<Session> SignUpWithPhone(string phone, string password, Dictionary<string, object> metadata = null)
         {
             var data = new Dictionary<string, object> {
                 { "phone", phone },

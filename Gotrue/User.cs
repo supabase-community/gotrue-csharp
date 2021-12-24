@@ -13,10 +13,10 @@ namespace Supabase.Gotrue
         public string Id { get; set; }
 
         [JsonProperty("app_metadata")]
-        public object AppMetadata { get; set; }
+        public Dictionary<string, object> AppMetadata { get; set; }
 
         [JsonProperty("user_metadata")]
-        public object UserMetadata { get; set; }
+        public Dictionary<string, object> UserMetadata { get; set; }
 
         [JsonProperty("aud")]
         public string Aud { get; set; }

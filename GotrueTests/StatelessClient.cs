@@ -75,9 +75,10 @@ namespace GotrueTests
 
 
             var phone1 = GetRandomPhoneNumber();
-            session = await SignUp(SignUpType.Phone, phone1, password, options);
+            session = await SignUp(SignUpType.Phone, phone1, password, options, new Dictionary<string, object> { { "firstName", "Testing" } });
 
             Assert.IsNotNull(session.AccessToken);
+            Assert.AreEqual("Testing", session.User.UserMetadata["firstName"]);
         }
 
         [TestMethod("StatelessClient: Signs Up the same user twice should throw BadRequest")]
