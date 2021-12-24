@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 2.3.1 - 2012-12-24
+
+- Minor: `CreateUser` signature exchanges `object userdata` with `AdminUserAttributes attributes`.
+- [#16](https://github.com/supabase-community/gotrue-csharp/issues/16) Conforms `CreateUser` to the `AdminUserAttributes` request format.
+
 ## 2.3.0 - 2021-12-23
 
 - [#15](https://github.com/supabase-community/gotrue-csharp/issues/15) Added optional `metadata` parameter for user `SignUp` functions.
