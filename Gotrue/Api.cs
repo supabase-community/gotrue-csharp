@@ -289,16 +289,9 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public Task<User> CreateUser(string jwt, string email, string password, object userData = null)
+        public Task<User> CreateUser(string jwt, AdminUserAttributes attributes = null)
         {
-            var data = new Dictionary<string, object> { { "email", email }, { "password", password } };
-
-            if (userData != null)
-            {
-                data.Add("data", userData);
-            }
-
-            return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", attributes, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>

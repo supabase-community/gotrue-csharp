@@ -521,18 +521,36 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        /// Create a user
+        /// Create a user (as a service_role)
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <param name="userData"></param>
+        /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<User> CreateUser(string jwt, string email, string password, object userData = null)
+        public Task<User> CreateUser(string jwt, string email, string password, AdminUserAttributes attributes = null)
+        {
+            if (attributes == null)
+            {
+                attributes = new AdminUserAttributes();
+            }
+            attributes.Email = email;
+            attributes.Password = password;
+
+            return CreateUser(jwt, attributes);
+        }
+
+        /// <summary>
+        /// Create a user (as a service_role)
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public async Task<User> CreateUser(string jwt, AdminUserAttributes attributes)
         {
             try
             {
-                return await api.CreateUser(jwt, email, password, userData);
+                return await api.CreateUser(jwt, attributes);
             }
             catch (RequestException ex)
             {

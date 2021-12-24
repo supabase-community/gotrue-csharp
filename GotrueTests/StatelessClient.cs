@@ -297,6 +297,17 @@ namespace GotrueTests
             var result = await CreateUser(service_role_key, options, $"{RandomString(12)}@supabase.io", password);
 
             Assert.IsNotNull(result);
+
+            var attributes = new AdminUserAttributes
+            {
+                UserMetadata = new Dictionary<string, object> { { "firstName", "123" } },
+            };
+
+            var result2 = await CreateUser(service_role_key, options, $"{RandomString(12)}@supabase.io", password, attributes);
+            Assert.AreEqual("123", result2.UserMetadata["firstName"]);
+
+            var result3 = await CreateUser(service_role_key, options, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = password });
+            Assert.IsNotNull(result3);
         }
 
         [TestMethod("Client: Update User by Id")]

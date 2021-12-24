@@ -301,13 +301,31 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <param name="userData"></param>
+        /// <param name="attributes"></param>
         /// <returns></returns>
-        public static async Task<User> CreateUser(string jwt, StatelessClientOptions options, string email, string password, object userData = null)
+        public static Task<User> CreateUser(string jwt, StatelessClientOptions options, string email, string password, AdminUserAttributes attributes = null)
+        {
+            if (attributes == null)
+            {
+                attributes = new AdminUserAttributes();
+            }
+            attributes.Email = email;
+            attributes.Password = password;
+
+            return CreateUser(jwt, options, attributes);
+        }
+
+        /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public static async Task<User> CreateUser(string jwt, StatelessClientOptions options, AdminUserAttributes attributes)
         {
             try
             {
-                return await GetApi(options).CreateUser(jwt, email, password, userData);
+                return await GetApi(options).CreateUser(jwt, attributes);
             }
             catch (RequestException ex)
             {
