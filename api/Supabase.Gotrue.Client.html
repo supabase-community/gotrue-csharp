@@ -345,19 +345,73 @@ var user = await client.SignIn(&quot;user@email.com&amp;quot;, &quot;fancyPasswo
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_CreateUser_System_String_System_String_System_String_System_Object_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.CreateUser(System.String%2CSystem.String%2CSystem.String%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_CreateUser_System_String_Supabase_Gotrue_AdminUserAttributes_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.CreateUser(System.String%2CSupabase.Gotrue.AdminUserAttributes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L549">View Source</a>
+  </span>
+  <a id="Supabase_Gotrue_Client_CreateUser_" data-uid="Supabase.Gotrue.Client.CreateUser*"></a>
+  <h4 id="Supabase_Gotrue_Client_CreateUser_System_String_Supabase_Gotrue_AdminUserAttributes_" data-uid="Supabase.Gotrue.Client.CreateUser(System.String,Supabase.Gotrue.AdminUserAttributes)">CreateUser(String, AdminUserAttributes)</h4>
+  <div class="markdown level1 summary"><p>Create a user (as a service_role)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;User&gt; CreateUser(string jwt, AdminUserAttributes attributes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">jwt</span></td>
+        <td><p>A valid JWT. Must be a full-access API key (e.g. service_role key).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Supabase.Gotrue.AdminUserAttributes.html">AdminUserAttributes</a></td>
+        <td><span class="parametername">attributes</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<a class="xref" href="Supabase.Gotrue.User.html">User</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_CreateUser_System_String_System_String_System_String_Supabase_Gotrue_AdminUserAttributes_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.CreateUser(System.String%2CSystem.String%2CSystem.String%2CSupabase.Gotrue.AdminUserAttributes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L531">View Source</a>
   </span>
   <a id="Supabase_Gotrue_Client_CreateUser_" data-uid="Supabase.Gotrue.Client.CreateUser*"></a>
-  <h4 id="Supabase_Gotrue_Client_CreateUser_System_String_System_String_System_String_System_Object_" data-uid="Supabase.Gotrue.Client.CreateUser(System.String,System.String,System.String,System.Object)">CreateUser(String, String, String, Object)</h4>
-  <div class="markdown level1 summary"><p>Create a user</p>
+  <h4 id="Supabase_Gotrue_Client_CreateUser_System_String_System_String_System_String_Supabase_Gotrue_AdminUserAttributes_" data-uid="Supabase.Gotrue.Client.CreateUser(System.String,System.String,System.String,Supabase.Gotrue.AdminUserAttributes)">CreateUser(String, String, String, AdminUserAttributes)</h4>
+  <div class="markdown level1 summary"><p>Create a user (as a service_role)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;User&gt; CreateUser(string jwt, string email, string password, object userData = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;User&gt; CreateUser(string jwt, string email, string password, AdminUserAttributes attributes = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -386,8 +440,8 @@ var user = await client.SignIn(&quot;user@email.com&amp;quot;, &quot;fancyPasswo
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">System.Object</span></td>
-        <td><span class="parametername">userData</span></td>
+        <td><a class="xref" href="Supabase.Gotrue.AdminUserAttributes.html">AdminUserAttributes</a></td>
+        <td><span class="parametername">attributes</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -466,7 +520,7 @@ var user = await client.SignIn(&quot;user@email.com&amp;quot;, &quot;fancyPasswo
     <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_GetSessionFromUrl_Uri_System_Boolean_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.GetSessionFromUrl(Uri%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L605">View Source</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L623">View Source</a>
   </span>
   <a id="Supabase_Gotrue_Client_GetSessionFromUrl_" data-uid="Supabase.Gotrue.Client.GetSessionFromUrl*"></a>
   <h4 id="Supabase_Gotrue_Client_GetSessionFromUrl_Uri_System_Boolean_" data-uid="Supabase.Gotrue.Client.GetSessionFromUrl(Uri,System.Boolean)">GetSessionFromUrl(Uri, Boolean)</h4>
@@ -798,7 +852,7 @@ need to define, at the very least, <a class="xref" href="Supabase.Gotrue.ClientO
     <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_RefreshSession.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.RefreshSession%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L586">View Source</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L604">View Source</a>
   </span>
   <a id="Supabase_Gotrue_Client_RefreshSession_" data-uid="Supabase.Gotrue.Client.RefreshSession*"></a>
   <h4 id="Supabase_Gotrue_Client_RefreshSession" data-uid="Supabase.Gotrue.Client.RefreshSession">RefreshSession()</h4>
@@ -829,7 +883,7 @@ need to define, at the very least, <a class="xref" href="Supabase.Gotrue.ClientO
     <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_ResetPasswordForEmail_System_String_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.ResetPasswordForEmail(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L568">View Source</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L586">View Source</a>
   </span>
   <a id="Supabase_Gotrue_Client_ResetPasswordForEmail_" data-uid="Supabase.Gotrue.Client.ResetPasswordForEmail*"></a>
   <h4 id="Supabase_Gotrue_Client_ResetPasswordForEmail_System_String_" data-uid="Supabase.Gotrue.Client.ResetPasswordForEmail(System.String)">ResetPasswordForEmail(String)</h4>
@@ -877,7 +931,7 @@ need to define, at the very least, <a class="xref" href="Supabase.Gotrue.ClientO
     <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_RetrieveSessionAsync.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.RetrieveSessionAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L661">View Source</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L679">View Source</a>
   </span>
   <a id="Supabase_Gotrue_Client_RetrieveSessionAsync_" data-uid="Supabase.Gotrue.Client.RetrieveSessionAsync*"></a>
   <h4 id="Supabase_Gotrue_Client_RetrieveSessionAsync" data-uid="Supabase.Gotrue.Client.RetrieveSessionAsync">RetrieveSessionAsync()</h4>
@@ -1391,7 +1445,7 @@ var session = await client.GetSessionFromUri(uri, true);
     <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_Client_UpdateUserById_System_String_System_String_Supabase_Gotrue_UserAttributes_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.Client.UpdateUserById(System.String%2CSystem.String%2CSupabase.Gotrue.UserAttributes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L550">View Source</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L568">View Source</a>
   </span>
   <a id="Supabase_Gotrue_Client_UpdateUserById_" data-uid="Supabase.Gotrue.Client.UpdateUserById*"></a>
   <h4 id="Supabase_Gotrue_Client_UpdateUserById_System_String_System_String_Supabase_Gotrue_UserAttributes_" data-uid="Supabase.Gotrue.Client.UpdateUserById(System.String,System.String,Supabase.Gotrue.UserAttributes)">UpdateUserById(String, String, UserAttributes)</h4>
