@@ -38,6 +38,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="options">Optional Signup data.</param>
         /// <returns></returns>
         public Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
         {

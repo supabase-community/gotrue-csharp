@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 2.3.2 - 2012-12-25
+
+- Minor: `SignUp` signature now uses a class `SignUpOptions` to include `Data` and `RedirectTo` options. (Ref: [supabase-community/supabase-csharp#16](https://github.com/supabase-community/supabase-csharp/issues/16))
+- Fix [#17](https://github.com/supabase-community/gotrue-csharp/issues/17) and [#18](https://github.com/supabase-community/gotrue-csharp/issues/18)
+
 ## 2.3.1 - 2012-12-24
 
 - Minor: `CreateUser` signature exchanges `object userdata` with `AdminUserAttributes attributes`.
