@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Api.html",
-          "hash": "aOKZa3ph92tM0gYOxE9Arg=="
+          "hash": "4+9cYCGp1xxk8Lob0wb+gw=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "RH10CZ2Xdw5M/AtsPmrOzQ=="
+          "hash": "1pbPrZaXLRuygeoZjdXqBw=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "uHKJsMNSNFjUpG50G3k8iA=="
+          "hash": "9/5yVKy7Aj4ivpPH3brHrg=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "3nF0/6yeacQZr4D4DoXQjA=="
+          "hash": "RFZolRWlLb5B2OH6zRGAmA=="
         }
       },
       "is_incremental": false,
@@ -245,11 +245,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.SignUpOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.SignUpOptions.html",
+          "hash": "5+jXC2kdHXOUJZwHpB/oag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Supabase.Gotrue.StatelessClient.StatelessClientOptions.yml",
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.StatelessClient.StatelessClientOptions.html",
-          "hash": "UKCT70eQoURFr++mnu8pbQ=="
+          "hash": "LUfgAOWYoK8/vHGt0kalfQ=="
         }
       },
       "is_incremental": false,
@@ -261,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.StatelessClient.html",
-          "hash": "50Gyb+fKjZjyB11vAUd/ag=="
+          "hash": "DftqLZB02UQZ+lo4+Z8yaA=="
         }
       },
       "is_incremental": false,
@@ -345,7 +357,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.html",
-          "hash": "sZEyTyJhOT3vZB8nkAj7vg=="
+          "hash": "sYCiS6pFy9l0ihomSvgaeQ=="
         }
       },
       "is_incremental": false,
@@ -369,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "gCOpPDY9DmkjvayQg816tw=="
+          "hash": "uCQbDdckHA7VBRKajU6AZQ=="
         }
       },
       "is_incremental": false,
@@ -420,7 +432,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 29,
+          "total_file_count": 30,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
