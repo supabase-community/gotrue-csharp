@@ -29,8 +29,9 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="signUpOptions">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public static Task<Session> SignUp(string email, string password, StatelessClientOptions options, Dictionary<string, object> metadata = null) => SignUp(SignUpType.Email, email, password, options, metadata);
+        public static Task<Session> SignUp(string email, string password, StatelessClientOptions options, SignUpOptions signUpOptions = null) => SignUp(SignUpType.Email, email, password, options, signUpOptions);
 
         /// <summary>
         /// Signs up a user
@@ -38,8 +39,9 @@ namespace Supabase.Gotrue
         /// <param name="type">Type of signup</param>
         /// <param name="identifier">Phone or Email</param>
         /// <param name="password"></param>
+        /// <param name="signUpOptions">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public static async Task<Session> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, Dictionary<string, object> metadata = null)
+        public static async Task<Session> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, SignUpOptions signUpOptions = null)
         {
             try
             {
@@ -48,10 +50,10 @@ namespace Supabase.Gotrue
                 switch (type)
                 {
                     case SignUpType.Email:
-                        session = await api.SignUpWithEmail(identifier, password, metadata);
+                        session = await api.SignUpWithEmail(identifier, password, signUpOptions);
                         break;
                     case SignUpType.Phone:
-                        session = await api.SignUpWithPhone(identifier, password, metadata);
+                        session = await api.SignUpWithPhone(identifier, password, signUpOptions);
                         break;
                 }
 

@@ -39,9 +39,22 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<Session> SignUpWithEmail(string email, string password, Dictionary<string, object> metadata = null)
+        public Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
         {
-            var body = new Dictionary<string, object> { { "email", email }, { "password", password }, { "data", metadata } };
+            var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
+
+            if (options != null)
+            {   
+                if (!string.IsNullOrEmpty(options.RedirectTo))
+                {
+                    body.Add("redirectTo", options.RedirectTo);
+                }
+
+                if (options.Data != null)
+                {
+                    body.Add("data", options.Data);
+                }
+            }
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
         }
 
@@ -85,16 +98,29 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="phone">The phone number of the user.</param>
         /// <param name="password">The password of the user.</param>
-        /// <param name="metadata">User Metadata (optional)</param>
+        /// <param name="options">Optional Signup data.</param>
         /// <returns></returns>
-        public Task<Session> SignUpWithPhone(string phone, string password, Dictionary<string, object> metadata = null)
+        public Task<Session> SignUpWithPhone(string phone, string password, SignUpOptions options = null)
         {
-            var data = new Dictionary<string, object> {
+            var body = new Dictionary<string, object> {
                 { "phone", phone },
                 { "password", password },
-                { "data", metadata }
             };
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", data, Headers);
+
+            if (options != null)
+            {
+                if (!string.IsNullOrEmpty(options.RedirectTo))
+                {
+                    body.Add("redirectTo", options.RedirectTo);
+                }
+
+                if (options.Data != null)
+                {
+                    body.Add("data", options.Data);
+                }
+            }
+
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
         }
 
         /// <summary>
@@ -331,5 +357,21 @@ namespace Supabase.Gotrue
 
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers);
         }
+    }
+
+    /// <summary>
+    /// Options used for signing up a user.
+    /// </summary>
+    public class SignUpOptions
+    {
+        /// <summary>
+        /// A URL or mobile address to send the user to after they are confirmed.
+        /// </summary>
+        public string RedirectTo { get; set; }
+
+        /// <summary>
+        /// Optional user metadata.
+        /// </summary>
+        public Dictionary<string, object> Data { get; set; }
     }
 }

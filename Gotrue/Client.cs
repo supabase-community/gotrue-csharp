@@ -207,17 +207,19 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public Task<Session> SignUp(string email, string password, Dictionary<string, object> metadata = null) => SignUp(SignUpType.Email, email, password, metadata);
+        public Task<Session> SignUp(string email, string password, SignUpOptions options = null) => SignUp(SignUpType.Email, email, password, options);
 
         /// <summary>
         /// Signs up a user
         /// </summary>
-        /// <param name="type">Type of signup</param>
-        /// <param name="identifier">Phone or Email</param>
+        /// <param name="type"></param>
+        /// <param name="identifier"></param>
         /// <param name="password"></param>
+        /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public async Task<Session> SignUp(SignUpType type, string identifier, string password, Dictionary<string, object> metadata = null)
+        public async Task<Session> SignUp(SignUpType type, string identifier, string password, SignUpOptions options = null)
         {
             await DestroySession();
 
@@ -227,10 +229,10 @@ namespace Supabase.Gotrue
                 switch (type)
                 {
                     case SignUpType.Email:
-                        session = await api.SignUpWithEmail(identifier, password, metadata);
+                        session = await api.SignUpWithEmail(identifier, password, options);
                         break;
                     case SignUpType.Phone:
-                        session = await api.SignUpWithPhone(identifier, password, metadata);
+                        session = await api.SignUpWithPhone(identifier, password, options);
                         break;
                 }
 

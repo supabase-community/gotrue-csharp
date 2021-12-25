@@ -75,7 +75,7 @@ namespace GotrueTests
 
 
             var phone1 = GetRandomPhoneNumber();
-            session = await SignUp(SignUpType.Phone, phone1, password, options, new Dictionary<string, object> { { "firstName", "Testing" } });
+            session = await SignUp(SignUpType.Phone, phone1, password, options, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 
             Assert.IsNotNull(session.AccessToken);
             Assert.AreEqual("Testing", session.User.UserMetadata["firstName"]);
