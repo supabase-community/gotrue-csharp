@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## 2.3.3 - 2012-12-29
+
+- Minor: `SignUp` will return a `Session` with a *populated `User` object* on an unconfirmed signup.
+    - Fixes [#19](https://github.com/supabase-community/gotrue-csharp/issues/19)
+    - Developers who were using a `null` check on `Session.User` will need to adjust accordingly.
+
 ## 2.3.2 - 2012-12-25
 
 - Minor: `SignUp` signature now uses a class `SignUpOptions` to include `Data` and `RedirectTo` options. (Ref: [supabase-community/supabase-csharp#16](https://github.com/supabase-community/supabase-csharp/issues/16))
