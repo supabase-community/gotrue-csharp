@@ -244,8 +244,8 @@ namespace Supabase.Gotrue
 
                     return CurrentSession;
                 }
-
-                return null;
+                
+                return session;
             }
             catch (RequestException ex)
             {

@@ -40,7 +40,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Optional Signup data.</param>
         /// <returns></returns>
-        public Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
+        public async Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
 
@@ -56,7 +56,21 @@ namespace Supabase.Gotrue
                     body.Add("data", options.Data);
                 }
             }
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
+
+            var response = await Helpers.MakeRequest(HttpMethod.Post, $"{Url}/signup", body, Headers);
+
+            // Gotrue returns a Session object for an auto-/pre-confirmed account
+            var session = JsonConvert.DeserializeObject<Session>(response.Content);
+
+            // If account is unconfirmed, Gotrue returned the user object, so fill User data
+            // in from the parsed response.
+            if (session.User == null)
+            {
+                // Gotrue returns a User object for an unconfirmed account
+                session.User = JsonConvert.DeserializeObject<User>(response.Content);
+            }
+
+            return session;
         }
 
         /// <summary>
