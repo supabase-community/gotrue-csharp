@@ -182,11 +182,11 @@ namespace Supabase.Gotrue
         /// <param name="options"></param>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static async Task<bool> SignOut(string accessToken, StatelessClientOptions options)
+        public static async Task<bool> SignOut(string jwt, StatelessClientOptions options)
         {
             try
             {
-                var result = await GetApi(options).SignOut(accessToken);
+                var result = await GetApi(options).SignOut(jwt);
                 result.ResponseMessage.EnsureSuccessStatusCode();
                 return true;
             }
