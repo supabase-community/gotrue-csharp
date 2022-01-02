@@ -131,6 +131,26 @@ namespace GotrueTests
             Assert.IsInstanceOfType(newSession.User, typeof(User));
         }
 
+        [TestMethod("StatelessClient: Signs Out User (Email)")]
+        public async Task SignsOut()
+        {
+            Session session = null;
+
+            // Emails
+            var email = $"{RandomString(12)}@supabase.io";
+            await SignUp(email, password, options);
+
+
+            session = await SignIn(email, password, options);
+
+            Assert.IsNotNull(session.AccessToken);
+            Assert.IsInstanceOfType(session.User, typeof(User));
+
+            var result = await SignOut(session.AccessToken, options);
+
+            Assert.IsTrue(result);
+        }
+
         [TestMethod("StatelessClient: Sends Magic Login Email")]
         public async Task SendsMagicLoginEmail()
         {
