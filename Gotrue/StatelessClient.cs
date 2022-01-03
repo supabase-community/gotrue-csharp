@@ -175,6 +175,28 @@ namespace Supabase.Gotrue
         public static string SignIn(Provider provider, StatelessClientOptions options, string scopes = null) => GetApi(options).GetUrlForProvider(provider, scopes);
 
         /// <summary>
+        /// Logout a User
+        /// This will revoke all refresh tokens for the user.
+        /// JWT tokens will still be valid for stateless auth until they expire.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static async Task<bool> SignOut(string jwt, StatelessClientOptions options)
+        {
+            try
+            {
+                var result = await GetApi(options).SignOut(jwt);
+                result.ResponseMessage.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
         /// Log in a user given a User supplied OTP received via mobile.
         /// </summary>
         /// <param name="phone">The user's phone number.</param>
