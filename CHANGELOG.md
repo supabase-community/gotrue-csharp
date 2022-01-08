@@ -1,17 +1,21 @@
 ﻿# Changelog
 
-## 2.3.3 - 2012-12-29
+## 2.3.4 - 2022-01-07
+
+-  [#21](https://github.com/supabase-community/gotrue-csharp/pull/21) Added SignOut method to Stateless Client (Thanks [@fplaras](https://github.com/fplaras))
+
+## 2.3.3 - 2021-12-29
 
 - Minor: `SignUp` will return a `Session` with a *populated `User` object* on an unconfirmed signup.
     - Fixes [#19](https://github.com/supabase-community/gotrue-csharp/issues/19)
     - Developers who were using a `null` check on `Session.User` will need to adjust accordingly.
 
-## 2.3.2 - 2012-12-25
+## 2.3.2 - 2021-12-25
 
 - Minor: `SignUp` signature now uses a class `SignUpOptions` to include `Data` and `RedirectTo` options. (Ref: [supabase-community/supabase-csharp#16](https://github.com/supabase-community/supabase-csharp/issues/16))
 - Fix [#17](https://github.com/supabase-community/gotrue-csharp/issues/17) and [#18](https://github.com/supabase-community/gotrue-csharp/issues/18)
 
-## 2.3.1 - 2012-12-24
+## 2.3.1 - 2021-12-24
 
 - Minor: `CreateUser` signature exchanges `object userdata` with `AdminUserAttributes attributes`.
 - [#16](https://github.com/supabase-community/gotrue-csharp/issues/16) Conforms `CreateUser` to the `AdminUserAttributes` request format.
