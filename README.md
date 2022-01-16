@@ -140,3 +140,9 @@ Join the ranks! See a problem? Help fix it!
 ## Contributing
 
 We are more than happy to have contributions! Please submit a PR.
+
+### Testing
+
+To run the tests locally you must have docker and docker-compose installed. Then in the root of the repository run:
+- `docker-compose up -d`
+- `dotnet test`
