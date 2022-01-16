@@ -75,12 +75,14 @@ namespace Supabase.Gotrue
         /// Sends a Magic email login link to the specified email.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="options"></param>
+        /// <param name="signInOptions"></param>
         /// <returns></returns>
-        public static async Task<bool> SignIn(string email, StatelessClientOptions options)
+        public static async Task<bool> SignIn(string email, StatelessClientOptions options, SignInOptions signInOptions = null)
         {
             try
             {
-                await GetApi(options).SendMagicLinkEmail(email);
+                await GetApi(options).SendMagicLinkEmail(email, signInOptions);
                 return true;
             }
             catch (RequestException ex)
