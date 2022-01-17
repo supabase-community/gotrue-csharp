@@ -280,7 +280,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<bool> SendMagicLink(string email) => SignIn(email);
+        public Task<bool> SendMagicLink(string email, SignInOptions options = null) => SignIn(email, options);
 
 
         /// <summary>

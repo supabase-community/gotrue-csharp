@@ -180,7 +180,7 @@ namespace GotrueTests
         }
 
         [TestMethod("StatelessClient: Returns Auth Url for Provider")]
-        public async Task ReturnsAuthUrlForProvider()
+        public void ReturnsAuthUrlForProvider()
         {
             var result1 = SignIn(Provider.Google, options);
             Assert.AreEqual("http://localhost:9999/authorize?provider=google", result1);

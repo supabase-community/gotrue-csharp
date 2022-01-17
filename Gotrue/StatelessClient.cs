@@ -96,7 +96,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public static Task<bool> SendMagicLink(string email, StatelessClientOptions options) => SignIn(email, options);
+        public static Task<bool> SendMagicLink(string email, StatelessClientOptions options, SignInOptions signInOptions = null) => SignIn(email, options, signInOptions);
 
         /// <summary>
         /// Signs in a User.
