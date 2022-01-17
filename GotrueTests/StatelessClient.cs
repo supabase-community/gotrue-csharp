@@ -154,21 +154,29 @@ namespace GotrueTests
         [TestMethod("StatelessClient: Sends Magic Login Email")]
         public async Task SendsMagicLoginEmail()
         {
-            var user = $"{RandomString(12)}@supabase.io";
-            await SignUp(user, password, options);
+            var user1 = $"{RandomString(12)}@supabase.io";
+            await SignUp(user1, password, options);
 
-            var result = await SignIn(user, options);
-            Assert.IsTrue(result);
+            var result1 = await SignIn(user1, options);
+            Assert.IsTrue(result1);
+
+            var user2 = $"{RandomString(12)}@supabase.io";
+            var result2 = await SignIn(user2, options, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
+            Assert.IsTrue(result2);
         }
 
         [TestMethod("StatelessClient: Sends Magic Login Email (Alias)")]
         public async Task SendsMagicLoginEmailAlias()
         {
-            var user = $"{RandomString(12)}@supabase.io";
-            await SignUp(user, password, options);
+            var user1 = $"{RandomString(12)}@supabase.io";
+            await SignUp(user1, password, options);
 
-            var result = await SendMagicLink(user, options);
-            Assert.IsTrue(result);
+            var result1 = await SignIn(user1, options);
+            Assert.IsTrue(result1);
+
+            var user2 = $"{RandomString(12)}@supabase.io";
+            var result2 = await SignIn(user2, options, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
+            Assert.IsTrue(result2);
         }
 
         [TestMethod("StatelessClient: Returns Auth Url for Provider")]
