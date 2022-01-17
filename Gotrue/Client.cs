@@ -266,7 +266,7 @@ namespace Supabase.Gotrue
 
             try
             {
-                await api.SendMagicLinkEmail(email, options);
+                var result = await api.SendMagicLinkEmail(email, options);
                 return true;
             }
             catch (RequestException ex)
@@ -280,7 +280,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<bool> SendMagicLink(string email) => SignIn(email);
+        public Task<bool> SendMagicLink(string email, SignInOptions options = null) => SignIn(email, options);
 
 
         /// <summary>

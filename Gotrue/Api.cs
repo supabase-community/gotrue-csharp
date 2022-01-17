@@ -94,6 +94,7 @@ namespace Supabase.Gotrue
         public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions options = null)
         {
             var data = new Dictionary<string, string> { { "email", email } };
+
             if (options != null)
             {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
