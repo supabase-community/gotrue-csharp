@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.3.5 - 2022-01-19
+
+- [#23](https://github.com/supabase-community/gotrue-csharp/pull/23) Added `redirect_url` option for MagicLink sign in (Thanks [@MisterJimson](https://github.com/MisterJimson))
+
 ## 2.3.4 - 2022-01-07
 
 -  [#21](https://github.com/supabase-community/gotrue-csharp/pull/21) Added SignOut method to Stateless Client (Thanks [@fplaras](https://github.com/fplaras))
