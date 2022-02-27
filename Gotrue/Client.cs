@@ -53,14 +53,18 @@ namespace Supabase.Gotrue
             Bitbucket,
             [MapTo("discord")]
             Discord,
+            [MapTo("facebook")]
+            Facebook,
             [MapTo("github")]
             Github,
             [MapTo("gitlab")]
             Gitlab,
             [MapTo("google")]
             Google,
-            [MapTo("facebook")]
-            Facebook,
+            [MapTo("linkedin")]
+            LinkedIn,
+            [MapTo("notion")]
+            Notion,
             [MapTo("slack")]
             Slack,
             [MapTo("spotify")]
@@ -244,7 +248,7 @@ namespace Supabase.Gotrue
 
                     return CurrentSession;
                 }
-                
+
                 return session;
             }
             catch (RequestException ex)
