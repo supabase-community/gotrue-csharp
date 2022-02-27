@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.3.6 - 2022-02-27
+
+- Added providers for `LinkedIn` and `Notion`
+
 ## 2.3.5 - 2022-01-19
 
 - [#23](https://github.com/supabase-community/gotrue-csharp/pull/23) Added `redirect_url` option for MagicLink sign in (Thanks [@MisterJimson](https://github.com/MisterJimson))
