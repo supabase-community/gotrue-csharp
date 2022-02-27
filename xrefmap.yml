@@ -652,6 +652,18 @@ references:
   commentId: F:Supabase.Gotrue.Client.Provider.Google
   fullName: Supabase.Gotrue.Client.Provider.Google
   nameWithType: Client.Provider.Google
+- uid: Supabase.Gotrue.Client.Provider.LinkedIn
+  name: LinkedIn
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_LinkedIn
+  commentId: F:Supabase.Gotrue.Client.Provider.LinkedIn
+  fullName: Supabase.Gotrue.Client.Provider.LinkedIn
+  nameWithType: Client.Provider.LinkedIn
+- uid: Supabase.Gotrue.Client.Provider.Notion
+  name: Notion
+  href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Notion
+  commentId: F:Supabase.Gotrue.Client.Provider.Notion
+  fullName: Supabase.Gotrue.Client.Provider.Notion
+  nameWithType: Client.Provider.Notion
 - uid: Supabase.Gotrue.Client.Provider.Slack
   name: Slack
   href: api/Supabase.Gotrue.Client.Provider.html#Supabase_Gotrue_Client_Provider_Slack
