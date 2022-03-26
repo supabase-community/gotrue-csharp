@@ -28,7 +28,7 @@ namespace Supabase.Gotrue
         public DateTime CreatedAt { get; set; }
 
         [JsonProperty("confirmed_at")]
-        public DateTime ConfirmedAt { get; set; }
+        public DateTime? ConfirmedAt { get; set; }
 
         [JsonProperty("last_sign_in_at")]
         public DateTime LastSignInAt { get; set; }
