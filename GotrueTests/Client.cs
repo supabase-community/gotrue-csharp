@@ -176,12 +176,16 @@ namespace GotrueTests
         public async Task ClientSendsMagicLoginEmailAlias()
         {
             var user = $"{RandomString(12)}@supabase.io";
+            var user2 = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
 
             await client.SignOut();
 
             var result = await client.SendMagicLink(user);
+            var result2 = await client.SendMagicLink(user2, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
+
             Assert.IsTrue(result);
+            Assert.IsTrue(result2);
         }
 
         [TestMethod("Client: Returns Auth Url for Provider")]

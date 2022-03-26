@@ -53,14 +53,18 @@ namespace Supabase.Gotrue
             Bitbucket,
             [MapTo("discord")]
             Discord,
+            [MapTo("facebook")]
+            Facebook,
             [MapTo("github")]
             Github,
             [MapTo("gitlab")]
             Gitlab,
             [MapTo("google")]
             Google,
-            [MapTo("facebook")]
-            Facebook,
+            [MapTo("linkedin")]
+            LinkedIn,
+            [MapTo("notion")]
+            Notion,
             [MapTo("slack")]
             Slack,
             [MapTo("spotify")]
@@ -245,7 +249,7 @@ namespace Supabase.Gotrue
                     return CurrentSession;
                 }
 
-                return null;
+                return session;
             }
             catch (RequestException ex)
             {
@@ -258,14 +262,15 @@ namespace Supabase.Gotrue
         /// Sends a Magic email login link to the specified email.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<bool> SignIn(string email)
+        public async Task<bool> SignIn(string email, SignInOptions options = null)
         {
             await DestroySession();
 
             try
             {
-                await api.SendMagicLinkEmail(email);
+                await api.SendMagicLinkEmail(email, options);
                 return true;
             }
             catch (RequestException ex)
@@ -279,7 +284,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<bool> SendMagicLink(string email) => SignIn(email);
+        public Task<bool> SendMagicLink(string email, SignInOptions options = null) => SignIn(email, options);
 
 
         /// <summary>

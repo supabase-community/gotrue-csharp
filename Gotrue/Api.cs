@@ -40,7 +40,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Optional Signup data.</param>
         /// <returns></returns>
-        public Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
+        public async Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
 
@@ -56,7 +56,21 @@ namespace Supabase.Gotrue
                     body.Add("data", options.Data);
                 }
             }
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
+
+            var response = await Helpers.MakeRequest(HttpMethod.Post, $"{Url}/signup", body, Headers);
+
+            // Gotrue returns a Session object for an auto-/pre-confirmed account
+            var session = JsonConvert.DeserializeObject<Session>(response.Content);
+
+            // If account is unconfirmed, Gotrue returned the user object, so fill User data
+            // in from the parsed response.
+            if (session.User == null)
+            {
+                // Gotrue returns a User object for an unconfirmed account
+                session.User = JsonConvert.DeserializeObject<User>(response.Content);
+            }
+
+            return session;
         }
 
         /// <summary>
@@ -75,10 +89,19 @@ namespace Supabase.Gotrue
         /// Sends a magic login link to an email address.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public Task<BaseResponse> SendMagicLinkEmail(string email)
+        public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions options = null)
         {
             var data = new Dictionary<string, string> { { "email", email } };
+            if (options != null)
+            {
+                if (!string.IsNullOrEmpty(options.RedirectTo))
+                {
+                    data.Add("redirect_to", options.RedirectTo);
+                }
+            }
+
             return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/magiclink", data, Headers);
         }
 
@@ -363,16 +386,22 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Options used for signing up a user.
     /// </summary>
-    public class SignUpOptions
+    public class SignUpOptions : SignInOptions
+    {
+        /// <summary>
+        /// Optional user metadata.
+        /// </summary>
+        public Dictionary<string, object> Data { get; set; }
+    }
+
+    // <summary>
+    /// Options used for signing in a user.
+    /// </summary>
+    public class SignInOptions
     {
         /// <summary>
         /// A URL or mobile address to send the user to after they are confirmed.
         /// </summary>
         public string RedirectTo { get; set; }
-
-        /// <summary>
-        /// Optional user metadata.
-        /// </summary>
-        public Dictionary<string, object> Data { get; set; }
     }
 }
