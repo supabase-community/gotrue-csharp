@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.AdminUserAttributes.html",
-          "hash": "kCRg//ag4ZWfg4WRYQ1aiA=="
+          "hash": "S5cqQFeksaXU4hRxvQvVGQ=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.AuthState.html",
-          "hash": "cdsmAwar/xa+pK9aCMS1ug=="
+          "hash": "NXy4FyNQ3vOIU9Rk9YKpGg=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.Provider.html",
-          "hash": "FVYTrDIh8hzeiwHWWbopIw=="
+          "hash": "LAjOESdKby0/ncN5xssh7A=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "uNAbflKTH+LKWmfhiC1T2w=="
+          "hash": "9HM48QZzxW3wV48c9Pz9rQ=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html",
-          "hash": "vAiKt1V7IQchHxspDQyQ+w=="
+          "hash": "KvRb3jM6W/aFbHVKn1UP8g=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.ClientStateChanged.html",
-          "hash": "91UwQqeWCCyMAgpC50jn+g=="
+          "hash": "EfHapQUzOL/Vzz6r3CeD1A=="
         }
       },
       "is_incremental": false,
@@ -273,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.StatelessClient.StatelessClientOptions.html",
-          "hash": "/ZPFXCUiy3uUg2EZhrW3Ng=="
+          "hash": "Ze6XBLTk3++yLaVRE5A13w=="
         }
       },
       "is_incremental": false,
@@ -309,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.User.html",
-          "hash": "21cAPITx2RAwK9tJKQLAdw=="
+          "hash": "pxK6HwVPm37PJQwMietGwQ=="
         }
       },
       "is_incremental": false,
@@ -321,7 +321,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UserAttributes.html",
-          "hash": "KXJlIS7AIbXGwSrEVyGBUw=="
+          "hash": "r70GZQQ5FOMDlFPl/gJ2dA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.UserIdentity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.UserIdentity.html",
+          "hash": "bBFcHF/OG3o6fqKWjBF31w=="
         }
       },
       "is_incremental": false,
@@ -333,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.UserList.html",
-          "hash": "drYfIz+YeHIbHIX/bL+UCA=="
+          "hash": "LFEyQtfpVGdJLiwTzOBd3Q=="
         }
       },
       "is_incremental": false,
@@ -357,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.VerifyOTPParams.html",
-          "hash": "vFtVp9VBHzbB6wUGnNwC/g=="
+          "hash": "oYUWlrkG3C+or3pAdAXbhQ=="
         }
       },
       "is_incremental": false,
@@ -369,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.html",
-          "hash": "bERKA92eafi5kkfuiFC9ZA=="
+          "hash": "XDHc1+GbIQr09NaPNnPtuQ=="
         }
       },
       "is_incremental": false,
@@ -393,7 +405,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Vbo1mnSvGjPgVrdxbuHa5Q=="
+          "hash": "rW5IaT5+/52GcOuBz+DNqg=="
         }
       },
       "is_incremental": false,
@@ -444,7 +456,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 31,
+          "total_file_count": 32,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
