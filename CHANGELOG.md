@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.0 - 2022-03-28
+
+- [Minor API Change] - Some `User` Model Attributes will now hydrate as `null` instead of as the object `defaults` (i.e. `ConfirmedAt`)
+
 ## 2.3.6 - 2022-02-27
 
 - Added providers for `LinkedIn` and `Notion`
