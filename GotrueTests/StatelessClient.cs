@@ -59,7 +59,7 @@ namespace GotrueTests
             return tokenHandler.WriteToken(securityToken);
         }
 
-        StatelessClientOptions options => new StatelessClientOptions();
+        StatelessClientOptions options => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true };
 
 
         [TestMethod("StatelessClient: Signs Up User")]

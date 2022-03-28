@@ -57,7 +57,7 @@ namespace Supabase.Gotrue
                         break;
                 }
 
-                if (session?.User?.ConfirmedAt != null)
+                if (session?.User?.ConfirmedAt != null || (session.User != null && options.AllowUnconfirmedUserSessions))
                 {
                     return session;
                 }
@@ -141,7 +141,7 @@ namespace Supabase.Gotrue
                         break;
                 }
 
-                if (session?.User?.ConfirmedAt != null)
+                if (session?.User?.ConfirmedAt != null || (session.User != null && options.AllowUnconfirmedUserSessions))
                 {
                     return session;
                 }
@@ -467,6 +467,14 @@ namespace Supabase.Gotrue
             /// Headers to be sent with subsequent requests.
             /// </summary>
             public Dictionary<string, string> Headers = new Dictionary<string, string>(Constants.DEFAULT_HEADERS);
+
+            /// <summary>
+            /// Very unlikely this flag needs to be changed except in very specific contexts.
+            /// 
+            /// Enables tests to be E2E tests to be run without requiring users to have
+            /// confirmed emails - mirrors the Gotrue server's configuration.
+            /// </summary>
+            public bool AllowUnconfirmedUserSessions { get; set; } = false;
         }
     }
 

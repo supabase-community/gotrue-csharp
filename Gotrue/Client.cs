@@ -42,6 +42,7 @@ namespace Supabase.Gotrue
 
         /// <summary>
         /// Providers available to Supabase
+        /// Ref: https://supabase.github.io/gotrue-js/modules.html#Provider
         /// </summary>
         public enum Provider
         {
@@ -61,6 +62,8 @@ namespace Supabase.Gotrue
             Gitlab,
             [MapTo("google")]
             Google,
+            [MapTo("keycloak")]
+            KeyCloak,
             [MapTo("linkedin")]
             LinkedIn,
             [MapTo("notion")]
@@ -73,6 +76,8 @@ namespace Supabase.Gotrue
             Twitch,
             [MapTo("twitter")]
             Twitter,
+            [MapTo("workos")]
+            WorkOS
         };
 
         /// <summary>
@@ -144,6 +149,11 @@ namespace Supabase.Gotrue
         protected Func<Task<bool>> SessionDestroyer { get; private set; }
 
         /// <summary>
+        /// The initialized client options.
+        /// </summary>
+        internal ClientOptions Options { get; private set; }
+
+        /// <summary>
         /// Internal timer reference for Refreshing Tokens (<see cref="AutoRefreshToken"/>)
         /// </summary>
         private Timer refreshTimer = null;
@@ -191,6 +201,7 @@ namespace Supabase.Gotrue
             if (options == null)
                 options = new ClientOptions();
 
+            instance.Options = options;
             instance.AutoRefreshToken = options.AutoRefreshToken;
             instance.ShouldPersistSession = options.PersistSession;
             instance.SessionPersistor = options.SessionPersistor;
@@ -240,7 +251,7 @@ namespace Supabase.Gotrue
                         break;
                 }
 
-                if (session?.User?.ConfirmedAt != null)
+                if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
                 {
                     await PersistSession(session);
 
@@ -335,7 +346,7 @@ namespace Supabase.Gotrue
                         return CurrentSession;
                 }
 
-                if (session?.User?.ConfirmedAt != null)
+                if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
                 {
                     await PersistSession(session);
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
@@ -861,5 +872,13 @@ namespace Supabase.Gotrue
         /// Function to destroy a session.
         /// </summary>
         public Func<Task<bool>> SessionDestroyer = () => Task.FromResult<bool>(true);
+
+        /// <summary>
+        /// Very unlikely this flag needs to be changed except in very specific contexts.
+        /// 
+        /// Enables tests to be E2E tests to be run without requiring users to have
+        /// confirmed emails - mirrors the Gotrue server's configuration.
+        /// </summary>
+        public bool AllowUnconfirmedUserSessions { get; set; } = false;
     }
 }

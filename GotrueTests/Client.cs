@@ -63,7 +63,7 @@ namespace GotrueTests
         [TestInitialize]
         public async Task TestInitializer()
         {
-            client = await InitializeAsync();
+            client = await InitializeAsync(new ClientOptions { AllowUnconfirmedUserSessions = true });
         }
 
         [TestMethod("Client: Signs Up User")]
@@ -202,7 +202,7 @@ namespace GotrueTests
         public async Task ClientUpdateUser()
         {
             var user = $"{RandomString(12)}@supabase.io";
-            await client.SignUp(user, password);
+            var result = await client.SignUp(user, password);
 
             var attributes = new UserAttributes
             {
