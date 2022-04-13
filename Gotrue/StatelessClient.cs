@@ -366,7 +366,7 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public static async Task<User> UpdateUserById(string jwt, StatelessClientOptions options, string userId, UserAttributes userData)
+        public static async Task<User> UpdateUserById(string jwt, StatelessClientOptions options, string userId, AdminUserAttributes userData)
         {
             try
             {

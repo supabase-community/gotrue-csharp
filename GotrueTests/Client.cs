@@ -201,8 +201,8 @@ namespace GotrueTests
         [TestMethod("Client: Update user")]
         public async Task ClientUpdateUser()
         {
-            var user = $"{RandomString(12)}@supabase.io";
-            var result = await client.SignUp(user, password);
+            var email = $"{RandomString(12)}@supabase.io";
+            var session = await client.SignUp(email, password);
 
             var attributes = new UserAttributes
             {
@@ -211,9 +211,21 @@ namespace GotrueTests
                     {"hello", "world" }
                 }
             };
-            await client.Update(attributes);
-            Assert.AreEqual(user, client.CurrentUser.Email);
+            var result = await client.Update(attributes);
+            Assert.AreEqual(email, client.CurrentUser.Email);
             Assert.IsNotNull(client.CurrentUser.UserMetadata);
+
+            await client.SignOut();
+            var token = GenerateServiceRoleToken();
+            var result2 = await client.UpdateUserById(token, session.User.Id, new AdminUserAttributes
+            {
+                UserMetadata = new Dictionary<string, object>
+                {
+                    {"hello", "updated" }
+                }
+            });
+
+            Assert.AreNotEqual(result.UserMetadata["hello"], result2.UserMetadata["hello"]);
         }
 
         [TestMethod("Client: Returns current user")]
@@ -297,6 +309,9 @@ namespace GotrueTests
         public async Task ClientListUsersFilter()
         {
             var service_role_key = GenerateServiceRoleToken();
+
+            var user = $"{RandomString(12)}@supabase.io";
+            var result = await client.SignUp(user, password);
 
             var result1 = await client.ListUsers(service_role_key, filter: "@nonexistingrandomemailprovider.com");
             var result2 = await client.ListUsers(service_role_key, filter: "@supabase.io");

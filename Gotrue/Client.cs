@@ -583,7 +583,7 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public async Task<User> UpdateUserById(string jwt, string userId, UserAttributes userData)
+        public async Task<User> UpdateUserById(string jwt, string userId, AdminUserAttributes userData)
         {
             try
             {
