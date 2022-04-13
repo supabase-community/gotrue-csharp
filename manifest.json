@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.Client.html",
-          "hash": "9HM48QZzxW3wV48c9Pz9rQ=="
+          "hash": "Hl0euAkmGVQ5V2vI4aK0sg=="
         }
       },
       "is_incremental": false,
@@ -285,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.StatelessClient.html",
-          "hash": "kd0tqaxuo+WoLz8teBL8yg=="
+          "hash": "ETgnnDbrvvFuPjgBU44YuQ=="
         }
       },
       "is_incremental": false,
