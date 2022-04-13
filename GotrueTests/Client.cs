@@ -365,7 +365,7 @@ namespace GotrueTests
 
             Assert.IsNotNull(createdUser);
 
-            var updatedUser = await client.UpdateUserById(service_role_key, createdUser.Id, new UserAttributes { Email = $"{RandomString(12)}@supabase.io" });
+            var updatedUser = await client.UpdateUserById(service_role_key, createdUser.Id, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io" });
 
             Assert.IsNotNull(updatedUser);
 
