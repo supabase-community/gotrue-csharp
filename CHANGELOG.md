@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.1 - 2022-04-13
+
+- Changed `UpdateUserById` to require the more specific `AdminUserAttributes` instead of `UserAttributes` (Thanks [@AydinE](https://github.com/AydinE))
+
 ## 2.4.0 - 2022-03-28
 
 - [Minor API Change] - Some `User` Model Attributes will now hydrate as `null` instead of as the object `defaults` (i.e. `ConfirmedAt`)
