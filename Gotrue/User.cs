@@ -124,7 +124,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// A custom data object for user_metadata that a user can modify.Can be any JSON.
         /// </summary>
-        [JsonProperty("data")]
+        [JsonProperty("user_metadata")]
         public Dictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
     }
 
