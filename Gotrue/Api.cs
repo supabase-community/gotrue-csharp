@@ -43,12 +43,13 @@ namespace Supabase.Gotrue
         public async Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
+            var queryString = "";
 
             if (options != null)
             {   
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    body.Add("redirectTo", options.RedirectTo);
+                    queryString = "?redirect_to=" + options.RedirectTo;
                 }
 
                 if (options.Data != null)
@@ -57,7 +58,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            var response = await Helpers.MakeRequest(HttpMethod.Post, $"{Url}/signup", body, Headers);
+            var response = await Helpers.MakeRequest(HttpMethod.Post, $"{Url}/signup{queryString}", body, Headers);
 
             // Gotrue returns a Session object for an auto-/pre-confirmed account
             var session = JsonConvert.DeserializeObject<Session>(response.Content);
@@ -94,15 +95,16 @@ namespace Supabase.Gotrue
         public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions options = null)
         {
             var data = new Dictionary<string, string> { { "email", email } };
+            var queryString = "";
             if (options != null)
             {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    data.Add("redirect_to", options.RedirectTo);
+                    queryString = "?redirect_to=" + options.RedirectTo;
                 }
             }
 
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/magiclink", data, Headers);
+            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/magiclink{queryString}", data, Headers);
         }
 
         /// <summary>
