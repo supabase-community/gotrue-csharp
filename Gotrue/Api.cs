@@ -44,11 +44,13 @@ namespace Supabase.Gotrue
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
 
+            string endpoint = $"{Url}/signup";
+
             if (options != null)
-            {   
+            {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    body.Add("redirectTo", options.RedirectTo);
+                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
                 }
 
                 if (options.Data != null)
@@ -57,7 +59,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            var response = await Helpers.MakeRequest(HttpMethod.Post, $"{Url}/signup", body, Headers);
+            var response = await Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
 
             // Gotrue returns a Session object for an auto-/pre-confirmed account
             var session = JsonConvert.DeserializeObject<Session>(response.Content);
@@ -94,15 +96,18 @@ namespace Supabase.Gotrue
         public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions options = null)
         {
             var data = new Dictionary<string, string> { { "email", email } };
+
+            string endpoint = $"{Url}/magiclink";
+
             if (options != null)
             {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    data.Add("redirect_to", options.RedirectTo);
+                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
                 }
             }
 
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/magiclink", data, Headers);
+            return Helpers.MakeRequest(HttpMethod.Post, endpoint, data, Headers);
         }
 
         /// <summary>
@@ -131,11 +136,13 @@ namespace Supabase.Gotrue
                 { "password", password },
             };
 
+            string endpoint = $"{Url}/signup";
+
             if (options != null)
             {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    body.Add("redirectTo", options.RedirectTo);
+                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
                 }
 
                 if (options.Data != null)
@@ -144,7 +151,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, endpoint, body, Headers);
         }
 
         /// <summary>
