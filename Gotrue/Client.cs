@@ -640,7 +640,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public async Task<Session> GetSessionFromUrl(Uri uri, bool storeSession = true)
         {
-            var query = HttpUtility.ParseQueryString(uri.Query);
+            var query = string.IsNullOrEmpty(uri.Fragment) ? HttpUtility.ParseQueryString(uri.Query) : HttpUtility.ParseQueryString('?' + uri.Fragment.TrimStart('#'));
 
             var errorDescription = query.Get("error_description");
 

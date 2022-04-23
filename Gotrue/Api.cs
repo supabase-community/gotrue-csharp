@@ -43,13 +43,14 @@ namespace Supabase.Gotrue
         public async Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
-            var queryString = "";
+
+            string endpoint = $"{Url}/signup";
 
             if (options != null)
-            {   
+            {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    queryString = "?redirect_to=" + options.RedirectTo;
+                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
                 }
 
                 if (options.Data != null)
@@ -58,7 +59,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            var response = await Helpers.MakeRequest(HttpMethod.Post, $"{Url}/signup{queryString}", body, Headers);
+            var response = await Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
 
             // Gotrue returns a Session object for an auto-/pre-confirmed account
             var session = JsonConvert.DeserializeObject<Session>(response.Content);
@@ -95,16 +96,18 @@ namespace Supabase.Gotrue
         public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions options = null)
         {
             var data = new Dictionary<string, string> { { "email", email } };
-            var queryString = "";
+
+            string endpoint = $"{Url}/magiclink";
+
             if (options != null)
             {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    queryString = "?redirect_to=" + options.RedirectTo;
+                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
                 }
             }
 
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/magiclink{queryString}", data, Headers);
+            return Helpers.MakeRequest(HttpMethod.Post, endpoint, data, Headers);
         }
 
         /// <summary>
@@ -133,11 +136,13 @@ namespace Supabase.Gotrue
                 { "password", password },
             };
 
+            string endpoint = $"{Url}/signup";
+
             if (options != null)
             {
                 if (!string.IsNullOrEmpty(options.RedirectTo))
                 {
-                    body.Add("redirectTo", options.RedirectTo);
+                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
                 }
 
                 if (options.Data != null)
@@ -146,7 +151,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/signup", body, Headers);
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, endpoint, body, Headers);
         }
 
         /// <summary>
