@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.2 - 2022-04-23
+
+- [#30](https://github.com/supabase-community/gotrue-csharp/pull/30) Update usage of `redirectTo` to reflect gotrue-js usage and adapt `GetSessionFromUrl` to gotrue's return format. (Thanks [@RedChops](https://github.com/RedChops))
+
 ## 2.4.1 - 2022-04-13
 
 - Changed `UpdateUserById` to require the more specific `AdminUserAttributes` instead of `UserAttributes` (Thanks [@AydinE](https://github.com/AydinE))
