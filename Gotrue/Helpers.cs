@@ -28,6 +28,25 @@ namespace Supabase.Gotrue
             return type.GetField(name).GetCustomAttributes(false).OfType<MapToAttribute>().SingleOrDefault();
         }
 
+        /// <summary>
+        /// Adds query params to a given Url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        internal static Uri AddQueryParams(string url, Dictionary<string, string> data)
+        {
+            var builder = new UriBuilder(url);
+            var query = HttpUtility.ParseQueryString(builder.Query);
+
+            foreach (var param in data)
+                query[param.Key] = param.Value;
+
+            builder.Query = query.ToString();
+
+            return builder.Uri;
+        }
+
         private static readonly HttpClient client = new HttpClient();
 
         /// <summary>
