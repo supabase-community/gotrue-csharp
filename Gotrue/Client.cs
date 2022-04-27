@@ -706,7 +706,7 @@ namespace Supabase.Gotrue
                 {
                     try
                     {
-                        await RefreshToken();
+                        await RefreshToken(session.RefreshToken);
                         return CurrentSession;
                     }
                     catch
@@ -774,18 +774,23 @@ namespace Supabase.Gotrue
         /// Refreshes a Token
         /// </summary>
         /// <returns></returns>
-        internal async Task RefreshToken()
+        internal async Task RefreshToken(string refreshToken = null)
         {
-            if (string.IsNullOrEmpty(CurrentSession.RefreshToken))
+            if (string.IsNullOrEmpty(CurrentSession.RefreshToken) && string.IsNullOrEmpty(refreshToken))
                 throw new Exception("No current session.");
 
-            var result = await api.RefreshAccessToken(CurrentSession.RefreshToken);
+            refreshToken ??= CurrentSession.RefreshToken;
+
+            var result = await api.RefreshAccessToken(refreshToken);
 
             if (string.IsNullOrEmpty(result.AccessToken))
                 throw new Exception("Could not refresh token from provided session.");
 
             CurrentSession = result;
             CurrentUser = result.User;
+
+            if (ShouldPersistSession)
+                await SessionPersistor?.Invoke(result);
 
             StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
             StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
