@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.3 - 2022-04-27
+
+- [#32](https://github.com/supabase-community/gotrue-csharp/pull/32) RefreshToken() should take an optional refresh token from the caller (Thanks [@RedChops](https://github.com/RedChops))
+
 ## 2.4.2 - 2022-04-23
 
 - [#30](https://github.com/supabase-community/gotrue-csharp/pull/30) Update usage of `redirectTo` to reflect gotrue-js usage and adapt `GetSessionFromUrl` to gotrue's return format. (Thanks [@RedChops](https://github.com/RedChops))
