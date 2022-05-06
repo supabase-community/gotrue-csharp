@@ -427,6 +427,8 @@ namespace Supabase.Gotrue
             if (CurrentSession != null)
             {
                 await api.SignOut(CurrentSession.AccessToken);
+                if (refreshTimer != null)
+                    refreshTimer.Dispose();
                 await DestroySession();
                 StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
             }
@@ -776,7 +778,7 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         internal async Task RefreshToken(string refreshToken = null)
         {
-            if (string.IsNullOrEmpty(CurrentSession.RefreshToken) && string.IsNullOrEmpty(refreshToken))
+            if (string.IsNullOrEmpty(CurrentSession?.RefreshToken) && string.IsNullOrEmpty(refreshToken))
                 throw new Exception("No current session.");
 
             refreshToken ??= CurrentSession.RefreshToken;
