@@ -11,6 +11,7 @@ using Supabase.Gotrue.Responses;
 using System.Threading;
 using Supabase.Gotrue.Attributes;
 using System.Linq;
+using Supabase.Gotrue.Interfaces;
 
 namespace Supabase.Gotrue
 {
@@ -72,7 +73,7 @@ namespace Supabase.Gotrue
         /// <param name="reqParams"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object data = null, Dictionary<string, string> headers = null)
+        public static async Task<IBaseResponse> MakeRequest(HttpMethod method, string url, object data = null, Dictionary<string, string> headers = null)
         {
             var builder = new UriBuilder(url);
             var query = HttpUtility.ParseQueryString(builder.Query);

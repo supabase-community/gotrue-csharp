@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Attributes;
+using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
-    public class Api
+    public class Api : IGotrueApi
     {
         protected string Url { get; private set; }
         protected Dictionary<string, string> Headers = new Dictionary<string, string>();
@@ -40,7 +41,16 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Optional Signup data.</param>
         /// <returns></returns>
-        public async Task<Session> SignUpWithEmail(string email, string password, SignUpOptions options = null)
+        public Task<ISession> SignUpWithEmail(string email, string password, ISignUpOptions options = null) => SignUpWithEmail<ISession>(email, password, options);
+
+        /// <summary>
+        /// Signs a user up using an email address and password.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="options">Optional Signup data.</param>
+        /// <returns></returns>
+        public async Task<T> SignUpWithEmail<T>(string email, string password, ISignUpOptions options = null) where T : ISession
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
 
@@ -62,18 +72,19 @@ namespace Supabase.Gotrue
             var response = await Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
 
             // Gotrue returns a Session object for an auto-/pre-confirmed account
-            var session = JsonConvert.DeserializeObject<Session>(response.Content);
+            var session = JsonConvert.DeserializeObject<T>(response.Content);
 
             // If account is unconfirmed, Gotrue returned the user object, so fill User data
             // in from the parsed response.
             if (session.User == null)
             {
                 // Gotrue returns a User object for an unconfirmed account
-                session.User = JsonConvert.DeserializeObject<User>(response.Content);
+                session.User = JsonConvert.DeserializeObject<IUser>(response.Content);
             }
 
             return session;
         }
+
 
         /// <summary>
         /// Logs in an existing user using their email address.
@@ -81,11 +92,20 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<Session> SignInWithEmail(string email, string password)
+        public Task<ISession> SignInWithEmail(string email, string password) => SignInWithEmail<ISession>(email, password);
+
+        /// <summary>
+        /// Logs in an existing user using their email address.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public Task<T> SignInWithEmail<T>(string email, string password) where T : ISession
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", body, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/token?grant_type=password", body, Headers);
         }
+
 
         /// <summary>
         /// Sends a magic login link to an email address.
@@ -93,7 +113,15 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions options = null)
+        public Task<IBaseResponse> SendMagicLinkEmail(string email, ISignInOptions options = null) => SendMagicLinkEmail<IBaseResponse>(email, options);
+
+        /// <summary>
+        /// Sends a magic login link to an email address.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public Task<T> SendMagicLinkEmail<T>(string email, ISignInOptions options = null) where T : IBaseResponse
         {
             var data = new Dictionary<string, string> { { "email", email } };
 
@@ -107,7 +135,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            return Helpers.MakeRequest(HttpMethod.Post, endpoint, data, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, endpoint, data, Headers);
         }
 
         /// <summary>
@@ -116,10 +144,18 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <returns></returns>
-        public Task<BaseResponse> InviteUserByEmail(string email, string jwt)
+        public Task<IBaseResponse> InviteUserByEmail(string email, string jwt) => InviteUserByEmail<IBaseResponse>(email, jwt);
+
+        /// <summary>
+        /// Sends an invite link to an email address.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+        /// <returns></returns>
+        public Task<T> InviteUserByEmail<T>(string email, string jwt) where T : IBaseResponse
         {
             var data = new Dictionary<string, string> { { "email", email } };
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/invite", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/invite", data, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
@@ -129,7 +165,16 @@ namespace Supabase.Gotrue
         /// <param name="password">The password of the user.</param>
         /// <param name="options">Optional Signup data.</param>
         /// <returns></returns>
-        public Task<Session> SignUpWithPhone(string phone, string password, SignUpOptions options = null)
+        public Task<ISession> SignUpWithPhone(string phone, string password, ISignUpOptions options = null) => SignUpWithPhone<ISession>(phone, password, options);
+
+        /// <summary>
+        /// Signs up a new user using their phone number and a password.The phone number of the user.
+        /// </summary>
+        /// <param name="phone">The phone number of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <param name="options">Optional Signup data.</param>
+        /// <returns></returns>
+        public Task<T> SignUpWithPhone<T>(string phone, string password, ISignUpOptions options = null) where T : ISession
         {
             var body = new Dictionary<string, object> {
                 { "phone", phone },
@@ -151,7 +196,7 @@ namespace Supabase.Gotrue
                 }
             }
 
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, endpoint, body, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, endpoint, body, Headers);
         }
 
         /// <summary>
@@ -160,13 +205,21 @@ namespace Supabase.Gotrue
         /// <param name="phone">The phone number of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns></returns>
-        public Task<Session> SignInWithPhone(string phone, string password)
+        public Task<ISession> SignInWithPhone(string phone, string password) => SignUpWithPhone<ISession>(phone, password);
+
+        /// <summary>
+        /// Logs in an existing user using their phone number and password.
+        /// </summary>
+        /// <param name="phone">The phone number of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <returns></returns>
+        public Task<T> SignInWithPhone<T>(string phone, string password) where T : ISession
         {
             var data = new Dictionary<string, object> {
                 { "phone", phone },
                 { "password", password },
             };
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", data, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/token?grant_type=password", data, Headers);
         }
 
         /// <summary>
@@ -174,10 +227,17 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="phone">phone The user's phone number WITH international prefix</param>
         /// <returns></returns>
-        public Task<BaseResponse> SendMobileOTP(string phone)
+        public Task<IBaseResponse> SendMobileOTP(string phone) => SendMobileOTP<IBaseResponse>(phone);
+
+        /// <summary>
+        /// Sends a mobile OTP via SMS. Will register the account if it doesn't already exist
+        /// </summary>
+        /// <param name="phone">phone The user's phone number WITH international prefix</param>
+        /// <returns></returns>
+        public Task<T> SendMobileOTP<T>(string phone) where T : IBaseResponse
         {
             var data = new Dictionary<string, string> { { "phone", phone } };
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/otp", data, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/otp", data, Headers);
         }
 
         /// <summary>
@@ -186,14 +246,22 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number WITH international prefix</param>
         /// <param name="token">token that user was sent to their mobile phone</param>
         /// <returns></returns>
-        public Task<Session> VerifyMobileOTP(string phone, string token)
+        public Task<ISession> VerifyMobileOTP(string phone, string token) => VerifyMobileOTP<ISession>(phone, token);
+
+        /// <summary>
+        /// Send User supplied Mobile OTP to be verified
+        /// </summary>
+        /// <param name="phone">The user's phone number WITH international prefix</param>
+        /// <param name="token">token that user was sent to their mobile phone</param>
+        /// <returns></returns>
+        public Task<T> VerifyMobileOTP<T>(string phone, string token) where T : ISession
         {
             var data = new Dictionary<string, string> {
                 { "phone", phone },
                 { "token", token },
                 { "type", "sms" }
             };
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/verify", data, Headers);
         }
 
         /// <summary>
@@ -201,10 +269,17 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<BaseResponse> ResetPasswordForEmail(string email)
+        public Task<IBaseResponse> ResetPasswordForEmail(string email) => ResetPasswordForEmail<IBaseResponse>(email);
+
+        /// <summary>
+        /// Sends a reset request to an email address.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Task<T> ResetPasswordForEmail<T>(string email) where T : IBaseResponse
         {
             var data = new Dictionary<string, string> { { "email", email } };
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/recover", data, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/recover", data, Headers);
         }
 
         /// <summary>
@@ -227,7 +302,7 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        internal string GetUrlForProvider(Provider provider, string scopes = null)
+        public string GetUrlForProvider(Provider provider, string scopes = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
             var attr = Helpers.GetMappedToAttr(provider);
@@ -250,11 +325,18 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="jwt"></param>
         /// <returns></returns>
-        public Task<BaseResponse> SignOut(string jwt)
+        public Task<IBaseResponse> SignOut(string jwt) => SignOut<IBaseResponse>(jwt);
+
+        /// <summary>
+        /// Removes a logged-in session.
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <returns></returns>
+        public Task<T> SignOut<T>(string jwt) where T : IBaseResponse
         {
             var data = new Dictionary<string, string> { };
 
-            return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/logout", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/logout", data, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
@@ -262,11 +344,18 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="jwt"></param>
         /// <returns></returns>
-        public Task<User> GetUser(string jwt)
+        public Task<IUser> GetUser(string jwt) => GetUser<IUser>(jwt);
+
+        /// <summary>
+        /// Gets User Details
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <returns></returns>
+        public Task<T> GetUser<T>(string jwt) where T : IUser
         {
             var data = new Dictionary<string, string> { };
 
-            return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/user", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<T>(HttpMethod.Get, $"{Url}/user", data, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
@@ -275,12 +364,21 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Task<User> GetUserById(string jwt, string userId)
+        public Task<IUser> GetUserById(string jwt, string userId) => GetUserById<IUser>(jwt, userId);
+
+        /// <summary>
+        /// Get User details by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Task<T> GetUserById<T>(string jwt, string userId) where T : IUser
         {
             var data = new Dictionary<string, string> { };
 
-            return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/admin/users/{userId}", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<T>(HttpMethod.Get, $"{Url}/admin/users/{userId}", data, CreateAuthedRequestHeaders(jwt));
         }
+
 
         /// <summary>
         /// Updates the User data
@@ -288,10 +386,15 @@ namespace Supabase.Gotrue
         /// <param name="jwt"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<User> UpdateUser(string jwt, UserAttributes attributes)
-        {
-            return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/user", attributes, CreateAuthedRequestHeaders(jwt));
-        }
+        public Task<IUser> UpdateUser(string jwt, IUserAttributes attributes) => UpdateUser<IUser>(jwt, attributes);
+
+        /// <summary>
+        /// Updates the User data
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public Task<T> UpdateUser<T>(string jwt, IUserAttributes attributes) where T : IUser => Helpers.MakeRequest<T>(HttpMethod.Put, $"{Url}/user", attributes, CreateAuthedRequestHeaders(jwt));
 
         /// <summary>
         /// Lists users
@@ -303,11 +406,23 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null) => ListUsers<IUserList>(jwt, filter, sortBy, sortOrder, page, perPage);
+
+        /// <summary>
+        /// Lists users
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="filter">A string for example part of the email</param>
+        /// <param name="sortBy">Snake case string of the given key, currently only created_at is suppported</param>
+        /// <param name="sortOrder">asc or desc, if null desc is used</param>
+        /// <param name="page">page to show for pagination</param>
+        /// <param name="perPage">items per page for pagination</param>
+        /// <returns></returns>
+        public Task<T> ListUsers<T>(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null) where T : IUserList
         {
             var data = TransformListUsersParams(filter, sortBy, sortOrder, page, perPage);
 
-            return Helpers.MakeRequest<UserList>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<T>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
         }
 
         internal Dictionary<string, string> TransformListUsersParams(string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
@@ -346,10 +461,18 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public Task<User> CreateUser(string jwt, AdminUserAttributes attributes = null)
-        {
-            return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", attributes, CreateAuthedRequestHeaders(jwt));
-        }
+        public Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes = null) => CreateUser<IUser>(jwt, attributes);
+
+        /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="userData"></param>
+        /// <returns></returns>
+        public Task<T> CreateUser<T>(string jwt, IAdminUserAttributes attributes = null) where T : IUser => Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/admin/users", attributes, CreateAuthedRequestHeaders(jwt));
+
 
         /// <summary>
         /// Update user by Id
@@ -358,10 +481,16 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<User> UpdateUserById(string jwt, string userId, UserAttributes userData)
-        {
-            return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/admin/users/{userId}", userData, CreateAuthedRequestHeaders(jwt));
-        }
+        public Task<IUser> UpdateUserById(string jwt, string userId, IUserAttributes userData) => UpdateUserById<IUser>(jwt, userId, userData);
+
+        /// <summary>
+        /// Update user by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public Task<T> UpdateUserById<T>(string jwt, string userId, IUserAttributes userData) where T : IUser => Helpers.MakeRequest<T>(HttpMethod.Put, $"{Url}/admin/users/{userId}", userData, CreateAuthedRequestHeaders(jwt));
 
         /// <summary>
         /// Delete a user
@@ -369,10 +498,18 @@ namespace Supabase.Gotrue
         /// <param name="uid">The user uid you want to remove.</param>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <returns></returns>
-        public Task<BaseResponse> DeleteUser(string uid, string jwt)
+        public Task<IBaseResponse> DeleteUser(string uid, string jwt) => DeleteUser<IBaseResponse>(uid, jwt);
+
+        /// <summary>
+        /// Delete a user
+        /// </summary>
+        /// <param name="uid">The user uid you want to remove.</param>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <returns></returns>
+        public Task<T> DeleteUser<T>(string uid, string jwt) where T : IBaseResponse
         {
             var data = new Dictionary<string, string> { };
-            return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<T>(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
@@ -380,21 +517,33 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        public Task<Session> RefreshAccessToken(string refreshToken)
+        public Task<ISession> RefreshAccessToken(string refreshToken) => RefreshAccessToken<ISession>(refreshToken);
+
+        /// <summary>
+        /// Generates a new JWT
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public Task<T> RefreshAccessToken<T>(string refreshToken) where T : ISession
         {
             var data = new Dictionary<string, string> {
                 { "refresh_token", refreshToken }
             };
 
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers);
+            return Helpers.MakeRequest<T>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers);
         }
     }
 
     /// <summary>
     /// Options used for signing up a user.
     /// </summary>
-    public class SignUpOptions : SignInOptions
+    public class SignUpOptions : ISignUpOptions
     {
+        /// <summary>
+        /// A URL or mobile address to send the user to after they are confirmed.
+        /// </summary>
+        public string RedirectTo { get; set; }
+
         /// <summary>
         /// Optional user metadata.
         /// </summary>
@@ -404,7 +553,7 @@ namespace Supabase.Gotrue
     // <summary>
     /// Options used for signing in a user.
     /// </summary>
-    public class SignInOptions
+    public class SignInOptions : ISignInOptions
     {
         /// <summary>
         /// A URL or mobile address to send the user to after they are confirmed.

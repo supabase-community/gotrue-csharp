@@ -69,9 +69,8 @@ namespace GotrueTests
         [TestMethod("Client: Signs Up User")]
         public async Task ClientSignsUpUser()
         {
-            Session session = null;
             var email = $"{RandomString(12)}@supabase.io";
-            session = await client.SignUp(email, password);
+            var session = await client.SignUp(email, password);
 
             Assert.IsNotNull(session.AccessToken);
             Assert.IsNotNull(session.RefreshToken);
@@ -123,7 +122,6 @@ namespace GotrueTests
         [TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
         public async Task ClientSignsIn()
         {
-            Session session = null;
             string refreshToken = "";
 
             // Emails
@@ -132,7 +130,7 @@ namespace GotrueTests
 
             await client.SignOut();
 
-            session = await client.SignIn(email, password);
+            var session = await client.SignIn(email, password);
 
             Assert.IsNotNull(session.AccessToken);
             Assert.IsNotNull(session.RefreshToken);

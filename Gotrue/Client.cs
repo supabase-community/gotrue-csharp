@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Attributes;
+using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Api;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
@@ -19,7 +20,7 @@ namespace Supabase.Gotrue
     /// var client = Supabase.Gotrue.Client.Initialize(options);
     /// var user = await client.SignIn("user@email.com", "fancyPassword");
     /// </example>
-    public class Client
+    public class Client : IGotrueClient
     {
         /// <summary>
         /// Specifies the functionality expected from the `SignIn` method
@@ -111,17 +112,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
         /// </summary>
-        public event EventHandler<ClientStateChanged> StateChanged;
+        public event EventHandler<IClientStateChanged> StateChanged;
 
         /// <summary>
         /// The current User
         /// </summary>
-        public User CurrentUser { get; private set; }
+        public IUser CurrentUser { get; private set; }
 
         /// <summary>
         /// The current Session
         /// </summary>
-        public Session CurrentSession { get; private set; }
+        public ISession CurrentSession { get; private set; }
 
         /// <summary>
         /// Should Client Refresh Token Automatically? (via <see cref="ClientOptions"/>)
@@ -136,12 +137,12 @@ namespace Supabase.Gotrue
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to persist the session.
         /// </summary>
-        protected Func<Session, Task<bool>> SessionPersistor { get; private set; }
+        protected Func<ISession, Task<bool>> SessionPersistor { get; private set; }
 
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to retrieve the session.
         /// </summary>
-        protected Func<Task<Session>> SessionRetriever { get; private set; }
+        protected Func<Task<ISession>> SessionRetriever { get; private set; }
 
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to destroy the session.
@@ -151,14 +152,14 @@ namespace Supabase.Gotrue
         /// <summary>
         /// The initialized client options.
         /// </summary>
-        internal ClientOptions Options { get; private set; }
+        internal IGotrueClientOptions Options { get; private set; }
 
         /// <summary>
         /// Internal timer reference for Refreshing Tokens (<see cref="AutoRefreshToken"/>)
         /// </summary>
         private Timer refreshTimer = null;
 
-        private Api api;
+        private IGotrueApi api;
 
         /// <summary>
         /// Private constructor for Singleton initialization
@@ -175,11 +176,30 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static void Initialize(ClientOptions options = null, Action<Client> callback = null)
+        public static void Initialize(IGotrueClientOptions options = null, Action<IGotrueClient> callback = null)
         {
             Task.Run(async () =>
             {
                 var client = await InitializeAsync(options);
+                callback?.Invoke(client);
+            });
+        }
+
+        /// <summary>
+        /// Initializes a Client.
+        ///
+        /// Though <see cref="ClientOptions"/> <paramref name="options"/> are ... optional, one will likely
+        /// need to define, at the very least, <see cref="ClientOptions.Url"/>.
+        ///
+        /// If awaited, will asyncronously grab the session via <see cref="SessionRetriever"/>
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static void Initialize(IGotrueClientOptions options = null, IGotrueApi gotrueApi = null, Action<IGotrueClient> callback = null)
+        {
+            Task.Run(async () =>
+            {
+                var client = await InitializeAsync(options, gotrueApi);
                 callback?.Invoke(client);
             });
         }
@@ -194,7 +214,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static async Task<Client> InitializeAsync(ClientOptions options = null)
+        public static async Task<Client> InitializeAsync(IGotrueClientOptions options = null, IGotrueApi gotrueApi = null)
         {
             instance = new Client();
 
@@ -208,7 +228,14 @@ namespace Supabase.Gotrue
             instance.SessionRetriever = options.SessionRetriever;
             instance.SessionDestroyer = options.SessionDestroyer;
 
-            instance.api = new Api(options.Url, options.Headers);
+            if (gotrueApi != null)
+            {
+                instance.api = gotrueApi;
+            }
+            else
+            {
+                instance.api = new Api(options.Url, options.Headers);
+            }
 
             // Retrieve the session
             if (instance.ShouldPersistSession)
@@ -224,7 +251,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public Task<Session> SignUp(string email, string password, SignUpOptions options = null) => SignUp(SignUpType.Email, email, password, options);
+        public Task<ISession> SignUp(string email, string password, ISignUpOptions options = null) => SignUp(SignUpType.Email, email, password, options);
 
         /// <summary>
         /// Signs up a user
@@ -234,13 +261,13 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public async Task<Session> SignUp(SignUpType type, string identifier, string password, SignUpOptions options = null)
+        public async Task<ISession> SignUp(SignUpType type, string identifier, string password, ISignUpOptions options = null)
         {
             await DestroySession();
 
             try
             {
-                Session session = null;
+                ISession session = null;
                 switch (type)
                 {
                     case SignUpType.Email:
@@ -275,7 +302,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<bool> SignIn(string email, SignInOptions options = null)
+        public async Task<bool> SignIn(string email, ISignInOptions options = null)
         {
             await DestroySession();
 
@@ -295,7 +322,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<bool> SendMagicLink(string email, SignInOptions options = null) => SignIn(email, options);
+        public Task<bool> SendMagicLink(string email, ISignInOptions options = null) => SignIn(email, options);
 
 
         /// <summary>
@@ -304,7 +331,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<Session> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
+        public Task<ISession> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
 
         /// <summary>
         /// Log in an existing user, or login via a third-party provider.
@@ -314,13 +341,13 @@ namespace Supabase.Gotrue
         /// <param name="password">Password to account (optional if `RefreshToken`)</param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public async Task<Session> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null)
+        public async Task<ISession> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null)
         {
             await DestroySession();
 
             try
             {
-                Session session = null;
+                ISession session = null;
                 switch (type)
                 {
                     case SignInType.Email:
@@ -395,7 +422,7 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public async Task<Session> VerifyOTP(string phone, string token)
+        public async Task<ISession> VerifyOTP(string phone, string token)
         {
             try
             {
@@ -437,7 +464,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<User> Update(UserAttributes attributes)
+        public async Task<IUser> Update(IUserAttributes attributes)
         {
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
@@ -508,7 +535,7 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public async Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public async Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             try
             {
@@ -526,7 +553,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<User> GetUserById(string jwt, string userId)
+        public async Task<IUser> GetUserById(string jwt, string userId)
         {
             try
             {
@@ -546,7 +573,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<User> CreateUser(string jwt, string email, string password, AdminUserAttributes attributes = null)
+        public Task<IUser> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null)
         {
             if (attributes == null)
             {
@@ -564,7 +591,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<User> CreateUser(string jwt, AdminUserAttributes attributes)
+        public async Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes)
         {
             try
             {
@@ -583,7 +610,7 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public async Task<User> UpdateUserById(string jwt, string userId, AdminUserAttributes userData)
+        public async Task<IUser> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData)
         {
             try
             {
@@ -619,7 +646,7 @@ namespace Supabase.Gotrue
         /// Refreshes the currently logged in User's Session.
         /// </summary>
         /// <returns></returns>
-        public async Task<Session> RefreshSession()
+        public async Task<ISession> RefreshSession()
         {
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
@@ -638,7 +665,7 @@ namespace Supabase.Gotrue
         /// <param name="uri"></param>
         /// <param name="storeSession"></param>
         /// <returns></returns>
-        public async Task<Session> GetSessionFromUrl(Uri uri, bool storeSession = true)
+        public async Task<ISession> GetSessionFromUrl(Uri uri, bool storeSession = true)
         {
             var query = string.IsNullOrEmpty(uri.Fragment) ? HttpUtility.ParseQueryString(uri.Query) : HttpUtility.ParseQueryString('?' + uri.Fragment.TrimStart('#'));
 
@@ -694,7 +721,7 @@ namespace Supabase.Gotrue
         /// Retrieves the Session by calling <see cref="SessionRetriever"/> - sets internal state and timers.
         /// </summary>
         /// <returns></returns>
-        public async Task<Session> RetrieveSessionAsync()
+        public async Task<ISession> RetrieveSessionAsync()
         {
             if (SessionRetriever == null) return null;
 
@@ -744,7 +771,7 @@ namespace Supabase.Gotrue
         /// Persists a Session in memory and calls (if specified) <see cref="ClientOptions.SessionPersistor"/>
         /// </summary>
         /// <param name="session"></param>
-        internal async Task PersistSession(Session session)
+        internal async Task PersistSession(ISession session)
         {
             CurrentSession = session;
             CurrentUser = session.User;
@@ -828,7 +855,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Class representing a state change on the <see cref="Client"/>.
     /// </summary>
-    public class ClientStateChanged : EventArgs
+    public class ClientStateChanged : EventArgs, IClientStateChanged
     {
         public AuthState State { get; private set; }
 
@@ -841,7 +868,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Class represention options available to the <see cref="Client"/>.
     /// </summary>
-    public class ClientOptions
+    public class ClientOptions : IGotrueClientOptions
     {
         /// <summary>
         /// Gotrue Endpoint
@@ -851,7 +878,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Headers to be sent with subsequent requests.
         /// </summary>
-        public Dictionary<string, string> Headers = new Dictionary<string, string>(Constants.DEFAULT_HEADERS);
+        public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>(Constants.DEFAULT_HEADERS);
 
         /// <summary>
         /// Should the Client automatically handle refreshing the User's Token?
@@ -866,17 +893,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Function called to persist the session (probably on a filesystem or cookie)
         /// </summary>
-        public Func<Session, Task<bool>> SessionPersistor = (Session session) => Task.FromResult<bool>(true);
+        public Func<ISession, Task<bool>> SessionPersistor { get; set; } = (ISession session) => Task.FromResult<bool>(true);
 
         /// <summary>
         /// Function to retrieve a session (probably from the filesystem or cookie)
         /// </summary>
-        public Func<Task<Session>> SessionRetriever = () => Task.FromResult<Session>(null);
+        public Func<Task<ISession>> SessionRetriever { get; set; } = () => Task.FromResult<ISession>(null);
 
         /// <summary>
         /// Function to destroy a session.
         /// </summary>
-        public Func<Task<bool>> SessionDestroyer = () => Task.FromResult<bool>(true);
+        public Func<Task<bool>> SessionDestroyer { get; set; } = () => Task.FromResult<bool>(true);
 
         /// <summary>
         /// Very unlikely this flag needs to be changed except in very specific contexts.

@@ -10,6 +10,7 @@ using Supabase.Gotrue;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.StatelessClient;
 using static Supabase.Gotrue.Constants;
+using Supabase.Gotrue.Interfaces;
 
 namespace GotrueTests
 {
@@ -65,9 +66,8 @@ namespace GotrueTests
         [TestMethod("StatelessClient: Signs Up User")]
         public async Task SignsUpUser()
         {
-            Session session = null;
             var email = $"{RandomString(12)}@supabase.io";
-            session = await SignUp(email, password, options);
+            var session = await SignUp(email, password, options);
 
             Assert.IsNotNull(session.AccessToken);
             Assert.IsNotNull(session.RefreshToken);
@@ -96,7 +96,6 @@ namespace GotrueTests
         [TestMethod("StatelessClient: Signs In User (Email, Phone, Refresh token)")]
         public async Task SignsIn()
         {
-            Session session = null;
             string refreshToken = "";
 
             // Emails
@@ -104,7 +103,7 @@ namespace GotrueTests
             await SignUp(email, password, options);
 
 
-            session = await SignIn(email, password, options);
+            var session = await SignIn(email, password, options);
 
             Assert.IsNotNull(session.AccessToken);
             Assert.IsNotNull(session.RefreshToken);
@@ -134,14 +133,12 @@ namespace GotrueTests
         [TestMethod("StatelessClient: Signs Out User (Email)")]
         public async Task SignsOut()
         {
-            Session session = null;
-
             // Emails
             var email = $"{RandomString(12)}@supabase.io";
             await SignUp(email, password, options);
 
 
-            session = await SignIn(email, password, options);
+            var session = await SignIn(email, password, options);
 
             Assert.IsNotNull(session.AccessToken);
             Assert.IsInstanceOfType(session.User, typeof(User));

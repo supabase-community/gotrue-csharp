@@ -1,12 +1,13 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Supabase.Gotrue.Interfaces;
 
 namespace Supabase.Gotrue
 {
     /// <summary>
     /// Represents a Gotrue Session
     /// </summary>
-    public class Session
+    public class Session : ISession
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }
@@ -21,7 +22,7 @@ namespace Supabase.Gotrue
         public string TokenType { get; set; }
 
         [JsonProperty("user")]
-        public User User { get; set; }
+        public IUser User { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;

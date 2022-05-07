@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Attributes;
+using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Api;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
@@ -31,7 +32,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="signUpOptions">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public static Task<Session> SignUp(string email, string password, StatelessClientOptions options, SignUpOptions signUpOptions = null) => SignUp(SignUpType.Email, email, password, options, signUpOptions);
+        public static Task<ISession> SignUp(string email, string password, StatelessClientOptions options, SignUpOptions signUpOptions = null) => SignUp(SignUpType.Email, email, password, options, signUpOptions);
 
         /// <summary>
         /// Signs up a user
@@ -41,12 +42,12 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="signUpOptions">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public static async Task<Session> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, SignUpOptions signUpOptions = null)
+        public static async Task<ISession> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, ISignUpOptions signUpOptions = null)
         {
             try
             {
                 var api = GetApi(options);
-                Session session = null;
+                ISession session = null;
                 switch (type)
                 {
                     case SignUpType.Email:
@@ -104,7 +105,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static Task<Session> SignIn(string email, string password, StatelessClientOptions options) => SignIn(SignInType.Email, email, password, options);
+        public static Task<ISession> SignIn(string email, string password, StatelessClientOptions options) => SignIn(SignInType.Email, email, password, options);
 
         /// <summary>
         /// Log in an existing user, or login via a third-party provider.
@@ -114,12 +115,12 @@ namespace Supabase.Gotrue
         /// <param name="password">Password to account (optional if `RefreshToken`)</param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public static async Task<Session> SignIn(SignInType type, string identifierOrToken, string password = null, StatelessClientOptions options = null)
+        public static async Task<ISession> SignIn(SignInType type, string identifierOrToken, string password = null, StatelessClientOptions options = null)
         {
             try
             {
                 var api = GetApi(options);
-                Session session = null;
+                ISession session = null;
                 switch (type)
                 {
                     case SignInType.Email:
@@ -204,7 +205,7 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public static async Task<Session> VerifyOTP(string phone, string token, StatelessClientOptions options)
+        public static async Task<ISession> VerifyOTP(string phone, string token, StatelessClientOptions options)
         {
             try
             {
@@ -228,7 +229,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public static async Task<User> Update(string accessToken, UserAttributes attributes, StatelessClientOptions options)
+        public static async Task<IUser> Update(string accessToken, UserAttributes attributes, StatelessClientOptions options)
         {
             try
             {
@@ -291,7 +292,7 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public static async Task<UserList> ListUsers(string jwt, StatelessClientOptions options, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public static async Task<IUserList> ListUsers(string jwt, StatelessClientOptions options, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             try
             {
@@ -309,7 +310,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static async Task<User> GetUserById(string jwt, StatelessClientOptions options, string userId)
+        public static async Task<IUser> GetUserById(string jwt, StatelessClientOptions options, string userId)
         {
             try
             {
@@ -329,7 +330,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public static Task<User> CreateUser(string jwt, StatelessClientOptions options, string email, string password, AdminUserAttributes attributes = null)
+        public static Task<IUser> CreateUser(string jwt, StatelessClientOptions options, string email, string password, IAdminUserAttributes attributes = null)
         {
             if (attributes == null)
             {
@@ -347,7 +348,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public static async Task<User> CreateUser(string jwt, StatelessClientOptions options, AdminUserAttributes attributes)
+        public static async Task<IUser> CreateUser(string jwt, StatelessClientOptions options, IAdminUserAttributes attributes)
         {
             try
             {
@@ -366,7 +367,7 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public static async Task<User> UpdateUserById(string jwt, StatelessClientOptions options, string userId, AdminUserAttributes userData)
+        public static async Task<IUser> UpdateUserById(string jwt, StatelessClientOptions options, string userId, IAdminUserAttributes userData)
         {
             try
             {
@@ -404,7 +405,7 @@ namespace Supabase.Gotrue
         /// <param name="uri"></param>
         /// <param name="storeSession"></param>
         /// <returns></returns>
-        public static async Task<Session> GetSessionFromUrl(Uri uri, StatelessClientOptions options)
+        public static async Task<ISession> GetSessionFromUrl(Uri uri, StatelessClientOptions options)
         {
             var query = HttpUtility.ParseQueryString(uri.Query);
 
@@ -451,7 +452,7 @@ namespace Supabase.Gotrue
         /// Refreshes a Token
         /// </summary>
         /// <returns></returns>
-        public static async Task<Session> RefreshToken(string refreshToken, StatelessClientOptions options) => await GetApi(options).RefreshAccessToken(refreshToken);
+        public static async Task<ISession> RefreshToken(string refreshToken, StatelessClientOptions options) => await GetApi(options).RefreshAccessToken(refreshToken);
 
         /// <summary>
         /// Class represention options available to the <see cref="Client"/>.

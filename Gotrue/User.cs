@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Supabase.Gotrue.Interfaces;
 
 #nullable enable
 namespace Supabase.Gotrue
@@ -9,7 +10,7 @@ namespace Supabase.Gotrue
     /// Represents a Gotrue User
     /// Ref: https://supabase.github.io/gotrue-js/interfaces/User.html
     /// </summary>
-    public class User
+    public class User : IUser
     {
         [JsonProperty("action_link")]
         public string? ActionLink { get; set; }
@@ -70,7 +71,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Ref: https://supabase.github.io/gotrue-js/interfaces/AdminUserAttributes.html
     /// </summary>
-    public class AdminUserAttributes : UserAttributes
+    public class AdminUserAttributes : UserAttributes, IAdminUserAttributes
     {
         /// <summary>
         /// A custom data object for app_metadata that. Can be any JSON serializable data.
@@ -107,7 +108,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Ref: https://supabase.github.io/gotrue-js/interfaces/UserAttributes.html
     /// </summary>
-    public class UserAttributes
+    public class UserAttributes : IUserAttributes
     {
         [JsonProperty("email")]
         public string? Email { get; set; }
@@ -131,7 +132,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Ref: https://supabase.github.io/gotrue-js/interfaces/VerifyEmailOTPParams.html
     /// </summary>
-    public class VerifyOTPParams
+    public class VerifyOTPParams : IVerifyOTPParams
     {
         [JsonProperty("email")]
         public string? Email { get; set; }
@@ -146,7 +147,7 @@ namespace Supabase.Gotrue
         public string Type { get; set; }
     }
 
-    public class UserList
+    public class UserList : IUserList
     {
         [JsonProperty("aud")]
         public string Aud { get; set; }
@@ -158,7 +159,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Ref: https://supabase.github.io/gotrue-js/interfaces/UserIdentity.html
     /// </summary>
-    public class UserIdentity
+    public class UserIdentity : IUserIdentity
     {
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
