@@ -9,13 +9,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Client;
+using Supabase.Gotrue.Interfaces;
 
 namespace GotrueTests
 {
     [TestClass]
     public class Client
     {
-        private Supabase.Gotrue.Client client;
+        private IGotrueClient client;
 
         private string password = "I@M@SuperP@ssWord";
 

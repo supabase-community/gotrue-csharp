@@ -7,12 +7,13 @@ using System.Web;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Attributes;
 using Supabase.Gotrue.Interfaces;
-using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
+    /// <inheritdoc/>
+    /// <seealso cref="Supabase.Gotrue.Interfaces.IGotrueApi" />
     public class Api : IGotrueApi
     {
         protected string Url { get; private set; }

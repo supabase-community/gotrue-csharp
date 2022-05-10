@@ -20,6 +20,7 @@ namespace Supabase.Gotrue
     /// var client = Supabase.Gotrue.Client.Initialize(options);
     /// var user = await client.SignIn("user@email.com", "fancyPassword");
     /// </example>
+    /// <inheritdoc/>
     public class Client : IGotrueClient
     {
         /// <summary>
@@ -114,14 +115,9 @@ namespace Supabase.Gotrue
         /// </summary>
         public event EventHandler<IClientStateChanged> StateChanged;
 
-        /// <summary>
-        /// The current User
-        /// </summary>
         public IUser CurrentUser { get; private set; }
 
-        /// <summary>
-        /// The current Session
-        /// </summary>
+        /// <summary>The current Session</summary>
         public ISession CurrentSession { get; private set; }
 
         /// <summary>
@@ -214,7 +210,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static async Task<Client> InitializeAsync(IGotrueClientOptions options = null, IGotrueApi gotrueApi = null)
+        public static async Task<IGotrueClient> InitializeAsync(IGotrueClientOptions options = null, IGotrueApi gotrueApi = null)
         {
             instance = new Client();
 
@@ -251,7 +247,16 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public Task<ISession> SignUp(string email, string password, ISignUpOptions options = null) => SignUp(SignUpType.Email, email, password, options);
+        public Task<T> SignUp<T>(string email, string password, ISignUpOptions options = null) where T : ISession => SignUp<T>(SignUpType.Email, email, password, options);
+
+        /// <summary>
+        /// Signs up a user by email address
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
+        /// <returns></returns>
+        public Task<ISession> SignUp(string email, string password, ISignUpOptions options = null) => SignUp<ISession>(SignUpType.Email, email, password, options);
 
         /// <summary>
         /// Signs up a user
@@ -261,20 +266,30 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public async Task<ISession> SignUp(SignUpType type, string identifier, string password, ISignUpOptions options = null)
+        public Task<ISession> SignUp(SignUpType type, string identifier, string password, ISignUpOptions options = null) => SignUp<ISession>(type, identifier, password, options);
+
+        /// <summary>
+        /// Signs up a user
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="identifier"></param>
+        /// <param name="password"></param>
+        /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
+        /// <returns></returns>
+        public async Task<T> SignUp<T>(SignUpType type, string identifier, string password, ISignUpOptions options = null) where T : ISession
         {
             await DestroySession();
 
             try
             {
-                ISession session = null;
+                T session = default;
                 switch (type)
                 {
                     case SignUpType.Email:
-                        session = await api.SignUpWithEmail(identifier, password, options);
+                        session = await api.SignUpWithEmail<T>(identifier, password, options);
                         break;
                     case SignUpType.Phone:
-                        session = await api.SignUpWithPhone(identifier, password, options);
+                        session = await api.SignUpWithPhone<T>(identifier, password, options);
                         break;
                 }
 
@@ -284,7 +299,7 @@ namespace Supabase.Gotrue
 
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
 
-                    return CurrentSession;
+                    return session;
                 }
 
                 return session;
@@ -334,6 +349,14 @@ namespace Supabase.Gotrue
         public Task<ISession> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
 
         /// <summary>
+        /// Signs in a User.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public Task<T> SignIn<T>(string email, string password) where T : ISession => SignIn<T>(SignInType.Email, email, password);
+
+        /// <summary>
         /// Log in an existing user, or login via a third-party provider.
         /// </summary>
         /// <param name="type">Type of Credentials being passed</param>
@@ -341,46 +364,56 @@ namespace Supabase.Gotrue
         /// <param name="password">Password to account (optional if `RefreshToken`)</param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public async Task<ISession> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null)
+        public Task<ISession> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null) => SignIn<ISession>(type, identifierOrToken, password, scopes);
+
+        /// <summary>
+        /// Log in an existing user, or login via a third-party provider.
+        /// </summary>
+        /// <param name="type">Type of Credentials being passed</param>
+        /// <param name="identifierOrToken">An email, phone, or RefreshToken</param>
+        /// <param name="password">Password to account (optional if `RefreshToken`)</param>
+        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
+        /// <returns></returns>
+        public async Task<T> SignIn<T>(SignInType type, string identifierOrToken, string password = null, string scopes = null) where T : ISession
         {
             await DestroySession();
 
             try
             {
-                ISession session = null;
+                T session = default(T);
                 switch (type)
                 {
                     case SignInType.Email:
-                        session = await api.SignInWithEmail(identifierOrToken, password);
+                        session = await api.SignInWithEmail<T>(identifierOrToken, password);
                         break;
                     case SignInType.Phone:
                         if (string.IsNullOrEmpty(password))
                         {
                             var response = await api.SendMobileOTP(identifierOrToken);
-                            return null;
+                            return default(T);
                         }
                         else
                         {
-                            session = await api.SignInWithPhone(identifierOrToken, password);
+                            session = await api.SignInWithPhone<T>(identifierOrToken, password);
                         }
                         break;
                     case SignInType.RefreshToken:
-                        CurrentSession = new Session();
+                        CurrentSession = session;
                         CurrentSession.RefreshToken = identifierOrToken;
 
                         await RefreshToken();
 
-                        return CurrentSession;
+                        return (T)CurrentSession;
                 }
 
                 if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
                 {
                     await PersistSession(session);
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-                    return CurrentSession;
+                    return (T)CurrentSession;
                 }
 
-                return null;
+                return default(T);
             }
             catch (RequestException ex)
             {
@@ -422,13 +455,21 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public async Task<ISession> VerifyOTP(string phone, string token)
+        public Task<ISession> VerifyOTP(string phone, string token) => VerifyOTP<ISession>(phone, token);
+
+        /// <summary>
+        /// Log in a user given a User supplied OTP received via mobile.
+        /// </summary>
+        /// <param name="phone">The user's phone number.</param>
+        /// <param name="token">Token sent to the user's phone.</param>
+        /// <returns></returns>
+        public async Task<T> VerifyOTP<T>(string phone, string token) where T : ISession
         {
             try
             {
                 await DestroySession();
 
-                var session = await api.VerifyMobileOTP(phone, token);
+                var session = await api.VerifyMobileOTP<T>(phone, token);
 
                 if (session?.AccessToken != null)
                 {
@@ -437,7 +478,7 @@ namespace Supabase.Gotrue
                     return session;
                 }
 
-                return null;
+                return default(T);
             }
             catch (RequestException ex)
             {
@@ -459,19 +500,27 @@ namespace Supabase.Gotrue
             }
         }
 
+
         /// <summary>
         /// Updates a User.
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<IUser> Update(IUserAttributes attributes)
+        public Task<IUser> Update(IUserAttributes attributes) => Update<IUser>(attributes);
+
+        /// <summary>
+        /// Updates a User.
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public async Task<T> Update<T>(IUserAttributes attributes) where T : IUser
         {
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
 
             try
             {
-                var result = await api.UpdateUser(CurrentSession.AccessToken, attributes);
+                var result = await api.UpdateUser<T>(CurrentSession.AccessToken, attributes);
 
                 CurrentUser = result;
 
@@ -525,6 +574,7 @@ namespace Supabase.Gotrue
             }
         }
 
+
         /// <summary>
         /// Lists users
         /// </summary>
@@ -535,11 +585,23 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public async Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null) => ListUsers<IUserList>(jwt, filter, sortBy, sortOrder, page, perPage);
+
+        /// <summary>
+        /// Lists users
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="filter">A string for example part of the email</param>
+        /// <param name="sortBy">Snake case string of the given key, currently only created_at is suppported</param>
+        /// <param name="sortOrder">asc or desc, if null desc is used</param>
+        /// <param name="page">page to show for pagination</param>
+        /// <param name="perPage">items per page for pagination</param>
+        /// <returns></returns>
+        public async Task<T> ListUsers<T>(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null) where T : IUserList
         {
             try
             {
-                return await api.ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
+                return await api.ListUsers<T>(jwt, filter, sortBy, sortOrder, page, perPage);
             }
             catch (RequestException ex)
             {
@@ -553,11 +615,19 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<IUser> GetUserById(string jwt, string userId)
+        public Task<IUser> GetUserById(string jwt, string userId) => GetUserById<IUser>(jwt, userId);
+
+        /// <summary>
+        /// Get User details by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<T> GetUserById<T>(string jwt, string userId) where T : IUser
         {
             try
             {
-                return await api.GetUserById(jwt, userId);
+                return await api.GetUserById<T>(jwt, userId);
             }
             catch (RequestException ex)
             {
@@ -573,7 +643,17 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<IUser> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null)
+        public Task<IUser> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null) => CreateUser<IUser>(jwt, email, password, attributes);
+
+        /// <summary>
+        /// Create a user (as a service_role)
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public Task<T> CreateUser<T>(string jwt, string email, string password, IAdminUserAttributes attributes = null) where T : IUser
         {
             if (attributes == null)
             {
@@ -582,8 +662,9 @@ namespace Supabase.Gotrue
             attributes.Email = email;
             attributes.Password = password;
 
-            return CreateUser(jwt, attributes);
+            return CreateUser<T>(jwt, attributes);
         }
+
 
         /// <summary>
         /// Create a user (as a service_role)
@@ -591,11 +672,19 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes)
+        public Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes) => CreateUser<IUser>(jwt, attributes);
+
+        /// <summary>
+        /// Create a user (as a service_role)
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public async Task<T> CreateUser<T>(string jwt, IAdminUserAttributes attributes) where T : IUser
         {
             try
             {
-                return await api.CreateUser(jwt, attributes);
+                return await api.CreateUser<T>(jwt, attributes);
             }
             catch (RequestException ex)
             {
@@ -610,11 +699,20 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public async Task<IUser> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData)
+        public Task<IUser> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData) => UpdateUserById<IUser>(jwt, userId, userData);
+
+        /// <summary>
+        /// Update user by Id
+        /// </summary>
+        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="userId"></param>
+        /// <param name="userData"></param>
+        /// <returns></returns>
+        public async Task<T> UpdateUserById<T>(string jwt, string userId, IAdminUserAttributes userData) where T : IUser
         {
             try
             {
-                return await api.UpdateUserById(jwt, userId, userData);
+                return await api.UpdateUserById<T>(jwt, userId, userData);
             }
             catch (RequestException ex)
             {
@@ -646,7 +744,13 @@ namespace Supabase.Gotrue
         /// Refreshes the currently logged in User's Session.
         /// </summary>
         /// <returns></returns>
-        public async Task<ISession> RefreshSession()
+        public Task<ISession> RefreshSession() => RefreshSession<ISession>();
+
+        /// <summary>
+        /// Refreshes the currently logged in User's Session.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<T> RefreshSession<T>() where T : ISession
         {
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
@@ -656,7 +760,7 @@ namespace Supabase.Gotrue
             var user = await api.GetUser(CurrentSession.AccessToken);
             CurrentUser = user;
 
-            return CurrentSession;
+            return (T)CurrentSession;
         }
 
         /// <summary>
