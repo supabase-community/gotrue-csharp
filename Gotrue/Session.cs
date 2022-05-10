@@ -22,7 +22,7 @@ namespace Supabase.Gotrue
         public string TokenType { get; set; }
 
         [JsonProperty("user")]
-        public IUser User { get; set; }
+        public User User { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;

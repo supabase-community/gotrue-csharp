@@ -256,7 +256,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public Task<ISession> SignUp(string email, string password, ISignUpOptions options = null) => SignUp<ISession>(SignUpType.Email, email, password, options);
+        public Task<Session> SignUp(string email, string password, ISignUpOptions options = null) => SignUp<Session>(SignUpType.Email, email, password, options);
 
         /// <summary>
         /// Signs up a user
@@ -266,7 +266,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public Task<ISession> SignUp(SignUpType type, string identifier, string password, ISignUpOptions options = null) => SignUp<ISession>(type, identifier, password, options);
+        public Task<Session> SignUp(SignUpType type, string identifier, string password, ISignUpOptions options = null) => SignUp<Session>(type, identifier, password, options);
 
         /// <summary>
         /// Signs up a user
@@ -346,7 +346,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<ISession> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
+        public Task<Session> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
 
         /// <summary>
         /// Signs in a User.
@@ -364,7 +364,7 @@ namespace Supabase.Gotrue
         /// <param name="password">Password to account (optional if `RefreshToken`)</param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public Task<ISession> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null) => SignIn<ISession>(type, identifierOrToken, password, scopes);
+        public Task<Session> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null) => SignIn<Session>(type, identifierOrToken, password, scopes);
 
         /// <summary>
         /// Log in an existing user, or login via a third-party provider.
@@ -380,7 +380,7 @@ namespace Supabase.Gotrue
 
             try
             {
-                T session = default(T);
+                T session = (T)Activator.CreateInstance(typeof(T));
                 switch (type)
                 {
                     case SignInType.Email:
@@ -455,7 +455,7 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public Task<ISession> VerifyOTP(string phone, string token) => VerifyOTP<ISession>(phone, token);
+        public Task<Session> VerifyOTP(string phone, string token) => VerifyOTP<Session>(phone, token);
 
         /// <summary>
         /// Log in a user given a User supplied OTP received via mobile.
@@ -506,7 +506,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<IUser> Update(IUserAttributes attributes) => Update<IUser>(attributes);
+        public Task<User> Update(IUserAttributes attributes) => Update<User>(attributes);
 
         /// <summary>
         /// Updates a User.
@@ -585,7 +585,7 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null) => ListUsers<IUserList>(jwt, filter, sortBy, sortOrder, page, perPage);
+        public Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null) => ListUsers<UserList>(jwt, filter, sortBy, sortOrder, page, perPage);
 
         /// <summary>
         /// Lists users
@@ -615,7 +615,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Task<IUser> GetUserById(string jwt, string userId) => GetUserById<IUser>(jwt, userId);
+        public Task<User> GetUserById(string jwt, string userId) => GetUserById<User>(jwt, userId);
 
         /// <summary>
         /// Get User details by Id
@@ -643,7 +643,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<IUser> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null) => CreateUser<IUser>(jwt, email, password, attributes);
+        public Task<User> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null) => CreateUser<User>(jwt, email, password, attributes);
 
         /// <summary>
         /// Create a user (as a service_role)
@@ -672,7 +672,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes) => CreateUser<IUser>(jwt, attributes);
+        public Task<User> CreateUser(string jwt, IAdminUserAttributes attributes) => CreateUser<User>(jwt, attributes);
 
         /// <summary>
         /// Create a user (as a service_role)
@@ -699,7 +699,7 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public Task<IUser> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData) => UpdateUserById<IUser>(jwt, userId, userData);
+        public Task<User> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData) => UpdateUserById<User>(jwt, userId, userData);
 
         /// <summary>
         /// Update user by Id

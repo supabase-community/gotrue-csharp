@@ -45,7 +45,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <value>
         /// The user.
         /// </value>
-        IUser User { get; set; }
+        User User { get; set; }
         /// <summary>
         /// Expires at.
         /// </summary>

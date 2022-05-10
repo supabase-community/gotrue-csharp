@@ -33,7 +33,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="jwt">The JWT.</param>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes);
+        Task<User> CreateUser(string jwt, IAdminUserAttributes attributes);
 
         /// <summary>
         /// Creates the user.
@@ -43,7 +43,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="password">The password.</param>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        Task<IUser> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null);
+        Task<User> CreateUser(string jwt, string email, string password, IAdminUserAttributes attributes = null);
 
         /// <summary>
         /// Creates the user.
@@ -87,7 +87,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="jwt">The JWT.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        Task<IUser> GetUserById(string jwt, string userId);
+        Task<User> GetUserById(string jwt, string userId);
         
         /// <summary>
         /// Gets the user by identifier.
@@ -116,7 +116,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="page">The page.</param>
         /// <param name="perPage">The per page.</param>
         /// <returns></returns>
-        Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, Constants.SortOrder sortOrder = Constants.SortOrder.Descending, int? page = null, int? perPage = null);
+        Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, Constants.SortOrder sortOrder = Constants.SortOrder.Descending, int? page = null, int? perPage = null);
         
         /// <summary>
         /// Lists the users.
@@ -181,7 +181,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="password">The password.</param>
         /// <param name="scopes">The scopes.</param>
         /// <returns></returns>
-        Task<ISession> SignIn(Client.SignInType type, string identifierOrToken, string password = null, string scopes = null);
+        Task<Session> SignIn(Client.SignInType type, string identifierOrToken, string password = null, string scopes = null);
         
         /// <summary>
         /// Signs the in.
@@ -197,7 +197,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        Task<ISession> SignIn(string email, string password);
+        Task<Session> SignIn(string email, string password);
         
         /// <summary>
         /// Signs the in.
@@ -233,7 +233,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="password">The password.</param>
         /// <param name="options">The options.</param>
         /// <returns></returns>
-        Task<ISession> SignUp(Client.SignUpType type, string identifier, string password, ISignUpOptions options = null);
+        Task<Session> SignUp(Client.SignUpType type, string identifier, string password, ISignUpOptions options = null);
         
         /// <summary>
         /// Signs up.
@@ -242,7 +242,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="password">The password.</param>
         /// <param name="options">The options.</param>
         /// <returns></returns>
-        Task<ISession> SignUp(string email, string password, ISignUpOptions options = null);
+        Task<Session> SignUp(string email, string password, ISignUpOptions options = null);
         
         /// <summary>
         /// Signs up.
@@ -270,7 +270,7 @@ namespace Supabase.Gotrue.Interfaces
         /// </summary>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        Task<IUser> Update(IUserAttributes attributes);
+        Task<User> Update(IUserAttributes attributes);
         
         /// <summary>
         /// Updates the specified attributes.
@@ -287,7 +287,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="userId">The user identifier.</param>
         /// <param name="userData">The user data.</param>
         /// <returns></returns>
-        Task<IUser> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData);
+        Task<User> UpdateUserById(string jwt, string userId, IAdminUserAttributes userData);
         
         /// <summary>
         /// Updates the user by identifier.
@@ -305,7 +305,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="phone">The phone.</param>
         /// <param name="token">The token.</param>
         /// <returns></returns>
-        Task<ISession> VerifyOTP(string phone, string token);
+        Task<Session> VerifyOTP(string phone, string token);
         
         /// <summary>
         /// Verifies the otp.

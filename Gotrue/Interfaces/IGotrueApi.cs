@@ -1,4 +1,5 @@
 ﻿using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Responses;
 using System.Threading.Tasks;
 
 namespace Supabase.Gotrue.Interfaces
@@ -11,7 +12,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="jwt">The JWT.</param>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        Task<IUser> CreateUser(string jwt, IAdminUserAttributes attributes = null);
+        Task<User> CreateUser(string jwt, IAdminUserAttributes attributes = null);
         /// <summary>
         /// Creates the user.
         /// </summary>
@@ -23,18 +24,11 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Deletes the user.
         /// </summary>
-        /// <param name="uid">The uid.</param>
-        /// <param name="jwt">The JWT.</param>
-        /// <returns></returns>
-        Task<IBaseResponse> DeleteUser(string uid, string jwt);
-        /// <summary>
-        /// Deletes the user.
-        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="uid">The uid.</param>
         /// <param name="jwt">The JWT.</param>
         /// <returns></returns>
-        Task<T> DeleteUser<T>(string uid, string jwt) where T : IBaseResponse;
+        Task<IBaseResponse> DeleteUser(string uid, string jwt);
         /// <summary>
         /// Gets the URL for provider.
         /// </summary>
@@ -47,7 +41,7 @@ namespace Supabase.Gotrue.Interfaces
         /// </summary>
         /// <param name="jwt">The JWT.</param>
         /// <returns></returns>
-        Task<IUser> GetUser(string jwt);
+        Task<User> GetUser(string jwt);
         /// <summary>
         /// Gets the user.
         /// </summary>
@@ -61,7 +55,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="jwt">The JWT.</param>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        Task<IUser> GetUserById(string jwt, string userId);
+        Task<User> GetUserById(string jwt, string userId);
         /// <summary>
         /// Gets the user by identifier.
         /// </summary>
@@ -73,18 +67,11 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Invites the user by email.
         /// </summary>
-        /// <param name="email">The email.</param>
-        /// <param name="jwt">The JWT.</param>
-        /// <returns></returns>
-        Task<IBaseResponse> InviteUserByEmail(string email, string jwt);
-        /// <summary>
-        /// Invites the user by email.
-        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="email">The email.</param>
         /// <param name="jwt">The JWT.</param>
         /// <returns></returns>
-        Task<T> InviteUserByEmail<T>(string email, string jwt) where T : IBaseResponse;
+        Task<IBaseResponse> InviteUserByEmail(string email, string jwt);
         /// <summary>
         /// Lists the users.
         /// </summary>
@@ -95,7 +82,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="page">The page.</param>
         /// <param name="perPage">The per page.</param>
         /// <returns></returns>
-        Task<IUserList> ListUsers(string jwt, string filter = null, string sortBy = null, Constants.SortOrder sortOrder = Constants.SortOrder.Descending, int? page = null, int? perPage = null);
+        Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, Constants.SortOrder sortOrder = Constants.SortOrder.Descending, int? page = null, int? perPage = null);
         /// <summary>
         /// Lists the users.
         /// </summary>
@@ -113,7 +100,7 @@ namespace Supabase.Gotrue.Interfaces
         /// </summary>
         /// <param name="refreshToken">The refresh token.</param>
         /// <returns></returns>
-        Task<ISession> RefreshAccessToken(string refreshToken);
+        Task<Session> RefreshAccessToken(string refreshToken);
         /// <summary>
         /// Refreshes the access token.
         /// </summary>
@@ -124,16 +111,10 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Resets the password for email.
         /// </summary>
-        /// <param name="email">The email.</param>
-        /// <returns></returns>
-        Task<IBaseResponse> ResetPasswordForEmail(string email);
-        /// <summary>
-        /// Resets the password for email.
-        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        Task<T> ResetPasswordForEmail<T>(string email) where T : IBaseResponse;
+        Task<IBaseResponse> ResetPasswordForEmail(string email);
         /// <summary>
         /// Sends the magic link email.
         /// </summary>
@@ -142,33 +123,18 @@ namespace Supabase.Gotrue.Interfaces
         /// <returns></returns>
         Task<IBaseResponse> SendMagicLinkEmail(string email, ISignInOptions options = null);
         /// <summary>
-        /// Sends the magic link email.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="email">The email.</param>
-        /// <param name="options">The options.</param>
-        /// <returns></returns>
-        Task<T> SendMagicLinkEmail<T>(string email, ISignInOptions options = null) where T : IBaseResponse;
-        /// <summary>
         /// Sends the mobile otp.
         /// </summary>
         /// <param name="phone">The phone.</param>
         /// <returns></returns>
         Task<IBaseResponse> SendMobileOTP(string phone);
         /// <summary>
-        /// Sends the mobile otp.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="phone">The phone.</param>
-        /// <returns></returns>
-        Task<T> SendMobileOTP<T>(string phone) where T : IBaseResponse;
-        /// <summary>
         /// Signs the in with email.
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        Task<ISession> SignInWithEmail(string email, string password);
+        Task<Session> SignInWithEmail(string email, string password);
         /// <summary>
         /// Signs the in with email.
         /// </summary>
@@ -183,7 +149,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="phone">The phone.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        Task<ISession> SignInWithPhone(string phone, string password);
+        Task<Session> SignInWithPhone(string phone, string password);
         /// <summary>
         /// Signs the in with phone.
         /// </summary>
@@ -199,20 +165,13 @@ namespace Supabase.Gotrue.Interfaces
         /// <returns></returns>
         Task<IBaseResponse> SignOut(string jwt);
         /// <summary>
-        /// Represents an event that is raised when the sign-out operation is complete.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="jwt">The JWT.</param>
-        /// <returns></returns>
-        Task<T> SignOut<T>(string jwt) where T : IBaseResponse;
-        /// <summary>
         /// Signs up with email.
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="password">The password.</param>
         /// <param name="options">The options.</param>
         /// <returns></returns>
-        Task<ISession> SignUpWithEmail(string email, string password, ISignUpOptions options = null);
+        Task<Session> SignUpWithEmail(string email, string password, ISignUpOptions options = null);
         /// <summary>
         /// Signs up with email.
         /// </summary>
@@ -229,7 +188,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="password">The password.</param>
         /// <param name="options">The options.</param>
         /// <returns></returns>
-        Task<ISession> SignUpWithPhone(string phone, string password, ISignUpOptions options = null);
+        Task<Session> SignUpWithPhone(string phone, string password, ISignUpOptions options = null);
         /// <summary>
         /// Signs up with phone.
         /// </summary>
@@ -245,7 +204,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="jwt">The JWT.</param>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        Task<IUser> UpdateUser(string jwt, IUserAttributes attributes);
+        Task<User> UpdateUser(string jwt, IUserAttributes attributes);
         /// <summary>
         /// Updates the user.
         /// </summary>
@@ -261,7 +220,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="userId">The user identifier.</param>
         /// <param name="userData">The user data.</param>
         /// <returns></returns>
-        Task<IUser> UpdateUserById(string jwt, string userId, IUserAttributes userData);
+        Task<User> UpdateUserById(string jwt, string userId, IUserAttributes userData);
         /// <summary>
         /// Updates the user by identifier.
         /// </summary>
@@ -277,7 +236,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="phone">The phone.</param>
         /// <param name="token">The token.</param>
         /// <returns></returns>
-        Task<ISession> VerifyMobileOTP(string phone, string token);
+        Task<Session> VerifyMobileOTP(string phone, string token);
         /// <summary>
         /// Verifies the mobile otp.
         /// </summary>
