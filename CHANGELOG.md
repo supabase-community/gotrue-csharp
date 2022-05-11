@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.4 - 2022-05-11
+
+- [#33](https://github.com/supabase-community/gotrue-csharp/pull/32) Refresh timer should be cancelled if the user logs out, CurrentSession object may be null in RefreshToken
+
 ## 2.4.3 - 2022-04-27
 
 - [#32](https://github.com/supabase-community/gotrue-csharp/pull/32) RefreshToken() should take an optional refresh token from the caller (Thanks [@RedChops](https://github.com/RedChops))
