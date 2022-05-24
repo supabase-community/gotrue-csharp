@@ -635,6 +635,18 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        ///  Overrides the JWT on the current session. The JWT will then be sent in all subsequent network requests.
+        /// </summary>
+        /// <param name="accessToken">The JWT access token.</param>
+        /// <returns>Session.</returns>
+        public Session SetAuth(string accessToken)
+        {
+            CurrentSession.AccessToken = accessToken;
+            StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
+            return CurrentSession;
+        }
+
+        /// <summary>
         /// Parses a <see cref="Session"/> out of a <see cref="Uri"/>'s Query parameters.
         /// </summary>
         /// <param name="uri"></param>
