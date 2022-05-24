@@ -641,7 +641,12 @@ namespace Supabase.Gotrue
         /// <returns>Session.</returns>
         public Session SetAuth(string accessToken)
         {
+            if (CurrentSession == null) CurrentSession = new Session();
+            
             CurrentSession.AccessToken = accessToken;
+            CurrentSession.TokenType = "bearer";
+            CurrentSession.User = CurrentUser;
+
             StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
             return CurrentSession;
         }
