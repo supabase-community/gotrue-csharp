@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.5 - 2022-05-24
+
+- [#37](https://github.com/supabase-community/gotrue-csharp/issues/37) Adds a `SetAuth` method to allow setting an arbitrary JWT token.
+
 ## 2.4.4 - 2022-05-11
 
 - [#33](https://github.com/supabase-community/gotrue-csharp/pull/32) Refresh timer should be cancelled if the user logs out, CurrentSession object may be null in RefreshToken
