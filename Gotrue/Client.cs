@@ -553,7 +553,7 @@ namespace Supabase.Gotrue
 		}
 		catch (RequestException ex)
 		{
-				throw ExceptionHandler.Parse(ex);
+			throw ExceptionHandler.Parse(ex);
 		}
 	}
 
