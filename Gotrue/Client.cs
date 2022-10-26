@@ -539,6 +539,23 @@ namespace Supabase.Gotrue
                 throw ExceptionHandler.Parse(ex);
             }
         }
+        
+        /// <summary>
+		/// Get User details by JWT. Can be used to validate a JWT.
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
+		/// <returns></returns>
+		public async Task<User> GetUser(string jwt)
+		{
+			try
+			{
+				return await api.GetUser(jwt);
+			}
+			catch (RequestException ex)
+			{
+				throw ExceptionHandler.Parse(ex);
+			}
+		}
 
         /// <summary>
         /// Create a user (as a service_role)
