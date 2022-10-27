@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.6 - 2022-10-27
+
+- [#39](https://github.com/supabase-community/gotrue-csharp/pull/39) Added GetUser method that supports a JWT. (tahnks [@AlexMeesters](https://github.com/AlexMeesters)!)
+
 ## 2.4.5 - 2022-05-24
 
 - [#37](https://github.com/supabase-community/gotrue-csharp/issues/37) Adds a `SetAuth` method to allow setting an arbitrary JWT token.
