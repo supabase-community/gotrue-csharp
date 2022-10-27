@@ -514,6 +514,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.GetSessionFromUrl
   nameWithType: Client.GetSessionFromUrl
+- uid: Supabase.Gotrue.Client.GetUser(System.String)
+  name: GetUser(String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetUser_System_String_
+  commentId: M:Supabase.Gotrue.Client.GetUser(System.String)
+  fullName: Supabase.Gotrue.Client.GetUser(System.String)
+  nameWithType: Client.GetUser(String)
+- uid: Supabase.Gotrue.Client.GetUser*
+  name: GetUser
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetUser_
+  commentId: Overload:Supabase.Gotrue.Client.GetUser
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.GetUser
+  nameWithType: Client.GetUser
 - uid: Supabase.Gotrue.Client.GetUserById(System.String,System.String)
   name: GetUserById(String, String)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetUserById_System_String_System_String_
