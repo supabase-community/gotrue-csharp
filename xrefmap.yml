@@ -885,6 +885,19 @@ references:
   commentId: F:Supabase.Gotrue.Client.SignInType.RefreshToken
   fullName: Supabase.Gotrue.Client.SignInType.RefreshToken
   nameWithType: Client.SignInType.RefreshToken
+- uid: Supabase.Gotrue.Client.SignInWithPassword(System.String,System.String)
+  name: SignInWithPassword(String, String)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithPassword_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.SignInWithPassword(System.String,System.String)
+  fullName: Supabase.Gotrue.Client.SignInWithPassword(System.String, System.String)
+  nameWithType: Client.SignInWithPassword(String, String)
+- uid: Supabase.Gotrue.Client.SignInWithPassword*
+  name: SignInWithPassword
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithPassword_
+  commentId: Overload:Supabase.Gotrue.Client.SignInWithPassword
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.SignInWithPassword
+  nameWithType: Client.SignInWithPassword
 - uid: Supabase.Gotrue.Client.SignOut
   name: SignOut()
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignOut
@@ -1590,6 +1603,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.GetSessionFromUrl
   nameWithType: StatelessClient.GetSessionFromUrl
+- uid: Supabase.Gotrue.StatelessClient.GetUser(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name: GetUser(String, StatelessClient.StatelessClientOptions)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_GetUser_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
+  commentId: M:Supabase.Gotrue.StatelessClient.GetUser(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  fullName: Supabase.Gotrue.StatelessClient.GetUser(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  nameWithType: StatelessClient.GetUser(String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.StatelessClient.GetUser*
+  name: GetUser
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_GetUser_
+  commentId: Overload:Supabase.Gotrue.StatelessClient.GetUser
+  isSpec: "True"
+  fullName: Supabase.Gotrue.StatelessClient.GetUser
+  nameWithType: StatelessClient.GetUser
 - uid: Supabase.Gotrue.StatelessClient.GetUserById(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String)
   name: GetUserById(String, StatelessClient.StatelessClientOptions, String)
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_GetUserById_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_
