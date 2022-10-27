@@ -220,6 +220,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Signs up a user by email address
         /// </summary>
+        /// <remarks>
+        /// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
+        /// Confirm email determines if users need to confirm their email address after signing up.
+        ///     - If Confirm email is enabled, a user is returned but session is null.
+        ///     - If Confirm email is disabled, both a user and a session are returned.
+        /// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
+        /// If signUp() is called for an existing confirmed user:
+        ///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
+        ///     - If Confirm email is disabled, the error message, User already registered is returned.
+        /// To fetch the currently logged-in user, refer to <see cref="User"/>.
+        /// </remarks>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
@@ -229,6 +240,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Signs up a user
         /// </summary>
+        /// <remarks>
+        /// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
+        /// Confirm email determines if users need to confirm their email address after signing up.
+        ///     - If Confirm email is enabled, a user is returned but session is null.
+        ///     - If Confirm email is disabled, both a user and a session are returned.
+        /// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
+        /// If signUp() is called for an existing confirmed user:
+        ///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
+        ///     - If Confirm email is disabled, the error message, User already registered is returned.
+        /// To fetch the currently logged-in user, refer to <see cref="User"/>.
+        /// </remarks>
         /// <param name="type"></param>
         /// <param name="identifier"></param>
         /// <param name="password"></param>
@@ -305,6 +327,14 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <returns></returns>
         public Task<Session> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
+
+        /// <summary>
+        /// Log in an existing user with an email and password or phone and password.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public Task<Session> SignInWithPassword(string email, string password) => SignIn(email, password);
 
         /// <summary>
         /// Log in an existing user, or login via a third-party provider.
