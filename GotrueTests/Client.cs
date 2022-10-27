@@ -231,10 +231,13 @@ namespace GotrueTests
         [TestMethod("Client: Returns current user")]
         public async Task ClientGetUser()
         {
-            var user = $"{RandomString(12)}@supabase.io";
-            await client.SignUp(user, password);
+            var email = $"{RandomString(12)}@supabase.io";
+            var newUser = await client.SignUp(email, password);
 
-            Assert.AreEqual(user, client.CurrentUser.Email);
+            Assert.AreEqual(email, client.CurrentUser.Email);
+            
+            var userByJWT = await client.GetUser(newUser.AccessToken);
+            Assert.AreEqual(email, userByJWT.Email);
         }
 
         [TestMethod("Client: Nulls CurrentUser on SignOut")]
