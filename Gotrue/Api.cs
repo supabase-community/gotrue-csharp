@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Attributes;
+using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
-    public class Api
+    public class Api : IGotrueApi<User, Session>
     {
         protected string Url { get; private set; }
         protected Dictionary<string, string> Headers = new Dictionary<string, string>();
@@ -227,7 +228,7 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        internal string GetUrlForProvider(Provider provider, string scopes = null)
+        public string GetUrlForProvider(Provider provider, string scopes = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
             var attr = Helpers.GetMappedToAttr(provider);
@@ -303,11 +304,11 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public Task<UserList<User>> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             var data = TransformListUsersParams(filter, sortBy, sortOrder, page, perPage);
 
-            return Helpers.MakeRequest<UserList>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
+            return Helpers.MakeRequest<UserList<User>>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
         }
 
         internal Dictionary<string, string> TransformListUsersParams(string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)

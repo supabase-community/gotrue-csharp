@@ -6,108 +6,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Attributes;
-using static Supabase.Gotrue.Api;
-using static Supabase.Gotrue.Client;
+using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
     /// <summary>
-    /// The Gotrue Client - a singleton class
+    /// The Gotrue Instance
     /// </summary>
     /// <example>
     /// var client = Supabase.Gotrue.Client.Initialize(options);
     /// var user = await client.SignIn("user@email.com", "fancyPassword");
     /// </example>
-    public class Client
+    public class Client : IGotrueClient<User, Session>
     {
-        /// <summary>
-        /// Specifies the functionality expected from the `SignIn` method
-        /// </summary>
-        public enum SignInType
-        {
-            Email,
-            Phone,
-            RefreshToken,
-        }
-
-        /// <summary>
-        /// Specifies the functionality expected from the `SignUp` method
-        /// </summary>
-        public enum SignUpType
-        {
-            Email,
-            Phone
-        }
-
-        /// <summary>
-        /// Providers available to Supabase
-        /// Ref: https://supabase.github.io/gotrue-js/modules.html#Provider
-        /// </summary>
-        public enum Provider
-        {
-            [MapTo("apple")]
-            Apple,
-            [MapTo("azure")]
-            Azure,
-            [MapTo("bitbucket")]
-            Bitbucket,
-            [MapTo("discord")]
-            Discord,
-            [MapTo("facebook")]
-            Facebook,
-            [MapTo("github")]
-            Github,
-            [MapTo("gitlab")]
-            Gitlab,
-            [MapTo("google")]
-            Google,
-            [MapTo("keycloak")]
-            KeyCloak,
-            [MapTo("linkedin")]
-            LinkedIn,
-            [MapTo("notion")]
-            Notion,
-            [MapTo("slack")]
-            Slack,
-            [MapTo("spotify")]
-            Spotify,
-            [MapTo("twitch")]
-            Twitch,
-            [MapTo("twitter")]
-            Twitter,
-            [MapTo("workos")]
-            WorkOS
-        };
-
-        /// <summary>
-        /// States that the Auth Client will raise events for.
-        /// </summary>
-        public enum AuthState
-        {
-            SignedIn,
-            SignedOut,
-            UserUpdated,
-            PasswordRecovery,
-            TokenRefreshed
-        };
-
-        private static Client instance;
-        /// <summary>
-        /// Returns the current instance of this client.
-        /// </summary>
-        public static Client Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    throw new Exception("`Initialize` must be called prior to accessing `Instance`");
-                }
-                return instance;
-            }
-        }
-
         /// <summary>
         /// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
         /// </summary>
@@ -160,29 +72,7 @@ namespace Supabase.Gotrue
 
         private Api api;
 
-        /// <summary>
-        /// Private constructor for Singleton initialization
-        /// </summary>
-        private Client() { }
-
-        /// <summary>
-        /// Initializes a Client.
-        ///
-        /// Though <see cref="ClientOptions"/> <paramref name="options"/> are ... optional, one will likely
-        /// need to define, at the very least, <see cref="ClientOptions.Url"/>.
-        ///
-        /// If awaited, will asyncronously grab the session via <see cref="SessionRetriever"/>
-        /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public static void Initialize(ClientOptions options = null, Action<Client> callback = null)
-        {
-            Task.Run(async () =>
-            {
-                var client = await InitializeAsync(options);
-                callback?.Invoke(client);
-            });
-        }
+        public Client() { }
 
         /// <summary>
         /// Initializes a Client Asynchronously.
@@ -194,27 +84,25 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static async Task<Client> InitializeAsync(ClientOptions options = null)
+        public async Task<IGotrueClient<User, Session>> InitializeAsync(ClientOptions options = null)
         {
-            instance = new Client();
-
             if (options == null)
                 options = new ClientOptions();
 
-            instance.Options = options;
-            instance.AutoRefreshToken = options.AutoRefreshToken;
-            instance.ShouldPersistSession = options.PersistSession;
-            instance.SessionPersistor = options.SessionPersistor;
-            instance.SessionRetriever = options.SessionRetriever;
-            instance.SessionDestroyer = options.SessionDestroyer;
+            Options = options;
+            AutoRefreshToken = options.AutoRefreshToken;
+            ShouldPersistSession = options.PersistSession;
+            SessionPersistor = options.SessionPersistor;
+            SessionRetriever = options.SessionRetriever;
+            SessionDestroyer = options.SessionDestroyer;
 
-            instance.api = new Api(options.Url, options.Headers);
+            api = new Api(options.Url, options.Headers);
 
             // Retrieve the session
-            if (instance.ShouldPersistSession)
-                await instance.RetrieveSessionAsync();
+            if (ShouldPersistSession)
+                await RetrieveSessionAsync();
 
-            return instance;
+            return this;
         }
 
         /// <summary>
@@ -540,7 +428,7 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public async Task<UserList> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public async Task<UserList<User>> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             try
             {
