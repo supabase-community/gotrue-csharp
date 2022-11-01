@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 2.4.7 - 2022-10-31
+
+- [#41](https://github.com/supabase-community/gotrue-csharp/issues/41) Add support for `VerifyOTP(string email, string token)`
+
 ## 2.4.6 - 2022-10-27
 
 - [#39](https://github.com/supabase-community/gotrue-csharp/pull/39) Added GetUser method that supports a JWT. (tahnks [@AlexMeesters](https://github.com/AlexMeesters)!)
