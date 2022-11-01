@@ -425,13 +425,43 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public async Task<Session> VerifyOTP(string phone, string token)
+        public async Task<Session> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
         {
             try
             {
                 await DestroySession();
 
-                var session = await api.VerifyMobileOTP(phone, token);
+                var session = await api.VerifyMobileOTP(phone, token, type);
+
+                if (session?.AccessToken != null)
+                {
+                    await PersistSession(session);
+                    StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+                    return session;
+                }
+
+                return null;
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
+        /// Log in a user give a user supplied OTP received via email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="token"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public async Task<Session> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
+        {
+            try
+            {
+                await DestroySession();
+
+                var session = await api.VerifyEmailOTP(email, token, type);
 
                 if (session?.AccessToken != null)
                 {

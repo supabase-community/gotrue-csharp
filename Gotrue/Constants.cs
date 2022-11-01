@@ -26,5 +26,27 @@ namespace Supabase.Gotrue
             [MapTo("desc")]
             Descending
         }
+
+        public enum MobileOtpType
+        {
+            [MapTo("sms")]
+            SMS,
+            [MapTo("phone_change")]
+            PhoneChange
+        }
+
+        public enum EmailOtpType
+        {
+            [MapTo("signup")]
+            Signup,
+            [MapTo("invite")]
+            Invite,
+            [MapTo("magiclink")]
+            MagicLink,
+            [MapTo("recovery")]
+            Recovery,
+            [MapTo("email_change")]
+            EmailChange
+        }
     }
 }

@@ -204,11 +204,11 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public static async Task<Session> VerifyOTP(string phone, string token, StatelessClientOptions options)
+        public static async Task<Session> VerifyOTP(string phone, string token, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS)
         {
             try
             {
-                var session = await GetApi(options).VerifyMobileOTP(phone, token);
+                var session = await GetApi(options).VerifyMobileOTP(phone, token, type);
 
                 if (session?.AccessToken != null)
                 {
@@ -222,6 +222,33 @@ namespace Supabase.Gotrue
                 throw ExceptionHandler.Parse(ex);
             }
         }
+
+        /// <summary>
+        /// Log in a user give a user supplied OTP received via email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="token"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static async Task<Session> VerifyOTP(string email, string token, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink)
+        {
+            try
+            {
+                var session = await GetApi(options).VerifyEmailOTP(email, token, type);
+
+                if (session?.AccessToken != null)
+                {
+                    return session;
+                }
+
+                return null;
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
 
         /// <summary>
         /// Updates a User.
