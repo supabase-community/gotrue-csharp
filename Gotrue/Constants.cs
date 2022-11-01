@@ -27,23 +27,26 @@ namespace Supabase.Gotrue
             Descending
         }
 
-        /// <summary>
-        /// Specifies the functionality expected from the `SignIn` method
-        /// </summary>
-        public enum SignInType
+        public enum MobileOtpType
         {
-            Email,
-            Phone,
-            RefreshToken,
+            [MapTo("sms")]
+            SMS,
+            [MapTo("phone_change")]
+            PhoneChange
         }
 
-        /// <summary>
-        /// Specifies the functionality expected from the `SignUp` method
-        /// </summary>
-        public enum SignUpType
+        public enum EmailOtpType
         {
-            Email,
-            Phone
+            [MapTo("signup")]
+            Signup,
+            [MapTo("invite")]
+            Invite,
+            [MapTo("magiclink")]
+            MagicLink,
+            [MapTo("recovery")]
+            Recovery,
+            [MapTo("email_change")]
+            EmailChange
         }
 
         /// <summary>
@@ -98,5 +101,23 @@ namespace Supabase.Gotrue
             TokenRefreshed
         };
 
+        /// <summary>
+        /// Specifies the functionality expected from the `SignIn` method
+        /// </summary>
+        public enum SignInType
+        {
+            Email,
+            Phone,
+            RefreshToken,
+        }
+
+        /// <summary>
+        /// Specifies the functionality expected from the `SignUp` method
+        /// </summary>
+        public enum SignUpType
+        {
+            Email,
+            Phone
+        }
     }
 }

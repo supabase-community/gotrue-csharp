@@ -25,8 +25,8 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession> SignUpWithPhone(string phone, string password, SignUpOptions options = null);
         Task<TUser> UpdateUser(string jwt, UserAttributes attributes);
         Task<TUser> UpdateUserById(string jwt, string userId, UserAttributes userData);
-        Task<TSession> VerifyMobileOTP(string phone, string token);
-
+        Task<TSession> VerifyMobileOTP(string phone, string token, MobileOtpType type);
+        Task<TSession> VerifyEmailOTP(string email, string token, EmailOtpType type);
         string GetUrlForProvider(Provider provider, string scopes = null);
     }
 }

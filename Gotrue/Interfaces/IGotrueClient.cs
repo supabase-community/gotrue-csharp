@@ -35,6 +35,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession> SignUp(string email, string password, SignUpOptions options = null);
         Task<TUser> Update(UserAttributes attributes);
         Task<TUser> UpdateUserById(string jwt, string userId, AdminUserAttributes userData);
-        Task<TSession> VerifyOTP(string phone, string token);
+        Task<TSession> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS);
+        Task<TSession> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink);
     }
 }

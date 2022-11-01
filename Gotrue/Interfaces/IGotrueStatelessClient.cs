@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue.Interfaces
 {
@@ -28,6 +29,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession> SignUp(string email, string password, StatelessClient.StatelessClientOptions options, SignUpOptions signUpOptions = null);
         Task<TUser> Update(string accessToken, UserAttributes attributes, StatelessClient.StatelessClientOptions options);
         Task<TUser> UpdateUserById(string jwt, StatelessClient.StatelessClientOptions options, string userId, AdminUserAttributes userData);
-        Task<TSession> VerifyOTP(string phone, string token, StatelessClient.StatelessClientOptions options);
+        Task<TSession> VerifyOTP(string phone, string token, StatelessClient.StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS);
+        Task<TSession> VerifyOTP(string email, string token, StatelessClient.StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink);
     }
 }

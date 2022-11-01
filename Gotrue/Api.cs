@@ -187,12 +187,28 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number WITH international prefix</param>
         /// <param name="token">token that user was sent to their mobile phone</param>
         /// <returns></returns>
-        public Task<Session> VerifyMobileOTP(string phone, string token)
+        public Task<Session> VerifyMobileOTP(string phone, string token, MobileOtpType type)
         {
             var data = new Dictionary<string, string> {
                 { "phone", phone },
                 { "token", token },
-                { "type", "sms" }
+                { "type", Helpers.GetMappedToAttr(type).Mapping }
+            };
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
+        }
+
+        /// <summary>
+        /// Send User supplied Mobile OTP to be verified
+        /// </summary>
+        /// <param name="phone">The user's phone number WITH international prefix</param>
+        /// <param name="token">token that user was sent to their mobile phone</param>
+        /// <returns></returns>
+        public Task<Session> VerifyEmailOTP(string email, string token, EmailOtpType type)
+        {
+            var data = new Dictionary<string, string> {
+                { "email", email },
+                { "token", token },
+                { "type", Helpers.GetMappedToAttr(type).Mapping }
             };
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
         }
