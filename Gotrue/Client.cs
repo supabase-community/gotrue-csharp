@@ -70,21 +70,18 @@ namespace Supabase.Gotrue
         /// </summary>
         private Timer refreshTimer = null;
 
-        private Api api;
-
-        public Client() { }
+        private IGotrueApi<User, Session> api;
 
         /// <summary>
-        /// Initializes a Client Asynchronously.
-        ///
-        /// Though <see cref="ClientOptions"/> <paramref name="options"/> are ... optional, one will likely
-        /// need to define, at the very least, <see cref="ClientOptions.Url"/>.
-        ///
-        /// If awaited, will asyncronously grab the session via <see cref="SessionRetriever"/>
+        /// Initializes the Client. 
+        /// 
+        /// Although options are ... optional, you will likely want to at least specify a <see cref="ClientOptions.Url"/>.
+        /// 
+        /// Sessions are no longer automatically retrieved on construction, if you want to set the session, <see cref="RetrieveSessionAsync"/>
+        /// 
         /// </summary>
         /// <param name="options"></param>
-        /// <returns></returns>
-        public async Task<IGotrueClient<User, Session>> InitializeAsync(ClientOptions options = null)
+        public Client(ClientOptions options = null)
         {
             if (options == null)
                 options = new ClientOptions();
@@ -97,12 +94,6 @@ namespace Supabase.Gotrue
             SessionDestroyer = options.SessionDestroyer;
 
             api = new Api(options.Url, options.Headers);
-
-            // Retrieve the session
-            if (ShouldPersistSession)
-                await RetrieveSessionAsync();
-
-            return this;
         }
 
         /// <summary>

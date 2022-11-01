@@ -11,10 +11,7 @@ namespace Supabase.Gotrue.Interfaces
         TSession CurrentSession { get; }
         TUser CurrentUser { get; }
 
-        Task<IGotrueClient<TUser, TSession>> InitializeAsync(ClientOptions options = null);
-
         event EventHandler<ClientStateChanged> StateChanged;
-
         Task<TUser> CreateUser(string jwt, AdminUserAttributes attributes);
         Task<TUser> CreateUser(string jwt, string email, string password, AdminUserAttributes attributes = null);
         Task<bool> DeleteUser(string uid, string jwt);

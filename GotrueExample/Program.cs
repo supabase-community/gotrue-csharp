@@ -14,7 +14,7 @@ namespace GotrueExample
         static void Main(string[] args)
         {
             using IHost host = Host.CreateDefaultBuilder(args)
-                .ConfigureServices((_, services) => services.AddScoped<IGotrueClient<User, Session>, Client>())
+                .ConfigureServices((_, services) => services.AddSingleton<IGotrueClient<User, Session>, Client>())
                 .Build();
 
             UseClient(host.Services);
@@ -28,8 +28,6 @@ namespace GotrueExample
             IServiceProvider provider = serviceScope.ServiceProvider;
 
             var client = provider.GetRequiredService<IGotrueClient<User, Session>>();
-
-            await client.InitializeAsync();
 
             Session session = null;
             var email = $"{RandomString(12)}@supabase.io";
