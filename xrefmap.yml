@@ -330,12 +330,25 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.Url
   nameWithType: Api.Url
-- uid: Supabase.Gotrue.Api.VerifyMobileOTP(System.String,System.String)
-  name: VerifyMobileOTP(String, String)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyMobileOTP_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Api.VerifyMobileOTP(System.String,System.String)
-  fullName: Supabase.Gotrue.Api.VerifyMobileOTP(System.String, System.String)
-  nameWithType: Api.VerifyMobileOTP(String, String)
+- uid: Supabase.Gotrue.Api.VerifyEmailOTP(System.String,System.String,Supabase.Gotrue.Constants.EmailOtpType)
+  name: VerifyEmailOTP(String, String, Constants.EmailOtpType)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyEmailOTP_System_String_System_String_Supabase_Gotrue_Constants_EmailOtpType_
+  commentId: M:Supabase.Gotrue.Api.VerifyEmailOTP(System.String,System.String,Supabase.Gotrue.Constants.EmailOtpType)
+  fullName: Supabase.Gotrue.Api.VerifyEmailOTP(System.String, System.String, Supabase.Gotrue.Constants.EmailOtpType)
+  nameWithType: Api.VerifyEmailOTP(String, String, Constants.EmailOtpType)
+- uid: Supabase.Gotrue.Api.VerifyEmailOTP*
+  name: VerifyEmailOTP
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyEmailOTP_
+  commentId: Overload:Supabase.Gotrue.Api.VerifyEmailOTP
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.VerifyEmailOTP
+  nameWithType: Api.VerifyEmailOTP
+- uid: Supabase.Gotrue.Api.VerifyMobileOTP(System.String,System.String,Supabase.Gotrue.Constants.MobileOtpType)
+  name: VerifyMobileOTP(String, String, Constants.MobileOtpType)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyMobileOTP_System_String_System_String_Supabase_Gotrue_Constants_MobileOtpType_
+  commentId: M:Supabase.Gotrue.Api.VerifyMobileOTP(System.String,System.String,Supabase.Gotrue.Constants.MobileOtpType)
+  fullName: Supabase.Gotrue.Api.VerifyMobileOTP(System.String, System.String, Supabase.Gotrue.Constants.MobileOtpType)
+  nameWithType: Api.VerifyMobileOTP(String, String, Constants.MobileOtpType)
 - uid: Supabase.Gotrue.Api.VerifyMobileOTP*
   name: VerifyMobileOTP
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_VerifyMobileOTP_
@@ -980,12 +993,18 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.UpdateUserById
   nameWithType: Client.UpdateUserById
-- uid: Supabase.Gotrue.Client.VerifyOTP(System.String,System.String)
-  name: VerifyOTP(String, String)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_VerifyOTP_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Client.VerifyOTP(System.String,System.String)
-  fullName: Supabase.Gotrue.Client.VerifyOTP(System.String, System.String)
-  nameWithType: Client.VerifyOTP(String, String)
+- uid: Supabase.Gotrue.Client.VerifyOTP(System.String,System.String,Supabase.Gotrue.Constants.EmailOtpType)
+  name: VerifyOTP(String, String, Constants.EmailOtpType)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_VerifyOTP_System_String_System_String_Supabase_Gotrue_Constants_EmailOtpType_
+  commentId: M:Supabase.Gotrue.Client.VerifyOTP(System.String,System.String,Supabase.Gotrue.Constants.EmailOtpType)
+  fullName: Supabase.Gotrue.Client.VerifyOTP(System.String, System.String, Supabase.Gotrue.Constants.EmailOtpType)
+  nameWithType: Client.VerifyOTP(String, String, Constants.EmailOtpType)
+- uid: Supabase.Gotrue.Client.VerifyOTP(System.String,System.String,Supabase.Gotrue.Constants.MobileOtpType)
+  name: VerifyOTP(String, String, Constants.MobileOtpType)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_VerifyOTP_System_String_System_String_Supabase_Gotrue_Constants_MobileOtpType_
+  commentId: M:Supabase.Gotrue.Client.VerifyOTP(System.String,System.String,Supabase.Gotrue.Constants.MobileOtpType)
+  fullName: Supabase.Gotrue.Client.VerifyOTP(System.String, System.String, Supabase.Gotrue.Constants.MobileOtpType)
+  nameWithType: Client.VerifyOTP(String, String, Constants.MobileOtpType)
 - uid: Supabase.Gotrue.Client.VerifyOTP*
   name: VerifyOTP
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_VerifyOTP_
@@ -1131,6 +1150,42 @@ references:
   commentId: F:Supabase.Gotrue.Constants.DEFAULT_HEADERS
   fullName: Supabase.Gotrue.Constants.DEFAULT_HEADERS
   nameWithType: Constants.DEFAULT_HEADERS
+- uid: Supabase.Gotrue.Constants.EmailOtpType
+  name: Constants.EmailOtpType
+  href: api/Supabase.Gotrue.Constants.EmailOtpType.html
+  commentId: T:Supabase.Gotrue.Constants.EmailOtpType
+  fullName: Supabase.Gotrue.Constants.EmailOtpType
+  nameWithType: Constants.EmailOtpType
+- uid: Supabase.Gotrue.Constants.EmailOtpType.EmailChange
+  name: EmailChange
+  href: api/Supabase.Gotrue.Constants.EmailOtpType.html#Supabase_Gotrue_Constants_EmailOtpType_EmailChange
+  commentId: F:Supabase.Gotrue.Constants.EmailOtpType.EmailChange
+  fullName: Supabase.Gotrue.Constants.EmailOtpType.EmailChange
+  nameWithType: Constants.EmailOtpType.EmailChange
+- uid: Supabase.Gotrue.Constants.EmailOtpType.Invite
+  name: Invite
+  href: api/Supabase.Gotrue.Constants.EmailOtpType.html#Supabase_Gotrue_Constants_EmailOtpType_Invite
+  commentId: F:Supabase.Gotrue.Constants.EmailOtpType.Invite
+  fullName: Supabase.Gotrue.Constants.EmailOtpType.Invite
+  nameWithType: Constants.EmailOtpType.Invite
+- uid: Supabase.Gotrue.Constants.EmailOtpType.MagicLink
+  name: MagicLink
+  href: api/Supabase.Gotrue.Constants.EmailOtpType.html#Supabase_Gotrue_Constants_EmailOtpType_MagicLink
+  commentId: F:Supabase.Gotrue.Constants.EmailOtpType.MagicLink
+  fullName: Supabase.Gotrue.Constants.EmailOtpType.MagicLink
+  nameWithType: Constants.EmailOtpType.MagicLink
+- uid: Supabase.Gotrue.Constants.EmailOtpType.Recovery
+  name: Recovery
+  href: api/Supabase.Gotrue.Constants.EmailOtpType.html#Supabase_Gotrue_Constants_EmailOtpType_Recovery
+  commentId: F:Supabase.Gotrue.Constants.EmailOtpType.Recovery
+  fullName: Supabase.Gotrue.Constants.EmailOtpType.Recovery
+  nameWithType: Constants.EmailOtpType.Recovery
+- uid: Supabase.Gotrue.Constants.EmailOtpType.Signup
+  name: Signup
+  href: api/Supabase.Gotrue.Constants.EmailOtpType.html#Supabase_Gotrue_Constants_EmailOtpType_Signup
+  commentId: F:Supabase.Gotrue.Constants.EmailOtpType.Signup
+  fullName: Supabase.Gotrue.Constants.EmailOtpType.Signup
+  nameWithType: Constants.EmailOtpType.Signup
 - uid: Supabase.Gotrue.Constants.EXPIRY_MARGIN
   name: EXPIRY_MARGIN
   href: api/Supabase.Gotrue.Constants.html#Supabase_Gotrue_Constants_EXPIRY_MARGIN
@@ -1143,6 +1198,24 @@ references:
   commentId: F:Supabase.Gotrue.Constants.GOTRUE_URL
   fullName: Supabase.Gotrue.Constants.GOTRUE_URL
   nameWithType: Constants.GOTRUE_URL
+- uid: Supabase.Gotrue.Constants.MobileOtpType
+  name: Constants.MobileOtpType
+  href: api/Supabase.Gotrue.Constants.MobileOtpType.html
+  commentId: T:Supabase.Gotrue.Constants.MobileOtpType
+  fullName: Supabase.Gotrue.Constants.MobileOtpType
+  nameWithType: Constants.MobileOtpType
+- uid: Supabase.Gotrue.Constants.MobileOtpType.PhoneChange
+  name: PhoneChange
+  href: api/Supabase.Gotrue.Constants.MobileOtpType.html#Supabase_Gotrue_Constants_MobileOtpType_PhoneChange
+  commentId: F:Supabase.Gotrue.Constants.MobileOtpType.PhoneChange
+  fullName: Supabase.Gotrue.Constants.MobileOtpType.PhoneChange
+  nameWithType: Constants.MobileOtpType.PhoneChange
+- uid: Supabase.Gotrue.Constants.MobileOtpType.SMS
+  name: SMS
+  href: api/Supabase.Gotrue.Constants.MobileOtpType.html#Supabase_Gotrue_Constants_MobileOtpType_SMS
+  commentId: F:Supabase.Gotrue.Constants.MobileOtpType.SMS
+  fullName: Supabase.Gotrue.Constants.MobileOtpType.SMS
+  nameWithType: Constants.MobileOtpType.SMS
 - uid: Supabase.Gotrue.Constants.SortOrder
   name: Constants.SortOrder
   href: api/Supabase.Gotrue.Constants.SortOrder.html
@@ -1824,12 +1897,18 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.UpdateUserById
   nameWithType: StatelessClient.UpdateUserById
-- uid: Supabase.Gotrue.StatelessClient.VerifyOTP(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  name: VerifyOTP(String, String, StatelessClient.StatelessClientOptions)
-  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_VerifyOTP_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
-  commentId: M:Supabase.Gotrue.StatelessClient.VerifyOTP(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName: Supabase.Gotrue.StatelessClient.VerifyOTP(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  nameWithType: StatelessClient.VerifyOTP(String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.StatelessClient.VerifyOTP(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.Constants.EmailOtpType)
+  name: VerifyOTP(String, String, StatelessClient.StatelessClientOptions, Constants.EmailOtpType)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_VerifyOTP_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_Supabase_Gotrue_Constants_EmailOtpType_
+  commentId: M:Supabase.Gotrue.StatelessClient.VerifyOTP(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.Constants.EmailOtpType)
+  fullName: Supabase.Gotrue.StatelessClient.VerifyOTP(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, Supabase.Gotrue.Constants.EmailOtpType)
+  nameWithType: StatelessClient.VerifyOTP(String, String, StatelessClient.StatelessClientOptions, Constants.EmailOtpType)
+- uid: Supabase.Gotrue.StatelessClient.VerifyOTP(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.Constants.MobileOtpType)
+  name: VerifyOTP(String, String, StatelessClient.StatelessClientOptions, Constants.MobileOtpType)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_VerifyOTP_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_Supabase_Gotrue_Constants_MobileOtpType_
+  commentId: M:Supabase.Gotrue.StatelessClient.VerifyOTP(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.Constants.MobileOtpType)
+  fullName: Supabase.Gotrue.StatelessClient.VerifyOTP(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, Supabase.Gotrue.Constants.MobileOtpType)
+  nameWithType: StatelessClient.VerifyOTP(String, String, StatelessClient.StatelessClientOptions, Constants.MobileOtpType)
 - uid: Supabase.Gotrue.StatelessClient.VerifyOTP*
   name: VerifyOTP
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_VerifyOTP_
