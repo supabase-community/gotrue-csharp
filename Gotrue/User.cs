@@ -146,13 +146,14 @@ namespace Supabase.Gotrue
         public string Type { get; set; }
     }
 
-    public class UserList
+    public class UserList<TUser>
+        where TUser : User
     {
         [JsonProperty("aud")]
         public string Aud { get; set; }
 
         [JsonProperty("users")]
-        public List<User> Users { get; set; } = new List<User>();
+        public List<TUser> Users { get; set; } = new List<TUser>();
     }
 
     /// <summary>

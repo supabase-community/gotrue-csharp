@@ -48,5 +48,76 @@ namespace Supabase.Gotrue
             [MapTo("email_change")]
             EmailChange
         }
+
+        /// <summary>
+        /// Providers available to Supabase
+        /// Ref: https://supabase.github.io/gotrue-js/modules.html#Provider
+        /// </summary>
+        public enum Provider
+        {
+            [MapTo("apple")]
+            Apple,
+            [MapTo("azure")]
+            Azure,
+            [MapTo("bitbucket")]
+            Bitbucket,
+            [MapTo("discord")]
+            Discord,
+            [MapTo("facebook")]
+            Facebook,
+            [MapTo("github")]
+            Github,
+            [MapTo("gitlab")]
+            Gitlab,
+            [MapTo("google")]
+            Google,
+            [MapTo("keycloak")]
+            KeyCloak,
+            [MapTo("linkedin")]
+            LinkedIn,
+            [MapTo("notion")]
+            Notion,
+            [MapTo("slack")]
+            Slack,
+            [MapTo("spotify")]
+            Spotify,
+            [MapTo("twitch")]
+            Twitch,
+            [MapTo("twitter")]
+            Twitter,
+            [MapTo("workos")]
+            WorkOS
+        };
+
+        /// <summary>
+        /// States that the Auth Client will raise events for.
+        /// </summary>
+        public enum AuthState
+        {
+            SignedIn,
+            SignedOut,
+            UserUpdated,
+            PasswordRecovery,
+            TokenRefreshed
+        };
+
+        /// <summary>
+        /// Specifies the functionality expected from the `SignIn` method
+        /// </summary>
+        public enum SignInType
+        {
+            Email,
+            Phone,
+            RefreshToken,
+        }
+
+        /// <summary>
+        /// Specifies the functionality expected from the `SignUp` method
+        /// </summary>
+        public enum SignUpType
+        {
+            Email,
+            Phone
+        }
     }
 }
