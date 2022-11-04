@@ -8,6 +8,6 @@ namespace Supabase.Gotrue.Responses
     /// </summary>
     public class ErrorResponse : BaseResponse
     {
-        public string Message { get; set; }
+        public string? Message { get; set; }
     }
 }

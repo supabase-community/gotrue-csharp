@@ -58,10 +58,10 @@ namespace Supabase.Gotrue
         /// <param name="reqParams"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static async Task<T> MakeRequest<T>(HttpMethod method, string url, object data = null, Dictionary<string, string> headers = null)
+        public static async Task<T?> MakeRequest<T>(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null) where T : class
         {
             var baseResponse = await MakeRequest(method, url, data, headers);
-            return JsonConvert.DeserializeObject<T>(baseResponse.Content);
+            return baseResponse.Content != null ? JsonConvert.DeserializeObject<T>(baseResponse.Content) : default;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Supabase.Gotrue
         /// <param name="reqParams"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object data = null, Dictionary<string, string> headers = null)
+        public static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null)
         {
             var builder = new UriBuilder(url);
             var query = HttpUtility.ParseQueryString(builder.Query);

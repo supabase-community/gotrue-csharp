@@ -19,6 +19,11 @@
         <PackageVersion>2.4.7</PackageVersion>
         <ReleaseVersion>2.4.7</ReleaseVersion>
     </PropertyGroup>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<LangVersion>8.0</LangVersion>
+		<WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+	</PropertyGroup>
     <PropertyGroup Condition=" '$(Version)' == '' ">
 		<VersionPrefix Condition=" '$(VersionPrefix)' == '' ">2.4.7</VersionPrefix>
 		<VersionSuffix Condition=" '$(VersionSuffix)' == '' ">

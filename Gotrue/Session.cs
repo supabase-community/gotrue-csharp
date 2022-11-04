@@ -9,19 +9,19 @@ namespace Supabase.Gotrue
     public class Session
     {
         [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
+        public string? AccessToken { get; set; }
 
         [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
 
         [JsonProperty("refresh_token")]
-        public string RefreshToken { get; set; }
+        public string? RefreshToken { get; set; }
 
         [JsonProperty("token_type")]
-        public string TokenType { get; set; }
+        public string? TokenType { get; set; }
 
         [JsonProperty("user")]
-        public User User { get; set; }
+        public User? User { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;

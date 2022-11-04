@@ -23,17 +23,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
         /// </summary>
-        public event EventHandler<ClientStateChanged> StateChanged;
+        public event EventHandler<ClientStateChanged>? StateChanged;
 
         /// <summary>
         /// The current User
         /// </summary>
-        public User CurrentUser { get; private set; }
+        public User? CurrentUser { get; private set; }
 
         /// <summary>
         /// The current Session
         /// </summary>
-        public Session CurrentSession { get; private set; }
+        public Session? CurrentSession { get; private set; }
 
         /// <summary>
         /// Should Client Refresh Token Automatically? (via <see cref="ClientOptions"/>)
@@ -53,7 +53,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to retrieve the session.
         /// </summary>
-        protected Func<Task<Session>> SessionRetriever { get; private set; }
+        protected Func<Task<Session?>> SessionRetriever { get; private set; }
 
         /// <summary>
         /// User defined function (via <see cref="ClientOptions"/>) to destroy the session.
@@ -68,7 +68,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Internal timer reference for Refreshing Tokens (<see cref="AutoRefreshToken"/>)
         /// </summary>
-        private Timer refreshTimer = null;
+        private Timer? refreshTimer = null;
 
         private IGotrueApi<User, Session> api;
 
@@ -81,7 +81,7 @@ namespace Supabase.Gotrue
         /// 
         /// </summary>
         /// <param name="options"></param>
-        public Client(ClientOptions options = null)
+        public Client(ClientOptions? options = null)
         {
             if (options == null)
                 options = new ClientOptions();
@@ -114,7 +114,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public Task<Session> SignUp(string email, string password, SignUpOptions options = null) => SignUp(SignUpType.Email, email, password, options);
+        public Task<Session?> SignUp(string email, string password, SignUpOptions? options = null) => SignUp(SignUpType.Email, email, password, options);
 
         /// <summary>
         /// Signs up a user
@@ -135,13 +135,13 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
-        public async Task<Session> SignUp(SignUpType type, string identifier, string password, SignUpOptions options = null)
+        public async Task<Session?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null)
         {
             await DestroySession();
 
             try
             {
-                Session session = null;
+                Session? session = null;
                 switch (type)
                 {
                     case SignUpType.Email:
@@ -152,7 +152,7 @@ namespace Supabase.Gotrue
                         break;
                 }
 
-                if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
+                if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
                 {
                     await PersistSession(session);
 
@@ -176,7 +176,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<bool> SignIn(string email, SignInOptions options = null)
+        public async Task<bool> SignIn(string email, SignInOptions? options = null)
         {
             await DestroySession();
 
@@ -196,7 +196,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<bool> SendMagicLink(string email, SignInOptions options = null) => SignIn(email, options);
+        public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SignIn(email, options);
 
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<Session> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
+        public Task<Session?> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
 
         /// <summary>
         /// Log in an existing user with an email and password or phone and password.
@@ -213,7 +213,7 @@ namespace Supabase.Gotrue
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public Task<Session> SignInWithPassword(string email, string password) => SignIn(email, password);
+        public Task<Session?> SignInWithPassword(string email, string password) => SignIn(email, password);
 
         /// <summary>
         /// Log in an existing user, or login via a third-party provider.
@@ -223,17 +223,17 @@ namespace Supabase.Gotrue
         /// <param name="password">Password to account (optional if `RefreshToken`)</param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public async Task<Session> SignIn(SignInType type, string identifierOrToken, string password = null, string scopes = null)
+        public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
         {
             await DestroySession();
 
             try
             {
-                Session session = null;
+                Session? session = null;
                 switch (type)
                 {
                     case SignInType.Email:
-                        session = await api.SignInWithEmail(identifierOrToken, password);
+                        session = await api.SignInWithEmail(identifierOrToken, password!);
                         break;
                     case SignInType.Phone:
                         if (string.IsNullOrEmpty(password))
@@ -243,7 +243,7 @@ namespace Supabase.Gotrue
                         }
                         else
                         {
-                            session = await api.SignInWithPhone(identifierOrToken, password);
+                            session = await api.SignInWithPhone(identifierOrToken, password!);
                         }
                         break;
                     case SignInType.RefreshToken:
@@ -255,7 +255,7 @@ namespace Supabase.Gotrue
                         return CurrentSession;
                 }
 
-                if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
+                if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
                 {
                     await PersistSession(session);
                     StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
@@ -290,7 +290,7 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public async Task<string> SignIn(Provider provider, string scopes = null)
+        public async Task<string> SignIn(Provider provider, string? scopes = null)
         {
             await DestroySession();
 
@@ -304,7 +304,7 @@ namespace Supabase.Gotrue
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
         /// <returns></returns>
-        public async Task<Session> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
+        public async Task<Session?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
         {
             try
             {
@@ -334,7 +334,7 @@ namespace Supabase.Gotrue
         /// <param name="token"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public async Task<Session> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
+        public async Task<Session?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
         {
             try
             {
@@ -365,10 +365,14 @@ namespace Supabase.Gotrue
         {
             if (CurrentSession != null)
             {
-                await api.SignOut(CurrentSession.AccessToken);
+                if (CurrentSession.AccessToken != null)
+                    await api.SignOut(CurrentSession.AccessToken);
+
                 if (refreshTimer != null)
                     refreshTimer.Dispose();
+                
                 await DestroySession();
+                
                 StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
             }
         }
@@ -378,14 +382,14 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<User> Update(UserAttributes attributes)
+        public async Task<User?> Update(UserAttributes attributes)
         {
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
 
             try
             {
-                var result = await api.UpdateUser(CurrentSession.AccessToken, attributes);
+                var result = await api.UpdateUser(CurrentSession.AccessToken!, attributes);
 
                 CurrentUser = result;
 
@@ -410,7 +414,7 @@ namespace Supabase.Gotrue
             try
             {
                 var response = await api.InviteUserByEmail(email, jwt);
-                response.ResponseMessage.EnsureSuccessStatusCode();
+                response.ResponseMessage?.EnsureSuccessStatusCode();
                 return true;
             }
             catch (RequestException ex)
@@ -430,7 +434,7 @@ namespace Supabase.Gotrue
             try
             {
                 var result = await api.DeleteUser(uid, jwt);
-                result.ResponseMessage.EnsureSuccessStatusCode();
+                result.ResponseMessage?.EnsureSuccessStatusCode();
                 return true;
             }
             catch (RequestException ex)
@@ -449,7 +453,7 @@ namespace Supabase.Gotrue
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        public async Task<UserList<User>> ListUsers(string jwt, string filter = null, string sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+        public async Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
         {
             try
             {
@@ -467,7 +471,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<User> GetUserById(string jwt, string userId)
+        public async Task<User?> GetUserById(string jwt, string userId)
         {
             try
             {
@@ -484,7 +488,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
         /// <returns></returns>
-        public async Task<User> GetUser(string jwt)
+        public async Task<User?> GetUser(string jwt)
         {
             try
             {
@@ -504,7 +508,7 @@ namespace Supabase.Gotrue
         /// <param name="password"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public Task<User> CreateUser(string jwt, string email, string password, AdminUserAttributes attributes = null)
+        public Task<User?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null)
         {
             if (attributes == null)
             {
@@ -522,7 +526,7 @@ namespace Supabase.Gotrue
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public async Task<User> CreateUser(string jwt, AdminUserAttributes attributes)
+        public async Task<User?> CreateUser(string jwt, AdminUserAttributes attributes)
         {
             try
             {
@@ -541,7 +545,7 @@ namespace Supabase.Gotrue
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        public async Task<User> UpdateUserById(string jwt, string userId, AdminUserAttributes userData)
+        public async Task<User?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData)
         {
             try
             {
@@ -564,7 +568,7 @@ namespace Supabase.Gotrue
             try
             {
                 var result = await api.ResetPasswordForEmail(email);
-                result.ResponseMessage.EnsureSuccessStatusCode();
+                result.ResponseMessage?.EnsureSuccessStatusCode();
                 return true;
             }
             catch (RequestException ex)
@@ -577,14 +581,14 @@ namespace Supabase.Gotrue
         /// Refreshes the currently logged in User's Session.
         /// </summary>
         /// <returns></returns>
-        public async Task<Session> RefreshSession()
+        public async Task<Session?> RefreshSession()
         {
             if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
                 throw new Exception("Not Logged in.");
 
             await RefreshToken();
 
-            var user = await api.GetUser(CurrentSession.AccessToken);
+            var user = await api.GetUser(CurrentSession.AccessToken!);
             CurrentUser = user;
 
             return CurrentSession;
@@ -613,7 +617,7 @@ namespace Supabase.Gotrue
         /// <param name="uri"></param>
         /// <param name="storeSession"></param>
         /// <returns></returns>
-        public async Task<Session> GetSessionFromUrl(Uri uri, bool storeSession = true)
+        public async Task<Session?> GetSessionFromUrl(Uri uri, bool storeSession = true)
         {
             var query = string.IsNullOrEmpty(uri.Fragment) ? HttpUtility.ParseQueryString(uri.Query) : HttpUtility.ParseQueryString('?' + uri.Fragment.TrimStart('#'));
 
@@ -669,11 +673,11 @@ namespace Supabase.Gotrue
         /// Retrieves the Session by calling <see cref="SessionRetriever"/> - sets internal state and timers.
         /// </summary>
         /// <returns></returns>
-        public async Task<Session> RetrieveSessionAsync()
+        public async Task<Session?> RetrieveSessionAsync()
         {
             if (SessionRetriever == null) return null;
 
-            var session = await SessionRetriever?.Invoke();
+            var session = await SessionRetriever.Invoke();
 
             if (session != null && session.ExpiresAt() < DateTime.Now)
             {
@@ -729,8 +733,8 @@ namespace Supabase.Gotrue
             if (AutoRefreshToken && expiration != default)
                 InitRefreshTimer();
 
-            if (ShouldPersistSession)
-                await SessionPersistor?.Invoke(session);
+            if (ShouldPersistSession && SessionPersistor != null)
+                await SessionPersistor.Invoke(session);
         }
 
         /// <summary>
@@ -741,31 +745,31 @@ namespace Supabase.Gotrue
             CurrentSession = null;
             CurrentUser = null;
 
-            if (ShouldPersistSession)
-                await SessionDestroyer?.Invoke();
+            if (ShouldPersistSession && SessionDestroyer != null)
+                await SessionDestroyer.Invoke();
         }
 
         /// <summary>
         /// Refreshes a Token
         /// </summary>
         /// <returns></returns>
-        internal async Task RefreshToken(string refreshToken = null)
+        internal async Task RefreshToken(string? refreshToken = null)
         {
-            if (string.IsNullOrEmpty(CurrentSession?.RefreshToken) && string.IsNullOrEmpty(refreshToken))
+            if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.RefreshToken) && string.IsNullOrEmpty(refreshToken))
                 throw new Exception("No current session.");
 
-            refreshToken ??= CurrentSession.RefreshToken;
+            refreshToken ??= CurrentSession!.RefreshToken;
 
-            var result = await api.RefreshAccessToken(refreshToken);
+            var result = await api.RefreshAccessToken(refreshToken!);
 
-            if (string.IsNullOrEmpty(result.AccessToken))
+            if (result == null || string.IsNullOrEmpty(result.AccessToken))
                 throw new Exception("Could not refresh token from provided session.");
 
             CurrentSession = result;
             CurrentUser = result.User;
 
-            if (ShouldPersistSession)
-                await SessionPersistor?.Invoke(result);
+            if (ShouldPersistSession && SessionPersistor != null)
+                await SessionPersistor.Invoke(result);
 
             StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
             StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
@@ -788,7 +792,7 @@ namespace Supabase.Gotrue
 
                 refreshTimer = new Timer(async (obj) =>
                 {
-                    refreshTimer.Dispose();
+                    refreshTimer?.Dispose();
                     await RefreshToken();
                 }, null, timeout, Timeout.InfiniteTimeSpan);
             }
@@ -821,12 +825,12 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Gotrue Endpoint
         /// </summary>
-        public string Url { get; set; } = Constants.GOTRUE_URL;
+        public string Url { get; set; } = GOTRUE_URL;
 
         /// <summary>
         /// Headers to be sent with subsequent requests.
         /// </summary>
-        public Dictionary<string, string> Headers = new Dictionary<string, string>(Constants.DEFAULT_HEADERS);
+        public Dictionary<string, string> Headers = new Dictionary<string, string>(DEFAULT_HEADERS);
 
         /// <summary>
         /// Should the Client automatically handle refreshing the User's Token?
@@ -846,7 +850,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Function to retrieve a session (probably from the filesystem or cookie)
         /// </summary>
-        public Func<Task<Session>> SessionRetriever = () => Task.FromResult<Session>(null);
+        public Func<Task<Session?>> SessionRetriever = () => Task.FromResult<Session?>(null);
 
         /// <summary>
         /// Function to destroy a session.

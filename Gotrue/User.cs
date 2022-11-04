@@ -18,7 +18,7 @@ namespace Supabase.Gotrue
         public Dictionary<string, object> AppMetadata { get; set; } = new Dictionary<string, object>();
 
         [JsonProperty("aud")]
-        public string Aud { get; set; }
+        public string? Aud { get; set; }
 
         [JsonProperty("confirmation_sent_at")]
         public DateTime? ConfirmationSentAt { get; set; }
@@ -36,7 +36,7 @@ namespace Supabase.Gotrue
         public DateTime? EmailConfirmedAt { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [JsonProperty("identities")]
         public List<UserIdentity> Identities { get; set; } = new List<UserIdentity>();
@@ -140,17 +140,17 @@ namespace Supabase.Gotrue
         public string? Phone { get; set; }
 
         [JsonProperty("token")]
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
     }
 
     public class UserList<TUser>
         where TUser : User
     {
         [JsonProperty("aud")]
-        public string Aud { get; set; }
+        public string? Aud { get; set; }
 
         [JsonProperty("users")]
         public List<TUser> Users { get; set; } = new List<TUser>();
@@ -165,7 +165,7 @@ namespace Supabase.Gotrue
         public DateTime CreatedAt { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [JsonProperty("identity_data")]
         public Dictionary<string, object> IdentityData { get; set; } = new Dictionary<string, object>();
@@ -174,12 +174,12 @@ namespace Supabase.Gotrue
         public DateTime LastSignInAt { get; set; }
 
         [JsonProperty("provider")]
-        public string Provider { get; set; }
+        public string? Provider { get; set; }
 
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
         [JsonProperty("user_id")]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }

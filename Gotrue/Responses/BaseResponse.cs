@@ -10,9 +10,9 @@ namespace Supabase.Gotrue.Responses
     public class BaseResponse
     {
         [JsonIgnore]
-        public HttpResponseMessage ResponseMessage { get; set; }
+        public HttpResponseMessage? ResponseMessage { get; set; }
 
         [JsonIgnore]
-        public string Content { get; set; }
+        public string? Content { get; set; }
     }
 }
