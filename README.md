@@ -29,6 +29,7 @@ var client = new Client(options);
 await client.RetrieveSessionAsync(); // if applicable
 
 var stateless = new StatelessClient().SignUp(email, statelessOptions);
+```
 
 ---
 
