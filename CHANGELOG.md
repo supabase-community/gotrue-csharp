@@ -1,5 +1,15 @@
 ﻿# Changelog
 
+## 3.0.0 - 2022-11-4
+
+- [#40](https://github.com/supabase-community/gotrue-csharp/pull/40) Adjust to Dependency Injection Structure (Thanks [@HunteRoi](https://github.com/HunteRoi))
+- [#34](https://github.com/supabase-community/supabase-csharp/issues/34) Enable nullability in project.
+
+Migration from 2.x.x to 3.x.x:
+- `Client` is no longer a Singleton - it should be initialized using its standard constructor.
+- `StatelessClient` is no longer `Static` - it should be initialized using a standard constructor.
+- Setting/Retrieving state on init has been disabled by default, you will need to call `client.RetrieveSessionAsync()` to retrieve state from your `SessionRetriever` function.
+
 ## 2.4.7 - 2022-10-31
 
 - [#41](https://github.com/supabase-community/gotrue-csharp/issues/41) Add support for `VerifyOTP(string email, string token)`
