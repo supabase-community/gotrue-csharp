@@ -11,6 +11,27 @@
 
 ---
 
+## BREAKING CHANGES MOVING FROM v2.x.x to v3.x.x
+
+- `Client` is no longer a Singleton - it should be initialized using its standard constructor.
+- `StatelessClient` is no longer `Static` - it should be initialized using a standard constructor.
+- Setting/Retrieving state on init has been disabled by default, you will need to call `client.RetrieveSessionAsync()` to retrieve state from your `SessionRetriever` function.
+
+In Short:
+```c#
+# What was:
+var client = await Client.InitializeAsync(options);
+
+var stateless = StatelessClient.SignUp(email, statelessOptions);
+
+# Becomes:
+var client = new Client(options);
+await client.RetrieveSessionAsync(); // if applicable
+
+var stateless = new StatelessClient().SignUp(email, statelessOptions);
+
+---
+
 ## Getting Started
 
 The Gotrue `Client` from this library uses a Singleton class to maintain in-memory state and timers. This is similar
@@ -22,14 +43,12 @@ without requiring initialization.
 
 ```c#
 var options = new ClientOptions { Url = "https://example.com/api" };
-var client = await Client.Initialize(options);
-
-var user = await SignUp("new-user@example.com");
+var client = new Client(options);
+var user = await client.SignUp("new-user@example.com");
 
 // Alternatively, you can use a StatelessClient and do API interactions that way
 var options = new StatelessClientOptions { Url = "https://example.com/api" }
-await Client.SignUp("new-user@example.com", options);
-
+await new StatelessClient().SignUp("new-user@example.com", options);
 ```
 
 ## Persisting, Retrieving, and Destroying Sessions.
@@ -54,7 +73,9 @@ async void Initialize() {
         SessionRetriever = SessionRetriever,
         SessionDestroyer = SessionDestroyer
     };
-    await Client.Initialize(options);
+    var client = new Client(options);
+    // Loads the session using SessionRetriever and sets state internally.
+    await client.RetrieveSessionAsync();
 }
 
 //...
