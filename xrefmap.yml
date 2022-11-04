@@ -113,12 +113,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.DeleteUser
   nameWithType: Api.DeleteUser
-- uid: Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.String)
-  name: GetUrlForProvider(Constants.Provider, String)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetUrlForProvider_Supabase_Gotrue_Constants_Provider_System_String_
-  commentId: M:Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.String)
-  fullName: Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.String)
-  nameWithType: Api.GetUrlForProvider(Constants.Provider, String)
+- uid: Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name: GetUrlForProvider(Constants.Provider, Nullable<String>)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetUrlForProvider_Supabase_Gotrue_Constants_Provider_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name.vb: GetUrlForProvider(Constants.Provider, Nullable(Of String))
+  fullName: Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.Nullable(Of System.String))
+  nameWithType: Api.GetUrlForProvider(Constants.Provider, Nullable<String>)
+  nameWithType.vb: Api.GetUrlForProvider(Constants.Provider, Nullable(Of String))
 - uid: Supabase.Gotrue.Api.GetUrlForProvider*
   name: GetUrlForProvider
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetUrlForProvider_
@@ -171,15 +174,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.InviteUserByEmail
   nameWithType: Api.InviteUserByEmail
-- uid: Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Api.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Api.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: Api.ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: Api.ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Api.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_System_String_System_Nullable_System_String__System_Nullable_System_String__Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Api.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Api.ListUsers(System.String, System.Nullable<System.String>, System.Nullable<System.String>, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Api.ListUsers(System.String, System.Nullable(Of System.String), System.Nullable(Of System.String), Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: Api.ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: Api.ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Api.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_
@@ -556,15 +559,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.InviteUserByEmail
   nameWithType: Client.InviteUserByEmail
-- uid: Supabase.Gotrue.Client.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Client.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Client.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Client.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: Client.ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: Client.ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Client.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListUsers_System_String_System_Nullable_System_String__System_Nullable_System_String__Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Client.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Client.ListUsers(System.String, System.Nullable<System.String>, System.Nullable<System.String>, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Client.ListUsers(System.String, System.Nullable(Of System.String), System.Nullable(Of System.String), Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: Client.ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: Client.ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Client.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListUsers_
@@ -689,18 +692,24 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.ShouldPersistSession
   nameWithType: Client.ShouldPersistSession
-- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider,System.String)
-  name: SignIn(Constants.Provider, String)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Constants_Provider_System_String_
-  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider,System.String)
-  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider, System.String)
-  nameWithType: Client.SignIn(Constants.Provider, String)
-- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,System.String)
-  name: SignIn(Constants.SignInType, String, String, String)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,System.String)
-  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.String, System.String)
-  nameWithType: Client.SignIn(Constants.SignInType, String, String, String)
+- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name: SignIn(Constants.Provider, Nullable<String>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Constants_Provider_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name.vb: SignIn(Constants.Provider, Nullable(Of String))
+  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider, System.Nullable(Of System.String))
+  nameWithType: Client.SignIn(Constants.Provider, Nullable<String>)
+  nameWithType.vb: Client.SignIn(Constants.Provider, Nullable(Of String))
+- uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},System.Nullable{System.String})
+  name: SignIn(Constants.SignInType, String, Nullable<String>, Nullable<String>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_Nullable_System_String__System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},System.Nullable{System.String})
+  name.vb: SignIn(Constants.SignInType, String, Nullable(Of String), Nullable(Of String))
+  fullName: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable<System.String>, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable(Of System.String), System.Nullable(Of System.String))
+  nameWithType: Client.SignIn(Constants.SignInType, String, Nullable<String>, Nullable<String>)
+  nameWithType.vb: Client.SignIn(Constants.SignInType, String, Nullable(Of String), Nullable(Of String))
 - uid: Supabase.Gotrue.Client.SignIn(System.String,Supabase.Gotrue.SignInOptions)
   name: SignIn(String, SignInOptions)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_System_String_Supabase_Gotrue_SignInOptions_
@@ -1363,14 +1372,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).DeleteUser
   nameWithType: IGotrueApi<TUser, TSession>.DeleteUser
   nameWithType.vb: IGotrueApi(Of TUser, TSession).DeleteUser
-- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.String)
-  name: GetUrlForProvider(Constants.Provider, String)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_GetUrlForProvider_Supabase_Gotrue_Constants_Provider_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.String)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.String)
-  nameWithType: IGotrueApi<TUser, TSession>.GetUrlForProvider(Constants.Provider, String)
-  nameWithType.vb: IGotrueApi(Of TUser, TSession).GetUrlForProvider(Constants.Provider, String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name: GetUrlForProvider(Constants.Provider, Nullable<String>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_GetUrlForProvider_Supabase_Gotrue_Constants_Provider_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name.vb: GetUrlForProvider(Constants.Provider, Nullable(Of String))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).GetUrlForProvider(Supabase.Gotrue.Constants.Provider, System.Nullable(Of System.String))
+  nameWithType: IGotrueApi<TUser, TSession>.GetUrlForProvider(Constants.Provider, Nullable<String>)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).GetUrlForProvider(Constants.Provider, Nullable(Of String))
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.GetUrlForProvider*
   name: GetUrlForProvider
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_GetUrlForProvider_
@@ -1431,15 +1441,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).InviteUserByEmail
   nameWithType: IGotrueApi<TUser, TSession>.InviteUserByEmail
   nameWithType.vb: IGotrueApi(Of TUser, TSession).InviteUserByEmail
-- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: IGotrueApi<TUser, TSession>.ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: IGotrueApi(Of TUser, TSession).ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_ListUsers_System_String_System_Nullable_System_String__System_Nullable_System_String__Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.ListUsers(System.String, System.Nullable<System.String>, System.Nullable<System.String>, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).ListUsers(System.String, System.Nullable(Of System.String), System.Nullable(Of System.String), Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: IGotrueApi<TUser, TSession>.ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_ListUsers_
@@ -1823,15 +1833,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).InviteUserByEmail
   nameWithType: IGotrueClient<TUser, TSession>.InviteUserByEmail
   nameWithType.vb: IGotrueClient(Of TUser, TSession).InviteUserByEmail
-- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).ListUsers(System.String, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: IGotrueClient<TUser, TSession>.ListUsers(String, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: IGotrueClient(Of TUser, TSession).ListUsers(String, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ListUsers_System_String_System_Nullable_System_String__System_Nullable_System_String__Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.ListUsers(System.String,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.ListUsers(System.String, System.Nullable<System.String>, System.Nullable<System.String>, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).ListUsers(System.String, System.Nullable(Of System.String), System.Nullable(Of System.String), Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: IGotrueClient<TUser, TSession>.ListUsers(String, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).ListUsers(String, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ListUsers_
@@ -1926,22 +1936,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SetAuth
   nameWithType: IGotrueClient<TUser, TSession>.SetAuth
   nameWithType.vb: IGotrueClient(Of TUser, TSession).SetAuth
-- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.Provider,System.String)
-  name: SignIn(Constants.Provider, String)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_Provider_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.Provider,System.String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.Provider, System.String)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.Provider, System.String)
-  nameWithType: IGotrueClient<TUser, TSession>.SignIn(Constants.Provider, String)
-  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignIn(Constants.Provider, String)
-- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,System.String)
-  name: SignIn(Constants.SignInType, String, String, String)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,System.String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.String, System.String)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.String, System.String)
-  nameWithType: IGotrueClient<TUser, TSession>.SignIn(Constants.SignInType, String, String, String)
-  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignIn(Constants.SignInType, String, String, String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name: SignIn(Constants.Provider, Nullable<String>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_Provider_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
+  name.vb: SignIn(Constants.Provider, Nullable(Of String))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.Provider, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.Provider, System.Nullable(Of System.String))
+  nameWithType: IGotrueClient<TUser, TSession>.SignIn(Constants.Provider, Nullable<String>)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignIn(Constants.Provider, Nullable(Of String))
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},System.Nullable{System.String})
+  name: SignIn(Constants.SignInType, String, Nullable<String>, Nullable<String>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_Nullable_System_String__System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},System.Nullable{System.String})
+  name.vb: SignIn(Constants.SignInType, String, Nullable(Of String), Nullable(Of String))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable<System.String>, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable(Of System.String), System.Nullable(Of System.String))
+  nameWithType: IGotrueClient<TUser, TSession>.SignIn(Constants.SignInType, String, Nullable<String>, Nullable<String>)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignIn(Constants.SignInType, String, Nullable(Of String), Nullable(Of String))
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(System.String,Supabase.Gotrue.SignInOptions)
   name: SignIn(String, SignInOptions)
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_System_String_Supabase_Gotrue_SignInOptions_
@@ -2229,15 +2241,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).InviteUserByEmail
   nameWithType: IGotrueStatelessClient<TUser, TSession>.InviteUserByEmail
   nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).InviteUserByEmail
-- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_ListUsers_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: IGotrueStatelessClient<TUser, TSession>.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, StatelessClient.StatelessClientOptions, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_ListUsers_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_Nullable_System_String__System_Nullable_System_String__Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, StatelessClient.StatelessClientOptions, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable<System.String>, System.Nullable<System.String>, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable(Of System.String), System.Nullable(Of System.String), Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: IGotrueStatelessClient<TUser, TSession>.ListUsers(String, StatelessClient.StatelessClientOptions, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).ListUsers(String, StatelessClient.StatelessClientOptions, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_ListUsers_
@@ -2298,22 +2310,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).SendMagicLink
   nameWithType: IGotrueStatelessClient<TUser, TSession>.SendMagicLink
   nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).SendMagicLink
-- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String)
-  name: SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, String)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String)
-  nameWithType: IGotrueStatelessClient<TUser, TSession>.SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, String)
-  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, String)
-- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  name: SignIn(Constants.SignInType, String, String, StatelessClient.StatelessClientOptions)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  nameWithType: IGotrueStatelessClient<TUser, TSession>.SignIn(Constants.SignInType, String, String, StatelessClient.StatelessClientOptions)
-  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).SignIn(Constants.SignInType, String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String})
+  name: SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable<String>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String})
+  name.vb: SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable(Of String))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable(Of System.String))
+  nameWithType: IGotrueStatelessClient<TUser, TSession>.SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable<String>)
+  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable(Of String))
+- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name: SignIn(Constants.SignInType, String, Nullable<String>, StatelessClient.StatelessClientOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_Nullable_System_String__Supabase_Gotrue_StatelessClient_StatelessClientOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name.vb: SignIn(Constants.SignInType, String, Nullable(Of String), StatelessClient.StatelessClientOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable<System.String>, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable(Of System.String), Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  nameWithType: IGotrueStatelessClient<TUser, TSession>.SignIn(Constants.SignInType, String, Nullable<String>, StatelessClient.StatelessClientOptions)
+  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).SignIn(Constants.SignInType, String, Nullable(Of String), StatelessClient.StatelessClientOptions)
 - uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.SignIn(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.SignInOptions)
   name: SignIn(String, StatelessClient.StatelessClientOptions, SignInOptions)
   href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_SignIn_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_Supabase_Gotrue_SignInOptions_
@@ -2825,15 +2839,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.InviteUserByEmail
   nameWithType: StatelessClient.InviteUserByEmail
-- uid: Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ListUsers_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
-  commentId: M:Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
-  name.vb: ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
-  fullName: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
-  fullName.vb: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String, System.String, Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
-  nameWithType: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
-  nameWithType.vb: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, String, String, Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+- uid: Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ListUsers(String, StatelessClient.StatelessClientOptions, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ListUsers_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_Nullable_System_String__System_Nullable_System_String__Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:Supabase.Gotrue.StatelessClient.ListUsers(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String},System.Nullable{System.String},Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: ListUsers(String, StatelessClient.StatelessClientOptions, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
+  fullName: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable<System.String>, System.Nullable<System.String>, Supabase.Gotrue.Constants.SortOrder, System.Nullable<System.Int32>, System.Nullable<System.Int32>)
+  fullName.vb: Supabase.Gotrue.StatelessClient.ListUsers(System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable(Of System.String), System.Nullable(Of System.String), Supabase.Gotrue.Constants.SortOrder, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32))
+  nameWithType: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, Nullable<String>, Nullable<String>, Constants.SortOrder, Nullable<Int32>, Nullable<Int32>)
+  nameWithType.vb: StatelessClient.ListUsers(String, StatelessClient.StatelessClientOptions, Nullable(Of String), Nullable(Of String), Constants.SortOrder, Nullable(Of Int32), Nullable(Of Int32))
 - uid: Supabase.Gotrue.StatelessClient.ListUsers*
   name: ListUsers
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ListUsers_
@@ -2880,18 +2894,24 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.SendMagicLink
   nameWithType: StatelessClient.SendMagicLink
-- uid: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String)
-  name: SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, String)
-  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_String_
-  commentId: M:Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.String)
-  fullName: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.String)
-  nameWithType: StatelessClient.SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, String)
-- uid: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  name: SignIn(Constants.SignInType, String, String, StatelessClient.StatelessClientOptions)
-  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
-  commentId: M:Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  nameWithType: StatelessClient.SignIn(Constants.SignInType, String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String})
+  name: SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable<String>)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_StatelessClient_StatelessClientOptions_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.StatelessClient.StatelessClientOptions,System.Nullable{System.String})
+  name.vb: SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable(Of String))
+  fullName: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.StatelessClient.StatelessClientOptions, System.Nullable(Of System.String))
+  nameWithType: StatelessClient.SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable<String>)
+  nameWithType.vb: StatelessClient.SignIn(Constants.Provider, StatelessClient.StatelessClientOptions, Nullable(Of String))
+- uid: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name: SignIn(Constants.SignInType, String, Nullable<String>, StatelessClient.StatelessClientOptions)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_Nullable_System_String__Supabase_Gotrue_StatelessClient_StatelessClientOptions_
+  commentId: M:Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.Nullable{System.String},Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name.vb: SignIn(Constants.SignInType, String, Nullable(Of String), StatelessClient.StatelessClientOptions)
+  fullName: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable<System.String>, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  fullName.vb: Supabase.Gotrue.StatelessClient.SignIn(Supabase.Gotrue.Constants.SignInType, System.String, System.Nullable(Of System.String), Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  nameWithType: StatelessClient.SignIn(Constants.SignInType, String, Nullable<String>, StatelessClient.StatelessClientOptions)
+  nameWithType.vb: StatelessClient.SignIn(Constants.SignInType, String, Nullable(Of String), StatelessClient.StatelessClientOptions)
 - uid: Supabase.Gotrue.StatelessClient.SignIn(System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.SignInOptions)
   name: SignIn(String, StatelessClient.StatelessClientOptions, SignInOptions)
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_SignIn_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_Supabase_Gotrue_SignInOptions_
