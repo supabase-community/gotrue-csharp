@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.0.1 - 2022-11-11
+
+- `ClientOptions` interface updated to support a generic `TSession` to match the `IGotrueClient` interface. 
+
 ## 3.0.0 - 2022-11-4
 
 - [#40](https://github.com/supabase-community/gotrue-csharp/pull/40) Adjust to Dependency Injection Structure (Thanks [@HunteRoi](https://github.com/HunteRoi))
