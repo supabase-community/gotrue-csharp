@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
@@ -63,7 +62,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// The initialized client options.
         /// </summary>
-        internal ClientOptions Options { get; private set; }
+        internal ClientOptions<Session> Options { get; private set; }
 
         /// <summary>
         /// Internal timer reference for Refreshing Tokens (<see cref="AutoRefreshToken"/>)
@@ -81,10 +80,10 @@ namespace Supabase.Gotrue
         /// 
         /// </summary>
         /// <param name="options"></param>
-        public Client(ClientOptions? options = null)
+        public Client(ClientOptions<Session>? options = null)
         {
             if (options == null)
-                options = new ClientOptions();
+                options = new ClientOptions<Session>();
 
             Options = options;
             AutoRefreshToken = options.AutoRefreshToken;
@@ -815,54 +814,5 @@ namespace Supabase.Gotrue
         {
             State = state;
         }
-    }
-
-    /// <summary>
-    /// Class represention options available to the <see cref="Client"/>.
-    /// </summary>
-    public class ClientOptions
-    {
-        /// <summary>
-        /// Gotrue Endpoint
-        /// </summary>
-        public string Url { get; set; } = GOTRUE_URL;
-
-        /// <summary>
-        /// Headers to be sent with subsequent requests.
-        /// </summary>
-        public Dictionary<string, string> Headers = new Dictionary<string, string>(DEFAULT_HEADERS);
-
-        /// <summary>
-        /// Should the Client automatically handle refreshing the User's Token?
-        /// </summary>
-        public bool AutoRefreshToken { get; set; } = true;
-
-        /// <summary>
-        /// Should the Client call <see cref="SessionPersistor"/>, <see cref="SessionRetriever"/>, and <see cref="SessionDestroyer"/>?
-        /// </summary>
-        public bool PersistSession { get; set; } = true;
-
-        /// <summary>
-        /// Function called to persist the session (probably on a filesystem or cookie)
-        /// </summary>
-        public Func<Session, Task<bool>> SessionPersistor = (Session session) => Task.FromResult<bool>(true);
-
-        /// <summary>
-        /// Function to retrieve a session (probably from the filesystem or cookie)
-        /// </summary>
-        public Func<Task<Session?>> SessionRetriever = () => Task.FromResult<Session?>(null);
-
-        /// <summary>
-        /// Function to destroy a session.
-        /// </summary>
-        public Func<Task<bool>> SessionDestroyer = () => Task.FromResult<bool>(true);
-
-        /// <summary>
-        /// Very unlikely this flag needs to be changed except in very specific contexts.
-        /// 
-        /// Enables tests to be E2E tests to be run without requiring users to have
-        /// confirmed emails - mirrors the Gotrue server's configuration.
-        /// </summary>
-        public bool AllowUnconfirmedUserSessions { get; set; } = false;
     }
 }

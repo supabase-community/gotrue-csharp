@@ -61,9 +61,9 @@ namespace GotrueTests
         }
 
         [TestInitialize]
-        public async Task TestInitializer()
+        public void TestInitializer()
         {
-            client = new Supabase.Gotrue.Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+            client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true });
         }
 
         [TestMethod("Client: Signs Up User")]

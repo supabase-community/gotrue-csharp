@@ -31,7 +31,7 @@ namespace Supabase.Gotrue
     {
         public HttpResponseMessage Response { get; private set; }
 
-        public string Content { get; private set; }
+        public string? Content { get; private set; }
         public UnauthorizedException(RequestException exception)
         {
             Response = exception.Response;
@@ -43,7 +43,7 @@ namespace Supabase.Gotrue
     {
         public HttpResponseMessage Response { get; private set; }
 
-        public string Content { get; private set; }
+        public string? Content { get; private set; }
         public BadRequestException(RequestException exception)
         {
             Response = exception.Response;
@@ -54,7 +54,7 @@ namespace Supabase.Gotrue
     public class ForbiddenException : Exception
     {
         public HttpResponseMessage Response { get; private set; }
-        public string Content { get; private set; }
+        public string? Content { get; private set; }
         public ForbiddenException(RequestException exception)
         {
             Response = exception.Response;
@@ -65,7 +65,7 @@ namespace Supabase.Gotrue
     public class InvalidEmailOrPasswordException : Exception
     {
         public HttpResponseMessage Response { get; private set; }
-        public string Content { get; private set; }
+        public string? Content { get; private set; }
         public InvalidEmailOrPasswordException(RequestException exception)
         {
             Response = exception.Response;
@@ -76,7 +76,7 @@ namespace Supabase.Gotrue
     public class ExistingUserException : Exception
     {
         public HttpResponseMessage Response { get; private set; }
-        public string Content { get; private set; }
+        public string? Content { get; private set; }
         public ExistingUserException(RequestException exception)
         {
             Response = exception.Response;
