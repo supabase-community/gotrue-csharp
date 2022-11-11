@@ -423,12 +423,15 @@ references:
   commentId: T:Supabase.Gotrue.Client
   fullName: Supabase.Gotrue.Client
   nameWithType: Client
-- uid: Supabase.Gotrue.Client.#ctor(Supabase.Gotrue.ClientOptions)
-  name: Client(ClientOptions)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client__ctor_Supabase_Gotrue_ClientOptions_
-  commentId: M:Supabase.Gotrue.Client.#ctor(Supabase.Gotrue.ClientOptions)
-  fullName: Supabase.Gotrue.Client.Client(Supabase.Gotrue.ClientOptions)
-  nameWithType: Client.Client(ClientOptions)
+- uid: Supabase.Gotrue.Client.#ctor(Supabase.Gotrue.ClientOptions{Supabase.Gotrue.Session})
+  name: Client(ClientOptions<Session>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client__ctor_Supabase_Gotrue_ClientOptions_Supabase_Gotrue_Session__
+  commentId: M:Supabase.Gotrue.Client.#ctor(Supabase.Gotrue.ClientOptions{Supabase.Gotrue.Session})
+  name.vb: Client(ClientOptions(Of Session))
+  fullName: Supabase.Gotrue.Client.Client(Supabase.Gotrue.ClientOptions<Supabase.Gotrue.Session>)
+  fullName.vb: Supabase.Gotrue.Client.Client(Supabase.Gotrue.ClientOptions(Of Supabase.Gotrue.Session))
+  nameWithType: Client.Client(ClientOptions<Session>)
+  nameWithType.vb: Client.Client(ClientOptions(Of Session))
 - uid: Supabase.Gotrue.Client.#ctor*
   name: Client
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client__ctor_
@@ -825,88 +828,115 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.VerifyOTP
   nameWithType: Client.VerifyOTP
-- uid: Supabase.Gotrue.ClientOptions
-  name: ClientOptions
-  href: api/Supabase.Gotrue.ClientOptions.html
-  commentId: T:Supabase.Gotrue.ClientOptions
-  fullName: Supabase.Gotrue.ClientOptions
-  nameWithType: ClientOptions
-- uid: Supabase.Gotrue.ClientOptions.AllowUnconfirmedUserSessions
+- uid: Supabase.Gotrue.ClientOptions`1
+  name: ClientOptions<TSession>
+  href: api/Supabase.Gotrue.ClientOptions-1.html
+  commentId: T:Supabase.Gotrue.ClientOptions`1
+  name.vb: ClientOptions(Of TSession)
+  fullName: Supabase.Gotrue.ClientOptions<TSession>
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession)
+  nameWithType: ClientOptions<TSession>
+  nameWithType.vb: ClientOptions(Of TSession)
+- uid: Supabase.Gotrue.ClientOptions`1.AllowUnconfirmedUserSessions
   name: AllowUnconfirmedUserSessions
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_AllowUnconfirmedUserSessions
-  commentId: P:Supabase.Gotrue.ClientOptions.AllowUnconfirmedUserSessions
-  fullName: Supabase.Gotrue.ClientOptions.AllowUnconfirmedUserSessions
-  nameWithType: ClientOptions.AllowUnconfirmedUserSessions
-- uid: Supabase.Gotrue.ClientOptions.AllowUnconfirmedUserSessions*
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_AllowUnconfirmedUserSessions
+  commentId: P:Supabase.Gotrue.ClientOptions`1.AllowUnconfirmedUserSessions
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.AllowUnconfirmedUserSessions
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).AllowUnconfirmedUserSessions
+  nameWithType: ClientOptions<TSession>.AllowUnconfirmedUserSessions
+  nameWithType.vb: ClientOptions(Of TSession).AllowUnconfirmedUserSessions
+- uid: Supabase.Gotrue.ClientOptions`1.AllowUnconfirmedUserSessions*
   name: AllowUnconfirmedUserSessions
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_AllowUnconfirmedUserSessions_
-  commentId: Overload:Supabase.Gotrue.ClientOptions.AllowUnconfirmedUserSessions
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_AllowUnconfirmedUserSessions_
+  commentId: Overload:Supabase.Gotrue.ClientOptions`1.AllowUnconfirmedUserSessions
   isSpec: "True"
-  fullName: Supabase.Gotrue.ClientOptions.AllowUnconfirmedUserSessions
-  nameWithType: ClientOptions.AllowUnconfirmedUserSessions
-- uid: Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.AllowUnconfirmedUserSessions
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).AllowUnconfirmedUserSessions
+  nameWithType: ClientOptions<TSession>.AllowUnconfirmedUserSessions
+  nameWithType.vb: ClientOptions(Of TSession).AllowUnconfirmedUserSessions
+- uid: Supabase.Gotrue.ClientOptions`1.AutoRefreshToken
   name: AutoRefreshToken
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_AutoRefreshToken
-  commentId: P:Supabase.Gotrue.ClientOptions.AutoRefreshToken
-  fullName: Supabase.Gotrue.ClientOptions.AutoRefreshToken
-  nameWithType: ClientOptions.AutoRefreshToken
-- uid: Supabase.Gotrue.ClientOptions.AutoRefreshToken*
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_AutoRefreshToken
+  commentId: P:Supabase.Gotrue.ClientOptions`1.AutoRefreshToken
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.AutoRefreshToken
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).AutoRefreshToken
+  nameWithType: ClientOptions<TSession>.AutoRefreshToken
+  nameWithType.vb: ClientOptions(Of TSession).AutoRefreshToken
+- uid: Supabase.Gotrue.ClientOptions`1.AutoRefreshToken*
   name: AutoRefreshToken
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_AutoRefreshToken_
-  commentId: Overload:Supabase.Gotrue.ClientOptions.AutoRefreshToken
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_AutoRefreshToken_
+  commentId: Overload:Supabase.Gotrue.ClientOptions`1.AutoRefreshToken
   isSpec: "True"
-  fullName: Supabase.Gotrue.ClientOptions.AutoRefreshToken
-  nameWithType: ClientOptions.AutoRefreshToken
-- uid: Supabase.Gotrue.ClientOptions.Headers
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.AutoRefreshToken
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).AutoRefreshToken
+  nameWithType: ClientOptions<TSession>.AutoRefreshToken
+  nameWithType.vb: ClientOptions(Of TSession).AutoRefreshToken
+- uid: Supabase.Gotrue.ClientOptions`1.Headers
   name: Headers
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_Headers
-  commentId: F:Supabase.Gotrue.ClientOptions.Headers
-  fullName: Supabase.Gotrue.ClientOptions.Headers
-  nameWithType: ClientOptions.Headers
-- uid: Supabase.Gotrue.ClientOptions.PersistSession
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_Headers
+  commentId: F:Supabase.Gotrue.ClientOptions`1.Headers
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.Headers
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).Headers
+  nameWithType: ClientOptions<TSession>.Headers
+  nameWithType.vb: ClientOptions(Of TSession).Headers
+- uid: Supabase.Gotrue.ClientOptions`1.PersistSession
   name: PersistSession
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_PersistSession
-  commentId: P:Supabase.Gotrue.ClientOptions.PersistSession
-  fullName: Supabase.Gotrue.ClientOptions.PersistSession
-  nameWithType: ClientOptions.PersistSession
-- uid: Supabase.Gotrue.ClientOptions.PersistSession*
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_PersistSession
+  commentId: P:Supabase.Gotrue.ClientOptions`1.PersistSession
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.PersistSession
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).PersistSession
+  nameWithType: ClientOptions<TSession>.PersistSession
+  nameWithType.vb: ClientOptions(Of TSession).PersistSession
+- uid: Supabase.Gotrue.ClientOptions`1.PersistSession*
   name: PersistSession
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_PersistSession_
-  commentId: Overload:Supabase.Gotrue.ClientOptions.PersistSession
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_PersistSession_
+  commentId: Overload:Supabase.Gotrue.ClientOptions`1.PersistSession
   isSpec: "True"
-  fullName: Supabase.Gotrue.ClientOptions.PersistSession
-  nameWithType: ClientOptions.PersistSession
-- uid: Supabase.Gotrue.ClientOptions.SessionDestroyer
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.PersistSession
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).PersistSession
+  nameWithType: ClientOptions<TSession>.PersistSession
+  nameWithType.vb: ClientOptions(Of TSession).PersistSession
+- uid: Supabase.Gotrue.ClientOptions`1.SessionDestroyer
   name: SessionDestroyer
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_SessionDestroyer
-  commentId: F:Supabase.Gotrue.ClientOptions.SessionDestroyer
-  fullName: Supabase.Gotrue.ClientOptions.SessionDestroyer
-  nameWithType: ClientOptions.SessionDestroyer
-- uid: Supabase.Gotrue.ClientOptions.SessionPersistor
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_SessionDestroyer
+  commentId: F:Supabase.Gotrue.ClientOptions`1.SessionDestroyer
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.SessionDestroyer
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).SessionDestroyer
+  nameWithType: ClientOptions<TSession>.SessionDestroyer
+  nameWithType.vb: ClientOptions(Of TSession).SessionDestroyer
+- uid: Supabase.Gotrue.ClientOptions`1.SessionPersistor
   name: SessionPersistor
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_SessionPersistor
-  commentId: F:Supabase.Gotrue.ClientOptions.SessionPersistor
-  fullName: Supabase.Gotrue.ClientOptions.SessionPersistor
-  nameWithType: ClientOptions.SessionPersistor
-- uid: Supabase.Gotrue.ClientOptions.SessionRetriever
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_SessionPersistor
+  commentId: F:Supabase.Gotrue.ClientOptions`1.SessionPersistor
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.SessionPersistor
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).SessionPersistor
+  nameWithType: ClientOptions<TSession>.SessionPersistor
+  nameWithType.vb: ClientOptions(Of TSession).SessionPersistor
+- uid: Supabase.Gotrue.ClientOptions`1.SessionRetriever
   name: SessionRetriever
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_SessionRetriever
-  commentId: F:Supabase.Gotrue.ClientOptions.SessionRetriever
-  fullName: Supabase.Gotrue.ClientOptions.SessionRetriever
-  nameWithType: ClientOptions.SessionRetriever
-- uid: Supabase.Gotrue.ClientOptions.Url
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_SessionRetriever
+  commentId: F:Supabase.Gotrue.ClientOptions`1.SessionRetriever
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.SessionRetriever
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).SessionRetriever
+  nameWithType: ClientOptions<TSession>.SessionRetriever
+  nameWithType.vb: ClientOptions(Of TSession).SessionRetriever
+- uid: Supabase.Gotrue.ClientOptions`1.Url
   name: Url
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_Url
-  commentId: P:Supabase.Gotrue.ClientOptions.Url
-  fullName: Supabase.Gotrue.ClientOptions.Url
-  nameWithType: ClientOptions.Url
-- uid: Supabase.Gotrue.ClientOptions.Url*
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_Url
+  commentId: P:Supabase.Gotrue.ClientOptions`1.Url
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.Url
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).Url
+  nameWithType: ClientOptions<TSession>.Url
+  nameWithType.vb: ClientOptions(Of TSession).Url
+- uid: Supabase.Gotrue.ClientOptions`1.Url*
   name: Url
-  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_Url_
-  commentId: Overload:Supabase.Gotrue.ClientOptions.Url
+  href: api/Supabase.Gotrue.ClientOptions-1.html#Supabase_Gotrue_ClientOptions_1_Url_
+  commentId: Overload:Supabase.Gotrue.ClientOptions`1.Url
   isSpec: "True"
-  fullName: Supabase.Gotrue.ClientOptions.Url
-  nameWithType: ClientOptions.Url
+  fullName: Supabase.Gotrue.ClientOptions<TSession>.Url
+  fullName.vb: Supabase.Gotrue.ClientOptions(Of TSession).Url
+  nameWithType: ClientOptions<TSession>.Url
+  nameWithType.vb: ClientOptions(Of TSession).Url
 - uid: Supabase.Gotrue.ClientStateChanged
   name: ClientStateChanged
   href: api/Supabase.Gotrue.ClientStateChanged.html
