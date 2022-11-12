@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Supabase.Core.Attributes;
+using System;
 using System.Collections.Generic;
-using Supabase.Gotrue.Attributes;
 
 namespace Supabase.Gotrue
 {

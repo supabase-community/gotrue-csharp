@@ -5,7 +5,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
-using Supabase.Gotrue.Attributes;
+using Supabase.Core;
+using Supabase.Core.Attributes;
+using Supabase.Core.Extensions;
+using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
@@ -16,22 +19,41 @@ namespace Supabase.Gotrue
     public class Api : IGotrueApi<User, Session>
     {
         protected string Url { get; private set; }
-        protected Dictionary<string, string> Headers = new Dictionary<string, string>();
+
+        /// <summary>
+        /// Function that can be set to return dynamic headers.
+        /// 
+        /// Headers specified in the constructor will ALWAYS take precendece over headers returned by this function.
+        /// </summary>
+        public Func<Dictionary<string, string>>? GetHeaders { get; set; }
+
+        private Dictionary<string, string> _headers;
+        protected Dictionary<string, string> Headers
+        {
+            get
+            {
+                return GetHeaders != null ? GetHeaders().MergeLeft(_headers) : _headers;
+            }
+            set
+            {
+                _headers = value;
+
+                if (!_headers.ContainsKey("X-Client-Info"))
+                    _headers.Add("X-Client-Info", Util.GetAssemblyVersion(typeof(Client)));
+            }
+        }
 
         /// <summary>
         /// Creates a new user using their email address.
         /// </summary>
         /// <param name="url"></param>
         /// <param name="headers"></param>
-        public Api(string url, Dictionary<string, string> headers)
+        public Api(string url, Dictionary<string, string>? headers = null)
         {
             Url = url;
-            Headers = headers;
 
-            if (!Headers.ContainsKey("X-Client-Info"))
-            {
-                Headers.Add("X-Client-Info", Util.GetAssemblyVersion());
-            }
+            headers ??= new Dictionary<string, string>();
+            _headers = headers;
         }
 
         /// <summary>
@@ -199,7 +221,7 @@ namespace Supabase.Gotrue
             var data = new Dictionary<string, string> {
                 { "phone", phone },
                 { "token", token },
-                { "type", Helpers.GetMappedToAttr(type).Mapping }
+                { "type", Core.Helpers.GetMappedToAttr(type).Mapping }
             };
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
         }
@@ -215,7 +237,7 @@ namespace Supabase.Gotrue
             var data = new Dictionary<string, string> {
                 { "email", email },
                 { "token", token },
-                { "type", Helpers.GetMappedToAttr(type).Mapping }
+                { "type", Core.Helpers.GetMappedToAttr(type).Mapping }
             };
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
         }
@@ -254,7 +276,7 @@ namespace Supabase.Gotrue
         public string GetUrlForProvider(Provider provider, string? scopes = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
-            var attr = Helpers.GetMappedToAttr(provider);
+            var attr = Core.Helpers.GetMappedToAttr(provider);
 
             if (attr is MapToAttribute mappedAttr)
             {
@@ -345,7 +367,7 @@ namespace Supabase.Gotrue
 
             if (!string.IsNullOrWhiteSpace(sortBy))
             {
-                var mapTo = Helpers.GetMappedToAttr(sortOrder);
+                var mapTo = Core.Helpers.GetMappedToAttr(sortOrder);
                 query.Add("sort", $"{sortBy} {mapTo.Mapping}");
             }
 

@@ -1,10 +1,11 @@
-﻿using Supabase.Gotrue.Responses;
+﻿using Supabase.Core.Interfaces;
+using Supabase.Gotrue.Responses;
 using System.Threading.Tasks;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue.Interfaces
 {
-    public interface IGotrueApi<TUser, TSession>
+    public interface IGotrueApi<TUser, TSession> : IGettableHeaders
         where TUser : User
         where TSession : Session
     {

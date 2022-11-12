@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Supabase.Gotrue.Attributes;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 

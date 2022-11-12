@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Supabase.Core.Interfaces;
+using System;
 using System.Threading.Tasks;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue.Interfaces
 {
-    public interface IGotrueClient<TUser, TSession>
+    public interface IGotrueClient<TUser, TSession> : IGettableHeaders
         where TUser : User
         where TSession : Session
     {

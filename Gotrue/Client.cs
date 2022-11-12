@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Supabase.Gotrue.Attributes;
+using Supabase.Core.Extensions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 
@@ -19,6 +20,13 @@ namespace Supabase.Gotrue
     /// </example>
     public class Client : IGotrueClient<User, Session>
     {
+        /// <summary>
+        /// Function that can be set to return dynamic headers.
+        /// 
+        /// Headers specified in the client options will ALWAYS take precendece over headers returned by this function.
+        /// </summary>
+        public Func<Dictionary<string, string>>? GetHeaders { get; set; }
+
         /// <summary>
         /// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
         /// </summary>
@@ -93,6 +101,7 @@ namespace Supabase.Gotrue
             SessionDestroyer = options.SessionDestroyer;
 
             api = new Api(options.Url, options.Headers);
+            api.GetHeaders = GetHeaders;
         }
 
         /// <summary>
@@ -369,9 +378,9 @@ namespace Supabase.Gotrue
 
                 if (refreshTimer != null)
                     refreshTimer.Dispose();
-                
+
                 await DestroySession();
-                
+
                 StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
             }
         }
