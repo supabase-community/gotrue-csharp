@@ -71,15 +71,15 @@ references:
   commentId: T:Supabase.Gotrue.Api
   fullName: Supabase.Gotrue.Api
   nameWithType: Api
-- uid: Supabase.Gotrue.Api.#ctor(System.String,Dictionary{System.String,System.String})
-  name: Api(String, Dictionary<String, String>)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api__ctor_System_String_Dictionary_System_String_System_String__
-  commentId: M:Supabase.Gotrue.Api.#ctor(System.String,Dictionary{System.String,System.String})
-  name.vb: Api(String, Dictionary(Of String, String))
-  fullName: Supabase.Gotrue.Api.Api(System.String, Dictionary<System.String, System.String>)
-  fullName.vb: Supabase.Gotrue.Api.Api(System.String, Dictionary(Of System.String, System.String))
-  nameWithType: Api.Api(String, Dictionary<String, String>)
-  nameWithType.vb: Api.Api(String, Dictionary(Of String, String))
+- uid: Supabase.Gotrue.Api.#ctor(System.String,System.Nullable{Dictionary{System.String,System.String}})
+  name: Api(String, Nullable<Dictionary<String, String>>)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api__ctor_System_String_System_Nullable_Dictionary_System_String_System_String___
+  commentId: M:Supabase.Gotrue.Api.#ctor(System.String,System.Nullable{Dictionary{System.String,System.String}})
+  name.vb: Api(String, Nullable(Of Dictionary(Of String, String)))
+  fullName: Supabase.Gotrue.Api.Api(System.String, System.Nullable<Dictionary<System.String, System.String>>)
+  fullName.vb: Supabase.Gotrue.Api.Api(System.String, System.Nullable(Of Dictionary(Of System.String, System.String)))
+  nameWithType: Api.Api(String, Nullable<Dictionary<String, String>>)
+  nameWithType.vb: Api.Api(String, Nullable(Of Dictionary(Of String, String)))
 - uid: Supabase.Gotrue.Api.#ctor*
   name: Api
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api__ctor_
@@ -113,6 +113,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.DeleteUser
   nameWithType: Api.DeleteUser
+- uid: Supabase.Gotrue.Api.GetHeaders
+  name: GetHeaders
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetHeaders
+  commentId: P:Supabase.Gotrue.Api.GetHeaders
+  fullName: Supabase.Gotrue.Api.GetHeaders
+  nameWithType: Api.GetHeaders
+- uid: Supabase.Gotrue.Api.GetHeaders*
+  name: GetHeaders
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetHeaders_
+  commentId: Overload:Supabase.Gotrue.Api.GetHeaders
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.GetHeaders
+  nameWithType: Api.GetHeaders
 - uid: Supabase.Gotrue.Api.GetUrlForProvider(Supabase.Gotrue.Constants.Provider,System.Nullable{System.String})
   name: GetUrlForProvider(Constants.Provider, Nullable<String>)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetUrlForProvider_Supabase_Gotrue_Constants_Provider_System_Nullable_System_String__
@@ -158,7 +171,14 @@ references:
 - uid: Supabase.Gotrue.Api.Headers
   name: Headers
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_Headers
-  commentId: F:Supabase.Gotrue.Api.Headers
+  commentId: P:Supabase.Gotrue.Api.Headers
+  fullName: Supabase.Gotrue.Api.Headers
+  nameWithType: Api.Headers
+- uid: Supabase.Gotrue.Api.Headers*
+  name: Headers
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_Headers_
+  commentId: Overload:Supabase.Gotrue.Api.Headers
+  isSpec: "True"
   fullName: Supabase.Gotrue.Api.Headers
   nameWithType: Api.Headers
 - uid: Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String)
@@ -510,6 +530,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.DeleteUser
   nameWithType: Client.DeleteUser
+- uid: Supabase.Gotrue.Client.GetHeaders
+  name: GetHeaders
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetHeaders
+  commentId: P:Supabase.Gotrue.Client.GetHeaders
+  fullName: Supabase.Gotrue.Client.GetHeaders
+  nameWithType: Client.GetHeaders
+- uid: Supabase.Gotrue.Client.GetHeaders*
+  name: GetHeaders
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetHeaders_
+  commentId: Overload:Supabase.Gotrue.Client.GetHeaders
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.GetHeaders
+  nameWithType: Client.GetHeaders
 - uid: Supabase.Gotrue.Client.GetSessionFromUrl(Uri,System.Boolean)
   name: GetSessionFromUrl(Uri, Boolean)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_GetSessionFromUrl_Uri_System_Boolean_
@@ -3572,25 +3605,6 @@ references:
   fullName.vb: Supabase.Gotrue.UserList(Of TUser).Users
   nameWithType: UserList<TUser>.Users
   nameWithType.vb: UserList(Of TUser).Users
-- uid: Supabase.Gotrue.Util
-  name: Util
-  href: api/Supabase.Gotrue.Util.html
-  commentId: T:Supabase.Gotrue.Util
-  fullName: Supabase.Gotrue.Util
-  nameWithType: Util
-- uid: Supabase.Gotrue.Util.GetAssemblyVersion
-  name: GetAssemblyVersion()
-  href: api/Supabase.Gotrue.Util.html#Supabase_Gotrue_Util_GetAssemblyVersion
-  commentId: M:Supabase.Gotrue.Util.GetAssemblyVersion
-  fullName: Supabase.Gotrue.Util.GetAssemblyVersion()
-  nameWithType: Util.GetAssemblyVersion()
-- uid: Supabase.Gotrue.Util.GetAssemblyVersion*
-  name: GetAssemblyVersion
-  href: api/Supabase.Gotrue.Util.html#Supabase_Gotrue_Util_GetAssemblyVersion_
-  commentId: Overload:Supabase.Gotrue.Util.GetAssemblyVersion
-  isSpec: "True"
-  fullName: Supabase.Gotrue.Util.GetAssemblyVersion
-  nameWithType: Util.GetAssemblyVersion
 - uid: Supabase.Gotrue.VerifyOTPParams
   name: VerifyOTPParams
   href: api/Supabase.Gotrue.VerifyOTPParams.html
