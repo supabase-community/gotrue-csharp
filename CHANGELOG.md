@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 3.0.2 - 2022-11-12
+
+- Use `supabase-core` and implement `IGettableHeaders` on `IGotrueAPI` and `IGotrueClient`
+- `Api` no longer requires `headers` as a parameter.
+
 ## 3.0.1 - 2022-11-11
 
 - `ClientOptions` interface updated to support a generic `TSession` to match the `IGotrueClient` interface. 
