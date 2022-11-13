@@ -25,7 +25,19 @@ namespace Supabase.Gotrue
         /// 
         /// Headers specified in the client options will ALWAYS take precendece over headers returned by this function.
         /// </summary>
-        public Func<Dictionary<string, string>>? GetHeaders { get; set; }
+
+        public Func<Dictionary<string, string>>? GetHeaders
+        {
+            get => _getHeaders;
+            set
+            {
+                _getHeaders = value;
+
+                if (api != null)
+                    api.GetHeaders = value;
+            }
+        }
+        private Func<Dictionary<string, string>>? _getHeaders;
 
         /// <summary>
         /// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
@@ -101,7 +113,6 @@ namespace Supabase.Gotrue
             SessionDestroyer = options.SessionDestroyer;
 
             api = new Api(options.Url, options.Headers);
-            api.GetHeaders = GetHeaders;
         }
 
         /// <summary>
