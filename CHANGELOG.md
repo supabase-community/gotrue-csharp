@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.0.3 - 2022-11-12
+
+- [Hotfix] Fixed `GetHeaders` not being passed to the `API` instance
+
 ## 3.0.2 - 2022-11-12
 
 - Use `supabase-core` and implement `IGettableHeaders` on `IGotrueAPI` and `IGotrueClient`
