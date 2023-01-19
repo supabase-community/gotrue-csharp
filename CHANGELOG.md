@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.0.4 - 2023-01-18
+
+- Makes `Session.CreatedAt` a publicly settable property, which should fix incorrect dates on retrieved `Session`s.
+
 ## 3.0.3 - 2022-11-12
 
 - [Hotfix] Fixed `GetHeaders` not being passed to the `API` instance
