@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.0.5 - 2023-02-28
+
+- Fixes [#44](https://github.com/supabase-community/gotrue-csharp/issues/44) - refresh timer should automatically reattempt (internal of 5s) for HTTP exceptions - gracefully exits on invalid refresh and triggers an `AuthState.Changed` event
+
 ## 3.0.4 - 2023-01-18
 
 - Makes `Session.CreatedAt` a publicly settable property, which should fix incorrect dates on retrieved `Session`s.
