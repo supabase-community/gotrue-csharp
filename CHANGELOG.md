@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.0.6
+
+- Supports adding `SignInOptions` (i.e. `RedirectTo`) on `OAuth Provider` SignIn requests.
+
 ## 3.0.5 - 2023-02-28
 
 - Fixes [#44](https://github.com/supabase-community/gotrue-csharp/issues/44) - refresh timer should automatically reattempt (interval of 5s) for HTTP exceptions - gracefully exits on invalid refresh and triggers an `AuthState.Changed` event
