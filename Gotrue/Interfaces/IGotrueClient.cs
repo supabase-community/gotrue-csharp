@@ -26,7 +26,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession?> RetrieveSessionAsync();
         Task<bool> SendMagicLink(string email, SignInOptions? options = null);
         TSession SetAuth(string accessToken);
-        Task<string> SignIn(Provider provider, string? scopes = null);
+        Task<string> SignIn(Provider provider, string? scopes = null, SignInOptions? options = null);
         Task<TSession?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null);
         Task<bool> SignIn(string email, SignInOptions? options = null);
         Task<TSession?> SignIn(string email, string password);

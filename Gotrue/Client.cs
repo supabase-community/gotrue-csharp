@@ -309,11 +309,11 @@ namespace Supabase.Gotrue
 		/// <param name="provider"></param>
 		/// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
 		/// <returns></returns>
-		public async Task<string> SignIn(Provider provider, string? scopes = null)
+		public async Task<string> SignIn(Provider provider, string? scopes = null, SignInOptions? options = null)
 		{
 			await DestroySession();
 
-			var url = api.GetUrlForProvider(provider, scopes);
+			var url = api.GetUrlForProvider(provider, scopes, options);
 			return url;
 		}
 

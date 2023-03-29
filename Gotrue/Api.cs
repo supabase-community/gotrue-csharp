@@ -273,7 +273,7 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public string GetUrlForProvider(Provider provider, string? scopes = null)
+        public string GetUrlForProvider(Provider provider, string? scopes = null, SignInOptions? options = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
             var attr = Core.Helpers.GetMappedToAttr(provider);
@@ -283,6 +283,14 @@ namespace Supabase.Gotrue
                 var query = HttpUtility.ParseQueryString("");
                 query.Add("provider", mappedAttr.Mapping);
                 query.Add("scopes", scopes);
+
+                if (options != null)
+                {
+                    if (!string.IsNullOrEmpty(options.RedirectTo))
+                    {
+                        query.Add("redirect_to", options.RedirectTo);
+                    }
+                }
 
                 builder.Query = query.ToString();
                 return builder.ToString();
