@@ -175,7 +175,7 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
         /// <returns></returns>
-        public string SignIn(Provider provider, StatelessClientOptions options, string? scopes = null) => GetApi(options).GetUrlForProvider(provider, scopes);
+        public ProviderUri SignIn(Provider provider, StatelessClientOptions options, SignInOptions? signInOptions = null) => GetApi(options).GetUriForProvider(provider, signInOptions);
 
         /// <summary>
         /// Logout a User

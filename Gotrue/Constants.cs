@@ -112,6 +112,17 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
+        /// Represents an OAuth Flow type
+        /// </summary>
+        public enum OAuthFlowType
+        {
+            [MapTo("implicit")]
+            Implicit,
+            [MapTo("pkce")]
+            PKCE
+        }
+
+        /// <summary>
         /// Specifies the functionality expected from the `SignUp` method
         /// </summary>
         public enum SignUpType

@@ -10,6 +10,8 @@ using System.Runtime.CompilerServices;
 using Supabase.Gotrue.Responses;
 using System.Threading;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace Supabase.Gotrue
 {
@@ -32,6 +34,41 @@ namespace Supabase.Gotrue
             builder.Query = query.ToString();
 
             return builder.Uri;
+        }
+
+        /// <summary>
+        /// Generates a PKCE nonce (code verifier)
+        ///
+        /// Sourced from: https://stackoverflow.com/a/65220376/3629438
+        /// </summary>
+        internal static string GeneratePKCENonce()
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
+            var random = new Random();
+            var nonce = new char[128];
+            for (int i = 0; i < nonce.Length; i++)
+            {
+                nonce[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new string(nonce);
+        }
+
+        /// <summary>
+        /// Generates a PKCE code challenge given a nonce (code verifier)
+        ///
+        /// Sourced from: https://stackoverflow.com/a/65220376/3629438
+        /// </summary>
+        /// <param name="codeVerifier"></param>
+        internal static string GeneratePKCECodeChallenge(string codeVerifier)
+        {
+            using var sha256 = SHA256.Create();
+            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+            var b64Hash = Convert.ToBase64String(hash);
+            var code = Regex.Replace(b64Hash, "\\+", "-");
+            code = Regex.Replace(code, "\\/", "_");
+            code = Regex.Replace(code, "=+$", "");
+            return code;
         }
 
         private static readonly HttpClient client = new HttpClient();
