@@ -11,24 +11,18 @@
 
 ---
 
-## BREAKING CHANGES MOVING FROM v2.x.x to v3.x.x
+## BREAKING CHANGES MOVING FROM v3.0 to 3.1
 
-- `Client` is no longer a Singleton - it should be initialized using its standard constructor.
-- `StatelessClient` is no longer `Static` - it should be initialized using a standard constructor.
-- Setting/Retrieving state on init has been disabled by default, you will need to call `client.RetrieveSessionAsync()` to retrieve state from your `SessionRetriever` function.
+- We've implemented the PKCE auth flow. SignIn using a provider now returns an instance of `ProviderAuthState` rather than a `string`.
+- The provider sign in signature has moved `scopes` into `SignInOptions`
 
 In Short:
 ```c#
 # What was:
-var client = await Client.InitializeAsync(options);
-
-var stateless = StatelessClient.SignUp(email, statelessOptions);
+var url = await client.SignIn(Provider.Github, "scopes and things");
 
 # Becomes:
-var client = new Client(options);
-await client.RetrieveSessionAsync(); // if applicable
-
-var stateless = new StatelessClient().SignUp(email, statelessOptions);
+var url = await client.SignIn(Provider.Github, new SignInOptions { "scopes and things" });
 ```
 
 ---
@@ -97,16 +91,29 @@ internal Task<bool> SessionPersistor(Session session)
 }
 ```
 
-## 3rd Party Authentication and Callbacks.
+## 3rd Party OAuth
 
 Once again, Gotrue client is written to be agnostic of platform. In order for Gotrue to sign in a user from an Oauth
-callback:
+callback, the PKCE flow is preferred:
 
 1) The Callback Url must be set in the Supabase Admin panel
-2) The Application should recieve that Callback
-3) In the Callback, the `Uri` should be passed to `Client.Instance.GetSessionFromUrl(uri)`
+2) The Application should have listener to receive that Callback
+3) Generate a sign in request using: `client.SignIn(PROVIDER, options)` and setting the options to use the PKCE `FlowType`
+4) Store `ProviderAuthState.PKCEVerifier` so that the application callback can use it to verify the returned code
+5) In the Callback, use stored `PKCEVerifier` and received `code` to exchange for a session.
 
-Setting the second parameter of `GetSessionFromUrl` to `false` will prevent the storage of the parsed `Session` object.
+
+```c#
+var state = await client.SignIn(Constants.Provider.Github, new SignInOptions
+{
+    FlowType = Constants.OAuthFlowType.PKCE,
+    RedirectTo = "http://localhost:3000/oauth/callback"
+});
+
+// In callback received from Supabase returning to RedirectTo (set above)
+// Url is set as: http://REDIRECT_TO_URL?code=CODE
+var session = await client.ExchangeCodeForSession(state.PKCEVerifier, RETRIEVE_CODE_FROM_GET_PARAMS);
+```
 
 ## Troubleshooting
 

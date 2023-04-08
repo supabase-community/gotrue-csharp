@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.1.0
+
+- [Minor] Implements PKCE auth flow. SignIn using a provider now returns an instance of `ProviderAuthState` rather than a `string`.
+
 ## 3.0.6
 
 - Supports adding `SignInOptions` (i.e. `RedirectTo`) on `OAuth Provider` SignIn requests.
