@@ -2631,51 +2631,51 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.InvalidEmailOrPasswordException.Response
   nameWithType: InvalidEmailOrPasswordException.Response
-- uid: Supabase.Gotrue.ProviderUri
-  name: ProviderUri
-  href: api/Supabase.Gotrue.ProviderUri.html
-  commentId: T:Supabase.Gotrue.ProviderUri
-  fullName: Supabase.Gotrue.ProviderUri
-  nameWithType: ProviderUri
-- uid: Supabase.Gotrue.ProviderUri.#ctor(Uri)
-  name: ProviderUri(Uri)
-  href: api/Supabase.Gotrue.ProviderUri.html#Supabase_Gotrue_ProviderUri__ctor_Uri_
-  commentId: M:Supabase.Gotrue.ProviderUri.#ctor(Uri)
-  fullName: Supabase.Gotrue.ProviderUri.ProviderUri(Uri)
-  nameWithType: ProviderUri.ProviderUri(Uri)
-- uid: Supabase.Gotrue.ProviderUri.#ctor*
-  name: ProviderUri
-  href: api/Supabase.Gotrue.ProviderUri.html#Supabase_Gotrue_ProviderUri__ctor_
-  commentId: Overload:Supabase.Gotrue.ProviderUri.#ctor
+- uid: Supabase.Gotrue.ProviderAuthState
+  name: ProviderAuthState
+  href: api/Supabase.Gotrue.ProviderAuthState.html
+  commentId: T:Supabase.Gotrue.ProviderAuthState
+  fullName: Supabase.Gotrue.ProviderAuthState
+  nameWithType: ProviderAuthState
+- uid: Supabase.Gotrue.ProviderAuthState.#ctor(Uri)
+  name: ProviderAuthState(Uri)
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState__ctor_Uri_
+  commentId: M:Supabase.Gotrue.ProviderAuthState.#ctor(Uri)
+  fullName: Supabase.Gotrue.ProviderAuthState.ProviderAuthState(Uri)
+  nameWithType: ProviderAuthState.ProviderAuthState(Uri)
+- uid: Supabase.Gotrue.ProviderAuthState.#ctor*
+  name: ProviderAuthState
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState__ctor_
+  commentId: Overload:Supabase.Gotrue.ProviderAuthState.#ctor
   isSpec: "True"
-  fullName: Supabase.Gotrue.ProviderUri.ProviderUri
-  nameWithType: ProviderUri.ProviderUri
-- uid: Supabase.Gotrue.ProviderUri.PKCEVerifier
+  fullName: Supabase.Gotrue.ProviderAuthState.ProviderAuthState
+  nameWithType: ProviderAuthState.ProviderAuthState
+- uid: Supabase.Gotrue.ProviderAuthState.PKCEVerifier
   name: PKCEVerifier
-  href: api/Supabase.Gotrue.ProviderUri.html#Supabase_Gotrue_ProviderUri_PKCEVerifier
-  commentId: P:Supabase.Gotrue.ProviderUri.PKCEVerifier
-  fullName: Supabase.Gotrue.ProviderUri.PKCEVerifier
-  nameWithType: ProviderUri.PKCEVerifier
-- uid: Supabase.Gotrue.ProviderUri.PKCEVerifier*
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_PKCEVerifier
+  commentId: P:Supabase.Gotrue.ProviderAuthState.PKCEVerifier
+  fullName: Supabase.Gotrue.ProviderAuthState.PKCEVerifier
+  nameWithType: ProviderAuthState.PKCEVerifier
+- uid: Supabase.Gotrue.ProviderAuthState.PKCEVerifier*
   name: PKCEVerifier
-  href: api/Supabase.Gotrue.ProviderUri.html#Supabase_Gotrue_ProviderUri_PKCEVerifier_
-  commentId: Overload:Supabase.Gotrue.ProviderUri.PKCEVerifier
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_PKCEVerifier_
+  commentId: Overload:Supabase.Gotrue.ProviderAuthState.PKCEVerifier
   isSpec: "True"
-  fullName: Supabase.Gotrue.ProviderUri.PKCEVerifier
-  nameWithType: ProviderUri.PKCEVerifier
-- uid: Supabase.Gotrue.ProviderUri.Uri
+  fullName: Supabase.Gotrue.ProviderAuthState.PKCEVerifier
+  nameWithType: ProviderAuthState.PKCEVerifier
+- uid: Supabase.Gotrue.ProviderAuthState.Uri
   name: Uri
-  href: api/Supabase.Gotrue.ProviderUri.html#Supabase_Gotrue_ProviderUri_Uri
-  commentId: P:Supabase.Gotrue.ProviderUri.Uri
-  fullName: Supabase.Gotrue.ProviderUri.Uri
-  nameWithType: ProviderUri.Uri
-- uid: Supabase.Gotrue.ProviderUri.Uri*
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_Uri
+  commentId: P:Supabase.Gotrue.ProviderAuthState.Uri
+  fullName: Supabase.Gotrue.ProviderAuthState.Uri
+  nameWithType: ProviderAuthState.Uri
+- uid: Supabase.Gotrue.ProviderAuthState.Uri*
   name: Uri
-  href: api/Supabase.Gotrue.ProviderUri.html#Supabase_Gotrue_ProviderUri_Uri_
-  commentId: Overload:Supabase.Gotrue.ProviderUri.Uri
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_Uri_
+  commentId: Overload:Supabase.Gotrue.ProviderAuthState.Uri
   isSpec: "True"
-  fullName: Supabase.Gotrue.ProviderUri.Uri
-  nameWithType: ProviderUri.Uri
+  fullName: Supabase.Gotrue.ProviderAuthState.Uri
+  nameWithType: ProviderAuthState.Uri
 - uid: Supabase.Gotrue.RequestException
   name: RequestException
   href: api/Supabase.Gotrue.RequestException.html
