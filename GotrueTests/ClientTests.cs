@@ -188,6 +188,7 @@ namespace GotrueTests
             Assert.IsTrue(result2);
         }
 
+
         [TestMethod("Client: Returns Auth Url for Provider")]
         public async Task ClientReturnsAuthUrlForProvider()
         {
@@ -196,6 +197,19 @@ namespace GotrueTests
 
             var result2 = await client.SignIn(Provider.Google, new SignInOptions { Scopes = "special scopes please" });
             Assert.AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+        }
+
+        [TestMethod("Client: Returns Verification Code for Provider")]
+        public async Task ClientReturnsPKCEVerifier()
+        {
+
+            var result = await client.SignIn(Provider.Github, new SignInOptions { FlowType = OAuthFlowType.PKCE });
+
+            Assert.IsTrue(!string.IsNullOrEmpty(result.PKCEVerifier));
+            Assert.IsTrue(result.Uri.Query.Contains("flow_type=pkce"));
+            Assert.IsTrue(result.Uri.Query.Contains("code_challenge="));
+            Assert.IsTrue(result.Uri.Query.Contains("code_challenge_method=s256"));
+            Assert.IsTrue(result.Uri.Query.Contains("provider=github"));
         }
 
         [TestMethod("Client: Update user")]

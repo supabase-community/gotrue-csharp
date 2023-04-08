@@ -5,7 +5,7 @@ namespace Supabase.Gotrue
     /// <summary>
     /// Represents an OAuth Provider's URI and Parameters.
     /// </summary>
-    public class ProviderUri
+    public class ProviderAuthState
     {
         /// <summary>
         /// The Generated Provider's URI
@@ -17,7 +17,7 @@ namespace Supabase.Gotrue
         /// </summary>
         public string? PKCEVerifier { get; set; }
 
-        public ProviderUri(Uri uri)
+        public ProviderAuthState(Uri uri)
         {
             Uri = uri;
         }

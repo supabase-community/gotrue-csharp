@@ -293,7 +293,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        /// Retrieves a <see cref="ProviderUri"/> to redirect to for signing in with a <see cref="Provider"/>.
+        /// Retrieves a <see cref="ProviderAuthState"/> to redirect to for signing in with a <see cref="Provider"/>.
         ///
         /// This will likely be paired with a PKCE flow (set in SignInOptions) - after redirecting the
         /// user to the flow, you should pair with <see cref="ExchangeCodeForSession(string, string)"/>
@@ -301,7 +301,7 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<ProviderUri> SignIn(Provider provider, SignInOptions? options = null)
+        public async Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
         {
             await DestroySession();
 

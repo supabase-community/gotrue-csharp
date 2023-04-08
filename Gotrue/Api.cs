@@ -274,10 +274,10 @@ namespace Supabase.Gotrue
         /// <param name="provider"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public ProviderUri GetUriForProvider(Provider provider, SignInOptions? options = null)
+        public ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
-            var result = new ProviderUri(builder.Uri);
+            var result = new ProviderAuthState(builder.Uri);
 
             var attr = Core.Helpers.GetMappedToAttr(provider);
             var query = HttpUtility.ParseQueryString("");

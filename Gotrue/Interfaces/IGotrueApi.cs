@@ -29,7 +29,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession?> VerifyMobileOTP(string phone, string token, MobileOtpType type);
         Task<TSession?> VerifyEmailOTP(string email, string token, EmailOtpType type);
 
-        ProviderUri GetUriForProvider(Provider provider, SignInOptions? options = null);
+        ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null);
         Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode);
     }
 }
