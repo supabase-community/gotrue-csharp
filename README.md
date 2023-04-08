@@ -22,7 +22,8 @@ In Short:
 var url = await client.SignIn(Provider.Github, "scopes and things");
 
 # Becomes:
-var url = await client.SignIn(Provider.Github, new SignInOptions { "scopes and things" });
+var state = await client.SignIn(Provider.Github, new SignInOptions { "scopes and things" });
+// Url is now at `state.Uri`
 ```
 
 ---
