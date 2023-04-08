@@ -326,14 +326,14 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode)
         {
-            var url = new UriBuilder($"{Url}/token?grant_type=oauth_pkce");
+            var url = new UriBuilder($"{Url}/token?grant_type=pkce");
             var body = new Dictionary<string, object>
             {
                 { "auth_code", authCode },
                 { "code_verifier", codeVerifier }
             };
 
-            return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, GetHeaders?.Invoke());
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, Headers);
         }
 
         /// <summary>
