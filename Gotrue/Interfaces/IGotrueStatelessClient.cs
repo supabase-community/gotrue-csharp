@@ -21,7 +21,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession?> RefreshToken(string refreshToken, StatelessClientOptions options);
         Task<bool> ResetPasswordForEmail(string email, StatelessClientOptions options);
         Task<bool> SendMagicLink(string email, StatelessClientOptions options, SignInOptions? signInOptions = null);
-        string SignIn(Provider provider, StatelessClientOptions options, string? scopes = null);
+        ProviderUri SignIn(Provider provider, StatelessClientOptions options, SignInOptions? signInOptions = null);
         Task<TSession?> SignIn(SignInType type, string identifierOrToken, string? password = null, StatelessClientOptions? options = null);
         Task<bool> SignIn(string email, StatelessClientOptions options, SignInOptions? signInOptions = null);
         Task<TSession?> SignIn(string email, string password, StatelessClientOptions options);

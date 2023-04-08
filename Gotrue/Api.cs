@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -268,35 +269,71 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        /// Generates the relevant login URL for a third-party provider.
+        /// Generates the relevant login URI for a third-party provider.
         /// </summary>
         /// <param name="provider"></param>
-        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public string GetUrlForProvider(Provider provider, string? scopes = null, SignInOptions? options = null)
+        public ProviderUri GetUriForProvider(Provider provider, SignInOptions? options = null)
         {
             var builder = new UriBuilder($"{Url}/authorize");
+            var result = new ProviderUri(builder.Uri);
+
             var attr = Core.Helpers.GetMappedToAttr(provider);
+            var query = HttpUtility.ParseQueryString("");
+            options ??= new SignInOptions();
+
+            if (options.FlowType == OAuthFlowType.PKCE)
+            {
+                var codeVerifier = Helpers.GeneratePKCENonce();
+                var codeChallenge = Helpers.GeneratePKCECodeChallenge(codeVerifier);
+
+                query.Add("flow_type", "pkce");
+                query.Add("code_challenge", codeChallenge);
+                query.Add("code_challenge_method", "s256");
+
+                result.PKCEVerifier = codeVerifier;
+            }
 
             if (attr is MapToAttribute mappedAttr)
             {
-                var query = HttpUtility.ParseQueryString("");
                 query.Add("provider", mappedAttr.Mapping);
-                query.Add("scopes", scopes);
 
-                if (options != null)
-                {
-                    if (!string.IsNullOrEmpty(options.RedirectTo))
-                    {
-                        query.Add("redirect_to", options.RedirectTo);
-                    }
-                }
+                if (!string.IsNullOrEmpty(options.Scopes))
+                    query.Add("scopes", options.Scopes);
+
+                if (!string.IsNullOrEmpty(options.RedirectTo))
+                    query.Add("redirect_to", options.RedirectTo);
+
+                if (options.QueryParams != null)
+                    foreach (var param in options.QueryParams)
+                        query[param.Key] = param.Value;
 
                 builder.Query = query.ToString();
-                return builder.ToString();
+
+                result.Uri = builder.Uri;
+                return result;
             }
 
             throw new Exception("Unknown provider");
+        }
+
+        /// <summary>
+        /// Log in an existing user via a third-party provider.
+        /// </summary>
+        /// <param name="codeVerifier">Generated verifier (probably from GetUrlForProvider)</param>
+        /// <param name="authCode">The received Auth Code Callback</param>
+        /// <returns></returns>
+        public Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode)
+        {
+            var url = new UriBuilder($"{Url}/token?grant_type=pkce");
+            var body = new Dictionary<string, object>
+            {
+                { "auth_code", authCode },
+                { "code_verifier", codeVerifier }
+            };
+
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, Headers);
         }
 
         /// <summary>
@@ -447,27 +484,5 @@ namespace Supabase.Gotrue
 
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers);
         }
-    }
-
-    /// <summary>
-    /// Options used for signing up a user.
-    /// </summary>
-    public class SignUpOptions : SignInOptions
-    {
-        /// <summary>
-        /// Optional user metadata.
-        /// </summary>
-        public Dictionary<string, object>? Data { get; set; }
-    }
-
-    // <summary>
-    /// Options used for signing in a user.
-    /// </summary>
-    public class SignInOptions
-    {
-        /// <summary>
-        /// A URL or mobile address to send the user to after they are confirmed.
-        /// </summary>
-        public string? RedirectTo { get; set; }
     }
 }
