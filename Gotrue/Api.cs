@@ -10,6 +10,7 @@ using Supabase.Core;
 using Supabase.Core.Attributes;
 using Supabase.Core.Extensions;
 using Supabase.Core.Interfaces;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Client;
@@ -116,6 +117,34 @@ namespace Supabase.Gotrue
         {
             var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", body, Headers);
+        }
+
+
+        /// <summary>
+        /// Allows signing in with an ID token issued by certain supported providers.
+        /// The [idToken] is verified for validity and a new session is established.
+        /// This method of signing in only supports [Provider.Google] or [Provider.Apple].
+        /// </summary>
+        /// <param name="provider">A supported provider (Google, Apple)</param>
+        /// <param name="idToken"></param>
+        /// <param name="nonce"></param>
+        /// <param name="captchaToken"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidProviderException"></exception>
+        public Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
+        {
+            if (provider != Provider.Google && provider != Provider.Apple)
+                throw new InvalidProviderException($"Provider must either be: `Provider.Google` or `Provider.Apple`.");
+
+            var body = new Dictionary<string, object?>
+            {
+                {"provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
+                {"id_token", idToken },
+                {"nonce", nonce },
+                {"gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } } }
+            };
+
+            return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token");
         }
 
         /// <summary>

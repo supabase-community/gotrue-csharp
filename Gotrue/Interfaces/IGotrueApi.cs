@@ -19,6 +19,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<BaseResponse> ResetPasswordForEmail(string email);
         Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null);
         Task<BaseResponse> SendMobileOTP(string phone);
+        Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null);
         Task<TSession?> SignInWithEmail(string email, string password);
         Task<TSession?> SignInWithPhone(string phone, string password);
         Task<BaseResponse> SignOut(string jwt);

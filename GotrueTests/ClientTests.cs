@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Client;
+using Supabase.Gotrue.Exceptions;
 
 namespace GotrueTests
 {

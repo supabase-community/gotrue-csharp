@@ -41,4 +41,10 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="supabase-core" Version="0.0.2" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Exceptions\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Exceptions\" />
+    </ItemGroup>
 </Project>

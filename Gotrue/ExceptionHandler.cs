@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net.Http;
+using Supabase.Gotrue.Exceptions;
 
 namespace Supabase.Gotrue
 {
@@ -24,63 +24,6 @@ namespace Supabase.Gotrue
                     return new ForbiddenException(ex);
             }
             return ex;
-        }
-    }
-
-    public class UnauthorizedException : Exception
-    {
-        public HttpResponseMessage Response { get; private set; }
-
-        public string? Content { get; private set; }
-        public UnauthorizedException(RequestException exception)
-        {
-            Response = exception.Response;
-            Content = exception.Error.Message;
-        }
-    }
-
-    public class BadRequestException : Exception
-    {
-        public HttpResponseMessage Response { get; private set; }
-
-        public string? Content { get; private set; }
-        public BadRequestException(RequestException exception)
-        {
-            Response = exception.Response;
-            Content = exception.Error.Message;
-        }
-    }
-
-    public class ForbiddenException : Exception
-    {
-        public HttpResponseMessage Response { get; private set; }
-        public string? Content { get; private set; }
-        public ForbiddenException(RequestException exception)
-        {
-            Response = exception.Response;
-            Content = exception.Error.Message;
-        }
-    }
-
-    public class InvalidEmailOrPasswordException : Exception
-    {
-        public HttpResponseMessage Response { get; private set; }
-        public string? Content { get; private set; }
-        public InvalidEmailOrPasswordException(RequestException exception)
-        {
-            Response = exception.Response;
-            Content = exception.Error.Message;
-        }
-    }
-
-    public class ExistingUserException : Exception
-    {
-        public HttpResponseMessage Response { get; private set; }
-        public string? Content { get; private set; }
-        public ExistingUserException(RequestException exception)
-        {
-            Response = exception.Response;
-            Content = exception.Error.Message;
         }
     }
 }
