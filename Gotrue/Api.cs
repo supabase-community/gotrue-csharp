@@ -145,7 +145,7 @@ namespace Supabase.Gotrue
 			if (!string.IsNullOrEmpty(nonce))
 				body.Add("nonce", nonce);
 
-			if (string.IsNullOrEmpty(captchaToken))
+			if (!string.IsNullOrEmpty(captchaToken))
 				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } });
 
 
