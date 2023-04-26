@@ -319,8 +319,8 @@ namespace Supabase.Gotrue
 
 			if (options.FlowType == OAuthFlowType.PKCE)
 			{
-				var codeVerifier = Helpers.GeneratePKCENonce();
-				var codeChallenge = Helpers.GeneratePKCECodeChallenge(codeVerifier);
+				var codeVerifier = Helpers.GenerateNonce();
+				var codeChallenge = Helpers.GenerateNonceVerifier(codeVerifier);
 
 				query.Add("flow_type", "pkce");
 				query.Add("code_challenge", codeChallenge);
