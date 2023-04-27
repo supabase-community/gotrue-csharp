@@ -30,6 +30,19 @@ var state = await client.SignIn(Provider.Github, new SignInOptions { "scopes and
 
 ## Getting Started
 
+To use this library on the Supabase Hosted service but separately from the `supabase-csharp`, you'll need to specify your url and public key like so:
+```c#
+var auth = new Supabase.Gotrue.Client(new ClientOptions<Session>
+{
+    Url = "https://PROJECT_ID.supabase.co/auth/v1",
+    Headers = new Dictionary<string, string>
+    {
+        { "apikey", SUPABASE_PUBLIC_KEY }
+    }
+})
+```
+
+Otherwise, using it this library with a local instance:
 ```c#
 var options = new ClientOptions { Url = "https://example.com/api" };
 var client = new Client(options);
