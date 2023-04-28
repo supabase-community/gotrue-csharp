@@ -4,6 +4,8 @@ namespace Supabase.Gotrue
 {
     /// <summary>
     /// Represents an OAuth Provider's URI and Parameters.
+    ///
+    /// For use with Provider Auth, PKCE Auth, and ID Token auth.
     /// </summary>
     public class ProviderAuthState
     {
@@ -13,7 +15,7 @@ namespace Supabase.Gotrue
         public Uri Uri { get; set; }
 
         /// <summary>
-        /// The PKCE Verifier, only set during a PKCE auth flow.
+        /// The PKCE Verifier nonce, only set during a PKCE auth flow.
         /// </summary>
         public string? PKCEVerifier { get; set; }
 

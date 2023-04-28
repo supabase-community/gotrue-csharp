@@ -15,8 +15,65 @@ using System.Text.RegularExpressions;
 
 namespace Supabase.Gotrue
 {
-    internal static class Helpers
+    public static class Helpers
     {
+        /// <summary>
+        /// Generates a nonce (code verifier)
+        /// Used with PKCE flow and Apple/Google Sign in.
+        /// Paired with <see cref="GeneratePKCENonceVerifier(string)"/>
+        ///
+        /// Sourced from: https://stackoverflow.com/a/65220376/3629438
+        /// </summary>
+        public static string GenerateNonce()
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
+            var random = new Random();
+            var nonce = new char[128];
+            for (int i = 0; i < nonce.Length; i++)
+            {
+                nonce[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new string(nonce);
+        }
+
+        /// <summary>
+        /// Generates a PKCE SHA256 code challenge given a nonce (code verifier)
+        /// 
+        /// Paired with <see cref="GenerateNonce"/>
+        ///
+        /// Sourced from: https://stackoverflow.com/a/65220376/3629438
+        /// </summary>
+        /// <param name="codeVerifier"></param>
+        public static string GeneratePKCENonceVerifier(string codeVerifier)
+        {
+            using var sha256 = SHA256.Create();
+            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+            var b64Hash = Convert.ToBase64String(hash);
+            var code = Regex.Replace(b64Hash, "\\+", "-");
+            code = Regex.Replace(code, "\\/", "_");
+            code = Regex.Replace(code, "=+$", "");
+            return code;
+        }
+
+        /// <summary>
+        /// Generates a SHA256 nonce given a rawNonce, used Apple/Google Sign in.
+        /// </summary>
+        /// <param name="rawNonce"></param>
+        /// <returns></returns>
+        public static string GenerateSHA256NonceFromRawNonce(string rawNonce)
+        {
+            SHA256Managed sha = new SHA256Managed();
+            byte[] utf8RawNonce = Encoding.UTF8.GetBytes(rawNonce);
+            byte[] hash = sha.ComputeHash(utf8RawNonce);
+
+            string result = string.Empty;
+            foreach (byte t in hash)
+                result += t.ToString("x2");
+
+            return result;
+        }
+
         /// <summary>
         /// Adds query params to a given Url
         /// </summary>
@@ -36,41 +93,6 @@ namespace Supabase.Gotrue
             return builder.Uri;
         }
 
-        /// <summary>
-        /// Generates a PKCE nonce (code verifier)
-        ///
-        /// Sourced from: https://stackoverflow.com/a/65220376/3629438
-        /// </summary>
-        internal static string GeneratePKCENonce()
-        {
-            const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
-            var random = new Random();
-            var nonce = new char[128];
-            for (int i = 0; i < nonce.Length; i++)
-            {
-                nonce[i] = chars[random.Next(chars.Length)];
-            }
-
-            return new string(nonce);
-        }
-
-        /// <summary>
-        /// Generates a PKCE code challenge given a nonce (code verifier)
-        ///
-        /// Sourced from: https://stackoverflow.com/a/65220376/3629438
-        /// </summary>
-        /// <param name="codeVerifier"></param>
-        internal static string GeneratePKCECodeChallenge(string codeVerifier)
-        {
-            using var sha256 = SHA256.Create();
-            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
-            var b64Hash = Convert.ToBase64String(hash);
-            var code = Regex.Replace(b64Hash, "\\+", "-");
-            code = Regex.Replace(code, "\\/", "_");
-            code = Regex.Replace(code, "=+$", "");
-            return code;
-        }
-
         private static readonly HttpClient client = new HttpClient();
 
         /// <summary>
@@ -82,7 +104,7 @@ namespace Supabase.Gotrue
         /// <param name="reqParams"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static async Task<T?> MakeRequest<T>(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null) where T : class
+        internal static async Task<T?> MakeRequest<T>(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null) where T : class
         {
             var baseResponse = await MakeRequest(method, url, data, headers);
             return baseResponse.Content != null ? JsonConvert.DeserializeObject<T>(baseResponse.Content) : default;
@@ -96,7 +118,7 @@ namespace Supabase.Gotrue
         /// <param name="reqParams"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null)
+        internal static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null)
         {
             var builder = new UriBuilder(url);
             var query = HttpUtility.ParseQueryString(builder.Query);
@@ -147,18 +169,6 @@ namespace Supabase.Gotrue
                     return new BaseResponse { Content = content, ResponseMessage = response };
                 }
             }
-        }
-    }
-
-    public class RequestException : Exception
-    {
-        public HttpResponseMessage Response { get; private set; }
-        public ErrorResponse Error { get; private set; }
-
-        public RequestException(HttpResponseMessage response, ErrorResponse error) : base(error.Message)
-        {
-            Response = response;
-            Error = error;
         }
     }
 }

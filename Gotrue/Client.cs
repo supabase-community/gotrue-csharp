@@ -10,6 +10,7 @@ using System.Web;
 using Newtonsoft.Json.Linq;
 using Supabase.Core.Extensions;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Exceptions;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
@@ -206,6 +207,35 @@ namespace Supabase.Gotrue
             {
                 await api.SendMagicLinkEmail(email, options);
                 return true;
+            }
+            catch (RequestException ex)
+            {
+                throw ExceptionHandler.Parse(ex);
+            }
+        }
+
+        /// <summary>
+        /// Allows signing in with an ID token issued by certain supported providers.
+        /// The [idToken] is verified for validity and a new session is established.
+        /// This method of signing in only supports [Provider.Google] or [Provider.Apple].
+        /// </summary>
+        /// <param name="provider">A supported provider (Google, Apple)</param>
+        /// <param name="idToken">Provided from External Library</param>
+        /// <param name="nonce">Provided from External Library</param>
+        /// <param name="captchaToken">Provided from External Library</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidProviderException"></exception>
+        public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
+        {
+            try
+            {
+                await DestroySession();
+                var result = await api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
+
+                if (result != null)
+                    await PersistSession(result);
+
+                return result;
             }
             catch (RequestException ex)
             {
