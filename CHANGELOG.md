@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.1.1
+
+- Implements `SignInWithIdToken` for Apple/Google signing from LW7. A HUGE thank you to [@wiverson](https://github.com/wiverson)!
+
 ## 3.1.0
 
 - [Minor] Implements PKCE auth flow. SignIn using a provider now returns an instance of `ProviderAuthState` rather than a `string`.
