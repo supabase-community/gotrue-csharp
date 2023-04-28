@@ -20,7 +20,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Generates a nonce (code verifier)
         /// Used with PKCE flow and Apple/Google Sign in.
-        /// Paired with <see cref="GenerateNonceVerifier(string)"/>
+        /// Paired with <see cref="GeneratePKCENonceVerifier(string)"/>
         ///
         /// Sourced from: https://stackoverflow.com/a/65220376/3629438
         /// </summary>
@@ -38,14 +38,14 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        /// Generates a SHA256 code challenge given a nonce (code verifier)
-        /// Used with PKCE float and Apple/Google Sign in.
+        /// Generates a PKCE SHA256 code challenge given a nonce (code verifier)
+        /// 
         /// Paired with <see cref="GenerateNonce"/>
         ///
         /// Sourced from: https://stackoverflow.com/a/65220376/3629438
         /// </summary>
         /// <param name="codeVerifier"></param>
-        public static string GenerateNonceVerifier(string codeVerifier)
+        public static string GeneratePKCENonceVerifier(string codeVerifier)
         {
             using var sha256 = SHA256.Create();
             var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
@@ -54,6 +54,24 @@ namespace Supabase.Gotrue
             code = Regex.Replace(code, "\\/", "_");
             code = Regex.Replace(code, "=+$", "");
             return code;
+        }
+
+        /// <summary>
+        /// Generates a SHA256 nonce given a rawNonce, used Apple/Google Sign in.
+        /// </summary>
+        /// <param name="rawNonce"></param>
+        /// <returns></returns>
+        public static string GenerateSHA256NonceFromRawNonce(string rawNonce)
+        {
+            SHA256Managed sha = new SHA256Managed();
+            byte[] utf8RawNonce = Encoding.UTF8.GetBytes(rawNonce);
+            byte[] hash = sha.ComputeHash(utf8RawNonce);
+
+            string result = string.Empty;
+            foreach (byte t in hash)
+                result += t.ToString("x2");
+
+            return result;
         }
 
         /// <summary>
