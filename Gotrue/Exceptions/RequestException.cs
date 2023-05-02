@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Net.Http;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Responses;
 
 namespace Supabase.Gotrue
 {
-    public class RequestException : Exception
+    public class RequestException : GotrueException
     {
         public HttpResponseMessage Response { get; private set; }
         public ErrorResponse Error { get; private set; }
