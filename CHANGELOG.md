@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 3.1.2
+
+- [#49](https://github.com/supabase-community/gotrue-csharp/issues/49) Implements `SignInWithOtp` for email and phone
+
 ## 3.1.1
 
 - Implements `SignInWithIdToken` for Apple/Google signing from LW7. A HUGE thank you to [@wiverson](https://github.com/wiverson)!
