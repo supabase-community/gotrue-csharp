@@ -301,6 +301,25 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.SignInWithIdToken
   nameWithType: Api.SignInWithIdToken
+- uid: Supabase.Gotrue.Api.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  name: SignInWithOtp(SignInWithPasswordlessEmailOptions)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessEmailOptions_
+  commentId: M:Supabase.Gotrue.Api.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  fullName: Supabase.Gotrue.Api.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  nameWithType: Api.SignInWithOtp(SignInWithPasswordlessEmailOptions)
+- uid: Supabase.Gotrue.Api.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  name: SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_
+  commentId: M:Supabase.Gotrue.Api.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  fullName: Supabase.Gotrue.Api.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  nameWithType: Api.SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+- uid: Supabase.Gotrue.Api.SignInWithOtp*
+  name: SignInWithOtp
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithOtp_
+  commentId: Overload:Supabase.Gotrue.Api.SignInWithOtp
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.SignInWithOtp
+  nameWithType: Api.SignInWithOtp
 - uid: Supabase.Gotrue.Api.SignInWithPhone(System.String,System.String)
   name: SignInWithPhone(String, String)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithPhone_System_String_System_String_
@@ -772,6 +791,25 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SignInWithIdToken
   nameWithType: Client.SignInWithIdToken
+- uid: Supabase.Gotrue.Client.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  name: SignInWithOtp(SignInWithPasswordlessEmailOptions)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessEmailOptions_
+  commentId: M:Supabase.Gotrue.Client.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  fullName: Supabase.Gotrue.Client.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  nameWithType: Client.SignInWithOtp(SignInWithPasswordlessEmailOptions)
+- uid: Supabase.Gotrue.Client.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  name: SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_
+  commentId: M:Supabase.Gotrue.Client.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  fullName: Supabase.Gotrue.Client.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  nameWithType: Client.SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+- uid: Supabase.Gotrue.Client.SignInWithOtp*
+  name: SignInWithOtp
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithOtp_
+  commentId: Overload:Supabase.Gotrue.Client.SignInWithOtp
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.SignInWithOtp
+  nameWithType: Client.SignInWithOtp
 - uid: Supabase.Gotrue.Client.SignInWithPassword(System.String,System.String)
   name: SignInWithPassword(String, String)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithPassword_System_String_System_String_
@@ -1462,6 +1500,37 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Exceptions.ForbiddenException.Response
   nameWithType: ForbiddenException.Response
+- uid: Supabase.Gotrue.Exceptions.GotrueException
+  name: GotrueException
+  href: api/Supabase.Gotrue.Exceptions.GotrueException.html
+  commentId: T:Supabase.Gotrue.Exceptions.GotrueException
+  fullName: Supabase.Gotrue.Exceptions.GotrueException
+  nameWithType: GotrueException
+- uid: Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String})
+  name: GotrueException(Nullable<String>)
+  href: api/Supabase.Gotrue.Exceptions.GotrueException.html#Supabase_Gotrue_Exceptions_GotrueException__ctor_System_Nullable_System_String__
+  commentId: M:Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String})
+  name.vb: GotrueException(Nullable(Of String))
+  fullName: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable<System.String>)
+  fullName.vb: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable(Of System.String))
+  nameWithType: GotrueException.GotrueException(Nullable<String>)
+  nameWithType.vb: GotrueException.GotrueException(Nullable(Of String))
+- uid: Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String},System.Nullable{Exception})
+  name: GotrueException(Nullable<String>, Nullable<Exception>)
+  href: api/Supabase.Gotrue.Exceptions.GotrueException.html#Supabase_Gotrue_Exceptions_GotrueException__ctor_System_Nullable_System_String__System_Nullable_Exception__
+  commentId: M:Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String},System.Nullable{Exception})
+  name.vb: GotrueException(Nullable(Of String), Nullable(Of Exception))
+  fullName: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable<System.String>, System.Nullable<Exception>)
+  fullName.vb: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable(Of System.String), System.Nullable(Of Exception))
+  nameWithType: GotrueException.GotrueException(Nullable<String>, Nullable<Exception>)
+  nameWithType.vb: GotrueException.GotrueException(Nullable(Of String), Nullable(Of Exception))
+- uid: Supabase.Gotrue.Exceptions.GotrueException.#ctor*
+  name: GotrueException
+  href: api/Supabase.Gotrue.Exceptions.GotrueException.html#Supabase_Gotrue_Exceptions_GotrueException__ctor_
+  commentId: Overload:Supabase.Gotrue.Exceptions.GotrueException.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Exceptions.GotrueException.GotrueException
+  nameWithType: GotrueException.GotrueException
 - uid: Supabase.Gotrue.Exceptions.InvalidEmailOrPasswordException
   name: InvalidEmailOrPasswordException
   href: api/Supabase.Gotrue.Exceptions.InvalidEmailOrPasswordException.html
@@ -1871,6 +1940,31 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithIdToken
   nameWithType: IGotrueApi<TUser, TSession>.SignInWithIdToken
   nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithIdToken
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  name: SignInWithOtp(SignInWithPasswordlessEmailOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessEmailOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  nameWithType: IGotrueApi<TUser, TSession>.SignInWithOtp(SignInWithPasswordlessEmailOptions)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithOtp(SignInWithPasswordlessEmailOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  name: SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  nameWithType: IGotrueApi<TUser, TSession>.SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithOtp*
+  name: SignInWithOtp
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithOtp_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithOtp
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.SignInWithOtp
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithOtp
+  nameWithType: IGotrueApi<TUser, TSession>.SignInWithOtp
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithOtp
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithPhone(System.String,System.String)
   name: SignInWithPhone(String, String)
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithPhone_System_String_System_String_
@@ -2340,6 +2434,31 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInWithIdToken
   nameWithType: IGotrueClient<TUser, TSession>.SignInWithIdToken
   nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInWithIdToken
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  name: SignInWithOtp(SignInWithPasswordlessEmailOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessEmailOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)
+  nameWithType: IGotrueClient<TUser, TSession>.SignInWithOtp(SignInWithPasswordlessEmailOptions)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInWithOtp(SignInWithPasswordlessEmailOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  name: SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)
+  nameWithType: IGotrueClient<TUser, TSession>.SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInWithOtp(SignInWithPasswordlessPhoneOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp*
+  name: SignInWithOtp
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithOtp_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignInWithOtp
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInWithOtp
+  nameWithType: IGotrueClient<TUser, TSession>.SignInWithOtp
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInWithOtp
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithPassword(System.String,System.String)
   name: SignInWithPassword(String, String)
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithPassword_System_String_System_String_
@@ -2814,6 +2933,25 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).VerifyOTP
   nameWithType: IGotrueStatelessClient<TUser, TSession>.VerifyOTP
   nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).VerifyOTP
+- uid: Supabase.Gotrue.PasswordlessSignInState
+  name: PasswordlessSignInState
+  href: api/Supabase.Gotrue.PasswordlessSignInState.html
+  commentId: T:Supabase.Gotrue.PasswordlessSignInState
+  fullName: Supabase.Gotrue.PasswordlessSignInState
+  nameWithType: PasswordlessSignInState
+- uid: Supabase.Gotrue.PasswordlessSignInState.PKCEVerifier
+  name: PKCEVerifier
+  href: api/Supabase.Gotrue.PasswordlessSignInState.html#Supabase_Gotrue_PasswordlessSignInState_PKCEVerifier
+  commentId: P:Supabase.Gotrue.PasswordlessSignInState.PKCEVerifier
+  fullName: Supabase.Gotrue.PasswordlessSignInState.PKCEVerifier
+  nameWithType: PasswordlessSignInState.PKCEVerifier
+- uid: Supabase.Gotrue.PasswordlessSignInState.PKCEVerifier*
+  name: PKCEVerifier
+  href: api/Supabase.Gotrue.PasswordlessSignInState.html#Supabase_Gotrue_PasswordlessSignInState_PKCEVerifier_
+  commentId: Overload:Supabase.Gotrue.PasswordlessSignInState.PKCEVerifier
+  isSpec: "True"
+  fullName: Supabase.Gotrue.PasswordlessSignInState.PKCEVerifier
+  nameWithType: PasswordlessSignInState.PKCEVerifier
 - uid: Supabase.Gotrue.ProviderAuthState
   name: ProviderAuthState
   href: api/Supabase.Gotrue.ProviderAuthState.html
@@ -3116,6 +3254,165 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.SignInOptions.Scopes
   nameWithType: SignInOptions.Scopes
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions
+  name: SignInWithPasswordlessEmailOptions
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html
+  commentId: T:Supabase.Gotrue.SignInWithPasswordlessEmailOptions
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions
+  nameWithType: SignInWithPasswordlessEmailOptions
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.#ctor(System.String)
+  name: SignInWithPasswordlessEmailOptions(String)
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions__ctor_System_String_
+  commentId: M:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.#ctor(System.String)
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.SignInWithPasswordlessEmailOptions(System.String)
+  nameWithType: SignInWithPasswordlessEmailOptions.SignInWithPasswordlessEmailOptions(String)
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.#ctor*
+  name: SignInWithPasswordlessEmailOptions
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.SignInWithPasswordlessEmailOptions
+  nameWithType: SignInWithPasswordlessEmailOptions.SignInWithPasswordlessEmailOptions
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.Email
+  name: Email
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions_Email
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.Email
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.Email
+  nameWithType: SignInWithPasswordlessEmailOptions.Email
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.Email*
+  name: Email
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions_Email_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.Email
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.Email
+  nameWithType: SignInWithPasswordlessEmailOptions.Email
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.EmailRedirectTo
+  name: EmailRedirectTo
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions_EmailRedirectTo
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.EmailRedirectTo
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.EmailRedirectTo
+  nameWithType: SignInWithPasswordlessEmailOptions.EmailRedirectTo
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.EmailRedirectTo*
+  name: EmailRedirectTo
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions_EmailRedirectTo_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.EmailRedirectTo
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.EmailRedirectTo
+  nameWithType: SignInWithPasswordlessEmailOptions.EmailRedirectTo
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.FlowType
+  name: FlowType
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions_FlowType
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.FlowType
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.FlowType
+  nameWithType: SignInWithPasswordlessEmailOptions.FlowType
+- uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.FlowType*
+  name: FlowType
+  href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html#Supabase_Gotrue_SignInWithPasswordlessEmailOptions_FlowType_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessEmailOptions.FlowType
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessEmailOptions.FlowType
+  nameWithType: SignInWithPasswordlessEmailOptions.FlowType
+- uid: Supabase.Gotrue.SignInWithPasswordlessOptions
+  name: SignInWithPasswordlessOptions
+  href: api/Supabase.Gotrue.SignInWithPasswordlessOptions.html
+  commentId: T:Supabase.Gotrue.SignInWithPasswordlessOptions
+  fullName: Supabase.Gotrue.SignInWithPasswordlessOptions
+  nameWithType: SignInWithPasswordlessOptions
+- uid: Supabase.Gotrue.SignInWithPasswordlessOptions.CaptchaToken
+  name: CaptchaToken
+  href: api/Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_CaptchaToken
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessOptions.CaptchaToken
+  fullName: Supabase.Gotrue.SignInWithPasswordlessOptions.CaptchaToken
+  nameWithType: SignInWithPasswordlessOptions.CaptchaToken
+- uid: Supabase.Gotrue.SignInWithPasswordlessOptions.CaptchaToken*
+  name: CaptchaToken
+  href: api/Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_CaptchaToken_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessOptions.CaptchaToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessOptions.CaptchaToken
+  nameWithType: SignInWithPasswordlessOptions.CaptchaToken
+- uid: Supabase.Gotrue.SignInWithPasswordlessOptions.Data
+  name: Data
+  href: api/Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_Data
+  commentId: F:Supabase.Gotrue.SignInWithPasswordlessOptions.Data
+  fullName: Supabase.Gotrue.SignInWithPasswordlessOptions.Data
+  nameWithType: SignInWithPasswordlessOptions.Data
+- uid: Supabase.Gotrue.SignInWithPasswordlessOptions.ShouldCreateUser
+  name: ShouldCreateUser
+  href: api/Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_ShouldCreateUser
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessOptions.ShouldCreateUser
+  fullName: Supabase.Gotrue.SignInWithPasswordlessOptions.ShouldCreateUser
+  nameWithType: SignInWithPasswordlessOptions.ShouldCreateUser
+- uid: Supabase.Gotrue.SignInWithPasswordlessOptions.ShouldCreateUser*
+  name: ShouldCreateUser
+  href: api/Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_ShouldCreateUser_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessOptions.ShouldCreateUser
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessOptions.ShouldCreateUser
+  nameWithType: SignInWithPasswordlessOptions.ShouldCreateUser
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions
+  name: SignInWithPasswordlessPhoneOptions
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html
+  commentId: T:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions
+  nameWithType: SignInWithPasswordlessPhoneOptions
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.#ctor(System.String)
+  name: SignInWithPasswordlessPhoneOptions(String)
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions__ctor_System_String_
+  commentId: M:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.#ctor(System.String)
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.SignInWithPasswordlessPhoneOptions(System.String)
+  nameWithType: SignInWithPasswordlessPhoneOptions.SignInWithPasswordlessPhoneOptions(String)
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.#ctor*
+  name: SignInWithPasswordlessPhoneOptions
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.SignInWithPasswordlessPhoneOptions
+  nameWithType: SignInWithPasswordlessPhoneOptions.SignInWithPasswordlessPhoneOptions
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel
+  name: Channel
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Channel
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel
+  nameWithType: SignInWithPasswordlessPhoneOptions.Channel
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel*
+  name: Channel
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Channel_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel
+  nameWithType: SignInWithPasswordlessPhoneOptions.Channel
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel
+  name: SignInWithPasswordlessPhoneOptions.MessagingChannel
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.html
+  commentId: T:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel
+  nameWithType: SignInWithPasswordlessPhoneOptions.MessagingChannel
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.SMS
+  name: SMS
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_MessagingChannel_SMS
+  commentId: F:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.SMS
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.SMS
+  nameWithType: SignInWithPasswordlessPhoneOptions.MessagingChannel.SMS
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP
+  name: WHATSAPP
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_MessagingChannel_WHATSAPP
+  commentId: F:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP
+  nameWithType: SignInWithPasswordlessPhoneOptions.MessagingChannel.WHATSAPP
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone
+  name: Phone
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Phone
+  commentId: P:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone
+  nameWithType: SignInWithPasswordlessPhoneOptions.Phone
+- uid: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone*
+  name: Phone
+  href: api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html#Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Phone_
+  commentId: Overload:Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone
+  nameWithType: SignInWithPasswordlessPhoneOptions.Phone
 - uid: Supabase.Gotrue.SignUpOptions
   name: SignUpOptions
   href: api/Supabase.Gotrue.SignUpOptions.html
