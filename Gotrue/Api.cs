@@ -119,6 +119,89 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", body, Headers);
 		}
 
+		/// <summary>
+		/// Log in a user using magiclink or a one-time password (OTP).
+		/// 
+		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
+		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
+		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+		/// 
+		/// Be aware that you may get back an error message that will not distinguish
+		/// between the cases where the account does not exist or, that the account
+		/// can only be accessed via social login.
+		/// 
+		/// Do note that you will need to configure a Whatsapp sender on Twilio
+		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
+		/// channel is not supported on other providers at this time.
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
+		{
+			var url = string.IsNullOrEmpty(options.EmailRedirectTo) ? $"{Url}/otp" : $"{Url}/otp?redirect_to={options.EmailRedirectTo}";
+			string? challenge = null;
+			string? verifier = null;
+
+			var body = new Dictionary<string, object>
+			{
+				{ "email", options.Email },
+				{ "data", options.Data },
+				{ "create_user", options.ShouldCreateUser },
+			};
+
+			if (options.FlowType == OAuthFlowType.PKCE)
+			{
+				challenge = Helpers.GenerateNonce();
+				verifier = Helpers.GeneratePKCENonceVerifier(challenge);
+
+				body.Add("code_challenge", challenge);
+				body.Add("code_challenge_method", "s256");
+			}
+
+			if (!string.IsNullOrEmpty(options.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+
+			await Helpers.MakeRequest(HttpMethod.Post, url, body, Headers);
+
+			return new PasswordlessSignInState { PKCEVerifier = verifier };
+		}
+
+		/// <summary>
+		/// Log in a user using magiclink or a one-time password (OTP).
+		/// 
+		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
+		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
+		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+		/// 
+		/// Be aware that you may get back an error message that will not distinguish
+		/// between the cases where the account does not exist or, that the account
+		/// can only be accessed via social login.
+		/// 
+		/// Do note that you will need to configure a Whatsapp sender on Twilio
+		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
+		/// channel is not supported on other providers at this time.
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
+		{
+			var url = $"{Url}/otp";
+
+			var body = new Dictionary<string, object>
+			{
+				{ "phone", options.Phone },
+				{ "data", options.Data },
+				{ "create_user", options.ShouldCreateUser },
+				{ "channel", Core.Helpers.GetMappedToAttr(options.Channel).Mapping }
+			};
+
+			if (!string.IsNullOrEmpty(options.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+
+			await Helpers.MakeRequest(HttpMethod.Post, url, body, Headers);
+
+			return new PasswordlessSignInState();
+		}
 
 		/// <summary>
 		/// Allows signing in with an ID token issued by certain supported providers.
