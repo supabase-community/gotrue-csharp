@@ -8,52 +8,39 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Constants;
-using static Supabase.Gotrue.Client;
 using Supabase.Gotrue.Exceptions;
 
-namespace GotrueTests
-{
+namespace GotrueTests {
     [TestClass]
-    public class ClientTests
-    {
-        private Supabase.Gotrue.Client client;
+    public class ClientTests {
+        private Client client;
 
         private string password = "I@M@SuperP@ssWord";
 
         private static Random random = new Random();
 
-        private static string RandomString(int length)
-        {
+        private static string RandomString(int length) {
             const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        private static string GetRandomPhoneNumber()
-        {
+        private static string GetRandomPhoneNumber() {
             const string chars = "123456789";
-            var inner = new string(Enumerable.Repeat(chars, 10)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            var inner = new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
 
             return $"+1{inner}";
         }
 
-        private string GenerateServiceRoleToken()
-        {
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
+        private string GenerateServiceRoleToken() {
+            var signingKey =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
+            var tokenDescriptor = new SecurityTokenDescriptor {
                 IssuedAt = DateTime.Now,
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials =
-                    new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
-                Claims = new Dictionary<string, object>()
-                {
-                    {
-                        "role", "service_role"
-                    }
-                }
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
+                Claims = new Dictionary<string, object>() { { "role", "service_role" } }
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -62,15 +49,13 @@ namespace GotrueTests
         }
 
         [TestInitialize]
-        public void TestInitializer()
-        {
+        public void TestInitializer() {
             client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true });
         }
 
         [TestMethod("Client: Signs Up User")]
-        public async Task ClientSignsUpUser()
-        {
-            Session session = null;
+        public async Task ClientSignsUpUser() {
+            Session session;
             var email = $"{RandomString(12)}@supabase.io";
             session = await client.SignUp(email, password);
 
@@ -78,19 +63,22 @@ namespace GotrueTests
             Assert.IsNotNull(session.RefreshToken);
             Assert.IsInstanceOfType(session.User, typeof(User));
 
-
             var phone1 = GetRandomPhoneNumber();
-            session = await client.SignUp(SignUpType.Phone, phone1, password, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
+            session = await client.SignUp(SignUpType.Phone,
+                phone1,
+                password,
+                new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 
             Assert.IsNotNull(session.AccessToken);
             Assert.AreEqual("Testing", session.User.UserMetadata["firstName"]);
         }
 
         [TestMethod("Client: Signs Up the same user twice should throw BadRequestException")]
-        public async Task ClientSignsUpUserTwiceShouldReturnBadRequest()
-        {
+        public async Task ClientSignsUpUserTwiceShouldReturnBadRequest() {
             var email = $"{RandomString(12)}@supabase.io";
             var result1 = await client.SignUp(email, password);
+
+            Assert.IsNotNull(result1);
 
             await Assert.ThrowsExceptionAsync<BadRequestException>(async () =>
             {
@@ -99,8 +87,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Triggers Token Refreshed Event")]
-        public async Task ClientTriggersTokenRefreshedEvent()
-        {
+        public async Task ClientTriggersTokenRefreshedEvent() {
             var tsc = new TaskCompletionSource<string>();
 
             var email = $"{RandomString(12)}@supabase.io";
@@ -108,8 +95,7 @@ namespace GotrueTests
 
             client.StateChanged += (sender, args) =>
             {
-                if (args.State == AuthState.TokenRefreshed)
-                {
+                if (args.State == AuthState.TokenRefreshed) {
                     tsc.SetResult(client.CurrentSession.AccessToken);
                 }
             };
@@ -122,8 +108,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
-        public async Task ClientSignsIn()
-        {
+        public async Task ClientSignsIn() {
             Session session = null;
             string refreshToken = "";
 
@@ -162,8 +147,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Sends Magic Login Email")]
-        public async Task ClientSendsMagicLoginEmail()
-        {
+        public async Task ClientSendsMagicLoginEmail() {
             var user = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
 
@@ -174,8 +158,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Sends Magic Login Email (Alias)")]
-        public async Task ClientSendsMagicLoginEmailAlias()
-        {
+        public async Task ClientSendsMagicLoginEmailAlias() {
             var user = $"{RandomString(12)}@supabase.io";
             var user2 = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
@@ -183,7 +166,8 @@ namespace GotrueTests
             await client.SignOut();
 
             var result = await client.SendMagicLink(user);
-            var result2 = await client.SendMagicLink(user2, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
+            var result2 = await client.SendMagicLink(user2,
+                new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
 
             Assert.IsTrue(result);
             Assert.IsTrue(result2);
@@ -191,19 +175,17 @@ namespace GotrueTests
 
 
         [TestMethod("Client: Returns Auth Url for Provider")]
-        public async Task ClientReturnsAuthUrlForProvider()
-        {
+        public async Task ClientReturnsAuthUrlForProvider() {
             var result1 = await client.SignIn(Provider.Google);
             Assert.AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
 
             var result2 = await client.SignIn(Provider.Google, new SignInOptions { Scopes = "special scopes please" });
-            Assert.AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+            Assert.AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please",
+                result2.Uri.ToString());
         }
 
         [TestMethod("Client: Returns Verification Code for Provider")]
-        public async Task ClientReturnsPKCEVerifier()
-        {
-
+        public async Task ClientReturnsPKCEVerifier() {
             var result = await client.SignIn(Provider.Github, new SignInOptions { FlowType = OAuthFlowType.PKCE });
 
             Assert.IsTrue(!string.IsNullOrEmpty(result.PKCEVerifier));
@@ -214,38 +196,26 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Update user")]
-        public async Task ClientUpdateUser()
-        {
+        public async Task ClientUpdateUser() {
             var email = $"{RandomString(12)}@supabase.io";
             var session = await client.SignUp(email, password);
 
-            var attributes = new UserAttributes
-            {
-                Data = new Dictionary<string, object>
-                {
-                    {"hello", "world" }
-                }
-            };
+            var attributes = new UserAttributes { Data = new Dictionary<string, object> { { "hello", "world" } } };
             var result = await client.Update(attributes);
             Assert.AreEqual(email, client.CurrentUser.Email);
             Assert.IsNotNull(client.CurrentUser.UserMetadata);
 
             await client.SignOut();
             var token = GenerateServiceRoleToken();
-            var result2 = await client.UpdateUserById(token, session.User.Id, new AdminUserAttributes
-            {
-                UserMetadata = new Dictionary<string, object>
-                {
-                    {"hello", "updated" }
-                }
-            });
+            var result2 = await client.UpdateUserById(token,
+                session.User.Id,
+                new AdminUserAttributes { UserMetadata = new Dictionary<string, object> { { "hello", "updated" } } });
 
             Assert.AreNotEqual(result.UserMetadata["hello"], result2.UserMetadata["hello"]);
         }
 
         [TestMethod("Client: Returns current user")]
-        public async Task ClientGetUser()
-        {
+        public async Task ClientGetUser() {
             var email = $"{RandomString(12)}@supabase.io";
             var newUser = await client.SignUp(email, password);
 
@@ -256,8 +226,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Nulls CurrentUser on SignOut")]
-        public async Task ClientGetUserAfterLogOut()
-        {
+        public async Task ClientGetUserAfterLogOut() {
             var user = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
 
@@ -267,8 +236,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Throws Exception on Invalid Username and Password")]
-        public async Task ClientSignsInUserWrongPassword()
-        {
+        public async Task ClientSignsInUserWrongPassword() {
             var user = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
 
@@ -278,12 +246,10 @@ namespace GotrueTests
             {
                 var result = await client.SignIn(user, password + "$");
             });
-
         }
 
         [TestMethod("Client: Sends Invite Email")]
-        public async Task ClientSendsInviteEmail()
-        {
+        public async Task ClientSendsInviteEmail() {
             var user = $"{RandomString(12)}@supabase.io";
             var service_role_key = GenerateServiceRoleToken();
             var result = await client.InviteUserByEmail(user, service_role_key);
@@ -291,8 +257,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Lists users")]
-        public async Task ClientListUsers()
-        {
+        public async Task ClientListUsers() {
             var service_role_key = GenerateServiceRoleToken();
             var result = await client.ListUsers(service_role_key);
 
@@ -300,8 +265,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Lists users pagination")]
-        public async Task ClientListUsersPagination()
-        {
+        public async Task ClientListUsersPagination() {
             var service_role_key = GenerateServiceRoleToken();
 
             var page1 = await client.ListUsers(service_role_key, page: 1, perPage: 1);
@@ -313,19 +277,19 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Lists users sort")]
-        public async Task ClientListUsersSort()
-        {
+        public async Task ClientListUsersSort() {
             var service_role_key = GenerateServiceRoleToken();
 
-            var result1 = await client.ListUsers(service_role_key, sortBy: "created_at", sortOrder: SortOrder.Ascending);
-            var result2 = await client.ListUsers(service_role_key, sortBy: "created_at", sortOrder: SortOrder.Descending);
+            var result1 =
+                await client.ListUsers(service_role_key, sortBy: "created_at", sortOrder: SortOrder.Ascending);
+            var result2 =
+                await client.ListUsers(service_role_key, sortBy: "created_at", sortOrder: SortOrder.Descending);
 
             Assert.AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
         }
 
         [TestMethod("Client: Lists users filter")]
-        public async Task ClientListUsersFilter()
-        {
+        public async Task ClientListUsersFilter() {
             var service_role_key = GenerateServiceRoleToken();
 
             var user = $"{RandomString(12)}@supabase.io";
@@ -340,8 +304,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Get User by Id")]
-        public async Task ClientGetUserById()
-        {
+        public async Task ClientGetUserById() {
             var service_role_key = GenerateServiceRoleToken();
             var result = await client.ListUsers(service_role_key, page: 1, perPage: 1);
 
@@ -353,37 +316,40 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Create a user")]
-        public async Task ClientCreateUser()
-        {
+        public async Task ClientCreateUser() {
             var service_role_key = GenerateServiceRoleToken();
             var result = await client.CreateUser(service_role_key, $"{RandomString(12)}@supabase.io", password);
 
             Assert.IsNotNull(result);
 
 
-            var attributes = new AdminUserAttributes
-            {
+            var attributes = new AdminUserAttributes {
                 UserMetadata = new Dictionary<string, object> { { "firstName", "123" } },
                 AppMetadata = new Dictionary<string, object> { { "roles", new List<string> { "editor", "publisher" } } }
             };
 
-            var result2 = await client.CreateUser(service_role_key, $"{RandomString(12)}@supabase.io", password, attributes);
+            var result2 = await client.CreateUser(service_role_key,
+                $"{RandomString(12)}@supabase.io",
+                password,
+                attributes);
             Assert.AreEqual("123", result2.UserMetadata["firstName"]);
 
-            var result3 = await client.CreateUser(service_role_key, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = password });
+            var result3 = await client.CreateUser(service_role_key,
+                new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = password });
             Assert.IsNotNull(result3);
         }
 
 
         [TestMethod("Client: Update User by Id")]
-        public async Task ClientUpdateUserById()
-        {
+        public async Task ClientUpdateUserById() {
             var service_role_key = GenerateServiceRoleToken();
             var createdUser = await client.CreateUser(service_role_key, $"{RandomString(12)}@supabase.io", password);
 
             Assert.IsNotNull(createdUser);
 
-            var updatedUser = await client.UpdateUserById(service_role_key, createdUser.Id, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io" });
+            var updatedUser = await client.UpdateUserById(service_role_key,
+                createdUser.Id,
+                new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io" });
 
             Assert.IsNotNull(updatedUser);
 
@@ -392,8 +358,7 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Deletes User")]
-        public async Task ClientDeletesUser()
-        {
+        public async Task ClientDeletesUser() {
             var user = $"{RandomString(12)}@supabase.io";
             await client.SignUp(user, password);
             var uid = client.CurrentUser.Id;
@@ -405,14 +370,36 @@ namespace GotrueTests
         }
 
         [TestMethod("Client: Sends Reset Password Email")]
-        public async Task ClientSendsResetPasswordForEmail()
-        {
+        public async Task ClientSendsResetPasswordForEmail() {
             var email = $"{RandomString(12)}@supabase.io";
             await client.SignUp(email, password);
             var result = await client.ResetPasswordForEmail(email);
             Assert.IsTrue(result);
         }
 
+        [TestMethod("Nonce generation and verification")]
+        public async Task NonceGeneration() {
+            string nonce = Helpers.GenerateNonce();
+            Assert.IsNotNull(nonce);
+            Assert.AreEqual(128, nonce.Length);
 
+            string pkceVerifier = Helpers.GeneratePKCENonceVerifier(nonce);
+            Assert.IsNotNull(pkceVerifier);
+            Assert.AreEqual(43, pkceVerifier.Length);
+
+            string appleVerifier = Helpers.GenerateSHA256NonceFromRawNonce(nonce);
+            Assert.IsNotNull(appleVerifier);
+            Assert.AreEqual(64, appleVerifier.Length);
+
+            const string helloNonce = "hello_world_nonce";
+
+            string helloPkceVerifier = Helpers.GeneratePKCENonceVerifier(helloNonce);
+            Assert.IsNotNull(helloPkceVerifier);
+            Assert.AreEqual("9TMmi4JOlYOQEP2Ha39WXj9pySILGnAfQsz-yXws0yE", helloPkceVerifier);
+
+            string helloAppleVerifier = Helpers.GenerateSHA256NonceFromRawNonce(helloNonce);
+            Assert.IsNotNull(helloAppleVerifier);
+            Assert.AreEqual("f533268b824e95839010fd876b7f565e3f69c9220b1a701f42ccfec97c2cd321", helloAppleVerifier);
+        }
     }
 }
