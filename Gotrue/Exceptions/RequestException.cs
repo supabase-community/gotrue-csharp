@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Responses;
 
