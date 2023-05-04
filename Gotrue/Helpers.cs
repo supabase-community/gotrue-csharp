@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
 using Supabase.Gotrue.Responses;
-using System.Threading;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 
 namespace Supabase.Gotrue
 {
@@ -101,7 +97,7 @@ namespace Supabase.Gotrue
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
         /// <param name="url"></param>
-        /// <param name="reqParams"></param>
+        /// <param name="data"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
         internal static async Task<T?> MakeRequest<T>(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null) where T : class
@@ -115,7 +111,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="method"></param>
         /// <param name="url"></param>
-        /// <param name="reqParams"></param>
+        /// <param name="data"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
         internal static async Task<BaseResponse> MakeRequest(HttpMethod method, string url, object? data = null, Dictionary<string, string>? headers = null)
@@ -164,10 +160,8 @@ namespace Supabase.Gotrue
                     };
                     throw new RequestException(response, obj);
                 }
-                else
-                {
-                    return new BaseResponse { Content = content, ResponseMessage = response };
-                }
+
+                return new BaseResponse { Content = content, ResponseMessage = response };
             }
         }
     }
