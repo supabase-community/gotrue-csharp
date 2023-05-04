@@ -3,7 +3,7 @@ using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
-    // <summary>
+    /// <summary>
     /// Options used for signing in a user.
     /// </summary>
     public class SignInOptions
