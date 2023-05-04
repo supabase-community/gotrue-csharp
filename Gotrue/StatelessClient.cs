@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Interfaces;
@@ -27,6 +24,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="options"></param>
         /// <param name="signUpOptions">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
         public Task<Session?> SignUp(string email, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null) => SignUp(SignUpType.Email, email, password, options, signUpOptions);
@@ -37,6 +35,7 @@ namespace Supabase.Gotrue
         /// <param name="type">Type of signup</param>
         /// <param name="identifier">Phone or Email</param>
         /// <param name="password"></param>
+        /// <param name="options"></param>
         /// <param name="signUpOptions">Object containing redirectTo and optional user metadata (data)</param>
         /// <returns></returns>
         public async Task<Session?> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null)
@@ -93,6 +92,8 @@ namespace Supabase.Gotrue
         /// Sends a Magic email login link to the specified email.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="options"></param>
+        /// <param name="signInOptions"></param>
         /// <returns></returns>
         public Task<bool> SendMagicLink(string email, StatelessClientOptions options, SignInOptions? signInOptions = null) => SignIn(email, options, signInOptions);
 
@@ -101,6 +102,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public Task<Session?> SignIn(string email, string password, StatelessClientOptions options) => SignIn(SignInType.Email, email, password, options);
 
@@ -110,7 +112,7 @@ namespace Supabase.Gotrue
         /// <param name="type">Type of Credentials being passed</param>
         /// <param name="identifierOrToken">An email, phone, or RefreshToken</param>
         /// <param name="password">Password to account (optional if `RefreshToken`)</param>
-        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, StatelessClientOptions? options = null)
         {
@@ -132,10 +134,8 @@ namespace Supabase.Gotrue
                             var response = await api.SendMobileOTP(identifierOrToken);
                             return null;
                         }
-                        else
-                        {
-                            session = await api.SignInWithPhone(identifierOrToken, password!);
-                        }
+
+                        session = await api.SignInWithPhone(identifierOrToken, password!);
                         break;
                     case SignInType.RefreshToken:
                         session = await RefreshToken(identifierOrToken, options);
@@ -157,23 +157,24 @@ namespace Supabase.Gotrue
 
         /// <summary>
         /// Retrieves a Url to redirect to for signing in with a <see cref="Provider"/>.
-        ///
+        /// 
         /// This method will need to be combined with <see cref="GetSessionFromUrl(Uri, bool)"/> when the
         /// Application receives the Oauth Callback.
         /// </summary>
         /// <example>
         /// var client = Supabase.Gotrue.Client.Initialize(options);
         /// var url = client.SignIn(Provider.Github);
-        ///
+        /// 
         /// // Do Redirect User
-        ///
+        /// 
         /// // Example code
         /// Application.HasRecievedOauth += async (uri) => {
         ///     var session = await client.GetSessionFromUri(uri, true);
         /// }
         /// </example>
         /// <param name="provider"></param>
-        /// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
+        /// <param name="options"></param>
+        /// <param name="signInOptions"></param>
         /// <returns></returns>
         public ProviderAuthState SignIn(Provider provider, StatelessClientOptions options, SignInOptions? signInOptions = null) => GetApi(options).GetUriForProvider(provider, signInOptions);
 
@@ -182,8 +183,8 @@ namespace Supabase.Gotrue
         /// This will revoke all refresh tokens for the user.
         /// JWT tokens will still be valid for stateless auth until they expire.
         /// </summary>
+        /// <param name="jwt"></param>
         /// <param name="options"></param>
-        /// <param name="accessToken"></param>
         /// <returns></returns>
         public async Task<bool> SignOut(string jwt, StatelessClientOptions options)
         {
@@ -204,6 +205,8 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="phone">The user's phone number.</param>
         /// <param name="token">Token sent to the user's phone.</param>
+        /// <param name="options"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public async Task<Session?> VerifyOTP(string phone, string token, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS)
         {
@@ -229,6 +232,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="token"></param>
+        /// <param name="options"></param>
         /// <param name="type"></param>
         /// <returns></returns>
         public async Task<Session?> VerifyOTP(string email, string token, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink)
@@ -254,7 +258,9 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Updates a User.
         /// </summary>
+        /// <param name="accessToken"></param>
         /// <param name="attributes"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public async Task<User?> Update(string accessToken, UserAttributes attributes, StatelessClientOptions options)
         {
@@ -274,6 +280,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="email"></param>
         /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public async Task<bool> InviteUserByEmail(string email, string jwt, StatelessClientOptions options)
         {
@@ -293,6 +300,7 @@ namespace Supabase.Gotrue
         /// Sends a reset request to an email address.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         public async Task<bool> ResetPasswordForEmail(string email, StatelessClientOptions options)
@@ -313,8 +321,9 @@ namespace Supabase.Gotrue
         /// Lists users
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="options"></param>
         /// <param name="filter">A string for example part of the email</param>
-        /// <param name="sortBy">Snake case string of the given key, currently only created_at is suppported</param>
+        /// <param name="sortBy">Snake case string of the given key, currently only created_at is supported</param>
         /// <param name="sortOrder">asc or desc, if null desc is used</param>
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
@@ -335,6 +344,7 @@ namespace Supabase.Gotrue
         /// Get User details by Id
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="options"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
         public async Task<User?> GetUserById(string jwt, StatelessClientOptions options, string userId)
@@ -353,6 +363,7 @@ namespace Supabase.Gotrue
         /// Get User details by JWT. Can be used to validate a JWT.
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public async Task<User?> GetUser(string jwt, StatelessClientOptions options)
         {
@@ -370,6 +381,7 @@ namespace Supabase.Gotrue
         /// Create a user
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="options"></param>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="attributes"></param>
@@ -390,6 +402,7 @@ namespace Supabase.Gotrue
         /// Create a user
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="options"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
         public async Task<User?> CreateUser(string jwt, StatelessClientOptions options, AdminUserAttributes attributes)
@@ -408,6 +421,7 @@ namespace Supabase.Gotrue
         /// Update user by Id
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="options"></param>
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
@@ -428,6 +442,7 @@ namespace Supabase.Gotrue
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public async Task<bool> DeleteUser(string uid, string jwt, StatelessClientOptions options)
         {
@@ -447,7 +462,7 @@ namespace Supabase.Gotrue
         /// Parses a <see cref="Session"/> out of a <see cref="Uri"/>'s Query parameters.
         /// </summary>
         /// <param name="uri"></param>
-        /// <param name="storeSession"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
         public async Task<Session?> GetSessionFromUrl(Uri uri, StatelessClientOptions options)
         {
@@ -500,19 +515,19 @@ namespace Supabase.Gotrue
 
 
         /// <summary>
-        /// Class represention options available to the <see cref="Client"/>.
+        /// Class representation options available to the <see cref="Client"/>.
         /// </summary>
         public class StatelessClientOptions
         {
             /// <summary>
             /// Gotrue Endpoint
             /// </summary>
-            public string Url { get; set; } = Constants.GOTRUE_URL;
+            public string Url { get; set; } = GOTRUE_URL;
 
             /// <summary>
             /// Headers to be sent with subsequent requests.
             /// </summary>
-            public Dictionary<string, string> Headers = new Dictionary<string, string>(Constants.DEFAULT_HEADERS);
+            public Dictionary<string, string> Headers = new Dictionary<string, string>(DEFAULT_HEADERS);
 
             /// <summary>
             /// Very unlikely this flag needs to be changed except in very specific contexts.
@@ -520,7 +535,7 @@ namespace Supabase.Gotrue
             /// Enables tests to be E2E tests to be run without requiring users to have
             /// confirmed emails - mirrors the Gotrue server's configuration.
             /// </summary>
-            public bool AllowUnconfirmedUserSessions { get; set; } = false;
+            public bool AllowUnconfirmedUserSessions { get; set; }
         }
     }
 
