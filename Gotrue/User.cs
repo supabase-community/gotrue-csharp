@@ -1,8 +1,8 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-#nullable enable
 namespace Supabase.Gotrue
 {
     /// <summary>
