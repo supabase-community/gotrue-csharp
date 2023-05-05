@@ -24,24 +24,9 @@ namespace Supabase.Gotrue
         public bool AutoRefreshToken { get; set; } = true;
 
         /// <summary>
-        /// Should the Client call <see cref="SessionPersistor"/>, <see cref="SessionRetriever"/>, and <see cref="SessionDestroyer"/>?
+        /// Object called to persist the session (e.g. filesystem or cookie)
         /// </summary>
-        public bool PersistSession { get; set; } = true;
-
-        /// <summary>
-        /// Function called to persist the session (probably on a filesystem or cookie)
-        /// </summary>
-        public PersistenceListener.SaveSession? SessionPersistor;
-
-        /// <summary>
-        /// Function to retrieve a session (probably from the filesystem or cookie)
-        /// </summary>
-        public PersistenceListener.LoadSession? SessionRetriever;
-
-        /// <summary>
-        /// Function to destroy a session.
-        /// </summary>
-        public PersistenceListener.DestroySession? SessionDestroyer;
+        public GotrueSessionPersistence? SessionPersistence; 
 
         /// <summary>
         /// Very unlikely this flag needs to be changed except in very specific contexts.
