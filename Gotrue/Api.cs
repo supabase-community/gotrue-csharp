@@ -16,7 +16,7 @@ namespace Supabase.Gotrue
 {
 	public class Api : IGotrueApi<User, Session>
 	{
-		protected string Url { get; private set; }
+		private string Url { get; }
 
 		/// <summary>
 		/// Function that can be set to return dynamic headers.
@@ -571,6 +571,11 @@ namespace Supabase.Gotrue
 		{
 			var data = new Dictionary<string, string>();
 			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
+		}
+
+		public Task<Settings?> Settings()
+		{
+			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings");
 		}
 
 		/// <summary>
