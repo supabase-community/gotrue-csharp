@@ -53,9 +53,6 @@ namespace Supabase.Gotrue
 
 					_save?.Invoke(sender.CurrentSession);
 					break;
-				case Constants.AuthState.ClientLaunch:
-					_load?.Invoke();
-					break;
 				default: throw new ArgumentOutOfRangeException(nameof(stateChanged), stateChanged, null);
 			}
 		}
