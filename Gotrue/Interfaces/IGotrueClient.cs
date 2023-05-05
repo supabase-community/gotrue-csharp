@@ -17,7 +17,7 @@ namespace Supabase.Gotrue.Interfaces
 		public void AddStateChangedListener(AuthEventHandler authEventHandler);
 		public void RemoveStateChangedListener(AuthEventHandler authEventHandler);
 		public void ClearStateChangedListeners();
-		public void NotifyStateChange(AuthState stateChanged);
+		public void NotifyAuthStateChange(AuthState stateChanged);
 
 		Task<TUser?> CreateUser(string jwt, AdminUserAttributes attributes);
 		Task<TUser?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null);
@@ -32,13 +32,13 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> RetrieveSessionAsync();
 		Task<bool> SendMagicLink(string email, SignInOptions? options = null);
 		TSession SetAuth(string accessToken);
-		Task<TSession?> SendMagicLinkEmail(SignInType type, string identifierOrToken, string? password = null, string? scopes = null);
-		Task<bool> SendMagicLinkEmail(string email, SignInOptions? options = null);
-		Task<TSession?> SendMagicLinkEmail(string email, string password);
+		Task<TSession?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null);
+		Task<bool> SignIn(string email, SignInOptions? options = null);
+		Task<TSession?> SignIn(string email, string password);
 		Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options);
 		Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options);
 		Task<TSession?> SignInWithPassword(string email, string password);
-		Task<ProviderAuthState> SendMagicLinkEmail(Provider provider, SignInOptions? options = null);
+		Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null);
 		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null);
 		Task<TSession?> ExchangeCodeForSession(string codeVerifier, string authCode);
 		Task<TSession?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null);
