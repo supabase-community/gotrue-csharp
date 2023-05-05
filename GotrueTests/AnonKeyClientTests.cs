@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
-using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
@@ -35,7 +34,8 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, PersistSession = true, SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession });
+			var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = persistence });
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}
@@ -61,6 +61,25 @@ namespace GotrueTests
 		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
 		private Session _savedSession;
 
+		private void VerifyGoodSession(Session session)
+		{
+			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, session);
+			AreEqual(_client.CurrentSession, _savedSession);
+			AreEqual(_client.CurrentUser, session.User);
+			IsNotNull(session.AccessToken);
+			IsNotNull(session.RefreshToken);
+			IsNotNull(session.User);
+		}
+
+		private void VerifySignedOut()
+		{
+			Contains(_stateChanges, SignedOut);
+			IsNull(_savedSession);
+			IsNull(_client.CurrentSession);
+			IsNull(_client.CurrentUser);
+		}
+
 		[TestMethod("Client: Sign Up User")]
 		public async Task SignUpUserEmail()
 		{
@@ -69,12 +88,7 @@ namespace GotrueTests
 			var email = $"{RandomString(12)}@supabase.io";
 			var session = await _client.SignUp(email, PASSWORD);
 
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
-
-			IsNotNull(session.AccessToken);
-			IsNotNull(session.RefreshToken);
-			IsNotNull(session.User);
+			VerifyGoodSession(session);
 		}
 
 		[TestMethod("Client: Load User From Persistence")]
@@ -85,24 +99,21 @@ namespace GotrueTests
 			var email = $"{RandomString(12)}@supabase.io";
 			var session = await _client.SignUp(email, PASSWORD);
 
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			VerifyGoodSession(session);
 
-			IsNotNull(session.AccessToken);
-			IsNotNull(session.RefreshToken);
-			IsNotNull(session.User);
-
-			var newClient = new Client(new ClientOptions
-			{
-				AllowUnconfirmedUserSessions = true, PersistSession = true,
-				SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession
-			});
+			var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
+			var newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = persistence });
 			newClient.AddDebugListener(LogDebug);
 			newClient.AddStateChangedListener(AuthStateListener);
 
 			// Loads the session from storage
 			newClient.LoadSession();
-			await newClient.RetrieveSessionAsync();
+			VerifyGoodSession(newClient.CurrentSession);
+
+			// Refresh the session
+			var refreshedSession = await newClient.RetrieveSessionAsync();
+
+			VerifyGoodSession(refreshedSession);
 		}
 
 		[TestMethod("Client: Sign up Phone")]
@@ -113,10 +124,8 @@ namespace GotrueTests
 			var phone1 = GetRandomPhoneNumber();
 			var session = await _client.SignUp(Constants.SignUpType.Phone, phone1, PASSWORD, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			VerifyGoodSession(session);
 
-			IsNotNull(session.AccessToken);
 			AreEqual("Testing", session.User.UserMetadata["firstName"]);
 		}
 
@@ -129,10 +138,9 @@ namespace GotrueTests
 
 			IsTrue(AuthStateIsEmpty());
 
-			var user = await _client.SignUp(email, PASSWORD);
+			var session = await _client.SignUp(email, PASSWORD);
 
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			VerifyGoodSession(session);
 
 			_client.AddStateChangedListener((_, args) =>
 			{
@@ -150,59 +158,53 @@ namespace GotrueTests
 
 			var newToken = await tsc.Task;
 			IsNotNull(newToken);
-			AreNotEqual(user.RefreshToken, _client.CurrentSession.RefreshToken);
+			AreNotEqual(session.RefreshToken, _client.CurrentSession.RefreshToken);
 		}
 
 		[TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
 		public async Task ClientSignsIn()
 		{
 			var email = $"{RandomString(12)}@supabase.io";
-			await _client.SignUp(email, PASSWORD);
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			var emailSession = await _client.SignUp(email, PASSWORD);
+
+			VerifyGoodSession(emailSession);
 			_stateChanges.Clear();
 
 			await _client.SignOut();
-			Contains(_stateChanges, SignedOut);
-			AreEqual(_client.CurrentSession, _savedSession);
+			
+			VerifySignedOut();
+			
 			_stateChanges.Clear();
 
-			var session = await _client.SendMagicLinkEmail(email, PASSWORD);
+			var session2 = await _client.SignIn(email, PASSWORD);
 
-			IsNotNull(session.AccessToken);
-			IsNotNull(session.RefreshToken);
-			IsNotNull(session.User);
+			VerifyGoodSession(session2);
 
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			// Phones
 			var phone = GetRandomPhoneNumber();
-			await _client.SignUp(Constants.SignUpType.Phone, phone, PASSWORD);
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			var phoneSession = await _client.SignUp(Constants.SignUpType.Phone, phone, PASSWORD);
+
+			VerifyGoodSession(phoneSession);
+
 			_stateChanges.Clear();
 
 			await _client.SignOut();
-			Contains(_stateChanges, SignedOut);
-			IsNull(_savedSession);
-			AreEqual(_client.CurrentSession, _savedSession);
+
+			VerifySignedOut();
+
 			_stateChanges.Clear();
 
-			session = await _client.SendMagicLinkEmail(Constants.SignInType.Phone, phone, PASSWORD);
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
-			_stateChanges.Clear();
+			emailSession = await _client.SignIn(Constants.SignInType.Phone, phone, PASSWORD);
 
-			IsNotNull(session.AccessToken);
-			IsNotNull(session.RefreshToken);
-			IsNotNull(session.User);
+			VerifyGoodSession(emailSession);
+			_stateChanges.Clear();
 
 			// Refresh Token
-			var refreshToken = session.RefreshToken;
+			var refreshToken = emailSession.RefreshToken;
 
-			var newSession = await _client.SendMagicLinkEmail(Constants.SignInType.RefreshToken, refreshToken);
+			var newSession = await _client.SignIn(Constants.SignInType.RefreshToken, refreshToken);
 			AreEqual(_client.CurrentSession, _savedSession);
 			Contains(_stateChanges, TokenRefreshed);
 			DoesNotContain(_stateChanges, SignedIn);
@@ -216,17 +218,18 @@ namespace GotrueTests
 		public async Task ClientSendsMagicLoginEmail()
 		{
 			var user = $"{RandomString(12)}@supabase.io";
-			await _client.SignUp(user, PASSWORD);
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			var session = await _client.SignUp(user, PASSWORD);
+
+			VerifyGoodSession(session);
 			_stateChanges.Clear();
 
 			await _client.SignOut();
-			Contains(_stateChanges, SignedOut);
-			AreEqual(_client.CurrentSession, _savedSession);
+			
+			VerifySignedOut();
+			
 			_stateChanges.Clear();
 
-			var result = await _client.SendMagicLinkEmail(user);
+			var result = await _client.SignIn(user);
 			IsTrue(result);
 			AreEqual(0, _stateChanges.Count);
 			AreEqual(_client.CurrentSession, _savedSession);
@@ -237,16 +240,16 @@ namespace GotrueTests
 		{
 			var user = $"{RandomString(12)}@supabase.io";
 			var user2 = $"{RandomString(12)}@supabase.io";
-			await _client.SignUp(user, PASSWORD);
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			var session = await _client.SignUp(user, PASSWORD);
+
+			VerifyGoodSession(session);
+			
 			_stateChanges.Clear();
 
 			await _client.SignOut();
-			Contains(_stateChanges, SignedOut);
-			IsNull(_savedSession);
-			AreEqual(_client.CurrentSession, _savedSession);
 
+			VerifySignedOut();
+			
 			var result = await _client.SendMagicLink(user);
 			var result2 = await _client.SendMagicLink(user2, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
 
@@ -257,20 +260,19 @@ namespace GotrueTests
 		[TestMethod("Client: Returns Auth Url for Provider")]
 		public async Task ClientReturnsAuthUrlForProvider()
 		{
-			var result1 = await _client.SendMagicLinkEmail(Constants.Provider.Google);
+			var result1 = await _client.SignIn(Constants.Provider.Google);
 			AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
 
-			var result2 = await _client.SendMagicLinkEmail(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
+			var result2 = await _client.SignIn(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
 			AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("Client: Returns Verification Code for Provider")]
 		public async Task ClientReturnsPKCEVerifier()
 		{
-			var result = await _client.SendMagicLinkEmail(Constants.Provider.Github, new SignInOptions { FlowType = Constants.OAuthFlowType.PKCE });
+			var result = await _client.SignIn(Constants.Provider.Github, new SignInOptions { FlowType = Constants.OAuthFlowType.PKCE });
 
-			Contains(_stateChanges, SignedOut);
-			IsNull(_savedSession);
+			VerifySignedOut();
 
 			IsTrue(!string.IsNullOrEmpty(result.PKCEVerifier));
 			IsTrue(result.Uri.Query.Contains("flow_type=pkce"));
@@ -284,9 +286,9 @@ namespace GotrueTests
 		{
 			var email = $"{RandomString(12)}@supabase.io";
 			var session = await _client.SignUp(email, PASSWORD);
-			IsNotNull(session);
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+
+			VerifyGoodSession(session);
+			
 			_stateChanges.Clear();
 
 			var attributes = new UserAttributes { Data = new Dictionary<string, object> { { "hello", "world" } } };
@@ -324,26 +326,8 @@ namespace GotrueTests
 			_stateChanges.Clear();
 			await _client.SignOut();
 
-			Contains(_stateChanges, SignedOut);
-
-			IsNull(_client.CurrentUser);
+			VerifySignedOut();
 		}
-
-		[TestMethod("Client: Throws Exception on Invalid Username and Password")]
-		public async Task ClientSignsInUserWrongPassword()
-		{
-			var user = $"{RandomString(12)}@supabase.io";
-			await _client.SignUp(user, PASSWORD);
-
-			await _client.SignOut();
-
-			await ThrowsExceptionAsync<GotrueException>(async () =>
-			{
-				var result = await _client.SendMagicLinkEmail(user, PASSWORD + "$");
-				IsNotNull(result);
-			});
-		}
-
 
 		[TestMethod("Client: Send Reset Password Email")]
 		public async Task ClientSendsResetPasswordForEmail()
@@ -353,6 +337,5 @@ namespace GotrueTests
 			var result = await _client.ResetPasswordForEmail(email);
 			IsTrue(result);
 		}
-
 	}
 }

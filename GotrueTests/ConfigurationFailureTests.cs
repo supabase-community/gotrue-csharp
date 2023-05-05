@@ -16,7 +16,7 @@ namespace GotrueTests
 		[TestMethod("Bad URL message")]
 		public async Task BadUrlTest()
 		{
-			var client = new Client(new ClientOptions { Url = "https://badprojecturl.supabase.co", AllowUnconfirmedUserSessions = true, PersistSession = false });
+			var client = new Client(new ClientOptions { Url = "https://badprojecturl.supabase.co", AllowUnconfirmedUserSessions = true });
 			client.AddDebugListener(LogDebug);
 
 			var email = $"{RandomString(12)}@supabase.io";
@@ -29,7 +29,7 @@ namespace GotrueTests
 		[TestMethod("Bad service key message")]
 		public async Task BadServiceApiKeyTest()
 		{
-			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, PersistSession = false });
+			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
 			client.AddDebugListener(LogDebug);
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
@@ -38,8 +38,5 @@ namespace GotrueTests
 			});
 			AreEqual(AdminTokenRequired, x.Reason);
 		}
-
-		
-
 	}
 }
