@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +19,19 @@ namespace Supabase.Gotrue
 	/// </example>
 	public class Client : IGotrueClient<User, Session>
 	{
+
+		private DebugNotification? _debugNotification;
+
+		public void AddDebugListener(Action<string, Exception?> listener)
+		{
+			_debugNotification ??= new DebugNotification();
+			_debugNotification.AddDebugListener(listener);
+		}
+
 		/// <summary>
 		/// Function that can be set to return dynamic headers.
 		/// 
-		/// Headers specified in the client options will ALWAYS take precendece over headers returned by this function.
+		/// Headers specified in the client options will ALWAYS take precedence over headers returned by this function.
 		/// </summary>
 
 		public Func<Dictionary<string, string>>? GetHeaders
@@ -346,7 +354,8 @@ namespace Supabase.Gotrue
 						session = await _api.SignInWithEmail(identifierOrToken, password!);
 						break;
 					case SignInType.Phone:
-						if (string.IsNullOrEmpty(password)) {
+					if (string.IsNullOrEmpty(password))
+						{
 							await _api.SendMobileOTP(identifierOrToken);
 							return null;
 						}
@@ -549,7 +558,8 @@ namespace Supabase.Gotrue
 		/// <param name="page">page to show for pagination</param>
 		/// <param name="perPage">items per page for pagination</param>
 		/// <returns></returns>
-		public async Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+		public async Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null,
+			int? perPage = null)
 		{
 			try
 			{
@@ -798,7 +808,7 @@ namespace Supabase.Gotrue
 			}
 			else if (session == null || session.User == null)
 			{
-				Debug.WriteLine("Stored Session is missing data.");
+				_debugNotification?.Log("Stored Session is missing data.");
 				await DestroySession();
 				return null;
 			}
@@ -903,7 +913,7 @@ namespace Supabase.Gotrue
 			try
 			{
 				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
-				int interval = (int)Math.Floor((double)(CurrentSession.ExpiresIn * 4 / 5));
+				int interval = (int)Math.Floor(CurrentSession.ExpiresIn * 4.0f / 5.0f);
 				int timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
 				TimeSpan timeout = TimeSpan.FromSeconds(timeoutSeconds);
 
@@ -911,7 +921,7 @@ namespace Supabase.Gotrue
 			}
 			catch
 			{
-				Debug.WriteLine("Unable to parse session timestamp, refresh timer will not work. If persisting, open issue on Github");
+				_debugNotification?.Log("Unable to parse session timestamp, refresh timer will not work. If persisting, open issue on Github");
 			}
 		}
 
@@ -927,12 +937,12 @@ namespace Supabase.Gotrue
 			catch (HttpRequestException ex)
 			{
 				// The request failed - potential network error?
-				Debug.WriteLine(ex.Message);
+				_debugNotification?.Log(ex.Message, ex);
 				_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.Message);
+				_debugNotification?.Log(ex.Message, ex);
 				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
 			}
 		}
