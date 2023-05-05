@@ -20,7 +20,7 @@ namespace Supabase.Gotrue
 
 		/// <summary>
 		/// Function that can be set to return dynamic headers.
-		/// 
+		///
 		/// Headers specified in the constructor will ALWAYS take precedence over headers returned by this function.
 		/// </summary>
 		public Func<Dictionary<string, string>>? GetHeaders { get; set; }
@@ -39,14 +39,13 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// Creates a new user using their email address.
+		/// Creates a new API client
 		/// </summary>
 		/// <param name="url"></param>
 		/// <param name="headers"></param>
 		public Api(string url, Dictionary<string, string>? headers = null)
 		{
 			Url = url;
-
 			headers ??= new Dictionary<string, string>();
 			_headers = headers;
 		}
