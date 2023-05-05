@@ -11,7 +11,26 @@
 
 ---
 
-## BREAKING CHANGES MOVING FROM v3.0 to 3.1
+## BREAKING CHANGES v3.1 → v3.x
+
+- Exceptions have been simplified to a single GotrueException. A Reason field has been added
+to GotrueException to help sort out what happened. This should also be easier to manage as the Gotrue
+server API & messages evolve.
+- The delegates for save/load/destroy persistence have been simplified to no longer require async.
+- Console logging in a few places (most notable the background refresh thread) has been removed 
+in favor of a notification method. See Client.AddDebugListener() and the test cases for examples.
+This will allow you to implement your own logging strategy (write to temp file, console, user visible 
+err console, etc).
+- The client now more reliably emits AuthState changes.
+- There is now a single source of truth for headers in the stateful Client - the Options headers.
+
+Implementation notes:
+
+- Test cases have been added to help ensure reliability of auth state change notifications
+  and persistence.
+- Persistence is now managed via the same notifications as auth state change
+
+## BREAKING CHANGES v3.0 → 3.1
 
 - We've implemented the PKCE auth flow. SignIn using a provider now returns an instance of `ProviderAuthState` rather than a `string`.
 - The provider sign in signature has moved `scopes` into `SignInOptions`
@@ -55,7 +74,7 @@ await new StatelessClient().SignUp("new-user@example.com", options);
 
 ## Persisting, Retrieving, and Destroying Sessions.
 
-This Gotrue client is written to be agnostic when it comes to session persistance, retrieval, and destruction. `ClientOptions` exposes
+This Gotrue client is written to be agnostic when it comes to session persistence, retrieval, and destruction. `ClientOptions` exposes
 properties that allow these to be specified.
 
 In the event these are specified and the `AutoRefreshToken` option is set, as the `Client` Initializes, it will also attempt to
@@ -71,18 +90,21 @@ async void Initialize() {
     var options = new ClientOptions
     {
         Url = GOTRUE_URL,
-        SessionPersistor = SessionPersistor,
-        SessionRetriever = SessionRetriever,
-        SessionDestroyer = SessionDestroyer
+        PersistSession = true, 
+        SessionPersistor = SaveSession, // PeristenceListener public delegate bool SaveSession(Session session);
+        SessionRetriever = LoadSession, // PeristenceListener public delegate Session LoadSession();
+        SessionDestroyer = DestroySession // PeristenceListener  delegate void DestroySession();
     };
     var client = new Client(options);
+    // Load the session from persistence
+    newClient.LoadSession();
     // Loads the session using SessionRetriever and sets state internally.
     await client.RetrieveSessionAsync();
 }
 
 //...
 
-internal Task<bool> SessionPersistor(Session session)
+internal bool SaveSession(Session session)
 {
     try
     {
