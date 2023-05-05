@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
-using Supabase.Gotrue.Responses;
 
 namespace Supabase.Gotrue.Exceptions
 {
