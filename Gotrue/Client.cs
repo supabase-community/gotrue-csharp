@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,89 +11,72 @@ using static Supabase.Gotrue.Constants.AuthState;
 namespace Supabase.Gotrue
 {
 	/// <summary>
-	/// The Gotrue Instance
+	/// GoTrue stateful Client.
+	///
+	/// This class is best used as a long-lived singleton object in your application. You can attach listeners
+	/// to be notified of changes to the user log in state, a persistence system for sessions across application
+	/// launches, and more. It includes a (optional, on by default) background thread that runs to refresh the
+	/// user's session token.
+	///
+	/// Check out the test suite for examples of use.
 	/// </summary>
 	/// <example>
 	/// var client = new Supabase.Gotrue.Client(options);
 	/// var user = await client.SignIn("user@email.com", "fancyPassword");
 	/// </example>
-	[SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
 	public class Client : IGotrueClient<User, Session>
 	{
-
-		private DebugNotification? _debugNotification;
-
-		private readonly List<IGotrueClient<User, Session>.AuthEventHandler> _authEventHandlers = new List<IGotrueClient<User, Session>.AuthEventHandler>();
-
-		public void AddDebugListener(Action<string, Exception?> listener)
-		{
-			_debugNotification ??= new DebugNotification();
-			_debugNotification.AddDebugListener(listener);
-		}
-
-		public void NotifyStateChange(AuthState stateChanged)
-		{
-			foreach (var handler in _authEventHandlers)
-			{
-				handler.Invoke(this, stateChanged);
-			}
-		}
-
 		/// <summary>
-		/// The current User
+		/// The underlying API requests object that sends the requests
 		/// </summary>
-		public User? CurrentUser { get; private set; }
-
-		public void AddStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
-		{
-			if (_authEventHandlers.Contains(authEventHandler))
-				return;
-
-			_authEventHandlers.Add(authEventHandler);
-
-		}
-		public void RemoveStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
-		{
-			if (!_authEventHandlers.Contains(authEventHandler))
-				return;
-
-			_authEventHandlers.Remove(authEventHandler);
-		}
-		public void ClearStateChangedListeners()
-		{
-			_authEventHandlers.Clear();
-		}
-
-		/// <summary>
-		/// The current Session
-		/// </summary>
-		public Session? CurrentSession { get; private set; }
-
-		/// <summary>
-		/// The initialized client options.
-		/// </summary>
-		public ClientOptions Options { get; }
-
-		/// <summary>
-		/// Internal timer reference for Refreshing Tokens (<see>
-		///     <cref>AutoRefreshToken</cref>
-		/// </see>
-		/// )
-		/// </summary>
-		private Timer? _refreshTimer;
-
 		private readonly IGotrueApi<User, Session> _api;
 
 		/// <summary>
-		/// Initializes the Client. 
+		/// Handlers for notifications of state changes.
+		/// </summary>
+		private readonly List<IGotrueClient<User, Session>.AuthEventHandler> _authEventHandlers = new List<IGotrueClient<User, Session>.AuthEventHandler>();
+
+		/// <summary>
+		/// Gets notifications if there is a failure not visible by exceptions (e.g. background thread refresh failure)
+		/// </summary>
+		private DebugNotification? _debugNotification;
+
+		/// <summary>
+		/// Internal timer reference for token refresh
+		/// <see>
+		///     <cref>AutoRefreshToken</cref>
+		/// </see>
+		/// </summary>
+		private Timer? _refreshTimer;
+
+		/// <summary>
+		/// Initializes the GoTrue stateful client. 
 		/// 
-		/// Although options are ... optional, you will likely want to at least specify a <see>
+		/// You will likely want to at least specify a <see>
 		///     <cref>ClientOptions.Url</cref>
 		/// </see>
-		/// .
 		/// 
-		/// Sessions are no longer automatically retrieved on construction, if you want to set the session, <see cref="RetrieveSessionAsync"/>
+		/// Sessions are not automatically retrieved when this object is created.
 		/// 
+		/// If you want to load the session from your persistence store, <see>
+		///     <cref>GotrueSessionPersistence</cref>
+		/// </see>.
+		///
+		/// If you want to load/refresh the session, <see>
+		///     <cref>RetrieveSessionAsync</cref>
+		/// </see>.
+		///
+		/// For a typical client application, you'll want to load the session from persistence
+		/// and then refresh it. If your application is listening for session changes, you'll
+		/// get two SignIn notifications if the persisted session is valid - one for the
+		/// session loaded from disk, and a second on a successful session refresh.
+		/// 
+		/// <remarks></remarks>
+		/// <example>
+		///		var client = new Supabase.Gotrue.Client(options);
+		///     client.LoadSession();
+		///		await client.RetrieveSessionAsync();
+		/// </example>
 		/// </summary>
 		/// <param name="options"></param>
 		public Client(ClientOptions? options = null)
@@ -103,31 +85,106 @@ namespace Supabase.Gotrue
 
 			Options = options;
 
-			if (options.PersistSession)
+			if (options.SessionPersistence != null)
 			{
-				var persistenceListener = new PersistenceListener(options.SessionPersistor, options.SessionDestroyer, options.SessionRetriever);
-				_authEventHandlers.Add(persistenceListener.EventHandler);
+				_authEventHandlers.Add(new PersistenceListener(options.SessionPersistence).EventHandler);
 			}
 
 			_api = new Api(options.Url, options.Headers);
 		}
 
 		/// <summary>
-		/// Signs up a user by email address
+		/// The initialized client options.
+		/// </summary>
+		public ClientOptions Options { get; }
+
+		/// <summary>
+		/// Notifies all listeners that the current user auth state has changed.
+		///
+		/// This is mainly used internally to fire notifications - most client applications won't need this.
+		/// </summary>
+		/// <param name="stateChanged"></param>
+		public void NotifyAuthStateChange(AuthState stateChanged)
+		{
+			foreach (var handler in _authEventHandlers)
+			{
+				handler.Invoke(this, stateChanged);
+			}
+		}
+
+		/// <summary>
+		/// The currently logged in User. This is a local cache of the current session User. 
+		/// To persist modifications to the User you'll want to use other methods.
+		/// <see cref="Update"/>>
+		/// </summary>
+		public User? CurrentUser
+		{
+			get => CurrentSession?.User;
+		}
+
+		/// <summary>
+		/// Adds a listener to be notified when the user state changes (e.g. the user logs in, logs out,
+		/// the token is refreshed, etc).
+		///
+		/// <see cref="AuthState"/>
+		/// </summary>
+		/// <param name="authEventHandler"></param>
+		public void AddStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
+		{
+			if (_authEventHandlers.Contains(authEventHandler))
+				return;
+
+			_authEventHandlers.Add(authEventHandler);
+
+		}
+		
+		/// <summary>
+		/// Removes a specified listener from event state changes.
+		/// </summary>
+		/// <param name="authEventHandler"></param>
+		public void RemoveStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
+		{
+			if (!_authEventHandlers.Contains(authEventHandler))
+				return;
+
+			_authEventHandlers.Remove(authEventHandler);
+		}
+		
+		/// <summary>
+		/// Clears all of the listeners from receiving event state changes.
+		///
+		/// WARNING: The persistence handler is installed as a state change listener if provided in options.
+		/// Clearing the listeners will also delete the persistence handler.
+		/// </summary>
+		public void ClearStateChangedListeners()
+		{
+			_authEventHandlers.Clear();
+		}
+
+		/// <summary>
+		/// The current Session as managed by this client. Does not refresh tokens or have any other side effects.
+		///
+		/// You probably don't want to directly make changes to this object - you'll want to use other methods
+		/// on this class to make changes.
+		/// </summary>
+		public Session? CurrentSession { get; private set; }
+
+		/// <summary>
+		/// Signs up a user by email address.
 		/// </summary>
 		/// <remarks>
 		/// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
 		/// Confirm email determines if users need to confirm their email address after signing up.
 		///     - If Confirm email is enabled, a user is returned but session is null.
 		///     - If Confirm email is disabled, both a user and a session are returned.
-		/// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
+		/// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or
+		/// add additional redirect URLs in your project.
 		/// If signUp() is called for an existing confirmed user:
 		///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
 		///     - If Confirm email is disabled, the error message, User already registered is returned.
 		/// To fetch the currently logged-in user, refer to <see>
 		///     <cref>User</cref>
-		/// </see>
-		/// .
+		/// </see>.
 		/// </remarks>
 		/// <param name="email"></param>
 		/// <param name="password"></param>
@@ -139,7 +196,9 @@ namespace Supabase.Gotrue
 		/// Signs up a user
 		/// </summary>
 		/// <remarks>
-		/// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
+		/// Calling this method will log out the current user session (if any).
+		/// 
+		/// By default, the user needs to verify their email address before logging in. To turn this off, disable confirm email in your project.
 		/// Confirm email determines if users need to confirm their email address after signing up.
 		///     - If Confirm email is enabled, a user is returned but session is null.
 		///     - If Confirm email is disabled, both a user and a session are returned.
@@ -168,7 +227,7 @@ namespace Supabase.Gotrue
 			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
 				UpdateSession(session);
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
 			}
 
@@ -177,12 +236,11 @@ namespace Supabase.Gotrue
 
 
 		/// <summary>
-		/// Sends a Magic email login link to the specified email.
+		/// Sends a magic link login email to the specified email.
 		/// </summary>
 		/// <param name="email"></param>
 		/// <param name="options"></param>
-		/// <returns></returns>
-		public async Task<bool> SendMagicLinkEmail(string email, SignInOptions? options = null)
+		public async Task<bool> SignIn(string email, SignInOptions? options = null)
 		{
 			await _api.SendMagicLinkEmail(email, options);
 			return true;
@@ -197,17 +255,17 @@ namespace Supabase.Gotrue
 		/// <param name="idToken">Provided from External Library</param>
 		/// <param name="nonce">Provided from External Library</param>
 		/// <param name="captchaToken">Provided from External Library</param>
-		/// <returns></returns>
+		/// <remarks>Calling this method will eliminate the current session (if any).</remarks>
 		/// <exception>
 		///     <cref>InvalidProviderException</cref>
 		/// </exception>
 		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
-			NotifyStateChange(SignedOut);
+			DestroySession();
 			var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
 
 			if (result != null)
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 
 			return result;
 		}
@@ -227,11 +285,12 @@ namespace Supabase.Gotrue
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
 		/// </summary>
+		/// <remarks>Calling this method will wipe out the current session (if any)</remarks>
 		/// <param name="options"></param>
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
-			NotifyStateChange(SignedOut);
+			DestroySession();
 			return await _api.SignInWithOtp(options);
 		}
 
@@ -250,11 +309,12 @@ namespace Supabase.Gotrue
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
 		/// </summary>
+		/// <remarks>Calling this method will wipe out the current session (if any)</remarks>
 		/// <param name="options"></param>
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
 		{
-			NotifyStateChange(SignedOut);
+			DestroySession();
 			return await _api.SignInWithOtp(options);
 		}
 
@@ -264,7 +324,7 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SendMagicLinkEmail(email, options);
+		public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SignIn(email, options);
 
 		/// <summary>
 		/// Signs in a User.
@@ -272,7 +332,7 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		public Task<Session?> SendMagicLinkEmail(string email, string password) => SendMagicLinkEmail(SignInType.Email, email, password);
+		public Task<Session?> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
 
 		/// <summary>
 		/// Log in an existing user with an email and password or phone and password.
@@ -280,7 +340,7 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		public Task<Session?> SignInWithPassword(string email, string password) => SendMagicLinkEmail(email, password);
+		public Task<Session?> SignInWithPassword(string email, string password) => SignIn(email, password);
 
 		/// <summary>
 		/// Log in an existing user, or login via a third-party provider.
@@ -290,7 +350,7 @@ namespace Supabase.Gotrue
 		/// <param name="password">Password to account (optional if `RefreshToken`)</param>
 		/// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
 		/// <returns></returns>
-		public async Task<Session?> SendMagicLinkEmail(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
+		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
 		{
 			Session? session;
 			switch (type)
@@ -319,7 +379,7 @@ namespace Supabase.Gotrue
 
 			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
 			}
 
@@ -335,7 +395,7 @@ namespace Supabase.Gotrue
 		/// <param name="provider"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		public Task<ProviderAuthState> SendMagicLinkEmail(Provider provider, SignInOptions? options = null)
+		public Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
 		{
 			DestroySession();
 
@@ -359,7 +419,7 @@ namespace Supabase.Gotrue
 			if (session?.AccessToken != null)
 			{
 				UpdateSession(session);
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 				return session;
 			}
 
@@ -382,7 +442,7 @@ namespace Supabase.Gotrue
 			if (session?.AccessToken != null)
 			{
 				UpdateSession(session);
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 				return session;
 			}
 
@@ -399,7 +459,7 @@ namespace Supabase.Gotrue
 				await _api.SignOut(CurrentSession.AccessToken);
 			_refreshTimer?.Dispose();
 			UpdateSession(null);
-			NotifyStateChange(SignedOut);
+			NotifyAuthStateChange(SignedOut);
 		}
 
 		/// <summary>
@@ -413,8 +473,8 @@ namespace Supabase.Gotrue
 				throw new Exception("Not Logged in.");
 
 			var result = await _api.UpdateUser(CurrentSession.AccessToken!, attributes);
-			CurrentUser = result;
-			NotifyStateChange(UserUpdated);
+			CurrentSession.User = result;
+			NotifyAuthStateChange(UserUpdated);
 
 			return result;
 		}
@@ -550,7 +610,7 @@ namespace Supabase.Gotrue
 			await RefreshToken();
 
 			var user = await _api.GetUser(CurrentSession.AccessToken!);
-			CurrentUser = user;
+			CurrentSession.User = user;
 
 			return CurrentSession;
 		}
@@ -568,7 +628,7 @@ namespace Supabase.Gotrue
 			CurrentSession.TokenType = "bearer";
 			CurrentSession.User = CurrentUser;
 
-			NotifyStateChange(TokenRefreshed);
+			NotifyAuthStateChange(TokenRefreshed);
 			return CurrentSession;
 		}
 
@@ -621,10 +681,10 @@ namespace Supabase.Gotrue
 			if (storeSession)
 			{
 				UpdateSession(session);
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 
 				if (query.Get("type") == "recovery")
-					NotifyStateChange(PasswordRecovery);
+					NotifyAuthStateChange(PasswordRecovery);
 			}
 
 			return session;
@@ -666,9 +726,8 @@ namespace Supabase.Gotrue
 				return null;
 			}
 			CurrentSession = session;
-			CurrentUser = session.User;
 
-			NotifyStateChange(SignedIn);
+			NotifyAuthStateChange(SignedIn);
 			InitRefreshTimer();
 			return CurrentSession;
 		}
@@ -685,11 +744,29 @@ namespace Supabase.Gotrue
 			if (result != null)
 			{
 				UpdateSession(result);
-				NotifyStateChange(SignedIn);
+				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
 			}
 
 			return null;
+		}
+
+		public Func<Dictionary<string, string>>? GetHeaders
+		{
+			get => _api.GetHeaders;
+			set => throw new ArgumentException();
+		}
+
+		/// <summary>
+		/// Add a listener to get errors that occur outside of a typical Exception flow.
+		/// In particular, this is used to get errors and messages from the background thread
+		/// that automatically manages refreshing the user's token.
+		/// </summary>
+		/// <param name="listener"></param>
+		public void AddDebugListener(Action<string, Exception?> listener)
+		{
+			_debugNotification ??= new DebugNotification();
+			_debugNotification.AddDebugListener(listener);
 		}
 
 		/// <summary>
@@ -701,15 +778,13 @@ namespace Supabase.Gotrue
 			if (session == null)
 			{
 				CurrentSession = null;
-				CurrentUser = null;
-				NotifyStateChange(SignedOut);
+				NotifyAuthStateChange(SignedOut);
 				return;
 			}
 
 			var dirty = CurrentSession != session;
 
 			CurrentSession = session;
-			CurrentUser = session.User;
 
 			var expiration = session.ExpiresIn;
 
@@ -717,7 +792,7 @@ namespace Supabase.Gotrue
 				InitRefreshTimer();
 
 			if (dirty)
-				NotifyStateChange(UserUpdated);
+				NotifyAuthStateChange(UserUpdated);
 		}
 
 		/// <summary>
@@ -745,9 +820,8 @@ namespace Supabase.Gotrue
 				throw new Exception("Could not refresh token from provided session.");
 
 			CurrentSession = result;
-			CurrentUser = result.User;
 
-			NotifyStateChange(TokenRefreshed);
+			NotifyAuthStateChange(TokenRefreshed);
 
 			if (Options.AutoRefreshToken && CurrentSession.ExpiresIn != default)
 				InitRefreshTimer();
@@ -792,19 +866,13 @@ namespace Supabase.Gotrue
 			catch (Exception ex)
 			{
 				_debugNotification?.Log(ex.Message, ex);
-				NotifyStateChange(SignedOut);
+				NotifyAuthStateChange(SignedOut);
 			}
-		}
-
-		public Func<Dictionary<string, string>>? GetHeaders
-		{
-			get => _api.GetHeaders;
-			set => throw new ArgumentException();
 		}
 		public void LoadSession()
 		{
-			if(Options.SessionRetriever != null)
-				UpdateSession(Options.SessionRetriever.Invoke());
+			if(Options.SessionPersistence != null)
+				UpdateSession(Options.SessionPersistence.Load.Invoke());
 		}
 	}
 }
