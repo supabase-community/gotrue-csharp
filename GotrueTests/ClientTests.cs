@@ -189,7 +189,6 @@ namespace GotrueTests
 			Assert.IsTrue(result2);
 		}
 
-
 		[TestMethod("Client: Returns Auth Url for Provider")]
 		public async Task ClientReturnsAuthUrlForProvider()
 		{

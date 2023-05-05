@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -354,7 +354,7 @@ namespace Supabase.Gotrue
 						session = await _api.SignInWithEmail(identifierOrToken, password!);
 						break;
 					case SignInType.Phone:
-						if (string.IsNullOrEmpty(password))
+					if (string.IsNullOrEmpty(password))
 						{
 							await _api.SendMobileOTP(identifierOrToken);
 							return null;
