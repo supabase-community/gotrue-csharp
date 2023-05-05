@@ -34,14 +34,31 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true });
+			_client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true, PersistSession = true, SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession });
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
+		}
+
+		private void DestroySession()
+		{
+			_savedSession = null;
+		}
+
+		private Session LoadSession()
+		{
+			return _savedSession;
+		}
+
+		private bool SaveSession(Session session)
+		{
+			_savedSession = session;
+			return true;
 		}
 
 		private Client _client;
 
 		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
+		private Session _savedSession;
 
 		[TestMethod("Client: Sign Up User")]
 		public async Task SignUpUserEmail()
@@ -52,6 +69,7 @@ namespace GotrueTests
 			var session = await _client.SignUp(email, PASSWORD);
 
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
@@ -67,6 +85,7 @@ namespace GotrueTests
 			var session = await _client.SignUp(Constants.SignUpType.Phone, phone1, PASSWORD, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 
 			IsNotNull(session.AccessToken);
 			AreEqual("Testing", session.User.UserMetadata["firstName"]);
@@ -81,6 +100,7 @@ namespace GotrueTests
 			IsNotNull(result1);
 
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			await ThrowsExceptionAsync<GotrueException>(async () =>
@@ -90,6 +110,7 @@ namespace GotrueTests
 			});
 
 			Contains(_stateChanges, SignedOut);
+			AreEqual(null, _savedSession);
 		}
 
 		[TestMethod("Client: Triggers Token Refreshed Event")]
@@ -104,6 +125,7 @@ namespace GotrueTests
 			var user = await _client.SignUp(email, PASSWORD);
 
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 
 			_client.AddStateChangedListener((_, args) =>
 			{
@@ -117,10 +139,10 @@ namespace GotrueTests
 
 			await _client.RefreshSession();
 			Contains(_stateChanges, TokenRefreshed);
+			AreEqual(_client.CurrentSession, _savedSession);
 
 			var newToken = await tsc.Task;
 			IsNotNull(newToken);
-
 			AreNotEqual(user.RefreshToken, _client.CurrentSession.RefreshToken);
 		}
 
@@ -130,33 +152,40 @@ namespace GotrueTests
 			var email = $"{RandomString(12)}@supabase.io";
 			await _client.SignUp(email, PASSWORD);
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			await _client.SignOut();
 			Contains(_stateChanges, SignedOut);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
-			var session = await _client.SignIn(email, PASSWORD);
+			var session = await _client.SendMagicLinkEmail(email, PASSWORD);
 
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
 			IsNotNull(session.User);
 
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			// Phones
 			var phone = GetRandomPhoneNumber();
 			await _client.SignUp(Constants.SignUpType.Phone, phone, PASSWORD);
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			await _client.SignOut();
 			Contains(_stateChanges, SignedOut);
+			IsNull(_savedSession);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
-			session = await _client.SignIn(Constants.SignInType.Phone, phone, PASSWORD);
+			session = await _client.SendMagicLinkEmail(Constants.SignInType.Phone, phone, PASSWORD);
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			IsNotNull(session.AccessToken);
@@ -166,7 +195,8 @@ namespace GotrueTests
 			// Refresh Token
 			var refreshToken = session.RefreshToken;
 
-			var newSession = await _client.SignIn(Constants.SignInType.RefreshToken, refreshToken);
+			var newSession = await _client.SendMagicLinkEmail(Constants.SignInType.RefreshToken, refreshToken);
+			AreEqual(_client.CurrentSession, _savedSession);
 			Contains(_stateChanges, TokenRefreshed);
 			DoesNotContain(_stateChanges, SignedIn);
 
@@ -181,15 +211,18 @@ namespace GotrueTests
 			var user = $"{RandomString(12)}@supabase.io";
 			await _client.SignUp(user, PASSWORD);
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			await _client.SignOut();
 			Contains(_stateChanges, SignedOut);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
-			var result = await _client.SignIn(user);
+			var result = await _client.SendMagicLinkEmail(user);
 			IsTrue(result);
-			Contains(_stateChanges, SignedOut);
+			AreEqual(0, _stateChanges.Count);
+			AreEqual(_client.CurrentSession, _savedSession);
 		}
 
 		[TestMethod("Client: Sends Magic Login Email (Alias)")]
@@ -199,10 +232,13 @@ namespace GotrueTests
 			var user2 = $"{RandomString(12)}@supabase.io";
 			await _client.SignUp(user, PASSWORD);
 			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
 			_stateChanges.Clear();
 
 			await _client.SignOut();
 			Contains(_stateChanges, SignedOut);
+			IsNull(_savedSession);
+			AreEqual(_client.CurrentSession, _savedSession);
 
 			var result = await _client.SendMagicLink(user);
 			var result2 = await _client.SendMagicLink(user2, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
@@ -210,21 +246,24 @@ namespace GotrueTests
 			IsTrue(result);
 			IsTrue(result2);
 		}
-		
+
 		[TestMethod("Client: Returns Auth Url for Provider")]
 		public async Task ClientReturnsAuthUrlForProvider()
 		{
-			var result1 = await _client.SignIn(Constants.Provider.Google);
+			var result1 = await _client.SendMagicLinkEmail(Constants.Provider.Google);
 			AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
-			
-			var result2 = await _client.SignIn(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
+
+			var result2 = await _client.SendMagicLinkEmail(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
 			AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("Client: Returns Verification Code for Provider")]
 		public async Task ClientReturnsPKCEVerifier()
 		{
-			var result = await _client.SignIn(Constants.Provider.Github, new SignInOptions { FlowType = Constants.OAuthFlowType.PKCE });
+			var result = await _client.SendMagicLinkEmail(Constants.Provider.Github, new SignInOptions { FlowType = Constants.OAuthFlowType.PKCE });
+
+			Contains(_stateChanges, SignedOut);
+			IsNull(_savedSession);
 
 			IsTrue(!string.IsNullOrEmpty(result.PKCEVerifier));
 			IsTrue(result.Uri.Query.Contains("flow_type=pkce"));
@@ -238,17 +277,21 @@ namespace GotrueTests
 		{
 			var email = $"{RandomString(12)}@supabase.io";
 			var session = await _client.SignUp(email, PASSWORD);
+			IsNotNull(session);
+			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
+			_stateChanges.Clear();
 
 			var attributes = new UserAttributes { Data = new Dictionary<string, object> { { "hello", "world" } } };
 			var result = await _client.Update(attributes);
+			IsNotNull(result);
 			AreEqual(email, _client.CurrentUser.Email);
 			IsNotNull(_client.CurrentUser.UserMetadata);
+			Contains(_stateChanges, UserUpdated);
+			AreEqual(_client.CurrentSession, _savedSession);
 
 			await _client.SignOut();
-			var token = GenerateServiceRoleToken();
-			var result2 = await _client.UpdateUserById(token, session.User.Id ?? throw new InvalidOperationException(), new AdminUserAttributes { UserMetadata = new Dictionary<string, object> { { "hello", "updated" } } });
 
-			AreNotEqual(result.UserMetadata["hello"], result2.UserMetadata["hello"]);
 		}
 
 		[TestMethod("Client: Returns current user")]
@@ -289,7 +332,7 @@ namespace GotrueTests
 
 			await ThrowsExceptionAsync<GotrueException>(async () =>
 			{
-				var result = await _client.SignIn(user, PASSWORD + "$");
+				var result = await _client.SendMagicLinkEmail(user, PASSWORD + "$");
 				IsNotNull(result);
 			});
 		}

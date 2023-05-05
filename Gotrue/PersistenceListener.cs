@@ -7,8 +7,8 @@ namespace Supabase.Gotrue
 	public class PersistenceListener
 	{
 		private readonly SaveSession? _save;
-		private readonly DestroySession? _load;
-		private readonly LoadSession? _destroy;
+		private readonly LoadSession? _load;
+		private readonly DestroySession? _destroy;
 
 		public delegate bool SaveSession(Session session);
 
@@ -19,8 +19,8 @@ namespace Supabase.Gotrue
 		public PersistenceListener(SaveSession? s, DestroySession? d, LoadSession? l)
 		{
 			_save = s;
-			_load = d;
-			_destroy = l;
+			_load = l;
+			_destroy = d;
 		}
 		public void EventHandler(IGotrueClient<User, Session> sender, Constants.AuthState stateChanged)
 		{

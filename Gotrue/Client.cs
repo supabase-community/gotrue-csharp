@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
+using static Supabase.Gotrue.Constants.AuthState;
 
 namespace Supabase.Gotrue
 {
@@ -36,7 +37,6 @@ namespace Supabase.Gotrue
 		/// 
 		/// Headers specified in the client options will ALWAYS take precedence over headers returned by this function.
 		/// </summary>
-
 		public Func<Dictionary<string, string>>? GetHeaders
 		{
 			get => _getHeaders;
@@ -181,12 +181,10 @@ namespace Supabase.Gotrue
 				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
 			};
 
-			if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
+			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
-				await PersistSession(session);
-
-				NotifyStateChange(AuthState.SignedIn);
-
+				UpdateSession(session);
+				NotifyStateChange(SignedIn);
 				return CurrentSession;
 			}
 
@@ -200,9 +198,8 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		public async Task<bool> SignIn(string email, SignInOptions? options = null)
+		public async Task<bool> SendMagicLinkEmail(string email, SignInOptions? options = null)
 		{
-			DestroySession();
 			await _api.SendMagicLinkEmail(email, options);
 			return true;
 		}
@@ -222,11 +219,11 @@ namespace Supabase.Gotrue
 		/// </exception>
 		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
-			DestroySession();
+			NotifyStateChange(SignedOut);
 			var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
 
 			if (result != null)
-				await PersistSession(result);
+				NotifyStateChange(SignedIn);
 
 			return result;
 		}
@@ -250,7 +247,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
-			DestroySession();
+			NotifyStateChange(SignedOut);
 			return await _api.SignInWithOtp(options);
 		}
 
@@ -273,7 +270,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
 		{
-			DestroySession();
+			NotifyStateChange(SignedOut);
 			return await _api.SignInWithOtp(options);
 		}
 
@@ -283,8 +280,7 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SignIn(email, options);
-
+		public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SendMagicLinkEmail(email, options);
 
 		/// <summary>
 		/// Signs in a User.
@@ -292,7 +288,7 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		public Task<Session?> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
+		public Task<Session?> SendMagicLinkEmail(string email, string password) => SendMagicLinkEmail(SignInType.Email, email, password);
 
 		/// <summary>
 		/// Log in an existing user with an email and password or phone and password.
@@ -300,7 +296,7 @@ namespace Supabase.Gotrue
 		/// <param name="email"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		public Task<Session?> SignInWithPassword(string email, string password) => SignIn(email, password);
+		public Task<Session?> SignInWithPassword(string email, string password) => SendMagicLinkEmail(email, password);
 
 		/// <summary>
 		/// Log in an existing user, or login via a third-party provider.
@@ -310,15 +306,14 @@ namespace Supabase.Gotrue
 		/// <param name="password">Password to account (optional if `RefreshToken`)</param>
 		/// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
 		/// <returns></returns>
-		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
+		public async Task<Session?> SendMagicLinkEmail(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
 		{
-			DestroySession();
-
-			Session? session = null;
+			Session? session;
 			switch (type)
 			{
 				case SignInType.Email:
 					session = await _api.SignInWithEmail(identifierOrToken, password!);
+					UpdateSession(session);
 					break;
 				case SignInType.Phone:
 					if (string.IsNullOrEmpty(password))
@@ -328,20 +323,19 @@ namespace Supabase.Gotrue
 					}
 
 					session = await _api.SignInWithPhone(identifierOrToken, password!);
+					UpdateSession(session);
 					break;
 				case SignInType.RefreshToken:
 					CurrentSession = new Session();
 					CurrentSession.RefreshToken = identifierOrToken;
-
 					await RefreshToken();
-
 					return CurrentSession;
+				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
 			if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
 			{
-				await PersistSession(session);
-				NotifyStateChange(AuthState.SignedIn);
+				NotifyStateChange(SignedIn);
 				return CurrentSession;
 			}
 
@@ -357,7 +351,7 @@ namespace Supabase.Gotrue
 		/// <param name="provider"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		public Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
+		public Task<ProviderAuthState> SendMagicLinkEmail(Provider provider, SignInOptions? options = null)
 		{
 			DestroySession();
 
@@ -380,8 +374,8 @@ namespace Supabase.Gotrue
 
 			if (session?.AccessToken != null)
 			{
-				await PersistSession(session);
-				NotifyStateChange(AuthState.SignedIn);
+				UpdateSession(session);
+				NotifyStateChange(SignedIn);
 				return session;
 			}
 
@@ -403,8 +397,8 @@ namespace Supabase.Gotrue
 
 			if (session?.AccessToken != null)
 			{
-				await PersistSession(session);
-				NotifyStateChange(AuthState.SignedIn);
+				UpdateSession(session);
+				NotifyStateChange(SignedIn);
 				return session;
 			}
 
@@ -417,17 +411,11 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task SignOut()
 		{
-			if (CurrentSession != null)
-			{
-				if (CurrentSession.AccessToken != null)
-					await _api.SignOut(CurrentSession.AccessToken);
-
-				_refreshTimer?.Dispose();
-
-				DestroySession();
-
-				NotifyStateChange(AuthState.SignedOut);
-			}
+			if (CurrentSession?.AccessToken != null)
+				await _api.SignOut(CurrentSession.AccessToken);
+			_refreshTimer?.Dispose();
+			UpdateSession(null);
+			NotifyStateChange(SignedOut);
 		}
 
 		/// <summary>
@@ -442,7 +430,7 @@ namespace Supabase.Gotrue
 
 			var result = await _api.UpdateUser(CurrentSession.AccessToken!, attributes);
 			CurrentUser = result;
-			NotifyStateChange(AuthState.UserUpdated);
+			NotifyStateChange(UserUpdated);
 
 			return result;
 		}
@@ -596,7 +584,7 @@ namespace Supabase.Gotrue
 			CurrentSession.TokenType = "bearer";
 			CurrentSession.User = CurrentUser;
 
-			NotifyStateChange(AuthState.TokenRefreshed);
+			NotifyStateChange(TokenRefreshed);
 			return CurrentSession;
 		}
 
@@ -648,11 +636,11 @@ namespace Supabase.Gotrue
 
 			if (storeSession)
 			{
-				await PersistSession(session);
-				NotifyStateChange(AuthState.SignedIn);
+				UpdateSession(session);
+				NotifyStateChange(SignedIn);
 
 				if (query.Get("type") == "recovery")
-					NotifyStateChange(AuthState.PasswordRecovery);
+					NotifyStateChange(PasswordRecovery);
 			}
 
 			return session;
@@ -701,7 +689,7 @@ namespace Supabase.Gotrue
 				CurrentSession = session;
 				CurrentUser = session.User;
 
-				NotifyStateChange(AuthState.SignedIn);
+				NotifyStateChange(SignedIn);
 
 				InitRefreshTimer();
 
@@ -720,8 +708,8 @@ namespace Supabase.Gotrue
 
 			if (result != null)
 			{
-				await PersistSession(result);
-				NotifyStateChange(AuthState.SignedIn);
+				UpdateSession(result);
+				NotifyStateChange(SignedIn);
 				return CurrentSession;
 			}
 
@@ -729,13 +717,21 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// Persists a Session in memory and calls (if specified) <see>
-		///     <cref>ClientOptions.SessionPersistor</cref>
-		/// </see>
+		/// Saves the session
 		/// </summary>
 		/// <param name="session"></param>
-		private Task PersistSession(Session session)
+		private void UpdateSession(Session? session)
 		{
+			if (session == null)
+			{
+				CurrentSession = null;
+				CurrentUser = null;
+				NotifyStateChange(SignedOut);
+				return;
+			}
+
+			var dirty = CurrentSession != session;
+
 			CurrentSession = session;
 			CurrentUser = session.User;
 
@@ -743,20 +739,17 @@ namespace Supabase.Gotrue
 
 			if (Options.AutoRefreshToken && expiration != default)
 				InitRefreshTimer();
-			return Task.CompletedTask;
+
+			if (dirty)
+				NotifyStateChange(UserUpdated);
 		}
 
 		/// <summary>
-		/// Persists a Session in memory and calls (if specified) <see>
-		///     <cref>ClientOptions.SessionDestroyer</cref>
-		/// </see>
+		/// Clears the session
 		/// </summary>
 		private void DestroySession()
 		{
-			CurrentSession = null;
-			CurrentUser = null;
-
-			NotifyStateChange(AuthState.SignedOut);
+			UpdateSession(null);
 		}
 
 		/// <summary>
@@ -778,7 +771,7 @@ namespace Supabase.Gotrue
 			CurrentSession = result;
 			CurrentUser = result.User;
 
-			NotifyStateChange(AuthState.TokenRefreshed);
+			NotifyStateChange(TokenRefreshed);
 
 			if (Options.AutoRefreshToken && CurrentSession.ExpiresIn != default)
 				InitRefreshTimer();
@@ -824,7 +817,7 @@ namespace Supabase.Gotrue
 			catch (Exception ex)
 			{
 				_debugNotification?.Log(ex.Message, ex);
-				NotifyStateChange(AuthState.SignedOut);
+				NotifyStateChange(SignedOut);
 			}
 		}
 	}

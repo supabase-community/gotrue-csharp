@@ -6,6 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using static Supabase.Gotrue.Constants;
 using static GotrueTests.TestUtils;
+using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static Microsoft.VisualStudio.TestTools.UnitTesting.CollectionAssert;
 
 namespace GotrueTests
 {
@@ -23,7 +25,27 @@ namespace GotrueTests
 			_client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true });
 			_client.AddDebugListener(LogDebug);
 		}
-	
+
+		[TestMethod("Service Role: Update User")]
+		public async Task UpdateUser()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var session = await _client.SignUp(email, PASSWORD);
+			IsNotNull(session);
+
+			var attributes = new UserAttributes { Data = new Dictionary<string, object> { { "hello", "world" } } };
+			var result = await _client.Update(attributes);
+			IsNotNull(result);
+			AreEqual(email, _client.CurrentUser.Email);
+			IsNotNull(_client.CurrentUser.UserMetadata);
+
+			await _client.SignOut();
+
+			var result2 = await _client.UpdateUserById(_serviceKey, session.User.Id!, new AdminUserAttributes { UserMetadata = new Dictionary<string, object> { { "hello", "updated" } } });
+
+			AreNotEqual(result.UserMetadata["hello"], result2.UserMetadata["hello"]);
+		}
+
 		[TestMethod("Service Role: Send Invite Email")]
 		public async Task SendsInviteEmail()
 		{
@@ -108,7 +130,7 @@ namespace GotrueTests
 			var result3 = await _client.CreateUser(_serviceKey, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = PASSWORD });
 			Assert.IsNotNull(result3);
 		}
-		
+
 		[TestMethod("Service Role: Update User by Id")]
 		public async Task UpdateUserById()
 		{
