@@ -11,7 +11,8 @@ namespace Supabase.Gotrue.Exceptions
 			BadEmailAddress,
 			MissingInformation,
 			AlreadyRegistered,
-			InvalidRefreshToken
+			InvalidRefreshToken,
+			AdminTokenRequired
 		}
 
 		public static Reason DetectReason(GotrueException gte)
@@ -23,6 +24,7 @@ namespace Supabase.Gotrue.Exceptions
 			{
 				400 when gte.Content.Contains("User already registered") => AlreadyRegistered,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
+				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
 				422 when gte.Content.Contains("Password should be at least") => BadPassword,
 				422 when gte.Content.Contains("Unable to validate email address") => BadEmailAddress,
 				422 when gte.Content.Contains("provide your email or phone number") => MissingInformation,
