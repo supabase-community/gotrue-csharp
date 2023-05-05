@@ -16,6 +16,11 @@ namespace Supabase.Gotrue
 	/// </example>
 	public class StatelessClient : IGotrueStatelessClient<User, Session>
 	{
+		public async Task<Settings?> Settings(StatelessClientOptions options)
+		{
+			var api = GetApi(options);
+			return await api.Settings();
+		}
 
 		public IGotrueApi<User, Session> GetApi(StatelessClientOptions options) => new Api(options.Url, options.Headers);
 
