@@ -13,8 +13,7 @@ namespace GotrueTests
 		private static readonly Random Random = new Random();
 
 		public const string PASSWORD = "I@M@SuperP@ssWord";
-
-
+		
 		public static void LogDebug(string message, Exception e)
 		{
 			Debug.WriteLine(message);
