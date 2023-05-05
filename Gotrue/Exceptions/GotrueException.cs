@@ -19,7 +19,7 @@ namespace Supabase.Gotrue.Exceptions
 		public void AddReason()
 		{
 			Reason = FailureHint.DetectReason(this);
-			Debug.WriteLine(Content);
+			//Debug.WriteLine(Content);
 		}
 		public FailureHint.Reason Reason { get; private set; }
 	}
