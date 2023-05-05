@@ -20,7 +20,6 @@ namespace Supabase.Gotrue
 
 		/// <summary>
 		/// Function that can be set to return dynamic headers.
-		///
 		/// Headers specified in the constructor will ALWAYS take precedence over headers returned by this function.
 		/// </summary>
 		public Func<Dictionary<string, string>>? GetHeaders { get; set; }
