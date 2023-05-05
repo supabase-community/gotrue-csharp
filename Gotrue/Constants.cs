@@ -7,7 +7,6 @@ namespace Supabase.Gotrue
     {
         public const string GOTRUE_URL = "http://localhost:9999";
         public const string AUDIENCE = "";
-        public static readonly Dictionary<string, string> DefaultHeaders = new Dictionary<string, string>();
         public const int EXPIRY_MARGIN = 60 * 1000;
         public const string STORAGE_KEY = "supabase.auth.token";
         public static readonly Dictionary<string, object> CookieOptions = new Dictionary<string, object>{
@@ -93,7 +92,6 @@ namespace Supabase.Gotrue
         /// </summary>
         public enum AuthState
         {
-            ClientLaunch,
             SignedIn,
             SignedOut,
             UserUpdated,
