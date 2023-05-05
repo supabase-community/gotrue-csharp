@@ -14,13 +14,13 @@
 ## BREAKING CHANGES v3.1 → v3.x
 
 - Exceptions have been simplified to a single GotrueException. A Reason field has been added
-to GotrueException to help sort out what happened. This should also be easier to manage as the Gotrue
-server API & messages evolve.
+  to GotrueException to help sort out what happened. This should also be easier to manage as the Gotrue
+  server API & messages evolve.
 - The delegates for save/load/destroy persistence have been simplified to no longer require async.
-- Console logging in a few places (most notable the background refresh thread) has been removed 
-in favor of a notification method. See Client.AddDebugListener() and the test cases for examples.
-This will allow you to implement your own logging strategy (write to temp file, console, user visible 
-err console, etc).
+- Console logging in a few places (most notable the background refresh thread) has been removed
+  in favor of a notification method. See Client.AddDebugListener() and the test cases for examples.
+  This will allow you to implement your own logging strategy (write to temp file, console, user visible
+  err console, etc).
 - The client now more reliably emits AuthState changes.
 - There is now a single source of truth for headers in the stateful Client - the Options headers.
 
@@ -32,10 +32,12 @@ Implementation notes:
 
 ## BREAKING CHANGES v3.0 → 3.1
 
-- We've implemented the PKCE auth flow. SignIn using a provider now returns an instance of `ProviderAuthState` rather than a `string`.
+- We've implemented the PKCE auth flow. SignIn using a provider now returns an instance of `ProviderAuthState` rather
+  than a `string`.
 - The provider sign in signature has moved `scopes` into `SignInOptions`
 
 In Short:
+
 ```c#
 # What was:
 var url = await client.SignIn(Provider.Github, "scopes and things");
@@ -49,7 +51,9 @@ var state = await client.SignIn(Provider.Github, new SignInOptions { "scopes and
 
 ## Getting Started
 
-To use this library on the Supabase Hosted service but separately from the `supabase-csharp`, you'll need to specify your url and public key like so:
+To use this library on the Supabase Hosted service but separately from the `supabase-csharp`, you'll need to specify
+your url and public key like so:
+
 ```c#
 var auth = new Supabase.Gotrue.Client(new ClientOptions<Session>
 {
@@ -62,6 +66,7 @@ var auth = new Supabase.Gotrue.Client(new ClientOptions<Session>
 ```
 
 Otherwise, using it this library with a local instance:
+
 ```c#
 var options = new ClientOptions { Url = "https://example.com/api" };
 var client = new Client(options);
@@ -74,38 +79,47 @@ await new StatelessClient().SignUp("new-user@example.com", options);
 
 ## Persisting, Retrieving, and Destroying Sessions.
 
-This Gotrue client is written to be agnostic when it comes to session persistence, retrieval, and destruction. `ClientOptions` exposes
+This Gotrue client is written to be agnostic when it comes to session persistence, retrieval, and
+destruction. `ClientOptions` exposes
 properties that allow these to be specified.
 
-In the event these are specified and the `AutoRefreshToken` option is set, as the `Client` Initializes, it will also attempt to
+In the event these are specified and the `AutoRefreshToken` option is set, as the `Client` Initializes, it will also
+attempt to
 retrieve, set, and refresh an existing session.
 
 For example, using `Xamarin.Essentials` in `Xamarin.Forms`, this might look like:
 
 ```c#
-
-var cacheFileName = ".gotrue.cache";
-
+// This is a method you add your application launch/setup
 async void Initialize() {
-    var options = new ClientOptions
-    {
-        Url = GOTRUE_URL,
-        PersistSession = true, 
-        SessionPersistor = SaveSession, // PeristenceListener public delegate bool SaveSession(Session session);
-        SessionRetriever = LoadSession, // PeristenceListener public delegate Session LoadSession();
-        SessionDestroyer = DestroySession // PeristenceListener  delegate void DestroySession();
-    };
-    var client = new Client(options);
+
+    // Specify the methods you'd like to use as persistence callbacks
+    var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
+    var client = new Client(
+            Url = GOTRUE_URL,
+            new ClientOptions { 
+                AllowUnconfirmedUserSessions = true, 
+                SessionPersistence = persistence });
+                
+    // Specify a debug callback to listen to problems with the background token refresh thread
+    client.AddDebugListener(LogDebug);
+    
+    // Specify a call back to listen to changes in the user state (logged in, out, etc)
+    client.AddStateChangedListener(AuthStateListener);
+
     // Load the session from persistence
-    newClient.LoadSession();
+    client.LoadSession();
     // Loads the session using SessionRetriever and sets state internally.
     await client.RetrieveSessionAsync();
 }
 
-//...
-
+// Add callback methods for above
+// Here's a quick example of using this to save session data to the user's cache folder
+// You'll want to add methods for loading the file and deleting when the user logs out 
 internal bool SaveSession(Session session)
 {
+    var cacheFileName = ".gotrue.cache";
+    
     try
     {
         var cacheDir = FileSystem.CacheDirectory;
@@ -134,10 +148,10 @@ callback, the PKCE flow is preferred:
 
 1) The Callback Url must be set in the Supabase Admin panel
 2) The Application should have listener to receive that Callback
-3) Generate a sign in request using: `client.SignIn(PROVIDER, options)` and setting the options to use the PKCE `FlowType`
+3) Generate a sign in request using: `client.SignIn(PROVIDER, options)` and setting the options to use the
+   PKCE `FlowType`
 4) Store `ProviderAuthState.PKCEVerifier` so that the application callback can use it to verify the returned code
 5) In the Callback, use stored `PKCEVerifier` and received `code` to exchange for a session.
-
 
 ```c#
 var state = await client.SignIn(Constants.Provider.Github, new SignInOptions
@@ -153,33 +167,48 @@ var session = await client.ExchangeCodeForSession(state.PKCEVerifier, RETRIEVE_C
 
 ## Troubleshooting
 
-**I've created a User but while attempting to log in it throws an exception:**
+**Q: I've created a User but while attempting to log in it throws an exception:**
 
-Provided the credentials are correct, make sure that the User has also confirmed their email.
+A: Provided the credentials are correct, make sure that the User has also confirmed their email.
 
+Adding a handler for email confirmation to a desktop or mobile application can be done, but it
+requires setting up URL handlers for each platform, which can be pretty difficult to do if you
+aren't really comfortable with configuring these handlers. (
+e.g. [Windows](https://learn.microsoft.com/en-us/windows/win32/search/-search-3x-wds-ph-install-registration),
+[Apple](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app),
+[Android](https://developer.android.com/training/app-links))
+You may find it easier to create a
+simple web application to handle email confirmation - that way a user can just click a link in
+their email and get confirmed that way. Your desktop or mobile app should inspect the user object
+that comes back and use that to see if the user is confirmed.
+
+You might find it easiest to do something like create and deploy a
+simple [SvelteKit](https://kit.svelte.dev/) or even a very basic
+pure [JavaScript](https://github.com/supabase/examples-archive/tree/main/supabase-js-v1/auth/javascript-auth) project
+to handle email verification.
 
 ## Status
 
 - [x] API
-  - [x] Sign Up with Email
-  - [x] Sign In with Email
-  - [x] Send Magic Link Email
-  - [x] Invite User by Email
-  - [x] Reset Password for Email
-  - [x] Signout
-  - [x] Get Url for Provider
-  - [x] Get User
-  - [x] Update User
-  - [x] Refresh Access Token
-  - [x] List Users (includes filtering, sorting, pagination)
-  - [x] Get User by Id
-  - [x] Create User
-  - [x] Update User by Id
+    - [x] Sign Up with Email
+    - [x] Sign In with Email
+    - [x] Send Magic Link Email
+    - [x] Invite User by Email
+    - [x] Reset Password for Email
+    - [x] Signout
+    - [x] Get Url for Provider
+    - [x] Get User
+    - [x] Update User
+    - [x] Refresh Access Token
+    - [x] List Users (includes filtering, sorting, pagination)
+    - [x] Get User by Id
+    - [x] Create User
+    - [x] Update User by Id
 - [x] Client
-  - [x] Get User
-  - [x] Refresh Session
-  - [x] Auth State Change Handler
-  - [x] Provider Sign In (Provides URL)
+    - [x] Get User
+    - [x] Refresh Session
+    - [x] Auth State Change Handler
+    - [x] Provider Sign In (Provides URL)
 - [x] Provide Interfaces for Custom Token Persistence Functionality
 - [x] Documentation
 - [x] Unit Tests
@@ -202,5 +231,6 @@ We are more than happy to have contributions! Please submit a PR.
 ### Testing
 
 To run the tests locally you must have docker and docker-compose installed. Then in the root of the repository run:
+
 - `docker-compose up -d`
 - `dotnet test`
