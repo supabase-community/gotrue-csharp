@@ -16,7 +16,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Headers to be sent with subsequent requests.
         /// </summary>
-        public readonly Dictionary<string, string> Headers = new Dictionary<string, string>(DefaultHeaders);
+        public Dictionary<string, string> Headers = new Dictionary<string, string>();
 
         /// <summary>
         /// Should the Client automatically handle refreshing the User's Token?
