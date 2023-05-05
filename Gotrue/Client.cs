@@ -32,25 +32,6 @@ namespace Supabase.Gotrue
 			_debugNotification.AddDebugListener(listener);
 		}
 
-		/// <summary>
-		/// Function that can be set to return dynamic headers.
-		/// 
-		/// Headers specified in the client options will ALWAYS take precedence over headers returned by this function.
-		/// </summary>
-		public Func<Dictionary<string, string>>? GetHeaders
-		{
-			get => _getHeaders;
-			set
-			{
-				_getHeaders = value;
-
-				if (_api != null)
-					_api.GetHeaders = value;
-			}
-		}
-
-		private Func<Dictionary<string, string>>? _getHeaders;
-
 		public void NotifyStateChange(AuthState stateChanged)
 		{
 			foreach (var handler in _authEventHandlers)
@@ -688,9 +669,7 @@ namespace Supabase.Gotrue
 			CurrentUser = session.User;
 
 			NotifyStateChange(SignedIn);
-
 			InitRefreshTimer();
-
 			return CurrentSession;
 		}
 
@@ -815,6 +794,17 @@ namespace Supabase.Gotrue
 				_debugNotification?.Log(ex.Message, ex);
 				NotifyStateChange(SignedOut);
 			}
+		}
+
+		public Func<Dictionary<string, string>>? GetHeaders
+		{
+			get => _api.GetHeaders;
+			set => throw new ArgumentException();
+		}
+		public void LoadSession()
+		{
+			if(Options.SessionRetriever != null)
+				UpdateSession(Options.SessionRetriever.Invoke());
 		}
 	}
 }
