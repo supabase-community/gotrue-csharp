@@ -5,9 +5,7 @@ namespace Supabase.Gotrue
 {
 	public class PersistenceListener
 	{
-		private readonly SaveSession? _save;
-		private readonly LoadSession? _load;
-		private readonly DestroySession? _destroy;
+		private readonly GotrueSessionPersistence _persistence;
 
 		public delegate bool SaveSession(Session session);
 
@@ -15,11 +13,9 @@ namespace Supabase.Gotrue
 
 		public delegate Session LoadSession();
 
-		public PersistenceListener(SaveSession? s, DestroySession? d, LoadSession? l)
+		public PersistenceListener(GotrueSessionPersistence persistence)
 		{
-			_save = s;
-			_load = l;
-			_destroy = d;
+			_persistence = persistence;
 		}
 		public void EventHandler(IGotrueClient<User, Session> sender, Constants.AuthState stateChanged)
 		{
@@ -31,10 +27,10 @@ namespace Supabase.Gotrue
 					if (sender.CurrentSession == null)
 						throw new ArgumentException("Tried to save a null session (2)");
 
-					_save?.Invoke(sender.CurrentSession);
+					_persistence.Save(sender.CurrentSession);
 					break;
 				case Constants.AuthState.SignedOut:
-					_destroy?.Invoke();
+					_persistence.Destroy.Invoke();
 					break;
 				case Constants.AuthState.UserUpdated:
 					if (sender == null)
@@ -42,16 +38,19 @@ namespace Supabase.Gotrue
 					if (sender.CurrentSession == null)
 						throw new ArgumentException("Tried to save a null session (2)");
 
-					_save?.Invoke(sender.CurrentSession);
+					_persistence.Save.Invoke(sender.CurrentSession);
 					break;
 				case Constants.AuthState.PasswordRecovery: break;
 				case Constants.AuthState.TokenRefreshed:
-					if (sender == null)
-						throw new ArgumentException("Tried to save a null session (1)");
 					if (sender.CurrentSession == null)
-						throw new ArgumentException("Tried to save a null session (2)");
-
-					_save?.Invoke(sender.CurrentSession);
+					{
+						// If token refresh results in a null session, log out.
+						EventHandler(sender, Constants.AuthState.SignedOut);
+					}
+					else
+					{
+						_persistence.Save.Invoke(sender.CurrentSession);
+					}
 					break;
 				default: throw new ArgumentOutOfRangeException(nameof(stateChanged), stateChanged, null);
 			}
