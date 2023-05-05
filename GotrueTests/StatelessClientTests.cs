@@ -70,6 +70,18 @@ namespace GotrueTests
 
 		private static StatelessClientOptions Options { get => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true }; }
 
+		[TestMethod("StatelessClient: Settings")]
+		public async Task Settings()
+		{
+			var settings = await _client.Settings(Options);
+			Assert.IsNotNull(settings);
+			Assert.IsFalse(settings.Services["zoom"]);
+			Assert.IsTrue(settings.Services["email"]);
+			Assert.IsFalse(settings.DisableSignup);
+			Assert.IsTrue(settings.MailerAutoConfirm);
+			Assert.IsTrue(settings.PhoneAutoConfirm);
+			Assert.IsNotNull(settings.SmsProvider);
+		}
 
 		[TestMethod("StatelessClient: Signs Up User")]
 		public async Task SignsUpUser()
