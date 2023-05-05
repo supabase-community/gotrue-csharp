@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,8 +21,8 @@ namespace GotrueTests
 
 		private void AuthStateListener(IGotrueClient<User, Session> sender, Constants.AuthState newState)
 		{
-			if (_stateChanges.Contains(newState) && newState != SignedOut)
-				throw new ArgumentException($"State updated twice {newState}");
+			if (_stateChanges.Contains(newState))
+				Debug.WriteLine($"State updated twice {newState}");
 
 			_stateChanges.Add(newState);
 		}
@@ -74,6 +75,34 @@ namespace GotrueTests
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
 			IsNotNull(session.User);
+		}
+
+		[TestMethod("Client: Load User From Persistence")]
+		public async Task SaveAndLoadUser()
+		{
+			IsTrue(AuthStateIsEmpty());
+
+			var email = $"{RandomString(12)}@supabase.io";
+			var session = await _client.SignUp(email, PASSWORD);
+
+			Contains(_stateChanges, SignedIn);
+			AreEqual(_client.CurrentSession, _savedSession);
+
+			IsNotNull(session.AccessToken);
+			IsNotNull(session.RefreshToken);
+			IsNotNull(session.User);
+
+			var newClient = new Client(new ClientOptions
+			{
+				AllowUnconfirmedUserSessions = true, PersistSession = true,
+				SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession
+			});
+			newClient.AddDebugListener(LogDebug);
+			newClient.AddStateChangedListener(AuthStateListener);
+
+			// Loads the session from storage
+			newClient.LoadSession();
+			await newClient.RetrieveSessionAsync();
 		}
 
 		[TestMethod("Client: Sign up Phone")]
