@@ -3,9 +3,8 @@ using System.Net.Http;
 
 namespace Supabase.Gotrue.Exceptions
 {
-
 	/// <summary>
-	/// Errors from Supabase are wrapped by this exception
+	/// Errors from the GoTrue server are wrapped by this exception
 	/// </summary>
 	public class GotrueException : Exception
 	{
@@ -16,7 +15,7 @@ namespace Supabase.Gotrue.Exceptions
 
 		public string? Content { get; internal set; }
 
-		public int StatusCode { get; set; }
+		public int StatusCode { get; internal set; }
 		public void AddReason()
 		{
 			Reason = FailureHint.DetectReason(this);
