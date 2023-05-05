@@ -35,7 +35,8 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, PersistSession = true, SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession });
+			var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = persistence});
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}
@@ -69,7 +70,7 @@ namespace GotrueTests
 			{
 				await _client.SignUp(email, "x");
 			});
-			AreEqual(BadPassword, x.Reason);
+			AreEqual(UserBadPassword, x.Reason);
 			IsNull(_savedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
@@ -82,7 +83,7 @@ namespace GotrueTests
 			{
 				await _client.SignUp("not a real email address", PASSWORD);
 			});
-			AreEqual(BadEmailAddress, x.Reason);
+			AreEqual(UserBadEmailAddress, x.Reason);
 			IsNull(_savedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
@@ -98,7 +99,7 @@ namespace GotrueTests
 			{
 				await _client.SignUp(Constants.SignUpType.Phone, phone1, PASSWORD, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 			});
-			AreEqual(MissingInformation, x.Reason);
+			AreEqual(UserMissingInformation, x.Reason);
 			IsNull(_savedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
@@ -121,7 +122,7 @@ namespace GotrueTests
 				await _client.SignUp(email, PASSWORD);
 			});
 
-			AreEqual(AlreadyRegistered, x.Reason);
+			AreEqual(UserAlreadyRegistered, x.Reason);
 			IsNull(_savedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
@@ -150,5 +151,21 @@ namespace GotrueTests
 			var result = await _client.ResetPasswordForEmail(email);
 			IsTrue(result);
 		}
+		
+		
+		[TestMethod("Client: Throws Exception on Invalid Username and Password")]
+		public async Task ClientSignsInUserWrongPassword()
+		{
+			var user = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(user, PASSWORD);
+			await _client.SignOut();
+
+			await ThrowsExceptionAsync<GotrueException>(async () =>
+			{
+				var result = await _client.SignIn(user, PASSWORD + "$");
+				IsNotNull(result);
+			});
+		}
+
 	}
 }
