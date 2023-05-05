@@ -102,7 +102,7 @@ namespace Supabase.Gotrue
 			options ??= new StatelessClientOptions();
 
 			var api = GetApi(options);
-			Session? session = null;
+			Session? session;
 			switch (type)
 			{
 				case SignInType.Email:
@@ -417,7 +417,7 @@ namespace Supabase.Gotrue
 			/// <summary>
 			/// Headers to be sent with subsequent requests.
 			/// </summary>
-			public readonly Dictionary<string, string> Headers = new Dictionary<string, string>(DefaultHeaders);
+			public readonly Dictionary<string, string> Headers = new Dictionary<string, string>();
 
 			/// <summary>
 			/// Very unlikely this flag needs to be changed except in very specific contexts.
