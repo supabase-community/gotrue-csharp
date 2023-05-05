@@ -459,6 +459,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.Client
   nameWithType: Client.Client
+- uid: Supabase.Gotrue.Client.AddDebugListener(Action{System.String,System.Nullable{Exception}})
+  name: AddDebugListener(Action<String, Nullable<Exception>>)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_AddDebugListener_Action_System_String_System_Nullable_Exception___
+  commentId: M:Supabase.Gotrue.Client.AddDebugListener(Action{System.String,System.Nullable{Exception}})
+  name.vb: AddDebugListener(Action(Of String, Nullable(Of Exception)))
+  fullName: Supabase.Gotrue.Client.AddDebugListener(Action<System.String, System.Nullable<Exception>>)
+  fullName.vb: Supabase.Gotrue.Client.AddDebugListener(Action(Of System.String, System.Nullable(Of Exception)))
+  nameWithType: Client.AddDebugListener(Action<String, Nullable<Exception>>)
+  nameWithType.vb: Client.AddDebugListener(Action(Of String, Nullable(Of Exception)))
+- uid: Supabase.Gotrue.Client.AddDebugListener*
+  name: AddDebugListener
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_AddDebugListener_
+  commentId: Overload:Supabase.Gotrue.Client.AddDebugListener
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.AddDebugListener
+  nameWithType: Client.AddDebugListener
 - uid: Supabase.Gotrue.Client.AutoRefreshToken
   name: AutoRefreshToken
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_AutoRefreshToken
@@ -1359,6 +1375,44 @@ references:
   commentId: F:Supabase.Gotrue.Constants.STORAGE_KEY
   fullName: Supabase.Gotrue.Constants.STORAGE_KEY
   nameWithType: Constants.STORAGE_KEY
+- uid: Supabase.Gotrue.DebugNotification
+  name: DebugNotification
+  href: api/Supabase.Gotrue.DebugNotification.html
+  commentId: T:Supabase.Gotrue.DebugNotification
+  fullName: Supabase.Gotrue.DebugNotification
+  nameWithType: DebugNotification
+- uid: Supabase.Gotrue.DebugNotification.AddDebugListener(Action{System.String,System.Nullable{Exception}})
+  name: AddDebugListener(Action<String, Nullable<Exception>>)
+  href: api/Supabase.Gotrue.DebugNotification.html#Supabase_Gotrue_DebugNotification_AddDebugListener_Action_System_String_System_Nullable_Exception___
+  commentId: M:Supabase.Gotrue.DebugNotification.AddDebugListener(Action{System.String,System.Nullable{Exception}})
+  name.vb: AddDebugListener(Action(Of String, Nullable(Of Exception)))
+  fullName: Supabase.Gotrue.DebugNotification.AddDebugListener(Action<System.String, System.Nullable<Exception>>)
+  fullName.vb: Supabase.Gotrue.DebugNotification.AddDebugListener(Action(Of System.String, System.Nullable(Of Exception)))
+  nameWithType: DebugNotification.AddDebugListener(Action<String, Nullable<Exception>>)
+  nameWithType.vb: DebugNotification.AddDebugListener(Action(Of String, Nullable(Of Exception)))
+- uid: Supabase.Gotrue.DebugNotification.AddDebugListener*
+  name: AddDebugListener
+  href: api/Supabase.Gotrue.DebugNotification.html#Supabase_Gotrue_DebugNotification_AddDebugListener_
+  commentId: Overload:Supabase.Gotrue.DebugNotification.AddDebugListener
+  isSpec: "True"
+  fullName: Supabase.Gotrue.DebugNotification.AddDebugListener
+  nameWithType: DebugNotification.AddDebugListener
+- uid: Supabase.Gotrue.DebugNotification.Log(System.String,System.Nullable{Exception})
+  name: Log(String, Nullable<Exception>)
+  href: api/Supabase.Gotrue.DebugNotification.html#Supabase_Gotrue_DebugNotification_Log_System_String_System_Nullable_Exception__
+  commentId: M:Supabase.Gotrue.DebugNotification.Log(System.String,System.Nullable{Exception})
+  name.vb: Log(String, Nullable(Of Exception))
+  fullName: Supabase.Gotrue.DebugNotification.Log(System.String, System.Nullable<Exception>)
+  fullName.vb: Supabase.Gotrue.DebugNotification.Log(System.String, System.Nullable(Of Exception))
+  nameWithType: DebugNotification.Log(String, Nullable<Exception>)
+  nameWithType.vb: DebugNotification.Log(String, Nullable(Of Exception))
+- uid: Supabase.Gotrue.DebugNotification.Log*
+  name: Log
+  href: api/Supabase.Gotrue.DebugNotification.html#Supabase_Gotrue_DebugNotification_Log_
+  commentId: Overload:Supabase.Gotrue.DebugNotification.Log
+  isSpec: "True"
+  fullName: Supabase.Gotrue.DebugNotification.Log
+  nameWithType: DebugNotification.Log
 - uid: Supabase.Gotrue.Exceptions
   name: Supabase.Gotrue.Exceptions
   href: api/Supabase.Gotrue.Exceptions.html
