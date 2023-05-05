@@ -41,18 +41,14 @@ namespace Supabase.Gotrue
 		public async Task<Session?> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null)
 		{
 			var api = GetApi(options);
-			Session? session = null;
-			switch (type)
+			var session = type switch
 			{
-				case SignUpType.Email:
-					session = await api.SignUpWithEmail(identifier, password, signUpOptions);
-					break;
-				case SignUpType.Phone:
-					session = await api.SignUpWithPhone(identifier, password, signUpOptions);
-					break;
-			}
+				SignUpType.Email => await api.SignUpWithEmail(identifier, password, signUpOptions),
+				SignUpType.Phone => await api.SignUpWithPhone(identifier, password, signUpOptions),
+				_ => null
+			};
 
-			if (session?.User?.ConfirmedAt != null || (session?.User != null && options.AllowUnconfirmedUserSessions))
+			if (session?.User?.ConfirmedAt != null || session?.User != null && options.AllowUnconfirmedUserSessions)
 			{
 				return session;
 			}
@@ -124,9 +120,10 @@ namespace Supabase.Gotrue
 				case SignInType.RefreshToken:
 					session = await RefreshToken(identifierOrToken, options);
 					break;
+				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
-			if (session?.User?.ConfirmedAt != null || (session?.User != null && options.AllowUnconfirmedUserSessions))
+			if (session?.User?.ConfirmedAt != null || session?.User != null && options.AllowUnconfirmedUserSessions)
 			{
 				return session;
 			}
@@ -420,7 +417,7 @@ namespace Supabase.Gotrue
 			/// <summary>
 			/// Headers to be sent with subsequent requests.
 			/// </summary>
-			public readonly Dictionary<string, string> Headers = new Dictionary<string, string>(DEFAULT_HEADERS);
+			public readonly Dictionary<string, string> Headers = new Dictionary<string, string>(DefaultHeaders);
 
 			/// <summary>
 			/// Very unlikely this flag needs to be changed except in very specific contexts.

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
     /// <summary>
-    /// Class represention options available to the <see cref="Client"/>.
+    /// Class representation options available to the <see cref="Client"/>.
     /// </summary>
-    public class ClientOptions<TSession>
-        where TSession : Session
+    public class ClientOptions
     {
         /// <summary>
         /// Gotrue Endpoint
@@ -19,7 +16,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Headers to be sent with subsequent requests.
         /// </summary>
-        public Dictionary<string, string> Headers = new Dictionary<string, string>(DEFAULT_HEADERS);
+        public readonly Dictionary<string, string> Headers = new Dictionary<string, string>(DefaultHeaders);
 
         /// <summary>
         /// Should the Client automatically handle refreshing the User's Token?

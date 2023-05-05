@@ -61,8 +61,7 @@ namespace Supabase.Gotrue
 		public async Task<Session?> SignUpWithEmail(string email, string password, SignUpOptions? options = null)
 		{
 			var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
-
-			string endpoint = $"{Url}/signup";
+			var endpoint = $"{Url}/signup";
 
 			if (options != null)
 			{
@@ -135,12 +134,12 @@ namespace Supabase.Gotrue
 			{
 				{ "email", options.Email },
 				{ "data", options.Data },
-				{ "create_user", options.ShouldCreateUser },
+				{ "create_user", options.ShouldCreateUser }
 			};
 
 			if (options.FlowType == OAuthFlowType.PKCE)
 			{
-				string challenge = Helpers.GenerateNonce();
+				var challenge = Helpers.GenerateNonce();
 				verifier = Helpers.GeneratePKCENonceVerifier(challenge);
 
 				body.Add("code_challenge", challenge);
@@ -202,7 +201,9 @@ namespace Supabase.Gotrue
 		/// <param name="nonce"></param>
 		/// <param name="captchaToken"></param>
 		/// <returns></returns>
-		/// <exception cref="InvalidProviderException"></exception>
+		/// <exception>
+		///     <cref>InvalidProviderException</cref>
+		/// </exception>
 		public Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
 			if (provider != Provider.Google && provider != Provider.Apple)
@@ -211,7 +212,7 @@ namespace Supabase.Gotrue
 			var body = new Dictionary<string, object?>
 			{
 				{"provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
-				{"id_token", idToken },
+				{"id_token", idToken }
 			};
 
 			if (!string.IsNullOrEmpty(nonce))
@@ -234,7 +235,7 @@ namespace Supabase.Gotrue
 		{
 			var data = new Dictionary<string, string> { { "email", email } };
 
-			string endpoint = $"{Url}/magiclink";
+			var endpoint = $"{Url}/magiclink";
 
 			if (options != null)
 			{
@@ -301,7 +302,7 @@ namespace Supabase.Gotrue
 		{
 			var data = new Dictionary<string, object> {
 				{ "phone", phone },
-				{ "password", password },
+				{ "password", password }
 			};
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=password", data, Headers);
 		}
@@ -403,9 +404,9 @@ namespace Supabase.Gotrue
 				result.PKCEVerifier = codeVerifier;
 			}
 
-			if (attr is MapToAttribute mappedAttr)
+			if (attr is MapToAttribute)
 			{
-				query.Add("provider", mappedAttr.Mapping);
+				query.Add("provider", attr.Mapping);
 
 				if (!string.IsNullOrEmpty(options.Scopes))
 					query.Add("scopes", options.Scopes);
@@ -497,7 +498,7 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
 		/// <param name="filter">A string for example part of the email</param>
-		/// <param name="sortBy">Snake case string of the given key, currently only created_at is suppported</param>
+		/// <param name="sortBy">Snake case string of the given key, currently only created_at is supported</param>
 		/// <param name="sortOrder">asc or desc, if null desc is used</param>
 		/// <param name="page">page to show for pagination</param>
 		/// <param name="perPage">items per page for pagination</param>
@@ -545,10 +546,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<User?> CreateUser(string jwt, AdminUserAttributes? attributes = null)
 		{
-			if (attributes == null)
-			{
-				attributes = new AdminUserAttributes();
-			}
+			attributes ??= new AdminUserAttributes();
 
 			return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", attributes, CreateAuthedRequestHeaders(jwt));
 		}

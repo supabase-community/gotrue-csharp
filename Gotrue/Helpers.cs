@@ -27,7 +27,7 @@ namespace Supabase.Gotrue
             const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
             var random = new Random();
             var nonce = new char[128];
-            for (int i = 0; i < nonce.Length; i++)
+            for (var i = 0; i < nonce.Length; i++)
             {
                 nonce[i] = chars[random.Next(chars.Length)];
             }
@@ -61,12 +61,12 @@ namespace Supabase.Gotrue
         /// <returns></returns>
         public static string GenerateSHA256NonceFromRawNonce(string rawNonce)
         {
-            SHA256Managed sha = new SHA256Managed();
-            byte[] utf8RawNonce = Encoding.UTF8.GetBytes(rawNonce);
-            byte[] hash = sha.ComputeHash(utf8RawNonce);
+            var sha = new SHA256Managed();
+            var utf8RawNonce = Encoding.UTF8.GetBytes(rawNonce);
+            var hash = sha.ComputeHash(utf8RawNonce);
 
-            string result = string.Empty;
-            foreach (byte t in hash)
+            var result = string.Empty;
+            foreach (var t in hash)
                 result += t.ToString("x2");
 
             return result;
@@ -156,6 +156,8 @@ namespace Supabase.Gotrue
                 var e = new GotrueException("Request Failed");
                 e.Content = content;
                 e.Response = response;
+                e.StatusCode = (int)response.StatusCode;
+                e.AddReason();
                 throw e;
             }
 

@@ -92,7 +92,7 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// The initialized client options.
 		/// </summary>
-		public ClientOptions<Session> Options { get; }
+		public ClientOptions Options { get; }
 
 		/// <summary>
 		/// Internal timer reference for Refreshing Tokens (<see>
@@ -116,9 +116,9 @@ namespace Supabase.Gotrue
 		/// 
 		/// </summary>
 		/// <param name="options"></param>
-		public Client(ClientOptions<Session>? options = null)
+		public Client(ClientOptions? options = null)
 		{
-			options ??= new ClientOptions<Session>();
+			options ??= new ClientOptions();
 
 			Options = options;
 
@@ -143,7 +143,10 @@ namespace Supabase.Gotrue
 		/// If signUp() is called for an existing confirmed user:
 		///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
 		///     - If Confirm email is disabled, the error message, User already registered is returned.
-		/// To fetch the currently logged-in user, refer to <see cref="User"/>.
+		/// To fetch the currently logged-in user, refer to <see>
+		///     <cref>User</cref>
+		/// </see>
+		/// .
 		/// </remarks>
 		/// <param name="email"></param>
 		/// <param name="password"></param>
@@ -333,7 +336,7 @@ namespace Supabase.Gotrue
 				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
-			if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
+			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
 				NotifyStateChange(SignedIn);
 				return CurrentSession;
@@ -672,29 +675,23 @@ namespace Supabase.Gotrue
 						return null;
 					}
 				}
-				else
-				{
-					DestroySession();
-					return null;
-				}
+				DestroySession();
+				return null;
 			}
-			else if (session == null || session.User == null)
+			if (session?.User == null)
 			{
 				_debugNotification?.Log("Stored Session is missing data.");
 				DestroySession();
 				return null;
 			}
-			else
-			{
-				CurrentSession = session;
-				CurrentUser = session.User;
+			CurrentSession = session;
+			CurrentUser = session.User;
 
-				NotifyStateChange(SignedIn);
+			NotifyStateChange(SignedIn);
 
-				InitRefreshTimer();
+			InitRefreshTimer();
 
-				return CurrentSession;
-			}
+			return CurrentSession;
 		}
 
 		/// <summary>
@@ -781,15 +778,14 @@ namespace Supabase.Gotrue
 		{
 			if (CurrentSession == null || CurrentSession.ExpiresIn == default) return;
 
-			if (_refreshTimer != null)
-				_refreshTimer.Dispose();
+			_refreshTimer?.Dispose();
 
 			try
 			{
 				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
-				int interval = (int)Math.Floor(CurrentSession.ExpiresIn * 4.0f / 5.0f);
-				int timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
-				TimeSpan timeout = TimeSpan.FromSeconds(timeoutSeconds);
+				var interval = (int)Math.Floor(CurrentSession.ExpiresIn * 4.0f / 5.0f);
+				var timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
+				var timeout = TimeSpan.FromSeconds(timeoutSeconds);
 
 				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
 			}
