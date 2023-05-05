@@ -1,10 +1,10 @@
-﻿using Supabase.Core.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Supabase.Core.Attributes;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
-	// <summary>
+	/// <summary>
 	/// Options used for signing in a user with passwordless Options
 	/// </summary>
 	public class SignInWithPasswordlessOptions

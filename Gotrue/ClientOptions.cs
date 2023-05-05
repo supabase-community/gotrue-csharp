@@ -34,7 +34,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Function called to persist the session (probably on a filesystem or cookie)
         /// </summary>
-        public Func<TSession, Task<bool>> SessionPersistor = (TSession session) => Task.FromResult(true);
+        public Func<TSession, Task<bool>> SessionPersistor = session => Task.FromResult(true);
 
         /// <summary>
         /// Function to retrieve a session (probably from the filesystem or cookie)
@@ -52,6 +52,6 @@ namespace Supabase.Gotrue
         /// Enables tests to be E2E tests to be run without requiring users to have
         /// confirmed emails - mirrors the Gotrue server's configuration.
         /// </summary>
-        public bool AllowUnconfirmedUserSessions { get; set; } = false;
+        public bool AllowUnconfirmedUserSessions { get; set; }
     }
 }

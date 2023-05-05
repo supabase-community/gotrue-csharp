@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
-using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.StatelessClient;
 using static Supabase.Gotrue.Constants;
 using Supabase.Gotrue.Exceptions;

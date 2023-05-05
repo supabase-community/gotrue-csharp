@@ -1,5 +1,4 @@
-﻿using System;
-namespace Supabase.Gotrue.Exceptions
+﻿namespace Supabase.Gotrue.Exceptions
 {
     public class InvalidProviderException : GotrueException
     {

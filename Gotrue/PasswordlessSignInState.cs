@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Supabase.Gotrue
+﻿namespace Supabase.Gotrue
 {
 	/// <summary>
 	/// A utility class that represents a successful response from a request to send a user

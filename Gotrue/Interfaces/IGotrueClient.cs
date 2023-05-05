@@ -1,6 +1,6 @@
-﻿using Supabase.Core.Interfaces;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Supabase.Core.Interfaces;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue.Interfaces
@@ -20,7 +20,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TUser?> GetUser(string jwt);
 		Task<TUser?> GetUserById(string jwt, string userId);
 		Task<bool> InviteUserByEmail(string email, string jwt);
-		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, Constants.SortOrder sortOrder = Constants.SortOrder.Descending, int? page = null, int? perPage = null);
+		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
 		Task<TSession?> RefreshSession();
 		Task<bool> ResetPasswordForEmail(string email);
 		Task<TSession?> RetrieveSessionAsync();

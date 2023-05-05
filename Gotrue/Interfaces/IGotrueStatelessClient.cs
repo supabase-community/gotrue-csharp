@@ -17,7 +17,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<TUser?> GetUser(string jwt, StatelessClientOptions options);
         Task<TUser?> GetUserById(string jwt, StatelessClientOptions options, string userId);
         Task<bool> InviteUserByEmail(string email, string jwt, StatelessClientOptions options);
-        Task<UserList<User>?> ListUsers(string jwt, StatelessClientOptions options, string? filter = null, string? sortBy = null, Constants.SortOrder sortOrder = Constants.SortOrder.Descending, int? page = null, int? perPage = null);
+        Task<UserList<User>?> ListUsers(string jwt, StatelessClientOptions options, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
         Task<TSession?> RefreshToken(string refreshToken, StatelessClientOptions options);
         Task<bool> ResetPasswordForEmail(string email, StatelessClientOptions options);
         Task<bool> SendMagicLink(string email, StatelessClientOptions options, SignInOptions? signInOptions = null);
@@ -26,7 +26,7 @@ namespace Supabase.Gotrue.Interfaces
         Task<bool> SignIn(string email, StatelessClientOptions options, SignInOptions? signInOptions = null);
         Task<TSession?> SignIn(string email, string password, StatelessClientOptions options);
         Task<bool> SignOut(string jwt, StatelessClientOptions options);
-        Task<TSession?> SignUp(Constants.SignUpType type, string identifier, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null);
+        Task<TSession?> SignUp(SignUpType type, string identifier, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null);
         Task<TSession?> SignUp(string email, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null);
         Task<TUser?> Update(string accessToken, UserAttributes attributes, StatelessClientOptions options);
         Task<TUser?> UpdateUserById(string jwt, StatelessClientOptions options, string userId, AdminUserAttributes userData);

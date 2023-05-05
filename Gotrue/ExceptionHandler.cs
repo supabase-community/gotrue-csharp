@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using Supabase.Gotrue.Exceptions;
 
 namespace Supabase.Gotrue
@@ -13,13 +14,13 @@ namespace Supabase.Gotrue
         {
             switch (ex.Response.StatusCode)
             {
-                case System.Net.HttpStatusCode.Unauthorized:
+                case HttpStatusCode.Unauthorized:
                     Debug.WriteLine(ex.Message);
                     return new UnauthorizedException(ex);
-                case System.Net.HttpStatusCode.BadRequest:
+                case HttpStatusCode.BadRequest:
                     Debug.WriteLine(ex.Message);
                     return new BadRequestException(ex);
-                case System.Net.HttpStatusCode.Forbidden:
+                case HttpStatusCode.Forbidden:
                     Debug.WriteLine("Forbidden, are sign-ups disabled?");
                     return new ForbiddenException(ex);
             }

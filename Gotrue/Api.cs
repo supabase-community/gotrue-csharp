@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,11 +7,9 @@ using Newtonsoft.Json;
 using Supabase.Core;
 using Supabase.Core.Attributes;
 using Supabase.Core.Extensions;
-using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Responses;
-using static Supabase.Gotrue.Client;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
@@ -25,17 +21,14 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Function that can be set to return dynamic headers.
 		/// 
-		/// Headers specified in the constructor will ALWAYS take precendece over headers returned by this function.
+		/// Headers specified in the constructor will ALWAYS take precedence over headers returned by this function.
 		/// </summary>
 		public Func<Dictionary<string, string>>? GetHeaders { get; set; }
 
 		private Dictionary<string, string> _headers;
 		protected Dictionary<string, string> Headers
 		{
-			get
-			{
-				return GetHeaders != null ? GetHeaders().MergeLeft(_headers) : _headers;
-			}
+			get => GetHeaders != null ? GetHeaders().MergeLeft(_headers) : _headers;
 			set
 			{
 				_headers = value;
@@ -93,7 +86,7 @@ namespace Supabase.Gotrue
 
 				// If account is unconfirmed, Gotrue returned the user object, so fill User data
 				// in from the parsed response.
-				if (session != null && session.User == null)
+				if (session is { User: null })
 				{
 					// Gotrue returns a User object for an unconfirmed account
 					session.User = JsonConvert.DeserializeObject<User>(response.Content!);
@@ -139,7 +132,6 @@ namespace Supabase.Gotrue
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
 			var url = string.IsNullOrEmpty(options.EmailRedirectTo) ? $"{Url}/otp" : $"{Url}/otp?redirect_to={options.EmailRedirectTo}";
-			string? challenge = null;
 			string? verifier = null;
 
 			var body = new Dictionary<string, object>
@@ -151,7 +143,7 @@ namespace Supabase.Gotrue
 
 			if (options.FlowType == OAuthFlowType.PKCE)
 			{
-				challenge = Helpers.GenerateNonce();
+				string challenge = Helpers.GenerateNonce();
 				verifier = Helpers.GeneratePKCENonceVerifier(challenge);
 
 				body.Add("code_challenge", challenge);
@@ -333,6 +325,7 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="phone">The user's phone number WITH international prefix</param>
 		/// <param name="token">token that user was sent to their mobile phone</param>
+		/// <param name="type">e.g. SMS or phone change</param>
 		/// <returns></returns>
 		public Task<Session?> VerifyMobileOTP(string phone, string token, MobileOtpType type)
 		{
@@ -345,10 +338,11 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// Send User supplied Mobile OTP to be verified
+		/// Send User supplied Email OTP to be verified
 		/// </summary>
-		/// <param name="phone">The user's phone number WITH international prefix</param>
+		/// <param name="email">The user's email address</param>
 		/// <param name="token">token that user was sent to their mobile phone</param>
+		/// <param name="type">Type of verification, e.g. invite, recovery, etc.</param>
 		/// <returns></returns>
 		public Task<Session?> VerifyEmailOTP(string email, string token, EmailOtpType type)
 		{
@@ -374,9 +368,9 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Create a temporary object with all configured headers and adds the Authorization token to be used on request methods
 		/// </summary>
-		/// <param name="jwt"></param>
+		/// <param name="jwt">JWT</param>
 		/// <returns></returns>
-		internal Dictionary<string, string> CreateAuthedRequestHeaders(string jwt)
+		private Dictionary<string, string> CreateAuthedRequestHeaders(string jwt)
 		{
 			var headers = new Dictionary<string, string>(Headers);
 
@@ -436,7 +430,7 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// Log in an existing user via a third-party provider.
+		/// Log in an existing user via code from third-party provider.
 		/// </summary>
 		/// <param name="codeVerifier">Generated verifier (probably from GetUrlForProvider)</param>
 		/// <param name="authCode">The received Auth Code Callback</param>
@@ -460,7 +454,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<BaseResponse> SignOut(string jwt)
 		{
-			var data = new Dictionary<string, string> { };
+			var data = new Dictionary<string, string>();
 
 			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/logout", data, CreateAuthedRequestHeaders(jwt));
 		}
@@ -472,7 +466,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<User?> GetUser(string jwt)
 		{
-			var data = new Dictionary<string, string> { };
+			var data = new Dictionary<string, string>();
 
 			return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/user", data, CreateAuthedRequestHeaders(jwt));
 		}
@@ -481,11 +475,11 @@ namespace Supabase.Gotrue
 		/// Get User details by Id
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="userId"></param>
+		/// <param name="userId">userID</param>
 		/// <returns></returns>
 		public Task<User?> GetUserById(string jwt, string userId)
 		{
-			var data = new Dictionary<string, string> { };
+			var data = new Dictionary<string, string>();
 
 			return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/admin/users/{userId}", data, CreateAuthedRequestHeaders(jwt));
 		}
@@ -518,9 +512,9 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest<UserList<User>>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
 		}
 
-		internal Dictionary<string, string> TransformListUsersParams(string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
+		private Dictionary<string, string> TransformListUsersParams(string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
 		{
-			var query = new Dictionary<string, string> { };
+			var query = new Dictionary<string, string>();
 
 			if (filter != null && !string.IsNullOrWhiteSpace(filter))
 			{
@@ -550,9 +544,7 @@ namespace Supabase.Gotrue
 		/// Create a user
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <param name="userData"></param>
+		/// <param name="attributes">Additional administrative details</param>
 		/// <returns></returns>
 		public Task<User?> CreateUser(string jwt, AdminUserAttributes? attributes = null)
 		{
@@ -568,8 +560,8 @@ namespace Supabase.Gotrue
 		/// Update user by Id
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="userId"></param>
-		/// <param name="data"></param>
+		/// <param name="userId">userID</param>
+		/// <param name="userData">User attributes e.g. email, password, etc.</param>
 		/// <returns></returns>
 		public Task<User?> UpdateUserById(string jwt, string userId, UserAttributes userData)
 		{
@@ -584,7 +576,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<BaseResponse> DeleteUser(string uid, string jwt)
 		{
-			var data = new Dictionary<string, string> { };
+			var data = new Dictionary<string, string>();
 			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
 		}
 
