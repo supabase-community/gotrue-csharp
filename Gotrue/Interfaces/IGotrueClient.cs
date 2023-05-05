@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using static Supabase.Gotrue.Constants;
@@ -12,7 +13,13 @@ namespace Supabase.Gotrue.Interfaces
 		TSession? CurrentSession { get; }
 		TUser? CurrentUser { get; }
 
-		event EventHandler<ClientStateChanged>? StateChanged;
+		delegate void AuthEventHandler(IGotrueClient<TUser, TSession> sender, AuthState stateChanged);
+
+		public void AddStateChangedListener(AuthEventHandler authEventHandler);
+		public void RemoveStateChangedListener(AuthEventHandler authEventHandler);
+		public void ClearStateChangedListeners();
+		public void NotifyStateChange(AuthState stateChanged);
+
 		Task<TUser?> CreateUser(string jwt, AdminUserAttributes attributes);
 		Task<TUser?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null);
 		Task<bool> DeleteUser(string uid, string jwt);

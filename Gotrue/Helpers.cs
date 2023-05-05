@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Responses;
 
 namespace Supabase.Gotrue
@@ -22,6 +23,7 @@ namespace Supabase.Gotrue
         /// </summary>
         public static string GenerateNonce()
         {
+            // ReSharper disable once StringLiteralTypo
             const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
             var random = new Random();
             var nonce = new char[128];
@@ -89,7 +91,7 @@ namespace Supabase.Gotrue
             return builder.Uri;
         }
 
-        private static readonly HttpClient client = new HttpClient();
+        private static readonly HttpClient Client = new HttpClient();
 
         /// <summary>
         /// Helper to make a request using the defined parameters to an API Endpoint and coerce into a model. 
@@ -132,37 +134,33 @@ namespace Supabase.Gotrue
 
             builder.Query = query.ToString();
 
-            using (var requestMessage = new HttpRequestMessage(method, builder.Uri))
+            using var requestMessage = new HttpRequestMessage(method, builder.Uri);
+            if (data != null && method != HttpMethod.Get)
             {
-
-                if (data != null && method != HttpMethod.Get)
-                {
-                    requestMessage.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-                }
-
-                if (headers != null)
-                {
-                    foreach (var kvp in headers)
-                    {
-                        requestMessage.Headers.TryAddWithoutValidation(kvp.Key, kvp.Value);
-                    }
-                }
-
-                var response = await client.SendAsync(requestMessage);
-                var content = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    var obj = new ErrorResponse
-                    {
-                        Content = content,
-                        Message = content
-                    };
-                    throw new RequestException(response, obj);
-                }
-
-                return new BaseResponse { Content = content, ResponseMessage = response };
+                requestMessage.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             }
+
+            if (headers != null)
+            {
+                foreach (var kvp in headers)
+                {
+                    requestMessage.Headers.TryAddWithoutValidation(kvp.Key, kvp.Value);
+                }
+            }
+
+            var response = await Client.SendAsync(requestMessage);
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var e = new GotrueException("Request Failed");
+                e.Content = content;
+                e.Response = response;
+                throw e;
+            }
+
+            return new BaseResponse { Content = content, ResponseMessage = response };
+
         }
     }
 }

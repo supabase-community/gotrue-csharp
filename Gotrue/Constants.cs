@@ -93,6 +93,7 @@ namespace Supabase.Gotrue
         /// </summary>
         public enum AuthState
         {
+            ClientLaunch,
             SignedIn,
             SignedOut,
             UserUpdated,

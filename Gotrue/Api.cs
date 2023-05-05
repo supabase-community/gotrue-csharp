@@ -94,10 +94,7 @@ namespace Supabase.Gotrue
 
 				return session;
 			}
-			else
-			{
-				return null;
-			}
+			return null;
 		}
 
 		/// <summary>
@@ -209,7 +206,7 @@ namespace Supabase.Gotrue
 		public Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
 			if (provider != Provider.Google && provider != Provider.Apple)
-				throw new InvalidProviderException($"Provider must either be: `Provider.Google` or `Provider.Apple`.");
+				throw new GotrueException($"Provider must be `Provider.Google` or `Provider.Apple` not {provider}");
 
 			var body = new Dictionary<string, object?>
 			{

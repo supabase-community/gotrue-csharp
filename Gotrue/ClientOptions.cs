@@ -34,17 +34,17 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Function called to persist the session (probably on a filesystem or cookie)
         /// </summary>
-        public Func<TSession, Task<bool>> SessionPersistor = session => Task.FromResult(true);
+        public PersistenceListener.SaveSession? SessionPersistor;
 
         /// <summary>
         /// Function to retrieve a session (probably from the filesystem or cookie)
         /// </summary>
-        public Func<Task<TSession?>> SessionRetriever = () => Task.FromResult<TSession?>(null);
+        public PersistenceListener.LoadSession? SessionRetriever;
 
         /// <summary>
         /// Function to destroy a session.
         /// </summary>
-        public Func<Task<bool>> SessionDestroyer = () => Task.FromResult(true);
+        public PersistenceListener.DestroySession? SessionDestroyer;
 
         /// <summary>
         /// Very unlikely this flag needs to be changed except in very specific contexts.
