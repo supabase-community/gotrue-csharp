@@ -7,7 +7,6 @@ using Supabase.Gotrue;
 using static Supabase.Gotrue.Constants;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.CollectionAssert;
 
 namespace GotrueTests
 {
@@ -51,14 +50,14 @@ namespace GotrueTests
 		{
 			var user = $"{RandomString(12)}@supabase.io";
 			var result = await _client.InviteUserByEmail(user, _serviceKey);
-			Assert.IsTrue(result);
+			IsTrue(result);
 		}
 
 		[TestMethod("Service Role: List users")]
 		public async Task ListUsers()
 		{
 			var result = await _client.ListUsers(_serviceKey);
-			Assert.IsTrue(result.Users.Count > 0);
+			IsTrue(result.Users.Count > 0);
 		}
 
 		[TestMethod("Service Role: List users by page")]
@@ -67,9 +66,9 @@ namespace GotrueTests
 			var page1 = await _client.ListUsers(_serviceKey, page: 1, perPage: 1);
 			var page2 = await _client.ListUsers(_serviceKey, page: 2, perPage: 1);
 
-			Assert.AreEqual(page1.Users.Count, 1);
-			Assert.AreEqual(page2.Users.Count, 1);
-			Assert.AreNotEqual(page1.Users[0].Id, page2.Users[0].Id);
+			AreEqual(page1.Users.Count, 1);
+			AreEqual(page2.Users.Count, 1);
+			AreNotEqual(page1.Users[0].Id, page2.Users[0].Id);
 		}
 
 		[TestMethod("Service Role: Lists users sort")]
@@ -80,7 +79,7 @@ namespace GotrueTests
 			var result1 = await _client.ListUsers(serviceRoleKey, sortBy: "created_at", sortOrder: SortOrder.Ascending);
 			var result2 = await _client.ListUsers(serviceRoleKey, sortBy: "created_at", sortOrder: SortOrder.Descending);
 
-			Assert.AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
+			AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
 		}
 
 		[TestMethod("Service role: Lists users with filter")]
@@ -88,15 +87,15 @@ namespace GotrueTests
 		{
 			var user = $"{RandomString(12)}@supabase.io";
 			var result = await _client.SignUp(user, PASSWORD);
-			Assert.IsNotNull(result);
+			IsNotNull(result);
 
 			// ReSharper disable once StringLiteralTypo
 			var result1 = await _client.ListUsers(_serviceKey, filter: "@nonexistingrandomemailprovider.com");
 			var result2 = await _client.ListUsers(_serviceKey, filter: "@supabase.io");
 
-			Assert.AreNotEqual(result2.Users.Count, 0);
-			Assert.AreEqual(result1.Users.Count, 0);
-			Assert.AreNotEqual(result1.Users.Count, result2.Users.Count);
+			AreNotEqual(result2.Users.Count, 0);
+			AreEqual(result1.Users.Count, 0);
+			AreNotEqual(result1.Users.Count, result2.Users.Count);
 		}
 
 		[TestMethod("Service Role: Get User by Id")]
@@ -107,8 +106,8 @@ namespace GotrueTests
 			var userResult = result.Users[0];
 			var userByIdResult = await _client.GetUserById(_serviceKey, userResult.Id ?? throw new InvalidOperationException());
 
-			Assert.AreEqual(userResult.Id, userByIdResult.Id);
-			Assert.AreEqual(userResult.Email, userByIdResult.Email);
+			AreEqual(userResult.Id, userByIdResult.Id);
+			AreEqual(userResult.Email, userByIdResult.Email);
 		}
 
 		[TestMethod("Service Role: Create a user")]
@@ -116,7 +115,7 @@ namespace GotrueTests
 		{
 			var result = await _client.CreateUser(_serviceKey, $"{RandomString(12)}@supabase.io", PASSWORD);
 
-			Assert.IsNotNull(result);
+			IsNotNull(result);
 
 			var attributes = new AdminUserAttributes
 			{
@@ -125,10 +124,10 @@ namespace GotrueTests
 			};
 
 			var result2 = await _client.CreateUser(_serviceKey, $"{RandomString(12)}@supabase.io", PASSWORD, attributes);
-			Assert.AreEqual("123", result2.UserMetadata["firstName"]);
+			AreEqual("123", result2.UserMetadata["firstName"]);
 
 			var result3 = await _client.CreateUser(_serviceKey, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = PASSWORD });
-			Assert.IsNotNull(result3);
+			IsNotNull(result3);
 		}
 
 		[TestMethod("Service Role: Update User by Id")]
@@ -136,14 +135,14 @@ namespace GotrueTests
 		{
 			var createdUser = await _client.CreateUser(_serviceKey, $"{RandomString(12)}@supabase.io", PASSWORD);
 
-			Assert.IsNotNull(createdUser);
+			IsNotNull(createdUser);
 
 			var updatedUser = await _client.UpdateUserById(_serviceKey, createdUser.Id ?? throw new InvalidOperationException(), new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io" });
 
-			Assert.IsNotNull(updatedUser);
+			IsNotNull(updatedUser);
 
-			Assert.AreEqual(createdUser.Id, updatedUser.Id);
-			Assert.AreNotEqual(createdUser.Email, updatedUser.Email);
+			AreEqual(createdUser.Id, updatedUser.Id);
+			AreNotEqual(createdUser.Email, updatedUser.Email);
 		}
 
 		[TestMethod("Service Role: Delete User")]
@@ -155,34 +154,34 @@ namespace GotrueTests
 
 			var result = await _client.DeleteUser(uid ?? throw new InvalidOperationException(), _serviceKey);
 
-			Assert.IsTrue(result);
+			IsTrue(result);
 		}
 
 		[TestMethod("Nonce generation and verification")]
 		public void NonceGeneration()
 		{
 			var nonce = Helpers.GenerateNonce();
-			Assert.IsNotNull(nonce);
-			Assert.AreEqual(128, nonce.Length);
+			IsNotNull(nonce);
+			AreEqual(128, nonce.Length);
 
 			var pkceVerifier = Helpers.GeneratePKCENonceVerifier(nonce);
-			Assert.IsNotNull(pkceVerifier);
-			Assert.AreEqual(43, pkceVerifier.Length);
+			IsNotNull(pkceVerifier);
+			AreEqual(43, pkceVerifier.Length);
 
 			var appleVerifier = Helpers.GenerateSHA256NonceFromRawNonce(nonce);
-			Assert.IsNotNull(appleVerifier);
-			Assert.AreEqual(64, appleVerifier.Length);
+			IsNotNull(appleVerifier);
+			AreEqual(64, appleVerifier.Length);
 
 			const string helloNonce = "hello_world_nonce";
 
 			var helloPkceVerifier = Helpers.GeneratePKCENonceVerifier(helloNonce);
-			Assert.IsNotNull(helloPkceVerifier);
+			IsNotNull(helloPkceVerifier);
 			// ReSharper disable once StringLiteralTypo
-			Assert.AreEqual("9TMmi4JOlYOQEP2Ha39WXj9pySILGnAfQsz-yXws0yE", helloPkceVerifier);
+			AreEqual("9TMmi4JOlYOQEP2Ha39WXj9pySILGnAfQsz-yXws0yE", helloPkceVerifier);
 
 			var helloAppleVerifier = Helpers.GenerateSHA256NonceFromRawNonce(helloNonce);
-			Assert.IsNotNull(helloAppleVerifier);
-			Assert.AreEqual("f533268b824e95839010fd876b7f565e3f69c9220b1a701f42ccfec97c2cd321", helloAppleVerifier);
+			IsNotNull(helloAppleVerifier);
+			AreEqual("f533268b824e95839010fd876b7f565e3f69c9220b1a701f42ccfec97c2cd321", helloAppleVerifier);
 		}
 	}
 }
