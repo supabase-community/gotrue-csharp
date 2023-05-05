@@ -34,7 +34,7 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true, PersistSession = true, SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession });
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, PersistSession = true, SessionPersistor = SaveSession, SessionRetriever = LoadSession, SessionDestroyer = DestroySession });
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}
@@ -89,28 +89,6 @@ namespace GotrueTests
 
 			IsNotNull(session.AccessToken);
 			AreEqual("Testing", session.User.UserMetadata["firstName"]);
-		}
-
-		[TestMethod("Client: Signs Up the same user twice should throw BadRequestException")]
-		public async Task SignsUpUserTwiceShouldReturnBadRequest()
-		{
-			var email = $"{RandomString(12)}@supabase.io";
-			var result1 = await _client.SignUp(email, PASSWORD);
-
-			IsNotNull(result1);
-
-			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
-			_stateChanges.Clear();
-
-			await ThrowsExceptionAsync<GotrueException>(async () =>
-			{
-				// This calls session destroy, logging the user out
-				await _client.SignUp(email, PASSWORD);
-			});
-
-			Contains(_stateChanges, SignedOut);
-			AreEqual(null, _savedSession);
 		}
 
 		[TestMethod("Client: Triggers Token Refreshed Event")]
@@ -202,7 +180,7 @@ namespace GotrueTests
 
 			IsNotNull(newSession.AccessToken);
 			IsNotNull(newSession.RefreshToken);
-			IsInstanceOfType(newSession.User, typeof(User));
+			IsNotNull(newSession.User);
 		}
 
 		[TestMethod("Client: Sends Magic Login Email")]

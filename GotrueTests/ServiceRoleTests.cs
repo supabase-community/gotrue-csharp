@@ -22,7 +22,7 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new Client(new ClientOptions<Session> { AllowUnconfirmedUserSessions = true });
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
 			_client.AddDebugListener(LogDebug);
 		}
 
