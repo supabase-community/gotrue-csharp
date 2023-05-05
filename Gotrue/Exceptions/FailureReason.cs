@@ -2,6 +2,9 @@ using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 namespace Supabase.Gotrue.Exceptions
 {
+	/// <summary>
+	/// Maps Supabase server errors to hints based on the status code and the contents of the error message.
+	/// </summary>
 	public static class FailureHint
 	{
 		public enum Reason
