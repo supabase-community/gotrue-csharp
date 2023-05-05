@@ -4,6 +4,9 @@ using System.Net.Http;
 namespace Supabase.Gotrue.Exceptions
 {
 
+	/// <summary>
+	/// Errors from Supabase are wrapped by this exception
+	/// </summary>
 	public class GotrueException : Exception
 	{
 		public GotrueException(string? message) : base(message) { }
