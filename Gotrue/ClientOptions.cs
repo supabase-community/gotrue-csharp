@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
@@ -26,7 +27,7 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Object called to persist the session (e.g. filesystem or cookie)
         /// </summary>
-        public GotrueSessionPersistence? SessionPersistence; 
+        public IGotrueSessionPersistence? SessionPersistence; 
 
         /// <summary>
         /// Very unlikely this flag needs to be changed except in very specific contexts.

@@ -18,6 +18,7 @@ namespace GotrueTests
 	[TestClass]
 	public class AnonKeyClientFailureTests
 	{
+		private TestSessionPersistence _persistence;
 
 		private void AuthStateListener(IGotrueClient<User, Session> sender, Constants.AuthState newState)
 		{
@@ -35,32 +36,16 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = persistence});
+			_persistence = new TestSessionPersistence();
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = _persistence });
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}
 
-		private void DestroySession()
-		{
-			_savedSession = null;
-		}
-
-		private Session LoadSession()
-		{
-			return _savedSession;
-		}
-
-		private bool SaveSession(Session session)
-		{
-			_savedSession = session;
-			return true;
-		}
 
 		private Client _client;
 
 		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
-		private Session _savedSession;
 
 		[TestMethod("Client: Sign Up With Bad Password")]
 		public async Task SignUpUserEmailBadPassword()
@@ -71,7 +56,7 @@ namespace GotrueTests
 				await _client.SignUp(email, "x");
 			});
 			AreEqual(UserBadPassword, x.Reason);
-			IsNull(_savedSession);
+			IsNull(_persistence.SavedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
 		}
@@ -84,7 +69,7 @@ namespace GotrueTests
 				await _client.SignUp("not a real email address", PASSWORD);
 			});
 			AreEqual(UserBadEmailAddress, x.Reason);
-			IsNull(_savedSession);
+			IsNull(_persistence.SavedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
 		}
@@ -100,7 +85,7 @@ namespace GotrueTests
 				await _client.SignUp(Constants.SignUpType.Phone, phone1, PASSWORD, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 			});
 			AreEqual(UserMissingInformation, x.Reason);
-			IsNull(_savedSession);
+			IsNull(_persistence.SavedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
 		}
@@ -114,7 +99,7 @@ namespace GotrueTests
 			IsNotNull(session);
 
 			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, _savedSession);
+			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 			_stateChanges.Clear();
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
@@ -123,7 +108,7 @@ namespace GotrueTests
 			});
 
 			AreEqual(UserAlreadyRegistered, x.Reason);
-			IsNull(_savedSession);
+			IsNull(_persistence.SavedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
 		}
@@ -151,8 +136,8 @@ namespace GotrueTests
 			var result = await _client.ResetPasswordForEmail(email);
 			IsTrue(result);
 		}
-		
-		
+
+
 		[TestMethod("Client: Throws Exception on Invalid Username and Password")]
 		public async Task ClientSignsInUserWrongPassword()
 		{
@@ -168,4 +153,5 @@ namespace GotrueTests
 		}
 
 	}
+
 }

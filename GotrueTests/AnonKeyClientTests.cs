@@ -18,6 +18,8 @@ namespace GotrueTests
 	public class AnonKeyClientTests
 	{
 
+		private TestSessionPersistence _persistence;
+
 		private void AuthStateListener(IGotrueClient<User, Session> sender, Constants.AuthState newState)
 		{
 			if (_stateChanges.Contains(newState))
@@ -34,38 +36,21 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = persistence });
+			_persistence = new TestSessionPersistence();
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = _persistence });
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
-		}
-
-		private void DestroySession()
-		{
-			_savedSession = null;
-		}
-
-		private Session LoadSession()
-		{
-			return _savedSession;
-		}
-
-		private bool SaveSession(Session session)
-		{
-			_savedSession = session;
-			return true;
 		}
 
 		private Client _client;
 
 		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
-		private Session _savedSession;
 
 		private void VerifyGoodSession(Session session)
 		{
 			Contains(_stateChanges, SignedIn);
 			AreEqual(_client.CurrentSession, session);
-			AreEqual(_client.CurrentSession, _savedSession);
+			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 			AreEqual(_client.CurrentUser, session.User);
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
@@ -75,7 +60,7 @@ namespace GotrueTests
 		private void VerifySignedOut()
 		{
 			Contains(_stateChanges, SignedOut);
-			IsNull(_savedSession);
+			IsNull(_persistence.SavedSession);
 			IsNull(_client.CurrentSession);
 			IsNull(_client.CurrentUser);
 		}
@@ -101,13 +86,20 @@ namespace GotrueTests
 
 			VerifyGoodSession(session);
 
-			var persistence = new GotrueSessionPersistence(SaveSession, LoadSession, DestroySession);
-			var newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = persistence });
+			var newPersistence = new TestSessionPersistence();
+			newPersistence.SaveSession(session);
+			var newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = newPersistence });
 			newClient.AddDebugListener(LogDebug);
 			newClient.AddStateChangedListener(AuthStateListener);
 
 			// Loads the session from storage
 			newClient.LoadSession();
+
+			Contains(_stateChanges, SignedIn);
+			AreEqual(newClient.CurrentSession, newPersistence.SavedSession);
+			IsNotNull(newClient.CurrentSession.AccessToken);
+			IsNotNull(newClient.CurrentSession.RefreshToken);
+			IsNotNull(newClient.CurrentSession.User);
 			VerifyGoodSession(newClient.CurrentSession);
 
 			// Refresh the session
@@ -154,7 +146,7 @@ namespace GotrueTests
 
 			await _client.RefreshSession();
 			Contains(_stateChanges, TokenRefreshed);
-			AreEqual(_client.CurrentSession, _savedSession);
+			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 
 			var newToken = await tsc.Task;
 			IsNotNull(newToken);
@@ -171,9 +163,9 @@ namespace GotrueTests
 			_stateChanges.Clear();
 
 			await _client.SignOut();
-			
+
 			VerifySignedOut();
-			
+
 			_stateChanges.Clear();
 
 			var session2 = await _client.SignIn(email, PASSWORD);
@@ -204,8 +196,8 @@ namespace GotrueTests
 			// Refresh Token
 			var refreshToken = emailSession.RefreshToken;
 
-			var newSession = await _client.SignIn(Constants.SignInType.RefreshToken, refreshToken);
-			AreEqual(_client.CurrentSession, _savedSession);
+			var newSession = await _client.SignIn(Constants.SignInType.RefreshToken, refreshToken ?? throw new InvalidOperationException());
+			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 			Contains(_stateChanges, TokenRefreshed);
 			DoesNotContain(_stateChanges, SignedIn);
 
@@ -224,15 +216,15 @@ namespace GotrueTests
 			_stateChanges.Clear();
 
 			await _client.SignOut();
-			
+
 			VerifySignedOut();
-			
+
 			_stateChanges.Clear();
 
 			var result = await _client.SignIn(user);
 			IsTrue(result);
 			AreEqual(0, _stateChanges.Count);
-			AreEqual(_client.CurrentSession, _savedSession);
+			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 		}
 
 		[TestMethod("Client: Sends Magic Login Email (Alias)")]
@@ -243,13 +235,13 @@ namespace GotrueTests
 			var session = await _client.SignUp(user, PASSWORD);
 
 			VerifyGoodSession(session);
-			
+
 			_stateChanges.Clear();
 
 			await _client.SignOut();
 
 			VerifySignedOut();
-			
+
 			var result = await _client.SendMagicLink(user);
 			var result2 = await _client.SendMagicLink(user2, new SignInOptions { RedirectTo = $"com.{RandomString(12)}.deeplink://login" });
 
@@ -288,7 +280,7 @@ namespace GotrueTests
 			var session = await _client.SignUp(email, PASSWORD);
 
 			VerifyGoodSession(session);
-			
+
 			_stateChanges.Clear();
 
 			var attributes = new UserAttributes { Data = new Dictionary<string, object> { { "hello", "world" } } };
@@ -297,7 +289,7 @@ namespace GotrueTests
 			AreEqual(email, _client.CurrentUser.Email);
 			IsNotNull(_client.CurrentUser.UserMetadata);
 			Contains(_stateChanges, UserUpdated);
-			AreEqual(_client.CurrentSession, _savedSession);
+			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 
 			await _client.SignOut();
 

@@ -137,7 +137,7 @@ namespace Supabase.Gotrue
 			_authEventHandlers.Add(authEventHandler);
 
 		}
-		
+
 		/// <summary>
 		/// Removes a specified listener from event state changes.
 		/// </summary>
@@ -149,7 +149,7 @@ namespace Supabase.Gotrue
 
 			_authEventHandlers.Remove(authEventHandler);
 		}
-		
+
 		/// <summary>
 		/// Clears all of the listeners from receiving event state changes.
 		///
@@ -516,8 +516,7 @@ namespace Supabase.Gotrue
 		/// <param name="perPage">items per page for pagination</param>
 		/// <returns></returns>
 		public Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null,
-			int? perPage = null) =>
-			_api.ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
+			int? perPage = null) => _api.ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
 
 		/// <summary>
 		/// Get User details by Id
@@ -525,16 +524,14 @@ namespace Supabase.Gotrue
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
 		/// <param name="userId"></param>
 		/// <returns></returns>
-		public Task<User?> GetUserById(string jwt, string userId) =>  
-			_api.GetUserById(jwt, userId);
+		public Task<User?> GetUserById(string jwt, string userId) => _api.GetUserById(jwt, userId);
 
 		/// <summary>
 		/// Get User details by JWT. Can be used to validate a JWT.
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
 		/// <returns></returns>
-		public Task<User?> GetUser(string jwt) =>
-			_api.GetUser(jwt);
+		public Task<User?> GetUser(string jwt) => _api.GetUser(jwt);
 
 		/// <summary>
 		/// Create a user (as a service_role)
@@ -560,8 +557,7 @@ namespace Supabase.Gotrue
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
 		/// <param name="attributes"></param>
 		/// <returns></returns>
-		public Task<User?> CreateUser(string jwt, AdminUserAttributes attributes) =>
-			_api.CreateUser(jwt, attributes);
+		public Task<User?> CreateUser(string jwt, AdminUserAttributes attributes) => _api.CreateUser(jwt, attributes);
 
 		/// <summary>
 		/// Update user by Id
@@ -570,8 +566,7 @@ namespace Supabase.Gotrue
 		/// <param name="userId"></param>
 		/// <param name="userData"></param>
 		/// <returns></returns>
-		public Task<User?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData) =>
-			_api.UpdateUserById(jwt, userId, userData);
+		public Task<User?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData) => _api.UpdateUserById(jwt, userId, userData);
 
 		/// <summary>
 		/// Sends a reset request to an email address.
@@ -707,7 +702,7 @@ namespace Supabase.Gotrue
 				DestroySession();
 				return null;
 			}
-			
+
 			if (session?.User == null)
 			{
 				_debugNotification?.Log("Stored Session is missing data.");
@@ -861,8 +856,8 @@ namespace Supabase.Gotrue
 		}
 		public void LoadSession()
 		{
-			if(Options.SessionPersistence != null)
-				UpdateSession(Options.SessionPersistence.Load.Invoke());
+			if (Options.SessionPersistence != null)
+				UpdateSession(Options.SessionPersistence.LoadSession());
 		}
 	}
 }
