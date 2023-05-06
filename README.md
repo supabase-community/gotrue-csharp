@@ -13,20 +13,20 @@
 
 ## BREAKING CHANGES v3.1 → v3.x
 
-- Exceptions have been simplified to a single GotrueException. A Reason field has been added
-  to GotrueException to help sort out what happened. This should also be easier to manage as the Gotrue
+- Exceptions have been simplified to a single `GotrueException`. A `Reason` field has been added
+  to `GotrueException` to clarify what happened. This should also be easier to manage as the Gotrue
   server API & messages evolve.
-- The delegates for save/load/destroy persistence have been simplified to no longer require async.
+- The session delegates for `Save`/`Load`/`Destroy` have been simplified to no longer require `async`.
 - Console logging in a few places (most notable the background refresh thread) has been removed
-  in favor of a notification method. See Client.AddDebugListener() and the test cases for examples.
+  in favor of a notification method. See `Client.AddDebugListener()` and the test cases for examples.
   This will allow you to implement your own logging strategy (write to temp file, console, user visible
   err console, etc).
 - The client now more reliably emits AuthState changes.
-- There is now a single source of truth for headers in the stateful Client - the Options headers.
+- There is now a single source of truth for headers in the stateful Client - the `Options` headers.
 
 New feature:
 
-- Added a Settings request to the stateless API only - you can now query the server instance to
+- Added a `Settings` request to the stateless API only - you can now query the server instance to
   determine if it's got the settings you need. This might allow for things like a visual
   component in a tool to verify the GoTrue settings are working correctly, or tests that run differently
   depending on the server configuration.
