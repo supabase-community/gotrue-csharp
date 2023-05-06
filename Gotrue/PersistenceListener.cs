@@ -5,11 +5,13 @@ namespace Supabase.Gotrue
 {
 	public class PersistenceListener
 	{
-		private readonly IGotrueSessionPersistence _persistence;
 		public PersistenceListener(IGotrueSessionPersistence persistence)
 		{
-			_persistence = persistence;
+			Persistence = persistence;
 		}
+
+		public IGotrueSessionPersistence Persistence { get; }
+		
 		public void EventHandler(IGotrueClient<User, Session> sender, Constants.AuthState stateChanged)
 		{
 			switch (stateChanged)
@@ -20,10 +22,10 @@ namespace Supabase.Gotrue
 					if (sender.CurrentSession == null)
 						throw new ArgumentException("Tried to save a null session (2)");
 
-					_persistence.SaveSession(sender.CurrentSession);
+					Persistence.SaveSession(sender.CurrentSession);
 					break;
 				case Constants.AuthState.SignedOut:
-					_persistence.DestroySession();
+					Persistence.DestroySession();
 					break;
 				case Constants.AuthState.UserUpdated:
 					if (sender == null)
@@ -31,7 +33,7 @@ namespace Supabase.Gotrue
 					if (sender.CurrentSession == null)
 						throw new ArgumentException("Tried to save a null session (2)");
 
-					_persistence.SaveSession(sender.CurrentSession);
+					Persistence.SaveSession(sender.CurrentSession);
 					break;
 				case Constants.AuthState.PasswordRecovery: break;
 				case Constants.AuthState.TokenRefreshed:
@@ -42,7 +44,7 @@ namespace Supabase.Gotrue
 					}
 					else
 					{
-						_persistence.SaveSession(sender.CurrentSession);
+						Persistence.SaveSession(sender.CurrentSession);
 					}
 					break;
 				default: throw new ArgumentOutOfRangeException(nameof(stateChanged), stateChanged, null);

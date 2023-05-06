@@ -25,11 +25,6 @@ namespace Supabase.Gotrue
         public bool AutoRefreshToken { get; set; } = true;
 
         /// <summary>
-        /// Object called to persist the session (e.g. filesystem or cookie)
-        /// </summary>
-        public IGotrueSessionPersistence? SessionPersistence; 
-
-        /// <summary>
         /// Very unlikely this flag needs to be changed except in very specific contexts.
         /// 
         /// Enables tests to be E2E tests to be run without requiring users to have

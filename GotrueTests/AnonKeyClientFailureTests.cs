@@ -37,7 +37,8 @@ namespace GotrueTests
 		public void TestInitializer()
 		{
 			_persistence = new TestSessionPersistence();
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, SessionPersistence = _persistence });
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client.SetPersistence(_persistence);
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}

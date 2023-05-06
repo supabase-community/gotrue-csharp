@@ -49,6 +49,13 @@ namespace Supabase.Gotrue
 		/// </summary>
 		private Timer? _refreshTimer;
 
+
+		/// <summary>
+		/// Object called to persist the session (e.g. filesystem or cookie)
+		/// </summary>
+		private PersistenceListener? _sessionPersistence;
+
+
 		/// <summary>
 		/// Initializes the GoTrue stateful client. 
 		/// 
@@ -82,15 +89,20 @@ namespace Supabase.Gotrue
 		public Client(ClientOptions? options = null)
 		{
 			options ??= new ClientOptions();
-
 			Options = options;
-
-			if (options.SessionPersistence != null)
-			{
-				_authEventHandlers.Add(new PersistenceListener(options.SessionPersistence).EventHandler);
-			}
-
 			_api = new Api(options.Url, options.Headers);
+		}
+
+		/// <summary>
+		/// Set the Session persistence system. Typically an application specific file system location.
+		/// </summary>
+		/// <param name="persistence"></param>
+		public void SetPersistence(IGotrueSessionPersistence persistence)
+		{
+			if (_sessionPersistence != null)
+				_authEventHandlers.Remove(_sessionPersistence.EventHandler);
+			_sessionPersistence = new PersistenceListener(persistence);
+			_authEventHandlers.Add(_sessionPersistence.EventHandler);
 		}
 
 		/// <summary>
@@ -856,8 +868,8 @@ namespace Supabase.Gotrue
 		}
 		public void LoadSession()
 		{
-			if (Options.SessionPersistence != null)
-				UpdateSession(Options.SessionPersistence.LoadSession());
+			if (_sessionPersistence != null)
+				UpdateSession(_sessionPersistence.Persistence.LoadSession());
 		}
 	}
 }
