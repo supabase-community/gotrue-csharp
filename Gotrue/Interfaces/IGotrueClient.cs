@@ -14,6 +14,8 @@ namespace Supabase.Gotrue.Interfaces
 
 		delegate void AuthEventHandler(IGotrueClient<TUser, TSession> sender, AuthState stateChanged);
 
+		public void SetPersistence(IGotrueSessionPersistence<TSession> persistence);
+
 		public void AddStateChangedListener(AuthEventHandler authEventHandler);
 		public void RemoveStateChangedListener(AuthEventHandler authEventHandler);
 		public void ClearStateChangedListeners();

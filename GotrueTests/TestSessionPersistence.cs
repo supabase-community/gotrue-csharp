@@ -3,7 +3,7 @@ using Supabase.Gotrue.Interfaces;
 
 namespace GotrueTests
 {
-	public class TestSessionPersistence : IGotrueSessionPersistence
+	public class TestSessionPersistence : IGotrueSessionPersistence<Session>
 	{
 
 		public Session SavedSession;
