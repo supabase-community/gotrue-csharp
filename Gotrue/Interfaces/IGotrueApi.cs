@@ -34,5 +34,8 @@ namespace Supabase.Gotrue.Interfaces
 
 		ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null);
 		Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode);
+
+		Task<Settings?> Settings();
 	}
+
 }

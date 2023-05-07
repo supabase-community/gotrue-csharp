@@ -5,12 +5,11 @@ namespace Supabase.Gotrue
 {
     public static class Constants
     {
-        public static string GOTRUE_URL = "http://localhost:9999";
-        public static string AUDIENCE = "";
-        public static readonly Dictionary<string, string> DEFAULT_HEADERS = new Dictionary<string, string>();
-        public static int EXPIRY_MARGIN = 60 * 1000;
-        public static string STORAGE_KEY = "supabase.auth.token";
-        public static readonly Dictionary<string, object> COOKIE_OPTIONS = new Dictionary<string, object>{
+        public const string GOTRUE_URL = "http://localhost:9999";
+        public const string AUDIENCE = "";
+        public const int EXPIRY_MARGIN = 60 * 1000;
+        public const string STORAGE_KEY = "supabase.auth.token";
+        public static readonly Dictionary<string, object> CookieOptions = new Dictionary<string, object>{
             { "name", "sb:token" },
             { "lifetime", 60 * 60 * 8 },
             { "domain", "" },
@@ -86,7 +85,7 @@ namespace Supabase.Gotrue
             Twitter,
             [MapTo("workos")]
             WorkOS
-        };
+        }
 
         /// <summary>
         /// States that the Auth Client will raise events for.
@@ -98,7 +97,7 @@ namespace Supabase.Gotrue
             UserUpdated,
             PasswordRecovery,
             TokenRefreshed
-        };
+        }
 
         /// <summary>
         /// Specifies the functionality expected from the `SignIn` method
@@ -107,7 +106,7 @@ namespace Supabase.Gotrue
         {
             Email,
             Phone,
-            RefreshToken,
+            RefreshToken
         }
 
         /// <summary>

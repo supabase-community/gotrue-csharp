@@ -1,17 +1,24 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
+using static Supabase.Gotrue.Constants.AuthState;
 
 namespace Supabase.Gotrue
 {
 	/// <summary>
-	/// The Gotrue Instance
+	/// GoTrue stateful Client.
+	///
+	/// This class is best used as a long-lived singleton object in your application. You can attach listeners
+	/// to be notified of changes to the user log in state, a persistence system for sessions across application
+	/// launches, and more. It includes a (optional, on by default) background thread that runs to refresh the
+	/// user's session token.
+	///
+	/// Check out the test suite for examples of use.
 	/// </summary>
 	/// <example>
 	/// var client = new Supabase.Gotrue.Client(options);
@@ -19,124 +26,177 @@ namespace Supabase.Gotrue
 	/// </example>
 	public class Client : IGotrueClient<User, Session>
 	{
+		/// <summary>
+		/// The underlying API requests object that sends the requests
+		/// </summary>
+		private readonly IGotrueApi<User, Session> _api;
 
+		/// <summary>
+		/// Handlers for notifications of state changes.
+		/// </summary>
+		private readonly List<IGotrueClient<User, Session>.AuthEventHandler> _authEventHandlers = new List<IGotrueClient<User, Session>.AuthEventHandler>();
+
+		/// <summary>
+		/// Gets notifications if there is a failure not visible by exceptions (e.g. background thread refresh failure)
+		/// </summary>
 		private DebugNotification? _debugNotification;
 
-		public void AddDebugListener(Action<string, Exception?> listener)
-		{
-			_debugNotification ??= new DebugNotification();
-			_debugNotification.AddDebugListener(listener);
-		}
-
 		/// <summary>
-		/// Function that can be set to return dynamic headers.
-		/// 
-		/// Headers specified in the client options will ALWAYS take precedence over headers returned by this function.
-		/// </summary>
-
-		public Func<Dictionary<string, string>>? GetHeaders
-		{
-			get => _getHeaders;
-			set
-			{
-				_getHeaders = value;
-
-				if (_api != null)
-					_api.GetHeaders = value;
-			}
-		}
-		private Func<Dictionary<string, string>>? _getHeaders;
-
-		/// <summary>
-		/// Event Handler that raises an event when a user signs in, signs out, recovers password, or updates their record.
-		/// </summary>
-		public event EventHandler<ClientStateChanged>? StateChanged;
-
-		/// <summary>
-		/// The current User
-		/// </summary>
-		public User? CurrentUser { get; private set; }
-
-		/// <summary>
-		/// The current Session
-		/// </summary>
-		public Session? CurrentSession { get; private set; }
-
-		/// <summary>
-		/// Should Client Refresh Token Automatically? (via <see cref="ClientOptions"/>)
-		/// </summary>
-		protected bool AutoRefreshToken { get; private set; }
-
-		/// <summary>
-		/// Should Client Persist Session? (via <see cref="ClientOptions"/>)
-		/// </summary>
-		protected bool ShouldPersistSession { get; private set; }
-
-		/// <summary>
-		/// User defined function (via <see cref="ClientOptions"/>) to persist the session.
-		/// </summary>
-		// ReSharper disable once IdentifierTypo
-		protected Func<Session, Task<bool>> SessionPersistor { get; private set; }
-
-		/// <summary>
-		/// User defined function (via <see cref="ClientOptions"/>) to retrieve the session.
-		/// </summary>
-		protected Func<Task<Session?>> SessionRetriever { get; private set; }
-
-		/// <summary>
-		/// User defined function (via <see cref="ClientOptions"/>) to destroy the session.
-		/// </summary>
-		protected Func<Task<bool>> SessionDestroyer { get; private set; }
-
-		/// <summary>
-		/// The initialized client options.
-		/// </summary>
-		internal ClientOptions<Session> Options { get; private set; }
-
-		/// <summary>
-		/// Internal timer reference for Refreshing Tokens (<see cref="AutoRefreshToken"/>)
+		/// Internal timer reference for token refresh
+		/// <see>
+		///     <cref>AutoRefreshToken</cref>
+		/// </see>
 		/// </summary>
 		private Timer? _refreshTimer;
 
-		private IGotrueApi<User, Session> _api;
 
 		/// <summary>
-		/// Initializes the Client. 
+		/// Object called to persist the session (e.g. filesystem or cookie)
+		/// </summary>
+		private IGotruePersistenceListener<Session>? _sessionPersistence;
+
+
+		/// <summary>
+		/// Initializes the GoTrue stateful client. 
 		/// 
-		/// Although options are ... optional, you will likely want to at least specify a <see cref="ClientOptions.Url"/>.
+		/// You will likely want to at least specify a <see>
+		///     <cref>ClientOptions.Url</cref>
+		/// </see>
 		/// 
-		/// Sessions are no longer automatically retrieved on construction, if you want to set the session, <see cref="RetrieveSessionAsync"/>
+		/// Sessions are not automatically retrieved when this object is created.
 		/// 
+		/// If you want to load the session from your persistence store, <see>
+		///     <cref>GotrueSessionPersistence</cref>
+		/// </see>.
+		///
+		/// If you want to load/refresh the session, <see>
+		///     <cref>RetrieveSessionAsync</cref>
+		/// </see>.
+		///
+		/// For a typical client application, you'll want to load the session from persistence
+		/// and then refresh it. If your application is listening for session changes, you'll
+		/// get two SignIn notifications if the persisted session is valid - one for the
+		/// session loaded from disk, and a second on a successful session refresh.
+		/// 
+		/// <remarks></remarks>
+		/// <example>
+		///		var client = new Supabase.Gotrue.Client(options);
+		///     client.LoadSession();
+		///		await client.RetrieveSessionAsync();
+		/// </example>
 		/// </summary>
 		/// <param name="options"></param>
-		public Client(ClientOptions<Session>? options = null)
+		public Client(ClientOptions? options = null)
 		{
-			if (options == null)
-				options = new ClientOptions<Session>();
-
+			options ??= new ClientOptions();
 			Options = options;
-			AutoRefreshToken = options.AutoRefreshToken;
-			ShouldPersistSession = options.PersistSession;
-			SessionPersistor = options.SessionPersistor;
-			SessionRetriever = options.SessionRetriever;
-			SessionDestroyer = options.SessionDestroyer;
-
 			_api = new Api(options.Url, options.Headers);
 		}
 
 		/// <summary>
-		/// Signs up a user by email address
+		/// Set the Session persistence system. Typically an application specific file system location.
+		/// </summary>
+		/// <param name="persistence"></param>
+		public void SetPersistence(IGotrueSessionPersistence<Session> persistence)
+		{
+			if (_sessionPersistence != null)
+				_authEventHandlers.Remove(_sessionPersistence.EventHandler);
+			_sessionPersistence = new PersistenceListener(persistence);
+			_authEventHandlers.Add(_sessionPersistence.EventHandler);
+		}
+
+		/// <summary>
+		/// The initialized client options.
+		/// </summary>
+		public ClientOptions Options { get; }
+
+		/// <summary>
+		/// Notifies all listeners that the current user auth state has changed.
+		///
+		/// This is mainly used internally to fire notifications - most client applications won't need this.
+		/// </summary>
+		/// <param name="stateChanged"></param>
+		public void NotifyAuthStateChange(AuthState stateChanged)
+		{
+			foreach (var handler in _authEventHandlers)
+			{
+				handler.Invoke(this, stateChanged);
+			}
+		}
+
+		/// <summary>
+		/// The currently logged in User. This is a local cache of the current session User. 
+		/// To persist modifications to the User you'll want to use other methods.
+		/// <see cref="Update"/>>
+		/// </summary>
+		public User? CurrentUser
+		{
+			get => CurrentSession?.User;
+		}
+
+		/// <summary>
+		/// Adds a listener to be notified when the user state changes (e.g. the user logs in, logs out,
+		/// the token is refreshed, etc).
+		///
+		/// <see cref="AuthState"/>
+		/// </summary>
+		/// <param name="authEventHandler"></param>
+		public void AddStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
+		{
+			if (_authEventHandlers.Contains(authEventHandler))
+				return;
+
+			_authEventHandlers.Add(authEventHandler);
+
+		}
+
+		/// <summary>
+		/// Removes a specified listener from event state changes.
+		/// </summary>
+		/// <param name="authEventHandler"></param>
+		public void RemoveStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
+		{
+			if (!_authEventHandlers.Contains(authEventHandler))
+				return;
+
+			_authEventHandlers.Remove(authEventHandler);
+		}
+
+		/// <summary>
+		/// Clears all of the listeners from receiving event state changes.
+		///
+		/// WARNING: The persistence handler is installed as a state change listener if provided in options.
+		/// Clearing the listeners will also delete the persistence handler.
+		/// </summary>
+		public void ClearStateChangedListeners()
+		{
+			_authEventHandlers.Clear();
+		}
+
+		/// <summary>
+		/// The current Session as managed by this client. Does not refresh tokens or have any other side effects.
+		///
+		/// You probably don't want to directly make changes to this object - you'll want to use other methods
+		/// on this class to make changes.
+		/// </summary>
+		public Session? CurrentSession { get; private set; }
+
+		/// <summary>
+		/// Signs up a user by email address.
 		/// </summary>
 		/// <remarks>
 		/// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
 		/// Confirm email determines if users need to confirm their email address after signing up.
 		///     - If Confirm email is enabled, a user is returned but session is null.
 		///     - If Confirm email is disabled, both a user and a session are returned.
-		/// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
+		/// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or
+		/// add additional redirect URLs in your project.
 		/// If signUp() is called for an existing confirmed user:
 		///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
 		///     - If Confirm email is disabled, the error message, User already registered is returned.
-		/// To fetch the currently logged-in user, refer to <see cref="User"/>.
+		/// To fetch the currently logged-in user, refer to <see>
+		///     <cref>User</cref>
+		/// </see>.
 		/// </remarks>
 		/// <param name="email"></param>
 		/// <param name="password"></param>
@@ -148,7 +208,9 @@ namespace Supabase.Gotrue
 		/// Signs up a user
 		/// </summary>
 		/// <remarks>
-		/// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
+		/// Calling this method will log out the current user session (if any).
+		/// 
+		/// By default, the user needs to verify their email address before logging in. To turn this off, disable confirm email in your project.
 		/// Confirm email determines if users need to confirm their email address after signing up.
 		///     - If Confirm email is enabled, a user is returned but session is null.
 		///     - If Confirm email is disabled, both a user and a session are returned.
@@ -165,58 +227,35 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null)
 		{
-			await DestroySession();
+			DestroySession();
 
-			try
+			var session = type switch
 			{
-				Session? session = null;
-				switch (type)
-				{
-					case SignUpType.Email:
-						session = await _api.SignUpWithEmail(identifier, password, options);
-						break;
-					case SignUpType.Phone:
-						session = await _api.SignUpWithPhone(identifier, password, options);
-						break;
-				}
+				SignUpType.Email => await _api.SignUpWithEmail(identifier, password, options),
+				SignUpType.Phone => await _api.SignUpWithPhone(identifier, password, options),
+				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+			};
 
-				if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
-				{
-					await PersistSession(session);
-
-					StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-
-					return CurrentSession;
-				}
-
-				return session;
-			}
-			catch (RequestException ex)
+			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
-				throw ExceptionHandler.Parse(ex);
+				UpdateSession(session);
+				NotifyAuthStateChange(SignedIn);
+				return CurrentSession;
 			}
+
+			return session;
 		}
 
 
 		/// <summary>
-		/// Sends a Magic email login link to the specified email.
+		/// Sends a magic link login email to the specified email.
 		/// </summary>
 		/// <param name="email"></param>
 		/// <param name="options"></param>
-		/// <returns></returns>
 		public async Task<bool> SignIn(string email, SignInOptions? options = null)
 		{
-			await DestroySession();
-
-			try
-			{
-				await _api.SendMagicLinkEmail(email, options);
-				return true;
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			await _api.SendMagicLinkEmail(email, options);
+			return true;
 		}
 
 		/// <summary>
@@ -228,24 +267,19 @@ namespace Supabase.Gotrue
 		/// <param name="idToken">Provided from External Library</param>
 		/// <param name="nonce">Provided from External Library</param>
 		/// <param name="captchaToken">Provided from External Library</param>
-		/// <returns></returns>
-		/// <exception cref="InvalidProviderException"></exception>
+		/// <remarks>Calling this method will eliminate the current session (if any).</remarks>
+		/// <exception>
+		///     <cref>InvalidProviderException</cref>
+		/// </exception>
 		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
-			try
-			{
-				await DestroySession();
-				var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
+			DestroySession();
+			var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
 
-				if (result != null)
-					await PersistSession(result);
+			if (result != null)
+				NotifyAuthStateChange(SignedIn);
 
-				return result;
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			return result;
 		}
 
 		/// <summary>
@@ -263,19 +297,13 @@ namespace Supabase.Gotrue
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
 		/// </summary>
+		/// <remarks>Calling this method will wipe out the current session (if any)</remarks>
 		/// <param name="options"></param>
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
-			try
-			{
-				await DestroySession();
-				return await _api.SignInWithOtp(options);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			DestroySession();
+			return await _api.SignInWithOtp(options);
 		}
 
 		/// <summary>
@@ -293,19 +321,13 @@ namespace Supabase.Gotrue
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
 		/// </summary>
+		/// <remarks>Calling this method will wipe out the current session (if any)</remarks>
 		/// <param name="options"></param>
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
 		{
-			try
-			{
-				await DestroySession();
-				return await _api.SignInWithOtp(options);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			DestroySession();
+			return await _api.SignInWithOtp(options);
 		}
 
 		/// <summary>
@@ -315,7 +337,6 @@ namespace Supabase.Gotrue
 		/// <param name="options"></param>
 		/// <returns></returns>
 		public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SignIn(email, options);
-
 
 		/// <summary>
 		/// Signs in a User.
@@ -343,47 +364,38 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
 		{
-			await DestroySession();
-
-			try
+			Session? session;
+			switch (type)
 			{
-				Session? session = null;
-				switch (type)
-				{
-					case SignInType.Email:
-						session = await _api.SignInWithEmail(identifierOrToken, password!);
-						break;
-					case SignInType.Phone:
+				case SignInType.Email:
+					session = await _api.SignInWithEmail(identifierOrToken, password!);
+					UpdateSession(session);
+					break;
+				case SignInType.Phone:
 					if (string.IsNullOrEmpty(password))
-						{
-							await _api.SendMobileOTP(identifierOrToken);
-							return null;
-						}
+					{
+						await _api.SendMobileOTP(identifierOrToken);
+						return null;
+					}
 
-						session = await _api.SignInWithPhone(identifierOrToken, password!);
-						break;
-					case SignInType.RefreshToken:
-						CurrentSession = new Session();
-						CurrentSession.RefreshToken = identifierOrToken;
-
-						await RefreshToken();
-
-						return CurrentSession;
-				}
-
-				if (session?.User?.ConfirmedAt != null || (session?.User != null && Options.AllowUnconfirmedUserSessions))
-				{
-					await PersistSession(session);
-					StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+					session = await _api.SignInWithPhone(identifierOrToken, password!);
+					UpdateSession(session);
+					break;
+				case SignInType.RefreshToken:
+					CurrentSession = new Session();
+					CurrentSession.RefreshToken = identifierOrToken;
+					await RefreshToken();
 					return CurrentSession;
-				}
+				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
+			}
 
-				return null;
-			}
-			catch (RequestException ex)
+			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
-				throw ExceptionHandler.Parse(ex);
+				NotifyAuthStateChange(SignedIn);
+				return CurrentSession;
 			}
+
+			return null;
 		}
 
 		/// <summary>
@@ -395,12 +407,12 @@ namespace Supabase.Gotrue
 		/// <param name="provider"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		public async Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
+		public Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
 		{
-			await DestroySession();
+			DestroySession();
 
 			var providerUri = _api.GetUriForProvider(provider, options);
-			return providerUri;
+			return Task.FromResult(providerUri);
 		}
 
 		/// <summary>
@@ -412,25 +424,18 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
 		{
-			try
+			DestroySession();
+
+			var session = await _api.VerifyMobileOTP(phone, token, type);
+
+			if (session?.AccessToken != null)
 			{
-				await DestroySession();
-
-				var session = await _api.VerifyMobileOTP(phone, token, type);
-
-				if (session?.AccessToken != null)
-				{
-					await PersistSession(session);
-					StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-					return session;
-				}
-
-				return null;
+				UpdateSession(session);
+				NotifyAuthStateChange(SignedIn);
+				return session;
 			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+
+			return null;
 		}
 
 		/// <summary>
@@ -442,25 +447,18 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
 		{
-			try
+			DestroySession();
+
+			var session = await _api.VerifyEmailOTP(email, token, type);
+
+			if (session?.AccessToken != null)
 			{
-				await DestroySession();
-
-				var session = await _api.VerifyEmailOTP(email, token, type);
-
-				if (session?.AccessToken != null)
-				{
-					await PersistSession(session);
-					StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-					return session;
-				}
-
-				return null;
+				UpdateSession(session);
+				NotifyAuthStateChange(SignedIn);
+				return session;
 			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+
+			return null;
 		}
 
 		/// <summary>
@@ -469,17 +467,11 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task SignOut()
 		{
-			if (CurrentSession != null)
-			{
-				if (CurrentSession.AccessToken != null)
-					await _api.SignOut(CurrentSession.AccessToken);
-
-				_refreshTimer?.Dispose();
-
-				await DestroySession();
-
-				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
-			}
+			if (CurrentSession?.AccessToken != null)
+				await _api.SignOut(CurrentSession.AccessToken);
+			_refreshTimer?.Dispose();
+			UpdateSession(null);
+			NotifyAuthStateChange(SignedOut);
 		}
 
 		/// <summary>
@@ -492,20 +484,11 @@ namespace Supabase.Gotrue
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new Exception("Not Logged in.");
 
-			try
-			{
-				var result = await _api.UpdateUser(CurrentSession.AccessToken!, attributes);
+			var result = await _api.UpdateUser(CurrentSession.AccessToken!, attributes);
+			CurrentSession.User = result;
+			NotifyAuthStateChange(UserUpdated);
 
-				CurrentUser = result;
-
-				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.UserUpdated));
-
-				return result;
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			return result;
 		}
 
 		/// <summary>
@@ -516,16 +499,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<bool> InviteUserByEmail(string email, string jwt)
 		{
-			try
-			{
-				var response = await _api.InviteUserByEmail(email, jwt);
-				response.ResponseMessage?.EnsureSuccessStatusCode();
-				return true;
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			var response = await _api.InviteUserByEmail(email, jwt);
+			response.ResponseMessage?.EnsureSuccessStatusCode();
+			return true;
 		}
 
 		/// <summary>
@@ -536,16 +512,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<bool> DeleteUser(string uid, string jwt)
 		{
-			try
-			{
-				var result = await _api.DeleteUser(uid, jwt);
-				result.ResponseMessage?.EnsureSuccessStatusCode();
-				return true;
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			var result = await _api.DeleteUser(uid, jwt);
+			result.ResponseMessage?.EnsureSuccessStatusCode();
+			return true;
 		}
 
 		/// <summary>
@@ -553,23 +522,13 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
 		/// <param name="filter">A string for example part of the email</param>
-		/// <param name="sortBy">Snake case string of the given key, currently only created_at is suppported</param>
+		/// <param name="sortBy">Snake case string of the given key, currently only created_at is supported</param>
 		/// <param name="sortOrder">asc or desc, if null desc is used</param>
 		/// <param name="page">page to show for pagination</param>
 		/// <param name="perPage">items per page for pagination</param>
 		/// <returns></returns>
-		public async Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null,
-			int? perPage = null)
-		{
-			try
-			{
-				return await _api.ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
-		}
+		public Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null,
+			int? perPage = null) => _api.ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
 
 		/// <summary>
 		/// Get User details by Id
@@ -577,34 +536,14 @@ namespace Supabase.Gotrue
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
 		/// <param name="userId"></param>
 		/// <returns></returns>
-		public async Task<User?> GetUserById(string jwt, string userId)
-		{
-			try
-			{
-				return await _api.GetUserById(jwt, userId);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
-		}
+		public Task<User?> GetUserById(string jwt, string userId) => _api.GetUserById(jwt, userId);
 
 		/// <summary>
 		/// Get User details by JWT. Can be used to validate a JWT.
 		/// </summary>
 		/// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
 		/// <returns></returns>
-		public async Task<User?> GetUser(string jwt)
-		{
-			try
-			{
-				return await _api.GetUser(jwt);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
-		}
+		public Task<User?> GetUser(string jwt) => _api.GetUser(jwt);
 
 		/// <summary>
 		/// Create a user (as a service_role)
@@ -616,15 +555,13 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<User?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null)
 		{
-			if (attributes == null)
-			{
-				attributes = new AdminUserAttributes();
-			}
+			attributes ??= new AdminUserAttributes();
 			attributes.Email = email;
 			attributes.Password = password;
 
 			return CreateUser(jwt, attributes);
 		}
+
 
 		/// <summary>
 		/// Create a user (as a service_role)
@@ -632,17 +569,7 @@ namespace Supabase.Gotrue
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
 		/// <param name="attributes"></param>
 		/// <returns></returns>
-		public async Task<User?> CreateUser(string jwt, AdminUserAttributes attributes)
-		{
-			try
-			{
-				return await _api.CreateUser(jwt, attributes);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
-		}
+		public Task<User?> CreateUser(string jwt, AdminUserAttributes attributes) => _api.CreateUser(jwt, attributes);
 
 		/// <summary>
 		/// Update user by Id
@@ -651,17 +578,7 @@ namespace Supabase.Gotrue
 		/// <param name="userId"></param>
 		/// <param name="userData"></param>
 		/// <returns></returns>
-		public async Task<User?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData)
-		{
-			try
-			{
-				return await _api.UpdateUserById(jwt, userId, userData);
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
-		}
+		public Task<User?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData) => _api.UpdateUserById(jwt, userId, userData);
 
 		/// <summary>
 		/// Sends a reset request to an email address.
@@ -671,16 +588,9 @@ namespace Supabase.Gotrue
 		/// <exception cref="Exception"></exception>
 		public async Task<bool> ResetPasswordForEmail(string email)
 		{
-			try
-			{
-				var result = await _api.ResetPasswordForEmail(email);
-				result.ResponseMessage?.EnsureSuccessStatusCode();
-				return true;
-			}
-			catch (RequestException ex)
-			{
-				throw ExceptionHandler.Parse(ex);
-			}
+			var result = await _api.ResetPasswordForEmail(email);
+			result.ResponseMessage?.EnsureSuccessStatusCode();
+			return true;
 		}
 
 		/// <summary>
@@ -695,7 +605,7 @@ namespace Supabase.Gotrue
 			await RefreshToken();
 
 			var user = await _api.GetUser(CurrentSession.AccessToken!);
-			CurrentUser = user;
+			CurrentSession.User = user;
 
 			return CurrentSession;
 		}
@@ -707,13 +617,13 @@ namespace Supabase.Gotrue
 		/// <returns>Session.</returns>
 		public Session SetAuth(string accessToken)
 		{
-			if (CurrentSession == null) CurrentSession = new Session();
+			CurrentSession ??= new Session();
 
 			CurrentSession.AccessToken = accessToken;
 			CurrentSession.TokenType = "bearer";
 			CurrentSession.User = CurrentUser;
 
-			StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
+			NotifyAuthStateChange(TokenRefreshed);
 			return CurrentSession;
 		}
 
@@ -765,29 +675,30 @@ namespace Supabase.Gotrue
 
 			if (storeSession)
 			{
-				await PersistSession(session);
-				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+				UpdateSession(session);
+				NotifyAuthStateChange(SignedIn);
 
 				if (query.Get("type") == "recovery")
-					StateChanged?.Invoke(this, new ClientStateChanged(AuthState.PasswordRecovery));
+					NotifyAuthStateChange(PasswordRecovery);
 			}
 
 			return session;
 		}
 
 		/// <summary>
-		/// Retrieves the Session by calling <see cref="SessionRetriever"/> - sets internal state and timers.
+		/// Retrieves the Session by calling <see>
+		///     <cref>SessionRetriever</cref>
+		/// </see>
+		/// - sets internal state and timers.
 		/// </summary>
 		/// <returns></returns>
 		public async Task<Session?> RetrieveSessionAsync()
 		{
-			if (SessionRetriever == null) return null;
-
-			var session = await SessionRetriever.Invoke();
+			var session = CurrentSession;
 
 			if (session != null && session.ExpiresAt() < DateTime.Now)
 			{
-				if (AutoRefreshToken && session.RefreshToken != null)
+				if (Options.AutoRefreshToken && session.RefreshToken != null)
 				{
 					try
 					{
@@ -796,33 +707,26 @@ namespace Supabase.Gotrue
 					}
 					catch
 					{
-						await DestroySession();
+						DestroySession();
 						return null;
 					}
 				}
-				else
-				{
-					await DestroySession();
-					return null;
-				}
-			}
-			else if (session == null || session.User == null)
-			{
-				_debugNotification?.Log("Stored Session is missing data.");
-				await DestroySession();
+				DestroySession();
 				return null;
 			}
-			else
+
+			if (session?.User == null)
 			{
-				CurrentSession = session;
-				CurrentUser = session.User;
-
-				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-
-				InitRefreshTimer();
-
-				return CurrentSession;
+				_debugNotification?.Log("Stored Session is missing data.");
+				DestroySession();
+				return null;
 			}
+
+			CurrentSession = session;
+
+			NotifyAuthStateChange(SignedIn);
+			InitRefreshTimer();
+			return CurrentSession;
 		}
 
 		/// <summary>
@@ -836,42 +740,64 @@ namespace Supabase.Gotrue
 
 			if (result != null)
 			{
-				await PersistSession(result);
-				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+				UpdateSession(result);
+				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
 			}
 
 			return null;
 		}
 
-		/// <summary>
-		/// Persists a Session in memory and calls (if specified) <see cref="ClientOptions.SessionPersistor"/>
-		/// </summary>
-		/// <param name="session"></param>
-		private async Task PersistSession(Session session)
+		public Func<Dictionary<string, string>>? GetHeaders
 		{
-			CurrentSession = session;
-			CurrentUser = session.User;
-
-			var expiration = session.ExpiresIn;
-
-			if (AutoRefreshToken && expiration != default)
-				InitRefreshTimer();
-
-			if (ShouldPersistSession && SessionPersistor != null)
-				await SessionPersistor.Invoke(session);
+			get => _api.GetHeaders;
+			set => throw new ArgumentException();
 		}
 
 		/// <summary>
-		/// Persists a Session in memory and calls (if specified) <see cref="ClientOptions.SessionDestroyer"/>
+		/// Add a listener to get errors that occur outside of a typical Exception flow.
+		/// In particular, this is used to get errors and messages from the background thread
+		/// that automatically manages refreshing the user's token.
 		/// </summary>
-		private async Task DestroySession()
+		/// <param name="listener"></param>
+		public void AddDebugListener(Action<string, Exception?> listener)
 		{
-			CurrentSession = null;
-			CurrentUser = null;
+			_debugNotification ??= new DebugNotification();
+			_debugNotification.AddDebugListener(listener);
+		}
 
-			if (ShouldPersistSession && SessionDestroyer != null)
-				await SessionDestroyer.Invoke();
+		/// <summary>
+		/// Saves the session
+		/// </summary>
+		/// <param name="session"></param>
+		private void UpdateSession(Session? session)
+		{
+			if (session == null)
+			{
+				CurrentSession = null;
+				NotifyAuthStateChange(SignedOut);
+				return;
+			}
+
+			var dirty = CurrentSession != session;
+
+			CurrentSession = session;
+
+			var expiration = session.ExpiresIn;
+
+			if (Options.AutoRefreshToken && expiration != default)
+				InitRefreshTimer();
+
+			if (dirty)
+				NotifyAuthStateChange(UserUpdated);
+		}
+
+		/// <summary>
+		/// Clears the session
+		/// </summary>
+		private void DestroySession()
+		{
+			UpdateSession(null);
 		}
 
 		/// <summary>
@@ -891,15 +817,10 @@ namespace Supabase.Gotrue
 				throw new Exception("Could not refresh token from provided session.");
 
 			CurrentSession = result;
-			CurrentUser = result.User;
 
-			if (ShouldPersistSession && SessionPersistor != null)
-				await SessionPersistor.Invoke(result);
+			NotifyAuthStateChange(TokenRefreshed);
 
-			StateChanged?.Invoke(this, new ClientStateChanged(AuthState.TokenRefreshed));
-			StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
-
-			if (AutoRefreshToken && CurrentSession.ExpiresIn != default)
+			if (Options.AutoRefreshToken && CurrentSession.ExpiresIn != default)
 				InitRefreshTimer();
 		}
 
@@ -907,15 +828,14 @@ namespace Supabase.Gotrue
 		{
 			if (CurrentSession == null || CurrentSession.ExpiresIn == default) return;
 
-			if (_refreshTimer != null)
-				_refreshTimer.Dispose();
+			_refreshTimer?.Dispose();
 
 			try
 			{
 				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
-				int interval = (int)Math.Floor(CurrentSession.ExpiresIn * 4.0f / 5.0f);
-				int timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
-				TimeSpan timeout = TimeSpan.FromSeconds(timeoutSeconds);
+				var interval = (int)Math.Floor(CurrentSession.ExpiresIn * 4.0f / 5.0f);
+				var timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
+				var timeout = TimeSpan.FromSeconds(timeoutSeconds);
 
 				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
 			}
@@ -943,21 +863,13 @@ namespace Supabase.Gotrue
 			catch (Exception ex)
 			{
 				_debugNotification?.Log(ex.Message, ex);
-				StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedOut));
+				NotifyAuthStateChange(SignedOut);
 			}
 		}
-	}
-
-	/// <summary>
-	/// Class representing a state change on the <see cref="Client"/>.
-	/// </summary>
-	public class ClientStateChanged : EventArgs
-	{
-		public AuthState State { get; private set; }
-
-		public ClientStateChanged(AuthState state)
+		public void LoadSession()
 		{
-			State = state;
+			if (_sessionPersistence != null)
+				UpdateSession(_sessionPersistence.Persistence.LoadSession());
 		}
 	}
 }
