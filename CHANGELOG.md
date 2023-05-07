@@ -1,5 +1,30 @@
 ﻿# Changelog
 
+## 4.0.0
+
+### [#57](https://github.com/supabase-community/gotrue-csharp/pull/57) Refactor exceptions, code cleanup, and move to delegate auth state changes
+Huge thank you to [@wiverson](https://github.com/wiverson) for his help on this refactor and release!
+  - Changes
+    - Exceptions have been simplified to a single `GotrueException`. A `Reason` field has been added
+      to `GotrueException` to clarify what happened. This should also be easier to manage as the Gotrue
+      server API & messages evolve.
+    - The session delegates for `Save`/`Load`/`Destroy` have been simplified to no longer require `async`.
+    - Console logging in a few places (most notable the background refresh thread) has been removed
+      in favor of a notification method. See `Client.AddDebugListener()` and the test cases for examples.
+      This will allow you to implement your own logging strategy (write to temp file, console, user visible
+      err console, etc).
+    - The client now more reliably emits AuthState changes.
+    - There is now a single source of truth for headers in the stateful Client - the `Options` headers.
+  - New feature:
+    - Added a `Settings` request to the stateless API only - you can now query the server instance to
+      determine if it's got the settings you need. This might allow for things like a visual
+      component in a tool to verify the GoTrue settings are working correctly, or tests that run differently
+      depending on the server configuration.
+  - Implementation notes:
+    - Test cases have been added to help ensure reliability of auth state change notifications
+      and persistence.
+    - Persistence is now managed via the same notifications as auth state change
+
 ## 3.1.2
 
 - [#49](https://github.com/supabase-community/gotrue-csharp/issues/49) Implements `SignInWithOtp` for email and phone
