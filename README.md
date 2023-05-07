@@ -11,7 +11,7 @@
 
 ---
 
-## BREAKING CHANGES v3.1 → v3.x
+## BREAKING CHANGES v3.1 → v4.x
 
 - Exceptions have been simplified to a single `GotrueException`. A `Reason` field has been added
   to `GotrueException` to clarify what happened. This should also be easier to manage as the Gotrue
