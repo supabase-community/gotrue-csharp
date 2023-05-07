@@ -53,7 +53,7 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Object called to persist the session (e.g. filesystem or cookie)
 		/// </summary>
-		private PersistenceListener? _sessionPersistence;
+		private IGotruePersistenceListener<Session>? _sessionPersistence;
 
 
 		/// <summary>
@@ -97,7 +97,7 @@ namespace Supabase.Gotrue
 		/// Set the Session persistence system. Typically an application specific file system location.
 		/// </summary>
 		/// <param name="persistence"></param>
-		public void SetPersistence(IGotrueSessionPersistence persistence)
+		public void SetPersistence(IGotrueSessionPersistence<Session> persistence)
 		{
 			if (_sessionPersistence != null)
 				_authEventHandlers.Remove(_sessionPersistence.EventHandler);
