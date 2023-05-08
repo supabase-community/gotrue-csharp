@@ -14,12 +14,12 @@ namespace Supabase.Gotrue.Interfaces
 
 		delegate void AuthEventHandler(IGotrueClient<TUser, TSession> sender, AuthState stateChanged);
 
-		public void SetPersistence(IGotrueSessionPersistence<TSession> persistence);
+		void SetPersistence(IGotrueSessionPersistence<TSession> persistence);
 
-		public void AddStateChangedListener(AuthEventHandler authEventHandler);
-		public void RemoveStateChangedListener(AuthEventHandler authEventHandler);
-		public void ClearStateChangedListeners();
-		public void NotifyAuthStateChange(AuthState stateChanged);
+		void AddStateChangedListener(AuthEventHandler authEventHandler);
+		void RemoveStateChangedListener(AuthEventHandler authEventHandler);
+		void ClearStateChangedListeners();
+		void NotifyAuthStateChange(AuthState stateChanged);
 
 		Task<TUser?> CreateUser(string jwt, AdminUserAttributes attributes);
 		Task<TUser?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null);
