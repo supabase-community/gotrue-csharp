@@ -52,5 +52,6 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink);
 		void AddDebugListener(Action<string, Exception?> logDebug);
 		void LoadSession();
+		Task<Settings?> Settings();
 	}
 }

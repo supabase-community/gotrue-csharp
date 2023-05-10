@@ -871,5 +871,10 @@ namespace Supabase.Gotrue
 			if (_sessionPersistence != null)
 				UpdateSession(_sessionPersistence.Persistence.LoadSession());
 		}
+
+		public Task<Settings?> Settings()
+		{
+			return _api.Settings();
+		}
 	}
 }
