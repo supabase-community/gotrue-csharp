@@ -18,6 +18,9 @@ namespace GotrueTests
 	[TestClass]
 	public class AnonKeyClientFailureTests
 	{
+		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
+
+		private IGotrueClient<User, Session> _client;
 		private TestSessionPersistence _persistence;
 
 		private void AuthStateListener(IGotrueClient<User, Session> sender, Constants.AuthState newState)
@@ -42,11 +45,6 @@ namespace GotrueTests
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}
-
-
-		private Client _client;
-
-		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
 
 		[TestMethod("Client: Sign Up With Bad Password")]
 		public async Task SignUpUserEmailBadPassword()
@@ -152,7 +150,6 @@ namespace GotrueTests
 				IsNotNull(result);
 			});
 		}
-
 	}
 
 }

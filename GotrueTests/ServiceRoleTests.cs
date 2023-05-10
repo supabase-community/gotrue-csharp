@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
+using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
@@ -14,7 +15,7 @@ namespace GotrueTests
 	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 	public class ServiceRoleTests
 	{
-		private Client _client;
+		private IGotrueClient<User, Session>  _client;
 
 		private readonly string _serviceKey = GenerateServiceRoleToken();
 

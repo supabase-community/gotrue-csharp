@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
+using Supabase.Gotrue.Interfaces;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
@@ -29,7 +30,7 @@ namespace GotrueTests
 		[TestMethod("Bad service key message")]
 		public async Task BadServiceApiKeyTest()
 		{
-			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			IGotrueClient<User, Session>  client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
 			client.AddDebugListener(LogDebug);
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
