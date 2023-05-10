@@ -29,6 +29,7 @@ namespace Supabase.Gotrue.Exceptions
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
 				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
 				422 when gte.Content.Contains("Password should be at least") => UserBadPassword,
+				422 when gte.Content.Contains("Signup requires a valid password") => UserBadPassword,
 				422 when gte.Content.Contains("Unable to validate email address") => UserBadEmailAddress,
 				422 when gte.Content.Contains("provide your email or phone number") => UserMissingInformation,
 				_ => Unknown
