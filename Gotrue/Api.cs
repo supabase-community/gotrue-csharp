@@ -575,7 +575,7 @@ namespace Supabase.Gotrue
 
 		public Task<Settings?> Settings()
 		{
-			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings");
+			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
 		}
 
 		/// <summary>
