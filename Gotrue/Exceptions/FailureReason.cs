@@ -28,10 +28,11 @@ namespace Supabase.Gotrue.Exceptions
 				400 when gte.Content.Contains("User already registered") => UserAlreadyRegistered,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
 				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
-				422 when gte.Content.Contains("Password should be at least") => UserBadPassword,
-				422 when gte.Content.Contains("Signup requires a valid password") => UserBadPassword,
-				422 when gte.Content.Contains("Unable to validate email address") => UserBadEmailAddress,
-				422 when gte.Content.Contains("provide your email or phone number") => UserMissingInformation,
+				422 when gte.Content.Contains("Email") => UserBadEmailAddress,
+				422 when gte.Content.Contains("email") => UserBadEmailAddress,
+				422 when gte.Content.Contains("Password") => UserBadPassword,
+				422 when gte.Content.Contains("password") => UserBadPassword,
+				422 when gte.Content.Contains("provide") => UserMissingInformation,
 				_ => Unknown
 			};
 
