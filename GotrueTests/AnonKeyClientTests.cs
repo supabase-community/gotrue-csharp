@@ -331,5 +331,11 @@ namespace GotrueTests
 			var result = await _client.ResetPasswordForEmail(email);
 			IsTrue(result);
 		}
+
+		[TestMethod("Client: Get Settings")]
+		public async Task<Settings> Settings()
+		{
+			return await _client.Settings();
+		}
 	}
 }
