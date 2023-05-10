@@ -83,7 +83,7 @@ namespace GotrueTests
 			{
 				await _client.SignUp(Constants.SignUpType.Phone, phone1, PASSWORD, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 			});
-			AreEqual(UserMissingInformation, x.Reason);
+			AreEqual(UserBadPhoneNumber, x.Reason);
 			IsNull(_persistence.SavedSession);
 			Contains(_stateChanges, SignedOut);
 			AreEqual(1, _stateChanges.Count);
