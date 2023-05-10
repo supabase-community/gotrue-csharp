@@ -333,9 +333,9 @@ namespace GotrueTests
 		}
 
 		[TestMethod("Client: Get Settings")]
-		public async Task<Settings> Settings()
+		public async Task Settings()
 		{
-			return await _client.Settings();
+			await _client.Settings();
 		}
 	}
 }
