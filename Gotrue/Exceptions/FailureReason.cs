@@ -13,6 +13,7 @@ namespace Supabase.Gotrue.Exceptions
 			UserEmailNotConfirmed,
 			UserBadMultiple,
 			UserBadPassword,
+			UserBadLogin,
 			UserBadEmailAddress,
 			UserBadPhoneNumber,
 			UserMissingInformation,
@@ -29,6 +30,7 @@ namespace Supabase.Gotrue.Exceptions
 
 			return gte.StatusCode switch
 			{
+				400 when gte.Content.Contains("Invalid login") => UserBadLogin,
 				400 when gte.Content.Contains("Email not confirmed") => UserEmailNotConfirmed,
 				400 when gte.Content.Contains("User already registered") => UserAlreadyRegistered,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
