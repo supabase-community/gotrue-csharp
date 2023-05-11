@@ -10,12 +10,14 @@ namespace Supabase.Gotrue.Exceptions
 		public enum Reason
 		{
 			Unknown,
+			UserEmailNotConfirmed,
 			UserBadMultiple,
 			UserBadPassword,
 			UserBadEmailAddress,
 			UserBadPhoneNumber,
 			UserMissingInformation,
 			UserAlreadyRegistered,
+			UserTooManyRequests,
 			InvalidRefreshToken,
 			AdminTokenRequired
 		}
@@ -27,6 +29,7 @@ namespace Supabase.Gotrue.Exceptions
 
 			return gte.StatusCode switch
 			{
+				400 when gte.Content.Contains("Email not confirmed") => UserEmailNotConfirmed,
 				400 when gte.Content.Contains("User already registered") => UserAlreadyRegistered,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
 				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
@@ -41,6 +44,7 @@ namespace Supabase.Gotrue.Exceptions
 				422 when gte.Content.Contains("Password") => UserBadPassword,
 				422 when gte.Content.Contains("password") => UserBadPassword,
 				422 when gte.Content.Contains("provide") => UserMissingInformation,
+				429 => UserTooManyRequests,
 				_ => Unknown
 			};
 
