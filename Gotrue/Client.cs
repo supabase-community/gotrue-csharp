@@ -751,7 +751,7 @@ namespace Supabase.Gotrue
 		public Func<Dictionary<string, string>>? GetHeaders
 		{
 			get => _api.GetHeaders;
-			set => throw new ArgumentException();
+			set => _api.GetHeaders = value;
 		}
 
 		/// <summary>
@@ -870,6 +870,11 @@ namespace Supabase.Gotrue
 		{
 			if (_sessionPersistence != null)
 				UpdateSession(_sessionPersistence.Persistence.LoadSession());
+		}
+
+		public Task<Settings?> Settings()
+		{
+			return _api.Settings();
 		}
 	}
 }

@@ -32,5 +32,6 @@ namespace Supabase.Gotrue.Interfaces
         Task<TUser?> UpdateUserById(string jwt, StatelessClientOptions options, string userId, AdminUserAttributes userData);
         Task<TSession?> VerifyOTP(string phone, string token, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS);
         Task<TSession?> VerifyOTP(string email, string token, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink);
+        Task<Settings?> Settings(StatelessClientOptions options);
     }
 }

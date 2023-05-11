@@ -10,10 +10,15 @@ namespace Supabase.Gotrue.Exceptions
 		public enum Reason
 		{
 			Unknown,
+			UserEmailNotConfirmed,
+			UserBadMultiple,
 			UserBadPassword,
+			UserBadLogin,
 			UserBadEmailAddress,
+			UserBadPhoneNumber,
 			UserMissingInformation,
 			UserAlreadyRegistered,
+			UserTooManyRequests,
 			InvalidRefreshToken,
 			AdminTokenRequired
 		}
@@ -25,12 +30,23 @@ namespace Supabase.Gotrue.Exceptions
 
 			return gte.StatusCode switch
 			{
+				400 when gte.Content.Contains("Invalid login") => UserBadLogin,
+				400 when gte.Content.Contains("Email not confirmed") => UserEmailNotConfirmed,
 				400 when gte.Content.Contains("User already registered") => UserAlreadyRegistered,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
 				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
-				422 when gte.Content.Contains("Password should be at least") => UserBadPassword,
-				422 when gte.Content.Contains("Unable to validate email address") => UserBadEmailAddress,
-				422 when gte.Content.Contains("provide your email or phone number") => UserMissingInformation,
+				422 when gte.Content.Contains("Phone") && gte.Content.Contains("Email") => UserBadMultiple,
+				422 when gte.Content.Contains("email") && gte.Content.Contains("password") => UserBadMultiple,
+				422 when gte.Content.Contains("Phone") => UserBadPhoneNumber,
+				422 when gte.Content.Contains("phone") => UserBadPhoneNumber,
+				422 when gte.Content.Contains("Phone") => UserBadPhoneNumber,
+				422 when gte.Content.Contains("phone") => UserBadPhoneNumber,
+				422 when gte.Content.Contains("Email") => UserBadEmailAddress,
+				422 when gte.Content.Contains("email") => UserBadEmailAddress,
+				422 when gte.Content.Contains("Password") => UserBadPassword,
+				422 when gte.Content.Contains("password") => UserBadPassword,
+				422 when gte.Content.Contains("provide") => UserMissingInformation,
+				429 => UserTooManyRequests,
 				_ => Unknown
 			};
 

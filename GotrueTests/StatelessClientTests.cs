@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
+using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.StatelessClient;
 using static Supabase.Gotrue.Constants;
 
@@ -22,6 +23,10 @@ namespace GotrueTests
 		private const string PASSWORD = "I@M@SuperP@ssWord";
 
 		private static readonly Random Random = new Random();
+
+		private IGotrueStatelessClient<User, Session> _client;
+
+		private static StatelessClientOptions Options { get => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true }; }
 
 		private static string RandomString(int length)
 		{
@@ -59,16 +64,12 @@ namespace GotrueTests
 			return tokenHandler.WriteToken(securityToken);
 		}
 
-		private StatelessClient _client;
-
 
 		[TestInitialize]
 		public void TestInitializer()
 		{
 			_client = new StatelessClient();
 		}
-
-		private static StatelessClientOptions Options { get => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true }; }
 
 		[TestMethod("StatelessClient: Settings")]
 		public async Task Settings()

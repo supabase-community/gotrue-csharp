@@ -10,6 +10,6 @@ namespace Supabase.Gotrue.Interfaces
 
         public void DestroySession();
 
-        public TSession LoadSession();
+        public TSession? LoadSession();
     }
 }

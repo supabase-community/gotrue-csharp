@@ -18,6 +18,10 @@ namespace GotrueTests
 	public class AnonKeyClientTests
 	{
 
+		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
+
+		private IGotrueClient<User, Session> _client;
+
 		private TestSessionPersistence _persistence;
 
 		private void AuthStateListener(IGotrueClient<User, Session> sender, Constants.AuthState newState)
@@ -42,10 +46,6 @@ namespace GotrueTests
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
 		}
-
-		private Client _client;
-
-		private readonly List<Constants.AuthState> _stateChanges = new List<Constants.AuthState>();
 
 		private void VerifyGoodSession(Session session)
 		{
@@ -89,7 +89,7 @@ namespace GotrueTests
 
 			var newPersistence = new TestSessionPersistence();
 			newPersistence.SaveSession(session);
-			var newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			IGotrueClient<User, Session> newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
 			newClient.SetPersistence(newPersistence);
 			newClient.AddDebugListener(LogDebug);
 			newClient.AddStateChangedListener(AuthStateListener);
@@ -330,6 +330,12 @@ namespace GotrueTests
 			await _client.SignUp(email, PASSWORD);
 			var result = await _client.ResetPasswordForEmail(email);
 			IsTrue(result);
+		}
+
+		[TestMethod("Client: Get Settings")]
+		public async Task Settings()
+		{
+			await _client.Settings();
 		}
 	}
 }
