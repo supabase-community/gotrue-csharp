@@ -220,6 +220,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.ListUsers
   nameWithType: Api.ListUsers
+- uid: Supabase.Gotrue.Api.Reauthenticate(System.String)
+  name: Reauthenticate(String)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_Reauthenticate_System_String_
+  commentId: M:Supabase.Gotrue.Api.Reauthenticate(System.String)
+  fullName: Supabase.Gotrue.Api.Reauthenticate(System.String)
+  nameWithType: Api.Reauthenticate(String)
+- uid: Supabase.Gotrue.Api.Reauthenticate*
+  name: Reauthenticate
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_Reauthenticate_
+  commentId: Overload:Supabase.Gotrue.Api.Reauthenticate
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.Reauthenticate
+  nameWithType: Api.Reauthenticate
 - uid: Supabase.Gotrue.Api.RefreshAccessToken(System.String)
   name: RefreshAccessToken(String)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_RefreshAccessToken_System_String_
@@ -692,6 +705,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.Options
   nameWithType: Client.Options
+- uid: Supabase.Gotrue.Client.Reauthenticate
+  name: Reauthenticate()
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Reauthenticate
+  commentId: M:Supabase.Gotrue.Client.Reauthenticate
+  fullName: Supabase.Gotrue.Client.Reauthenticate()
+  nameWithType: Client.Reauthenticate()
+- uid: Supabase.Gotrue.Client.Reauthenticate*
+  name: Reauthenticate
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Reauthenticate_
+  commentId: Overload:Supabase.Gotrue.Client.Reauthenticate
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.Reauthenticate
+  nameWithType: Client.Reauthenticate
 - uid: Supabase.Gotrue.Client.RefreshSession
   name: RefreshSession()
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_RefreshSession
@@ -1752,6 +1778,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).ListUsers
   nameWithType: IGotrueApi<TUser, TSession>.ListUsers
   nameWithType.vb: IGotrueApi(Of TUser, TSession).ListUsers
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.Reauthenticate(System.String)
+  name: Reauthenticate(String)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_Reauthenticate_System_String_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.Reauthenticate(System.String)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.Reauthenticate(System.String)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).Reauthenticate(System.String)
+  nameWithType: IGotrueApi<TUser, TSession>.Reauthenticate(String)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).Reauthenticate(String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.Reauthenticate*
+  name: Reauthenticate
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_Reauthenticate_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueApi`2.Reauthenticate
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.Reauthenticate
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).Reauthenticate
+  nameWithType: IGotrueApi<TUser, TSession>.Reauthenticate
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).Reauthenticate
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.RefreshAccessToken(System.String)
   name: RefreshAccessToken(String)
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_RefreshAccessToken_System_String_
@@ -2317,6 +2360,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).NotifyAuthStateChange
   nameWithType: IGotrueClient<TUser, TSession>.NotifyAuthStateChange
   nameWithType.vb: IGotrueClient(Of TUser, TSession).NotifyAuthStateChange
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Reauthenticate
+  name: Reauthenticate()
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Reauthenticate
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.Reauthenticate
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Reauthenticate()
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Reauthenticate()
+  nameWithType: IGotrueClient<TUser, TSession>.Reauthenticate()
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Reauthenticate()
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Reauthenticate*
+  name: Reauthenticate
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Reauthenticate_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.Reauthenticate
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Reauthenticate
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Reauthenticate
+  nameWithType: IGotrueClient<TUser, TSession>.Reauthenticate
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Reauthenticate
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshSession
   name: RefreshSession()
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshSession
@@ -4302,6 +4362,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.UserAttributes.EmailChangeToken
   nameWithType: UserAttributes.EmailChangeToken
+- uid: Supabase.Gotrue.UserAttributes.Nonce
+  name: Nonce
+  href: api/Supabase.Gotrue.UserAttributes.html#Supabase_Gotrue_UserAttributes_Nonce
+  commentId: P:Supabase.Gotrue.UserAttributes.Nonce
+  fullName: Supabase.Gotrue.UserAttributes.Nonce
+  nameWithType: UserAttributes.Nonce
+- uid: Supabase.Gotrue.UserAttributes.Nonce*
+  name: Nonce
+  href: api/Supabase.Gotrue.UserAttributes.html#Supabase_Gotrue_UserAttributes_Nonce_
+  commentId: Overload:Supabase.Gotrue.UserAttributes.Nonce
+  isSpec: "True"
+  fullName: Supabase.Gotrue.UserAttributes.Nonce
+  nameWithType: UserAttributes.Nonce
 - uid: Supabase.Gotrue.UserAttributes.Password
   name: Password
   href: api/Supabase.Gotrue.UserAttributes.html#Supabase_Gotrue_UserAttributes_Password
