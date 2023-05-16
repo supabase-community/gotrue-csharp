@@ -8,6 +8,7 @@ using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
+using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 namespace Supabase.Gotrue
 {
@@ -502,7 +503,7 @@ namespace Supabase.Gotrue
 		public async Task<bool> Reauthenticate()
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
-				throw new GotrueException("Not Logged in.");
+				throw new GotrueException("Not Logged in.", NoSessionFound);
 
 			var response = await _api.Reauthenticate(CurrentSession.AccessToken!);
 
@@ -603,7 +604,6 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		/// <exception cref="Exception"></exception>
 		public async Task<bool> ResetPasswordForEmail(string email)
 		{
 			var result = await _api.ResetPasswordForEmail(email);
@@ -618,7 +618,7 @@ namespace Supabase.Gotrue
 		public async Task<Session?> RefreshSession()
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
-				throw new Exception("Not Logged in.");
+				throw new GotrueException("Not Logged in.", NoSessionFound);
 
 			await RefreshToken();
 
@@ -658,27 +658,27 @@ namespace Supabase.Gotrue
 			var errorDescription = query.Get("error_description");
 
 			if (!string.IsNullOrEmpty(errorDescription))
-				throw new Exception(errorDescription);
+				throw new GotrueException(errorDescription, BadSessionUrl);
 
 			var accessToken = query.Get("access_token");
 
 			if (string.IsNullOrEmpty(accessToken))
-				throw new Exception("No access_token detected.");
+				throw new GotrueException("No access_token detected.", BadSessionUrl);
 
 			var expiresIn = query.Get("expires_in");
 
 			if (string.IsNullOrEmpty(expiresIn))
-				throw new Exception("No expires_in detected.");
+				throw new GotrueException("No expires_in detected.", BadSessionUrl);
 
 			var refreshToken = query.Get("refresh_token");
 
 			if (string.IsNullOrEmpty(refreshToken))
-				throw new Exception("No refresh_token detected.");
+				throw new GotrueException("No refresh_token detected.", BadSessionUrl);
 
 			var tokenType = query.Get("token_type");
 
 			if (string.IsNullOrEmpty(tokenType))
-				throw new Exception("No token_type detected.");
+				throw new GotrueException("No token_type detected.", BadSessionUrl);
 
 			var user = await _api.GetUser(accessToken);
 
@@ -723,8 +723,9 @@ namespace Supabase.Gotrue
 						await RefreshToken(session.RefreshToken);
 						return CurrentSession;
 					}
-					catch
+					catch (Exception e)
 					{
+						_debugNotification?.Log($"Failed to refresh token", e);
 						DestroySession();
 						return null;
 					}
@@ -766,6 +767,9 @@ namespace Supabase.Gotrue
 			return null;
 		}
 
+		/// <summary>
+		/// Headers sent to the API on every request.
+		/// </summary>
 		public Func<Dictionary<string, string>>? GetHeaders
 		{
 			get => _api.GetHeaders;
@@ -825,14 +829,14 @@ namespace Supabase.Gotrue
 		private async Task RefreshToken(string? refreshToken = null)
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.RefreshToken) && string.IsNullOrEmpty(refreshToken))
-				throw new Exception("No current session.");
+				throw new GotrueException("No current session.", NoSessionFound);
 
 			refreshToken ??= CurrentSession!.RefreshToken;
 
 			var result = await _api.RefreshAccessToken(refreshToken!);
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
-				throw new Exception("Could not refresh token from provided session.");
+				throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
 
 			CurrentSession = result;
 
@@ -884,12 +888,19 @@ namespace Supabase.Gotrue
 				NotifyAuthStateChange(SignedOut);
 			}
 		}
+		/// <summary>
+		/// Loads the session from the persistence provider
+		/// </summary>
 		public void LoadSession()
 		{
 			if (_sessionPersistence != null)
 				UpdateSession(_sessionPersistence.Persistence.LoadSession());
 		}
 
+		/// <summary>
+		/// Retrieves the settings from the server
+		/// </summary>
+		/// <returns></returns>
 		public Task<Settings?> Settings()
 		{
 			return _api.Settings();
