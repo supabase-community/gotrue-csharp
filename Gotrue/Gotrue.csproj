@@ -16,35 +16,35 @@
         <PackageLicenseUrl>https://github.com/supabase-community/gotrue-csharp/blob/master/LICENSE</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/supabase-community/gotrue-csharp</PackageProjectUrl>
         <PackageTags>supabase, gotrue</PackageTags>
-        <PackageVersion>4.0.1</PackageVersion>
-        <ReleaseVersion>4.0.1</ReleaseVersion>
+        <PackageVersion>4.0.2</PackageVersion>
+        <ReleaseVersion>4.0.2</ReleaseVersion>
     </PropertyGroup>
-	<PropertyGroup>
-		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
-		<WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+    </PropertyGroup>
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Version)' == '' ">
-		<VersionPrefix Condition=" '$(VersionPrefix)' == '' ">4.0.1</VersionPrefix>
-		<VersionSuffix Condition=" '$(VersionSuffix)' == '' ">
-		</VersionSuffix>
-		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
-		<Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
-	</PropertyGroup>
+        <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">4.0.2</VersionPrefix>
+        <VersionSuffix Condition=" '$(VersionSuffix)' == '' ">
+        </VersionSuffix>
+        <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+        <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
+    </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-      <LangVersion>8.0</LangVersion>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-      <LangVersion>8.0</LangVersion>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="supabase-core" Version="0.0.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="supabase-core" Version="0.0.2"/>
     </ItemGroup>
     <ItemGroup>
-      <None Remove="Exceptions\" />
+        <None Remove="Exceptions\"/>
     </ItemGroup>
 </Project>

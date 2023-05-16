@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 4.0.2 - 2023-05-15
+
+- [#58](https://github.com/supabase-community/gotrue-csharp/issues/58) - Add support for the `reauthentication` endpoint which allows for secure password changes.
+
 ## 4.0.1 - 2023-05-11
 
 - [#60](https://github.com/supabase-community/gotrue-csharp/pull/60) - Add interfaces, bug fixes, additional error
