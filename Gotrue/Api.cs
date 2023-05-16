@@ -562,6 +562,18 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
+		/// Sends a re-authentication request, used for password changes.
+		///
+		/// See: https://github.com/supabase/gotrue#get-reauthenticate
+		/// </summary>
+		/// <param name="userJwt">The user's auth token.</param>
+		/// <returns></returns>
+		public Task<BaseResponse> Reauthenticate(string userJwt)
+		{
+			return Helpers.MakeRequest(HttpMethod.Get, $"{Url}/reauthenticate", null, CreateAuthedRequestHeaders(userJwt));
+		}
+
+		/// <summary>
 		/// Delete a user
 		/// </summary>
 		/// <param name="uid">The user uid you want to remove.</param>

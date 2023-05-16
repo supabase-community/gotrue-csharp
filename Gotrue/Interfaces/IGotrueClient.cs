@@ -45,6 +45,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> ExchangeCodeForSession(string codeVerifier, string authCode);
 		Task<TSession?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null);
 		Task<TSession?> SignUp(string email, string password, SignUpOptions? options = null);
+		Task<bool> Reauthenticate();
 		Task SignOut();
 		Task<TUser?> Update(UserAttributes attributes);
 		Task<TUser?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData);

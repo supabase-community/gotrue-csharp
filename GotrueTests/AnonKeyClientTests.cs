@@ -337,5 +337,23 @@ namespace GotrueTests
 		{
 			await _client.Settings();
 		}
+
+		[TestMethod("Client: Can change password")]
+		public async Task ClientCanChangePassword()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var newPassword = "IAmANewSecretPassword";
+			await _client.SignUp(email, PASSWORD);
+
+			await _client.Update(new UserAttributes()
+			{
+				Password = newPassword
+			});
+
+			await _client.SignOut();
+			var user = await _client.SignIn(email, newPassword);
+			
+			Assert.IsTrue(user != null);
+		}
 	}
 }

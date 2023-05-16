@@ -153,10 +153,12 @@ namespace Supabase.Gotrue
 
             if (!response.IsSuccessStatusCode)
             {
-                var e = new GotrueException("Request Failed");
-                e.Content = content;
-                e.Response = response;
-                e.StatusCode = (int)response.StatusCode;
+                var e = new GotrueException(content ?? "Request Failed")
+                {
+                    Content = content,
+                    Response = response,
+                    StatusCode = (int)response.StatusCode
+                };
                 e.AddReason();
                 throw e;
             }

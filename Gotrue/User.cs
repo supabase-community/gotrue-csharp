@@ -114,6 +114,9 @@ namespace Supabase.Gotrue
 
         [JsonProperty("email_change_token")]
         public string? EmailChangeToken { get; set; }
+        
+        [JsonProperty("nonce")]
+        public string? Nonce { get; set; }
 
         [JsonProperty("password")]
         public string? Password { get; set; }

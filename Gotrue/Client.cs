@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
@@ -482,13 +483,30 @@ namespace Supabase.Gotrue
 		public async Task<User?> Update(UserAttributes attributes)
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
-				throw new Exception("Not Logged in.");
+				throw new GotrueException("Not Logged in.");
 
 			var result = await _api.UpdateUser(CurrentSession.AccessToken!, attributes);
 			CurrentSession.User = result;
 			NotifyAuthStateChange(UserUpdated);
 
 			return result;
+		}
+
+		/// <summary>
+		/// Used for re-authenticating a user in password changes.
+		///
+		/// See: https://github.com/supabase/gotrue#get-reauthenticate
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="GotrueException"></exception>
+		public async Task<bool> Reauthenticate()
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.");
+
+			var response = await _api.Reauthenticate(CurrentSession.AccessToken!);
+
+			return response.ResponseMessage?.IsSuccessStatusCode ?? false;
 		}
 
 		/// <summary>
