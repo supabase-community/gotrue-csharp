@@ -5,28 +5,108 @@ using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue.Interfaces
 {
+	/// <summary>
+	/// Interface for the Gotrue Client (auth).
+	///
+	/// For more information check out the <see cref="Client"/> implementation.
+	/// </summary>
+	/// <typeparam name="TUser"></typeparam>
+	/// <typeparam name="TSession"></typeparam>
 	public interface IGotrueClient<TUser, TSession> : IGettableHeaders
 		where TUser : User
 		where TSession : Session
 	{
+		/// <summary>
+		/// The current in-memory session.
+		/// </summary>
 		TSession? CurrentSession { get; }
+		/// <summary>
+		/// The current in-memory user.
+		/// </summary>
 		TUser? CurrentUser { get; }
 
+		/// <summary>
+		/// The method that is called when there is a user state change.
+		/// </summary>
 		delegate void AuthEventHandler(IGotrueClient<TUser, TSession> sender, AuthState stateChanged);
 
+		/// <summary>
+		/// Sets the persistence implementation for the client (e.g. file system, local storage, etc).
+		/// </summary>
+		/// <param name="persistence"></param>
 		void SetPersistence(IGotrueSessionPersistence<TSession> persistence);
 
+		/// <summary>
+		/// Adds a listener for the user state change event.
+		/// </summary>
+		/// <param name="authEventHandler"></param>
 		void AddStateChangedListener(AuthEventHandler authEventHandler);
+		/// <summary>
+		/// Removes a listener for the user state change event.
+		/// </summary>
+		/// <param name="authEventHandler"></param>
 		void RemoveStateChangedListener(AuthEventHandler authEventHandler);
+		/// <summary>
+		/// Removes all listeners for the user state change event - including the persistence listener.
+		/// </summary>
 		void ClearStateChangedListeners();
+		/// <summary>
+		/// Notifies all listeners of a user state change. This is called internally by the client.
+		/// </summary>
+		/// <param name="stateChanged"></param>
 		void NotifyAuthStateChange(AuthState stateChanged);
 
+		/// <summary>
+		/// Creates a user using the admin key (not the anonymous key).
+		/// Used in trusted server environments, not client apps.
+		/// </summary>
+		/// <param name="jwt">Admin token</param>
+		/// <param name="attributes"></param>
+		/// <returns></returns>
 		Task<TUser?> CreateUser(string jwt, AdminUserAttributes attributes);
+		/// <summary>
+		/// Creates a user using the admin key (not the anonymous key).
+		/// Used in trusted server environments, not client apps.
+		/// </summary>
+		/// <param name="jwt">Admin Bearer token</param>
+		/// <param name="email"></param>
+		/// <param name="password"></param>
+		/// <param name="attributes"></param>
+		/// <returns></returns>
 		Task<TUser?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null);
+		/// <summary>
+		/// Creates a user using the admin key (not the anonymous key).
+		/// Used in trusted server environments, not client apps.
+		/// </summary>
+
 		Task<bool> DeleteUser(string uid, string jwt);
+		/// <summary>
+		/// Converts a URL to a session. For client apps, this probably requires setting up URL handlers.
+		/// </summary>
+		/// <param name="uri"></param>
+		/// <param name="storeSession"></param>
+		/// <returns></returns>
 		Task<TSession?> GetSessionFromUrl(Uri uri, bool storeSession = true);
+		
+		/// <summary>
+		/// Gets a user from the JWT.
+		/// </summary>
+		/// <param name="jwt"></param>
+		/// <returns></returns>
 		Task<TUser?> GetUser(string jwt);
+		/// <summary>
+		/// Gets a user by ID from the server using the admin key (not the anonymous key).
+		/// </summary>
+		/// <param name="jwt"></param>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		Task<TUser?> GetUserById(string jwt, string userId);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="jwt"></param>
+		/// <returns></returns>
 		Task<bool> InviteUserByEmail(string email, string jwt);
 		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
 		Task<TSession?> RefreshSession();
@@ -51,8 +131,24 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TUser?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData);
 		Task<TSession?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS);
 		Task<TSession?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink);
+		/// <summary>
+		/// Adds a listener for debug messages (e.g. background threads).
+		/// </summary>
+		/// <param name="logDebug"></param>
 		void AddDebugListener(Action<string, Exception?> logDebug);
+		/// <summary>
+		/// Loads the session from the persistence layer.
+		/// </summary>
 		void LoadSession();
+		/// <summary>
+		/// Fetch the server options.
+		/// </summary>
+		/// <returns></returns>
 		Task<Settings?> Settings();
+		/// <summary>
+		/// Returns the client options.
+		/// </summary>
+		ClientOptions Options { get; }
+
 	}
 }
