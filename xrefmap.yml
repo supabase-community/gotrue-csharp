@@ -1419,12 +1419,24 @@ references:
   commentId: F:Supabase.Gotrue.Exceptions.FailureHint.Reason.AdminTokenRequired
   fullName: Supabase.Gotrue.Exceptions.FailureHint.Reason.AdminTokenRequired
   nameWithType: FailureHint.Reason.AdminTokenRequired
+- uid: Supabase.Gotrue.Exceptions.FailureHint.Reason.BadSessionUrl
+  name: BadSessionUrl
+  href: api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_BadSessionUrl
+  commentId: F:Supabase.Gotrue.Exceptions.FailureHint.Reason.BadSessionUrl
+  fullName: Supabase.Gotrue.Exceptions.FailureHint.Reason.BadSessionUrl
+  nameWithType: FailureHint.Reason.BadSessionUrl
 - uid: Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidRefreshToken
   name: InvalidRefreshToken
   href: api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_InvalidRefreshToken
   commentId: F:Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidRefreshToken
   fullName: Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidRefreshToken
   nameWithType: FailureHint.Reason.InvalidRefreshToken
+- uid: Supabase.Gotrue.Exceptions.FailureHint.Reason.NoSessionFound
+  name: NoSessionFound
+  href: api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_NoSessionFound
+  commentId: F:Supabase.Gotrue.Exceptions.FailureHint.Reason.NoSessionFound
+  fullName: Supabase.Gotrue.Exceptions.FailureHint.Reason.NoSessionFound
+  nameWithType: FailureHint.Reason.NoSessionFound
 - uid: Supabase.Gotrue.Exceptions.FailureHint.Reason.Unknown
   name: Unknown
   href: api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_Unknown
@@ -1500,6 +1512,15 @@ references:
   fullName.vb: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable(Of System.String))
   nameWithType: GotrueException.GotrueException(Nullable<String>)
   nameWithType.vb: GotrueException.GotrueException(Nullable(Of String))
+- uid: Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String},Supabase.Gotrue.Exceptions.FailureHint.Reason)
+  name: GotrueException(Nullable<String>, FailureHint.Reason)
+  href: api/Supabase.Gotrue.Exceptions.GotrueException.html#Supabase_Gotrue_Exceptions_GotrueException__ctor_System_Nullable_System_String__Supabase_Gotrue_Exceptions_FailureHint_Reason_
+  commentId: M:Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String},Supabase.Gotrue.Exceptions.FailureHint.Reason)
+  name.vb: GotrueException(Nullable(Of String), FailureHint.Reason)
+  fullName: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable<System.String>, Supabase.Gotrue.Exceptions.FailureHint.Reason)
+  fullName.vb: Supabase.Gotrue.Exceptions.GotrueException.GotrueException(System.Nullable(Of System.String), Supabase.Gotrue.Exceptions.FailureHint.Reason)
+  nameWithType: GotrueException.GotrueException(Nullable<String>, FailureHint.Reason)
+  nameWithType.vb: GotrueException.GotrueException(Nullable(Of String), FailureHint.Reason)
 - uid: Supabase.Gotrue.Exceptions.GotrueException.#ctor(System.Nullable{System.String},System.Nullable{Exception})
   name: GotrueException(Nullable<String>, Nullable<Exception>)
   href: api/Supabase.Gotrue.Exceptions.GotrueException.html#Supabase_Gotrue_Exceptions_GotrueException__ctor_System_Nullable_System_String__System_Nullable_Exception__
@@ -2360,6 +2381,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).NotifyAuthStateChange
   nameWithType: IGotrueClient<TUser, TSession>.NotifyAuthStateChange
   nameWithType.vb: IGotrueClient(Of TUser, TSession).NotifyAuthStateChange
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Options
+  name: Options
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Options
+  commentId: P:Supabase.Gotrue.Interfaces.IGotrueClient`2.Options
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Options
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Options
+  nameWithType: IGotrueClient<TUser, TSession>.Options
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Options
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Options*
+  name: Options
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Options_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.Options
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Options
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Options
+  nameWithType: IGotrueClient<TUser, TSession>.Options
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Options
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Reauthenticate
   name: Reauthenticate()
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Reauthenticate
