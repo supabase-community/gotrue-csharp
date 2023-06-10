@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 4.0.4 - 2023-06-10
+
+- Uses new `Supabase.Core` assembly name.
+
 ## 4.0.3 - 2023-06-10
 
 - Update assembly to `Supabase.Gotrue`
