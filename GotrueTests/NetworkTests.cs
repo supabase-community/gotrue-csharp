@@ -32,6 +32,11 @@ namespace GotrueTests
 			var status = new NetworkStatus(client);
 			await status.PingCheck();
 			Assert.IsTrue(client.Online);
+
+			client.Online = false;
+
+			await status.StartAsync();
+			Assert.IsTrue(client.Online);
 		}
 
 		[TestMethod("Bad Ping Check")]

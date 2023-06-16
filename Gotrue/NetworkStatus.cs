@@ -49,7 +49,11 @@ namespace Supabase.Gotrue
 			}
 		}
 
-		public async void Start()
+		/// <summary>
+		/// Starts the network status system. This will listen to the OS for network changes,
+		/// and also does a ping check to confirm the current network status.
+		/// </summary>
+		public async Task StartAsync()
 		{
 			NetworkChange.NetworkAvailabilityChanged += OnNetworkAvailabilityChanged;
 			await PingCheck();
