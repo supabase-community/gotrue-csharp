@@ -57,6 +57,10 @@ namespace Supabase.Gotrue.Exceptions
 			/// </summary>
 			InvalidRefreshToken,
 			/// <summary>
+			/// The refresh token expired.
+			/// </summary>
+			ExpiredRefreshToken,
+			/// <summary>
 			/// This operation requires a bearer/service key (do not include this key in a client app)
 			/// </summary>
 			AdminTokenRequired,

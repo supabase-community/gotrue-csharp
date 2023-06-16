@@ -3,8 +3,14 @@ using Supabase.Core.Attributes;
 
 namespace Supabase.Gotrue
 {
+    /// <summary>
+    /// Constants used throughout the Gotrue Client
+    /// </summary>
     public static class Constants
     {
+        /// <summary>
+        /// URL for the Gotrue server. Defaults to localhost:9999.
+        /// </summary>
         public const string GOTRUE_URL = "http://localhost:9999";
         public const string AUDIENCE = "";
         public const int EXPIRY_MARGIN = 60 * 1000;

@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace Supabase.Gotrue
 {
+	/// <summary>
+	/// Settings data retrieved from the GoTrue server.
+	/// </summary>
 	public class Settings
 	{
 		[JsonProperty("disable_signup")]
