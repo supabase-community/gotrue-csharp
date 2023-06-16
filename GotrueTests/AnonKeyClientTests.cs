@@ -323,6 +323,30 @@ namespace GotrueTests
 			VerifySignedOut();
 		}
 
+		[TestMethod("Client: Log in with new user after log out")]
+		public async Task ClientNewUserAfterLogout()
+		{
+			IsTrue(AuthStateIsEmpty());
+			var user = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(user, PASSWORD);
+			Contains(_stateChanges, SignedIn);
+
+			var firstUser = _client.CurrentUser.Id;
+
+			_stateChanges.Clear();
+			await _client.SignOut();
+
+			VerifySignedOut();
+			_stateChanges.Clear();
+			IsTrue(AuthStateIsEmpty());
+			var user2 = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(user2, PASSWORD);
+			Contains(_stateChanges, SignedIn);
+
+			var secondUser = _client.CurrentUser.Id;
+			IsFalse(firstUser.Equals(secondUser));
+		}
+		
 		[TestMethod("Client: Send Reset Password Email")]
 		public async Task ClientSendsResetPasswordForEmail()
 		{
