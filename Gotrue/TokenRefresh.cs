@@ -91,6 +91,9 @@ namespace Supabase.Gotrue
 
 				var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
 
+				if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
+					timeoutSeconds = _client.Options.MaximumRefreshWaitTime;
+
 				var timeout = TimeSpan.FromSeconds(timeoutSeconds);
 
 				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
