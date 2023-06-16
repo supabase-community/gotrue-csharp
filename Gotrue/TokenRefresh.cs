@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants.AuthState;
 
@@ -77,7 +78,7 @@ namespace Supabase.Gotrue
 
 			_refreshTimer?.Dispose();
 
-			if (_client.CurrentSession.ExpiresAt() < DateTime.Now)
+			if (_client.CurrentSession.Expired())
 			{
 				_client.Debug($"Token expired, signing out");
 				_client.NotifyAuthStateChange(SignedOut);
@@ -107,7 +108,10 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// This is the background thread that is set up and runs to refresh the token
+		/// This is the background thread that is set up and runs to refresh the token.
+		///
+		/// This thread is set up to run every five seconds. If the user is offline,
+		/// it won't try to refresh the token.
 		/// </summary>
 		/// <param name="_"></param>
 		private async void HandleRefreshTimerTick(object _)
@@ -116,20 +120,16 @@ namespace Supabase.Gotrue
 
 			try
 			{
-				// Will re-init the refresh timer on success, on failure, stops refreshing timer.
-				await _client.RefreshToken(_client.CurrentSession?.RefreshToken);
-			}
-			catch (HttpRequestException ex)
-			{
-				// The request failed - potential network error?
-				_client.Debug(ex.Message, ex);
-				_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);
+				if (_client.Online)
+					await _client.RefreshToken();
 			}
 			catch (Exception ex)
 			{
+				// Something unusually bad happened!
 				_client.Debug(ex.Message, ex);
-				_client.NotifyAuthStateChange(SignedOut);
 			}
+			// Due is set to 5000ms
+			_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);
 		}
 	}
 }

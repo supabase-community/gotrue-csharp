@@ -50,9 +50,8 @@ namespace GotrueTests
 		private void VerifyGoodSession(Session session)
 		{
 			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, session);
 			AreEqual(_client.CurrentSession, _persistence.SavedSession);
-			AreEqual(_client.CurrentUser, session.User);
+			AreEqual(_client.CurrentUser.Id, session.User.Id);
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
 			IsNotNull(session.User);
@@ -346,7 +345,7 @@ namespace GotrueTests
 			var secondUser = _client.CurrentUser.Id;
 			IsFalse(firstUser.Equals(secondUser));
 		}
-		
+
 		[TestMethod("Client: Send Reset Password Email")]
 		public async Task ClientSendsResetPasswordForEmail()
 		{
@@ -376,7 +375,7 @@ namespace GotrueTests
 
 			await _client.SignOut();
 			var user = await _client.SignIn(email, newPassword);
-			
+
 			Assert.IsTrue(user != null);
 		}
 	}

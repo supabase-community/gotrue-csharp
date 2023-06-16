@@ -152,22 +152,28 @@ namespace Supabase.Gotrue
 				}
 			}
 
-			var response = await Client.SendAsync(requestMessage);
-			var content = await response.Content.ReadAsStringAsync();
-
-			if (!response.IsSuccessStatusCode)
+			try
 			{
-				var e = new GotrueException(content ?? "Request Failed")
+				var response = await Client.SendAsync(requestMessage);
+				var content = await response.Content.ReadAsStringAsync();
+				if (!response.IsSuccessStatusCode)
 				{
-					Content = content,
-					Response = response,
-					StatusCode = (int)response.StatusCode
-				};
-				e.AddReason();
-				throw e;
+					var e = new GotrueException(content ?? "Request Failed")
+					{
+						Content = content,
+						Response = response,
+						StatusCode = (int)response.StatusCode
+					};
+					e.AddReason();
+					throw e;
+				}
+				return new BaseResponse { Content = content, ResponseMessage = response };
+			}
+			catch (HttpRequestException hre)
+			{
+				throw new GotrueException(hre.Message, FailureHint.Reason.Offline, hre);
 			}
 
-			return new BaseResponse { Content = content, ResponseMessage = response };
 
 		}
 	}

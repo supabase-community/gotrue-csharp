@@ -17,6 +17,10 @@ namespace Supabase.Gotrue.Exceptions
 			/// </summary>
 			Unknown,
 			/// <summary>
+			/// The client is set to run offline or the network is unavailable.
+			/// </summary>
+			Offline,
+			/// <summary>
 			/// The user's email address has not been confirmed.
 			/// </summary>
 			UserEmailNotConfirmed,
