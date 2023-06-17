@@ -17,9 +17,20 @@ namespace Supabase.Gotrue.Interfaces
 		where TSession : Session
 	{
 		/// <summary>
+		/// Indicates if the client should be considered online or offline.
+		/// 
+		/// In a server environment, this client would likely always be online.
+		///
+		/// On a mobile client, you will want to pair this with a network implementation
+		/// to turn this on and off as the device goes online and offline.
+		/// </summary>
+		bool Online { get; set; }
+
+		/// <summary>
 		/// The current in-memory session.
 		/// </summary>
 		TSession? CurrentSession { get; }
+
 		/// <summary>
 		/// The current in-memory user.
 		/// </summary>
@@ -78,7 +89,6 @@ namespace Supabase.Gotrue.Interfaces
 		/// Creates a user using the admin key (not the anonymous key).
 		/// Used in trusted server environments, not client apps.
 		/// </summary>
-
 		Task<bool> DeleteUser(string uid, string jwt);
 		/// <summary>
 		/// Converts a URL to a session. For client apps, this probably requires setting up URL handlers.
@@ -87,7 +97,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="storeSession"></param>
 		/// <returns></returns>
 		Task<TSession?> GetSessionFromUrl(Uri uri, bool storeSession = true);
-		
+
 		/// <summary>
 		/// Gets a user from the JWT.
 		/// </summary>
@@ -108,7 +118,8 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="jwt"></param>
 		/// <returns></returns>
 		Task<bool> InviteUserByEmail(string email, string jwt);
-		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
+		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null,
+			int? perPage = null);
 		Task<TSession?> RefreshSession();
 		Task<bool> ResetPasswordForEmail(string email);
 		Task<TSession?> RetrieveSessionAsync();
@@ -145,6 +156,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// </summary>
 		/// <returns></returns>
 		Task<Settings?> Settings();
+
 		/// <summary>
 		/// Returns the client options.
 		/// </summary>

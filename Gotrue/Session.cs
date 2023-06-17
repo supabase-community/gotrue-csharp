@@ -27,5 +27,11 @@ namespace Supabase.Gotrue
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime ExpiresAt() => new DateTime(CreatedAt.Ticks).AddSeconds(ExpiresIn);
+        
+        /// <summary>
+        /// Returns true if the session has expired
+        /// </summary>
+        /// <returns></returns>
+        public bool Expired() => ExpiresAt() < DateTime.Now;
     }
 }

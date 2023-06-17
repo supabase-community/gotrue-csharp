@@ -14,6 +14,9 @@ using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
+	/// <summary>
+	/// The REST calls to the Gotrue API.
+	/// </summary>
 	public class Api : IGotrueApi<User, Session>
 	{
 		private string Url { get; }
@@ -25,6 +28,9 @@ namespace Supabase.Gotrue
 		public Func<Dictionary<string, string>>? GetHeaders { get; set; }
 
 		private Dictionary<string, string> _headers;
+		/// <summary>
+		/// Headers to be sent with every request. These will be merged with any headers returned by GetHeaders.
+		/// </summary>
 		protected Dictionary<string, string> Headers
 		{
 			get => GetHeaders != null ? GetHeaders().MergeLeft(_headers) : _headers;
@@ -585,6 +591,10 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
 		}
 
+		/// <summary>
+		/// Calls the GoTrue server to get the settings (for example, if email auto confirmation is turned on)
+		/// </summary>
+		/// <returns></returns>
 		public Task<Settings?> Settings()
 		{
 			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);

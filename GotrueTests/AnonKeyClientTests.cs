@@ -50,9 +50,8 @@ namespace GotrueTests
 		private void VerifyGoodSession(Session session)
 		{
 			Contains(_stateChanges, SignedIn);
-			AreEqual(_client.CurrentSession, session);
 			AreEqual(_client.CurrentSession, _persistence.SavedSession);
-			AreEqual(_client.CurrentUser, session.User);
+			AreEqual(_client.CurrentUser.Id, session.User.Id);
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
 			IsNotNull(session.User);
@@ -323,6 +322,30 @@ namespace GotrueTests
 			VerifySignedOut();
 		}
 
+		[TestMethod("Client: Log in with new user after log out")]
+		public async Task ClientNewUserAfterLogout()
+		{
+			IsTrue(AuthStateIsEmpty());
+			var user = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(user, PASSWORD);
+			Contains(_stateChanges, SignedIn);
+
+			var firstUser = _client.CurrentUser.Id;
+
+			_stateChanges.Clear();
+			await _client.SignOut();
+
+			VerifySignedOut();
+			_stateChanges.Clear();
+			IsTrue(AuthStateIsEmpty());
+			var user2 = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(user2, PASSWORD);
+			Contains(_stateChanges, SignedIn);
+
+			var secondUser = _client.CurrentUser.Id;
+			IsFalse(firstUser.Equals(secondUser));
+		}
+
 		[TestMethod("Client: Send Reset Password Email")]
 		public async Task ClientSendsResetPasswordForEmail()
 		{
@@ -352,7 +375,7 @@ namespace GotrueTests
 
 			await _client.SignOut();
 			var user = await _client.SignIn(email, newPassword);
-			
+
 			Assert.IsTrue(user != null);
 		}
 	}

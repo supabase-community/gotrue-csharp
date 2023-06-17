@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
@@ -44,19 +43,9 @@ namespace Supabase.Gotrue
 		private DebugNotification? _debugNotification;
 
 		/// <summary>
-		/// Internal timer reference for token refresh
-		/// <see>
-		///     <cref>AutoRefreshToken</cref>
-		/// </see>
-		/// </summary>
-		private Timer? _refreshTimer;
-
-
-		/// <summary>
 		/// Object called to persist the session (e.g. filesystem or cookie)
 		/// </summary>
 		private IGotruePersistenceListener<Session>? _sessionPersistence;
-
 
 		/// <summary>
 		/// Initializes the GoTrue stateful client. 
@@ -93,6 +82,11 @@ namespace Supabase.Gotrue
 			options ??= new ClientOptions();
 			Options = options;
 			_api = new Api(options.Url, options.Headers);
+
+			if (options.AutoRefreshToken)
+			{
+				_authEventHandlers.Add(new TokenRefresh(this).ManageAutoRefresh);
+			}
 		}
 
 		/// <summary>
@@ -101,8 +95,7 @@ namespace Supabase.Gotrue
 		/// <param name="persistence"></param>
 		public void SetPersistence(IGotrueSessionPersistence<Session> persistence)
 		{
-			if (_sessionPersistence != null)
-				_authEventHandlers.Remove(_sessionPersistence.EventHandler);
+			if (_sessionPersistence != null) _authEventHandlers.Remove(_sessionPersistence.EventHandler);
 			_sessionPersistence = new PersistenceListener(persistence);
 			_authEventHandlers.Add(_sessionPersistence.EventHandler);
 		}
@@ -122,7 +115,14 @@ namespace Supabase.Gotrue
 		{
 			foreach (var handler in _authEventHandlers)
 			{
-				handler.Invoke(this, stateChanged);
+				try
+				{
+					handler.Invoke(this, stateChanged);
+				}
+				catch (Exception e)
+				{
+					_debugNotification?.Log("Auth State Change Handler Failure", e);
+				}
 			}
 		}
 
@@ -131,10 +131,7 @@ namespace Supabase.Gotrue
 		/// To persist modifications to the User you'll want to use other methods.
 		/// <see cref="Update"/>>
 		/// </summary>
-		public User? CurrentUser
-		{
-			get => CurrentSession?.User;
-		}
+		public User? CurrentUser { get => CurrentSession?.User; }
 
 		/// <summary>
 		/// Adds a listener to be notified when the user state changes (e.g. the user logs in, logs out,
@@ -145,11 +142,9 @@ namespace Supabase.Gotrue
 		/// <param name="authEventHandler"></param>
 		public void AddStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
 		{
-			if (_authEventHandlers.Contains(authEventHandler))
-				return;
+			if (_authEventHandlers.Contains(authEventHandler)) return;
 
 			_authEventHandlers.Add(authEventHandler);
-
 		}
 
 		/// <summary>
@@ -158,8 +153,7 @@ namespace Supabase.Gotrue
 		/// <param name="authEventHandler"></param>
 		public void RemoveStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
 		{
-			if (!_authEventHandlers.Contains(authEventHandler))
-				return;
+			if (!_authEventHandlers.Contains(authEventHandler)) return;
 
 			_authEventHandlers.Remove(authEventHandler);
 		}
@@ -167,13 +161,16 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Clears all of the listeners from receiving event state changes.
 		///
-		/// WARNING: The persistence handler is installed as a state change listener if provided in options.
-		/// Clearing the listeners will also delete the persistence handler.
+		/// WARNING: The persistence handler and refresh token thread are installed as state change
+		/// listeners. Clearing the listeners will also delete these handlers.
 		/// </summary>
 		public void ClearStateChangedListeners()
 		{
 			_authEventHandlers.Clear();
 		}
+
+		/// <inheritdoc />
+		public bool Online { get; set; } = true;
 
 		/// <summary>
 		/// The current Session as managed by this client. Does not refresh tokens or have any other side effects.
@@ -229,6 +226,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 
 			var session = type switch
@@ -256,6 +256,9 @@ namespace Supabase.Gotrue
 		/// <param name="options"></param>
 		public async Task<bool> SignIn(string email, SignInOptions? options = null)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			await _api.SendMagicLinkEmail(email, options);
 			return true;
 		}
@@ -275,11 +278,13 @@ namespace Supabase.Gotrue
 		/// </exception>
 		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 			var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
 
-			if (result != null)
-				NotifyAuthStateChange(SignedIn);
+			if (result != null) NotifyAuthStateChange(SignedIn);
 
 			return result;
 		}
@@ -304,6 +309,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 			return await _api.SignInWithOtp(options);
 		}
@@ -328,6 +336,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 			return await _api.SignInWithOtp(options);
 		}
@@ -366,12 +377,15 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
 		{
-			Session? session;
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			Session? newSession;
 			switch (type)
 			{
 				case SignInType.Email:
-					session = await _api.SignInWithEmail(identifierOrToken, password!);
-					UpdateSession(session);
+					newSession = await _api.SignInWithEmail(identifierOrToken, password!);
+					UpdateSession(newSession);
 					break;
 				case SignInType.Phone:
 					if (string.IsNullOrEmpty(password))
@@ -380,18 +394,16 @@ namespace Supabase.Gotrue
 						return null;
 					}
 
-					session = await _api.SignInWithPhone(identifierOrToken, password!);
-					UpdateSession(session);
+					newSession = await _api.SignInWithPhone(identifierOrToken, password!);
+					UpdateSession(newSession);
 					break;
 				case SignInType.RefreshToken:
-					CurrentSession = new Session();
-					CurrentSession.RefreshToken = identifierOrToken;
-					await RefreshToken();
+					await RefreshToken(identifierOrToken);
 					return CurrentSession;
 				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
-			if (session?.User?.ConfirmedAt != null || session?.User != null && Options.AllowUnconfirmedUserSessions)
+			if (newSession?.User?.ConfirmedAt != null || newSession?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
 				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
@@ -411,6 +423,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 
 			var providerUri = _api.GetUriForProvider(provider, options);
@@ -426,6 +441,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 
 			var session = await _api.VerifyMobileOTP(phone, token, type);
@@ -449,6 +467,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			DestroySession();
 
 			var session = await _api.VerifyEmailOTP(email, token, type);
@@ -469,9 +490,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task SignOut()
 		{
-			if (CurrentSession?.AccessToken != null)
-				await _api.SignOut(CurrentSession.AccessToken);
-			_refreshTimer?.Dispose();
+			if (CurrentSession?.AccessToken != null) await _api.SignOut(CurrentSession.AccessToken);
 			UpdateSession(null);
 			NotifyAuthStateChange(SignedOut);
 		}
@@ -485,6 +504,9 @@ namespace Supabase.Gotrue
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new GotrueException("Not Logged in.");
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
 
 			var result = await _api.UpdateUser(CurrentSession.AccessToken!, attributes);
 			CurrentSession.User = result;
@@ -504,6 +526,9 @@ namespace Supabase.Gotrue
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
 
 			var response = await _api.Reauthenticate(CurrentSession.AccessToken!);
 
@@ -620,6 +645,9 @@ namespace Supabase.Gotrue
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new GotrueException("Not Logged in.", NoSessionFound);
 
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
 			await RefreshToken();
 
 			var user = await _api.GetUser(CurrentSession.AccessToken!);
@@ -657,8 +685,7 @@ namespace Supabase.Gotrue
 
 			var errorDescription = query.Get("error_description");
 
-			if (!string.IsNullOrEmpty(errorDescription))
-				throw new GotrueException(errorDescription, BadSessionUrl);
+			if (!string.IsNullOrEmpty(errorDescription)) throw new GotrueException(errorDescription, BadSessionUrl);
 
 			var accessToken = query.Get("access_token");
 
@@ -667,8 +694,7 @@ namespace Supabase.Gotrue
 
 			var expiresIn = query.Get("expires_in");
 
-			if (string.IsNullOrEmpty(expiresIn))
-				throw new GotrueException("No expires_in detected.", BadSessionUrl);
+			if (string.IsNullOrEmpty(expiresIn)) throw new GotrueException("No expires_in detected.", BadSessionUrl);
 
 			var refreshToken = query.Get("refresh_token");
 
@@ -677,8 +703,7 @@ namespace Supabase.Gotrue
 
 			var tokenType = query.Get("token_type");
 
-			if (string.IsNullOrEmpty(tokenType))
-				throw new GotrueException("No token_type detected.", BadSessionUrl);
+			if (string.IsNullOrEmpty(tokenType)) throw new GotrueException("No token_type detected.", BadSessionUrl);
 
 			var user = await _api.GetUser(accessToken);
 
@@ -696,8 +721,7 @@ namespace Supabase.Gotrue
 				UpdateSession(session);
 				NotifyAuthStateChange(SignedIn);
 
-				if (query.Get("type") == "recovery")
-					NotifyAuthStateChange(PasswordRecovery);
+				if (query.Get("type") == "recovery") NotifyAuthStateChange(PasswordRecovery);
 			}
 
 			return session;
@@ -712,39 +736,41 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> RetrieveSessionAsync()
 		{
-			var session = CurrentSession;
+			// No session, so just return.
+			if (CurrentSession == null)
+				return null;
 
-			if (session != null && session.ExpiresAt() < DateTime.Now)
+			// Check to see if the session has expired. If so go ahead and destroy it.
+			if (CurrentSession != null && CurrentSession.Expired())
 			{
-				if (Options.AutoRefreshToken && session.RefreshToken != null)
+				_debugNotification?.Log($"Loaded session has expired");
+				DestroySession();
+				return null;
+			}
+
+			// If we aren't online, we can't refresh the token
+			if (!Online)
+			{
+				throw new GotrueException("Only supported when online", Offline);
+			}
+
+			// We have a session, and hasn't expired, and we seem to be online. Let's try to refresh it.
+			if (Options.AutoRefreshToken && CurrentSession?.RefreshToken != null)
+			{
+				try
 				{
-					try
-					{
-						await RefreshToken(session.RefreshToken);
-						return CurrentSession;
-					}
-					catch (Exception e)
-					{
-						_debugNotification?.Log($"Failed to refresh token", e);
-						DestroySession();
-						return null;
-					}
+					await RefreshToken();
+					return CurrentSession;
 				}
-				DestroySession();
-				return null;
+				catch (Exception e)
+				{
+					_debugNotification?.Log($"Failed to refresh token ({e.Message})", e);
+					_debugNotification?.Log(JsonConvert.SerializeObject(CurrentSession, Formatting.Indented));
+					DestroySession();
+					return null;
+				}
 			}
 
-			if (session?.User == null)
-			{
-				_debugNotification?.Log("Stored Session is missing data.");
-				DestroySession();
-				return null;
-			}
-
-			CurrentSession = session;
-
-			NotifyAuthStateChange(SignedIn);
-			InitRefreshTimer();
 			return CurrentSession;
 		}
 
@@ -802,16 +828,8 @@ namespace Supabase.Gotrue
 			}
 
 			var dirty = CurrentSession != session;
-
 			CurrentSession = session;
-
-			var expiration = session.ExpiresIn;
-
-			if (Options.AutoRefreshToken && expiration != default)
-				InitRefreshTimer();
-
-			if (dirty)
-				NotifyAuthStateChange(UserUpdated);
+			if (dirty) NotifyAuthStateChange(UserUpdated);
 		}
 
 		/// <summary>
@@ -823,17 +841,39 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// Refreshes a Token
+		/// Refreshes a Token using the provided token.
 		/// </summary>
 		/// <returns></returns>
-		private async Task RefreshToken(string? refreshToken = null)
+		public async Task RefreshToken(string refreshToken)
 		{
-			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.RefreshToken) && string.IsNullOrEmpty(refreshToken))
+			if (string.IsNullOrEmpty(refreshToken))
+				throw new GotrueException("No token provided", NoSessionFound);
+
+			var result = await _api.RefreshAccessToken(refreshToken);
+
+			if (result == null || string.IsNullOrEmpty(result.AccessToken))
+				throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
+
+			CurrentSession = result;
+			NotifyAuthStateChange(TokenRefreshed);
+		}
+
+		/// <summary>
+		/// Refreshes a Token. If no token is provided, the current session is used.
+		/// </summary>
+		/// <returns></returns>
+		public async Task RefreshToken()
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.RefreshToken))
 				throw new GotrueException("No current session.", NoSessionFound);
 
-			refreshToken ??= CurrentSession!.RefreshToken;
+			if (CurrentSession!.Expired())
+				throw new GotrueException("Session expired", ExpiredRefreshToken);
 
-			var result = await _api.RefreshAccessToken(refreshToken!);
+			var result = await _api.RefreshAccessToken(CurrentSession.RefreshToken!);
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
@@ -841,60 +881,14 @@ namespace Supabase.Gotrue
 			CurrentSession = result;
 
 			NotifyAuthStateChange(TokenRefreshed);
-
-			if (Options.AutoRefreshToken && CurrentSession.ExpiresIn != default)
-				InitRefreshTimer();
 		}
 
-		private void InitRefreshTimer()
-		{
-			if (CurrentSession == null || CurrentSession.ExpiresIn == default) return;
-
-			_refreshTimer?.Dispose();
-
-			try
-			{
-				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
-				var interval = (int)Math.Floor(CurrentSession.ExpiresIn * 4.0f / 5.0f);
-				var timeoutSeconds = Convert.ToInt32((CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
-				var timeout = TimeSpan.FromSeconds(timeoutSeconds);
-
-				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
-			}
-			catch
-			{
-				_debugNotification?.Log("Unable to parse session timestamp, refresh timer will not work. If persisting, open issue on Github");
-			}
-		}
-
-		private async void HandleRefreshTimerTick(object _)
-		{
-			_refreshTimer?.Dispose();
-
-			try
-			{
-				// Will re-init the refresh timer on success, on failure, stops refreshing timer.
-				await RefreshToken();
-			}
-			catch (HttpRequestException ex)
-			{
-				// The request failed - potential network error?
-				_debugNotification?.Log(ex.Message, ex);
-				_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);
-			}
-			catch (Exception ex)
-			{
-				_debugNotification?.Log(ex.Message, ex);
-				NotifyAuthStateChange(SignedOut);
-			}
-		}
 		/// <summary>
 		/// Loads the session from the persistence provider
 		/// </summary>
 		public void LoadSession()
 		{
-			if (_sessionPersistence != null)
-				UpdateSession(_sessionPersistence.Persistence.LoadSession());
+			if (_sessionPersistence != null) UpdateSession(_sessionPersistence.Persistence.LoadSession());
 		}
 
 		/// <summary>
@@ -903,7 +897,20 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<Settings?> Settings()
 		{
+			// if(!Online)
+			// 	throw new GotrueException("Cannot retrieve settings while offline.", NoSessionFound);
 			return _api.Settings();
+		}
+
+		/// <summary>
+		/// Posts messages and exceptions to the debug listener. This is particularly useful for sorting
+		/// out issues with the refresh token background thread.
+		/// </summary>
+		/// <param name="message"></param>
+		/// <param name="e"></param>
+		public void Debug(string message, Exception? e = null)
+		{
+			_debugNotification?.Log(message, e);
 		}
 	}
 }

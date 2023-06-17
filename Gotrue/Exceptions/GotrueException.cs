@@ -28,6 +28,16 @@ namespace Supabase.Gotrue.Exceptions
 		{
 			Reason = reason;
 		}
+		/// <summary>
+		/// Something with wrong with Gotrue / Auth
+		/// </summary>
+		/// <param name="message">Short description of the error source</param>
+		/// <param name="reason">Assigned reason</param>
+		/// <param name="innerException"></param>
+		public GotrueException(string message, FailureHint.Reason reason, Exception? innerException) : base(message, innerException)
+		{
+			Reason = reason;
+		}
 
 		/// <summary>
 		/// The HTTP response from the server
@@ -52,6 +62,7 @@ namespace Supabase.Gotrue.Exceptions
 			Reason = FailureHint.DetectReason(this);
 			//Debug.WriteLine(Content);
 		}
+
 		/// <summary>
 		/// Best guess at what caused the error from the server, see <see cref="FailureHint.Reason"/>
 		/// </summary>

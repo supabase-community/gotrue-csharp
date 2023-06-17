@@ -125,7 +125,31 @@ namespace GotrueTests
 			{
 				await _client.RefreshSession();
 			});
-			AreEqual(x.Reason, InvalidRefreshToken);
+			AreEqual(InvalidRefreshToken, x.Reason);
+		}
+
+		[TestMethod("Client: expired token")]
+		public async Task ExpiredTokenTest()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var emailSession = await _client.SignUp(email, PASSWORD);
+
+			IsNotNull(emailSession.AccessToken);
+			IsNotNull(emailSession.RefreshToken);
+			IsNotNull(emailSession.User);
+
+			await _client.RefreshSession();
+			
+			IsNotNull(emailSession.AccessToken);
+			IsNotNull(emailSession.RefreshToken);
+			IsNotNull(emailSession.User);
+
+			_client.CurrentSession.CreatedAt = DateTime.UtcNow.AddDays(-10);
+			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+			{
+				await _client.RefreshSession();
+			});
+			AreEqual(ExpiredRefreshToken, x.Reason);
 		}
 
 		[TestMethod("Client: Send Reset Password Email for unknown email")]

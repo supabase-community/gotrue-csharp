@@ -17,6 +17,10 @@ namespace Supabase.Gotrue.Exceptions
 			/// </summary>
 			Unknown,
 			/// <summary>
+			/// The client is set to run offline or the network is unavailable.
+			/// </summary>
+			Offline,
+			/// <summary>
 			/// The user's email address has not been confirmed.
 			/// </summary>
 			UserEmailNotConfirmed,
@@ -56,6 +60,10 @@ namespace Supabase.Gotrue.Exceptions
 			/// The refresh token is invalid.
 			/// </summary>
 			InvalidRefreshToken,
+			/// <summary>
+			/// The refresh token expired.
+			/// </summary>
+			ExpiredRefreshToken,
 			/// <summary>
 			/// This operation requires a bearer/service key (do not include this key in a client app)
 			/// </summary>

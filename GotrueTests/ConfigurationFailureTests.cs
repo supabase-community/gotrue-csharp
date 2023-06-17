@@ -21,16 +21,22 @@ namespace GotrueTests
 			client.AddDebugListener(LogDebug);
 
 			var email = $"{RandomString(12)}@supabase.io";
-			await ThrowsExceptionAsync<HttpRequestException>(async () =>
+			GotrueException gte = null;
+			try
 			{
 				await client.SignUp(email, PASSWORD);
-			});
+			}
+			catch (GotrueException e)
+			{
+				gte = e;
+			}
+			AreEqual(Offline, gte?.Reason);
 		}
 
 		[TestMethod("Bad service key message")]
 		public async Task BadServiceApiKeyTest()
 		{
-			IGotrueClient<User, Session>  client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			IGotrueClient<User, Session> client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
 			client.AddDebugListener(LogDebug);
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
