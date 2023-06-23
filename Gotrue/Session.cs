@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+#pragma warning disable CS1591
 
 namespace Supabase.Gotrue
 {

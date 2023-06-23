@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.StatelessClient;
+#pragma warning disable CS1591
 
 namespace Supabase.Gotrue.Interfaces
 {
