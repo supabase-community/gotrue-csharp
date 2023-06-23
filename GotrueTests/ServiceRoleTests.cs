@@ -15,57 +15,52 @@ namespace GotrueTests
 	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 	public class ServiceRoleTests
 	{
-		private IGotrueClient<User, Session>  _client;
+		private IGotrueAdminClient<User> _client;
 
 		private readonly string _serviceKey = GenerateServiceRoleToken();
 
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
-			_client.AddDebugListener(LogDebug);
+			_client = new AdminClient(_serviceKey, new ClientOptions { AllowUnconfirmedUserSessions = true });
 		}
 
 		[TestMethod("Service Role: Update User")]
 		public async Task UpdateUser()
 		{
 			var email = $"{RandomString(12)}@supabase.io";
-			var session = await _client.SignUp(email, PASSWORD);
+			var session = await _client.CreateUser(email, PASSWORD);
 			IsNotNull(session);
+			IsNotNull(session.Id);
 
-			var attributes = new UserAttributes { Data = new Dictionary<string, object> { { "hello", "world" } } };
-			var result = await _client.Update(attributes);
-			IsNotNull(result);
-			AreEqual(email, _client.CurrentUser.Email);
-			IsNotNull(_client.CurrentUser.UserMetadata);
+			var result2 = await _client.UpdateUserById(session.Id, new AdminUserAttributes { UserMetadata = new Dictionary<string, object> { { "hello", "updated" } } });
 
-			await _client.SignOut();
+			AreEqual("updated", result2.UserMetadata["hello"]);
 
-			var result2 = await _client.UpdateUserById(_serviceKey, session.User.Id!, new AdminUserAttributes { UserMetadata = new Dictionary<string, object> { { "hello", "updated" } } });
-
-			AreNotEqual(result.UserMetadata["hello"], result2.UserMetadata["hello"]);
+			var result3 = await _client.GetUserById(session.Id);
+			AreEqual("updated", result3.UserMetadata["hello"]);
 		}
 
 		[TestMethod("Service Role: Send Invite Email")]
 		public async Task SendsInviteEmail()
 		{
 			var user = $"{RandomString(12)}@supabase.io";
-			var result = await _client.InviteUserByEmail(user, _serviceKey);
+			var result = await _client.InviteUserByEmail(user);
 			IsTrue(result);
 		}
 
 		[TestMethod("Service Role: List users")]
 		public async Task ListUsers()
 		{
-			var result = await _client.ListUsers(_serviceKey);
+			var result = await _client.ListUsers();
 			IsTrue(result.Users.Count > 0);
 		}
 
 		[TestMethod("Service Role: List users by page")]
 		public async Task ListUsersPagination()
 		{
-			var page1 = await _client.ListUsers(_serviceKey, page: 1, perPage: 1);
-			var page2 = await _client.ListUsers(_serviceKey, page: 2, perPage: 1);
+			var page1 = await _client.ListUsers(page: 1, perPage: 1);
+			var page2 = await _client.ListUsers(page: 2, perPage: 1);
 
 			AreEqual(page1.Users.Count, 1);
 			AreEqual(page2.Users.Count, 1);
@@ -75,10 +70,8 @@ namespace GotrueTests
 		[TestMethod("Service Role: Lists users sort")]
 		public async Task ListUsersSort()
 		{
-			var serviceRoleKey = GenerateServiceRoleToken();
-
-			var result1 = await _client.ListUsers(serviceRoleKey, sortBy: "created_at", sortOrder: SortOrder.Ascending);
-			var result2 = await _client.ListUsers(serviceRoleKey, sortBy: "created_at", sortOrder: SortOrder.Descending);
+			var result1 = await _client.ListUsers(sortBy: "created_at", sortOrder: SortOrder.Ascending);
+			var result2 = await _client.ListUsers(sortBy: "created_at", sortOrder: SortOrder.Descending);
 
 			AreNotEqual(result1.Users[0].Id, result2.Users[0].Id);
 		}
@@ -87,12 +80,12 @@ namespace GotrueTests
 		public async Task ListUsersFilter()
 		{
 			var user = $"{RandomString(12)}@supabase.io";
-			var result = await _client.SignUp(user, PASSWORD);
+			var result = await _client.CreateUser(user, PASSWORD);
 			IsNotNull(result);
 
 			// ReSharper disable once StringLiteralTypo
-			var result1 = await _client.ListUsers(_serviceKey, filter: "@nonexistingrandomemailprovider.com");
-			var result2 = await _client.ListUsers(_serviceKey, filter: "@supabase.io");
+			var result1 = await _client.ListUsers(filter: "@nonexistingrandomemailprovider.com");
+			var result2 = await _client.ListUsers(filter: "@supabase.io");
 
 			AreNotEqual(result2.Users.Count, 0);
 			AreEqual(result1.Users.Count, 0);
@@ -102,10 +95,10 @@ namespace GotrueTests
 		[TestMethod("Service Role: Get User by Id")]
 		public async Task GetUserById()
 		{
-			var result = await _client.ListUsers(_serviceKey, page: 1, perPage: 1);
+			var result = await _client.ListUsers(page: 1, perPage: 1);
 
 			var userResult = result.Users[0];
-			var userByIdResult = await _client.GetUserById(_serviceKey, userResult.Id ?? throw new InvalidOperationException());
+			var userByIdResult = await _client.GetUserById(userResult.Id ?? throw new InvalidOperationException());
 
 			AreEqual(userResult.Id, userByIdResult.Id);
 			AreEqual(userResult.Email, userByIdResult.Email);
@@ -114,7 +107,7 @@ namespace GotrueTests
 		[TestMethod("Service Role: Create a user")]
 		public async Task CreateUser()
 		{
-			var result = await _client.CreateUser(_serviceKey, $"{RandomString(12)}@supabase.io", PASSWORD);
+			var result = await _client.CreateUser($"{RandomString(12)}@supabase.io", PASSWORD);
 
 			IsNotNull(result);
 
@@ -124,21 +117,21 @@ namespace GotrueTests
 				AppMetadata = new Dictionary<string, object> { { "roles", new List<string> { "editor", "publisher" } } }
 			};
 
-			var result2 = await _client.CreateUser(_serviceKey, $"{RandomString(12)}@supabase.io", PASSWORD, attributes);
+			var result2 = await _client.CreateUser($"{RandomString(12)}@supabase.io", PASSWORD, attributes);
 			AreEqual("123", result2.UserMetadata["firstName"]);
 
-			var result3 = await _client.CreateUser(_serviceKey, new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = PASSWORD });
+			var result3 = await _client.CreateUser(new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io", Password = PASSWORD });
 			IsNotNull(result3);
 		}
 
 		[TestMethod("Service Role: Update User by Id")]
 		public async Task UpdateUserById()
 		{
-			var createdUser = await _client.CreateUser(_serviceKey, $"{RandomString(12)}@supabase.io", PASSWORD);
+			var createdUser = await _client.CreateUser($"{RandomString(12)}@supabase.io", PASSWORD);
 
 			IsNotNull(createdUser);
 
-			var updatedUser = await _client.UpdateUserById(_serviceKey, createdUser.Id ?? throw new InvalidOperationException(), new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io" });
+			var updatedUser = await _client.UpdateUserById(createdUser.Id ?? throw new InvalidOperationException(), new AdminUserAttributes { Email = $"{RandomString(12)}@supabase.io" });
 
 			IsNotNull(updatedUser);
 
@@ -149,11 +142,11 @@ namespace GotrueTests
 		[TestMethod("Service Role: Delete User")]
 		public async Task DeletesUser()
 		{
-			var user = $"{RandomString(12)}@supabase.io";
-			await _client.SignUp(user, PASSWORD);
-			var uid = _client.CurrentUser.Id;
+			var email = $"{RandomString(12)}@supabase.io";
+			var user = await _client.CreateUser(email, PASSWORD);
+			var uid = user.Id;
 
-			var result = await _client.DeleteUser(uid ?? throw new InvalidOperationException(), _serviceKey);
+			var result = await _client.DeleteUser(uid ?? throw new InvalidOperationException());
 
 			IsTrue(result);
 		}

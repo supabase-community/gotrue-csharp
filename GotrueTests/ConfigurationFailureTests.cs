@@ -36,12 +36,12 @@ namespace GotrueTests
 		[TestMethod("Bad service key message")]
 		public async Task BadServiceApiKeyTest()
 		{
-			IGotrueClient<User, Session> client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
-			client.AddDebugListener(LogDebug);
+			IGotrueAdminClient<User> adminClient = new AdminClient("bad_service_key", new ClientOptions { AllowUnconfirmedUserSessions = true });
+			AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
 			{
-				await client.ListUsers("garbage key");
+				await adminClient.ListUsers();
 			});
 			AreEqual(AdminTokenRequired, x.Reason);
 		}

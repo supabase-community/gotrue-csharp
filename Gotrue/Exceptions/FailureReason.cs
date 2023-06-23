@@ -95,6 +95,7 @@ namespace Supabase.Gotrue.Exceptions
 				400 when gte.Content.Contains("User already registered") => UserAlreadyRegistered,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
 				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
+				401 when gte.Content.Contains("Invalid token") => AdminTokenRequired,
 				422 when gte.Content.Contains("Phone") && gte.Content.Contains("Email") => UserBadMultiple,
 				422 when gte.Content.Contains("email") && gte.Content.Contains("password") => UserBadMultiple,
 				422 when gte.Content.Contains("Phone") => UserBadPhoneNumber,

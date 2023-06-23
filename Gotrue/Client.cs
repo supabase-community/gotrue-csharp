@@ -106,6 +106,14 @@ namespace Supabase.Gotrue
 		public ClientOptions Options { get; }
 
 		/// <summary>
+		/// Get User details by JWT. Can be used to validate a JWT.
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
+		/// <returns></returns>
+		public Task<User?> GetUser(string jwt) => _api.GetUser(jwt);
+
+		
+		/// <summary>
 		/// Notifies all listeners that the current user auth state has changed.
 		///
 		/// This is mainly used internally to fire notifications - most client applications won't need this.
@@ -535,95 +543,8 @@ namespace Supabase.Gotrue
 			return response.ResponseMessage?.IsSuccessStatusCode ?? false;
 		}
 
-		/// <summary>
-		/// Sends an invite email link to the specified email.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
-		/// <returns></returns>
-		public async Task<bool> InviteUserByEmail(string email, string jwt)
-		{
-			var response = await _api.InviteUserByEmail(email, jwt);
-			response.ResponseMessage?.EnsureSuccessStatusCode();
-			return true;
-		}
-
-		/// <summary>
-		/// Deletes a User.
-		/// </summary>
-		/// <param name="uid"></param>
-		/// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
-		/// <returns></returns>
-		public async Task<bool> DeleteUser(string uid, string jwt)
-		{
-			var result = await _api.DeleteUser(uid, jwt);
-			result.ResponseMessage?.EnsureSuccessStatusCode();
-			return true;
-		}
-
-		/// <summary>
-		/// Lists users
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="filter">A string for example part of the email</param>
-		/// <param name="sortBy">Snake case string of the given key, currently only created_at is supported</param>
-		/// <param name="sortOrder">asc or desc, if null desc is used</param>
-		/// <param name="page">page to show for pagination</param>
-		/// <param name="perPage">items per page for pagination</param>
-		/// <returns></returns>
-		public Task<UserList<User>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null,
-			int? perPage = null) => _api.ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
-
-		/// <summary>
-		/// Get User details by Id
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="userId"></param>
-		/// <returns></returns>
-		public Task<User?> GetUserById(string jwt, string userId) => _api.GetUserById(jwt, userId);
-
-		/// <summary>
-		/// Get User details by JWT. Can be used to validate a JWT.
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
-		/// <returns></returns>
-		public Task<User?> GetUser(string jwt) => _api.GetUser(jwt);
-
-		/// <summary>
-		/// Create a user (as a service_role)
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <param name="attributes"></param>
-		/// <returns></returns>
-		public Task<User?> CreateUser(string jwt, string email, string password, AdminUserAttributes? attributes = null)
-		{
-			attributes ??= new AdminUserAttributes();
-			attributes.Email = email;
-			attributes.Password = password;
-
-			return CreateUser(jwt, attributes);
-		}
-
-
-		/// <summary>
-		/// Create a user (as a service_role)
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="attributes"></param>
-		/// <returns></returns>
-		public Task<User?> CreateUser(string jwt, AdminUserAttributes attributes) => _api.CreateUser(jwt, attributes);
-
-		/// <summary>
-		/// Update user by Id
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
-		/// <param name="userId"></param>
-		/// <param name="userData"></param>
-		/// <returns></returns>
-		public Task<User?> UpdateUserById(string jwt, string userId, AdminUserAttributes userData) => _api.UpdateUserById(jwt, userId, userData);
-
+	
+		
 		/// <summary>
 		/// Sends a reset request to an email address.
 		/// </summary>
