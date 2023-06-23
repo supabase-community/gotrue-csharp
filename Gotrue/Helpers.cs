@@ -13,7 +13,7 @@ using Supabase.Gotrue.Responses;
 namespace Supabase.Gotrue
 {
 	/// <summary>
-	/// Utility methods to assist with flow. Includes nonce generation & verification.
+	/// Utility methods to assist with flow. Includes nonce generation and verification.
 	/// </summary>
 	public static class Helpers
 	{

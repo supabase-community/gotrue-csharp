@@ -27,6 +27,7 @@ namespace Supabase.Gotrue
 		public bool ShouldCreateUser { get; set; } = true;
 	}
 
+	/// <inheritdoc />
 	public class SignInWithPasswordlessEmailOptions : SignInWithPasswordlessOptions
 	{
 		/// <summary>
@@ -53,6 +54,7 @@ namespace Supabase.Gotrue
 		}
 	}
 
+	/// <inheritdoc />
 	public class SignInWithPasswordlessPhoneOptions : SignInWithPasswordlessOptions
 	{
 		public enum MessagingChannel

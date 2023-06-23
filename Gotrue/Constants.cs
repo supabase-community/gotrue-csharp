@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Supabase.Core.Attributes;
+#pragma warning disable CS1591
 
 namespace Supabase.Gotrue
 {

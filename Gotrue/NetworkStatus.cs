@@ -6,8 +6,10 @@ namespace Supabase.Gotrue
 {
 	/// <summary>
 	/// A Network status system to pair with the <see cref="Client.Online"/>Client.
-	///
-	/// <see cref="https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/network-info"/>
+	/// 
+	/// <see>
+	///     <cref>https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/network-info</cref>
+	/// </see>
 	/// </summary>
 	public class NetworkStatus
 	{

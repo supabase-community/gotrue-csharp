@@ -18,6 +18,7 @@ namespace Supabase.Gotrue
 			Persistence = persistence;
 		}
 
+		/// <inheritdoc />
 		public IGotrueSessionPersistence<Session> Persistence { get; }
 
 		/// <summary>

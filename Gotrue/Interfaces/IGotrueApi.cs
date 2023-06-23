@@ -2,6 +2,7 @@
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
+#pragma warning disable CS1591
 
 namespace Supabase.Gotrue.Interfaces
 {
