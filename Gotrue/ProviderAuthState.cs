@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Supabase.Gotrue
 {
     /// <summary>
@@ -19,6 +18,10 @@ namespace Supabase.Gotrue
         /// </summary>
         public string? PKCEVerifier { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="uri"></param>
         public ProviderAuthState(Uri uri)
         {
             Uri = uri;

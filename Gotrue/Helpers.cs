@@ -9,7 +9,6 @@ using System.Web;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Responses;
-
 namespace Supabase.Gotrue
 {
 	/// <summary>

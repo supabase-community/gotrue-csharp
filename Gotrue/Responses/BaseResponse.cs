@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using Newtonsoft.Json;
-
 namespace Supabase.Gotrue.Responses
 {
     /// <summary>

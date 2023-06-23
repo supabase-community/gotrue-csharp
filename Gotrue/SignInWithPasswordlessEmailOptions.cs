@@ -57,10 +57,19 @@ namespace Supabase.Gotrue
 	/// <inheritdoc />
 	public class SignInWithPasswordlessPhoneOptions : SignInWithPasswordlessOptions
 	{
+		/// <summary>
+		/// Represents a messaging channel to use for sending the OTP.
+		/// </summary>
 		public enum MessagingChannel
 		{
+			/// <summary>
+			/// SMS
+			/// </summary>
 			[MapTo("sms")]
 			SMS,
+			/// <summary>
+			/// 
+			/// </summary>
 			[MapTo("whatsapp")]
 			WHATSAPP
 		}

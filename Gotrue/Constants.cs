@@ -103,7 +103,8 @@ namespace Supabase.Gotrue
             SignedOut,
             UserUpdated,
             PasswordRecovery,
-            TokenRefreshed
+            TokenRefreshed,
+            Shutdown
         }
 
         /// <summary>
