@@ -11,20 +11,8 @@ using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 namespace Supabase.Gotrue
 {
-	/// <summary>
-	/// GoTrue stateful Client.
-	///
-	/// This class is best used as a long-lived singleton object in your application. You can attach listeners
-	/// to be notified of changes to the user log in state, a persistence system for sessions across application
-	/// launches, and more. It includes a (optional, on by default) background thread that runs to refresh the
-	/// user's session token.
-	///
-	/// Check out the test suite for examples of use.
-	/// </summary>
-	/// <example>
-	/// var client = new Supabase.Gotrue.Client(options);
-	/// var user = await client.SignIn("user@email.com", "fancyPassword");
-	/// </example>
+
+	/// <inheritdoc />
 	public class Client : IGotrueClient<User, Session>
 	{
 		/// <summary>
@@ -89,10 +77,7 @@ namespace Supabase.Gotrue
 			}
 		}
 
-		/// <summary>
-		/// Set the Session persistence system. Typically an application specific file system location.
-		/// </summary>
-		/// <param name="persistence"></param>
+		/// <inheritdoc />
 		public void SetPersistence(IGotrueSessionPersistence<Session> persistence)
 		{
 			if (_sessionPersistence != null) _authEventHandlers.Remove(_sessionPersistence.EventHandler);
@@ -100,25 +85,13 @@ namespace Supabase.Gotrue
 			_authEventHandlers.Add(_sessionPersistence.EventHandler);
 		}
 
-		/// <summary>
-		/// The initialized client options.
-		/// </summary>
+		/// <inheritdoc />
 		public ClientOptions Options { get; }
 
-		/// <summary>
-		/// Get User details by JWT. Can be used to validate a JWT.
-		/// </summary>
-		/// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public Task<User?> GetUser(string jwt) => _api.GetUser(jwt);
 
-		
-		/// <summary>
-		/// Notifies all listeners that the current user auth state has changed.
-		///
-		/// This is mainly used internally to fire notifications - most client applications won't need this.
-		/// </summary>
-		/// <param name="stateChanged"></param>
+		/// <inheritdoc />
 		public void NotifyAuthStateChange(AuthState stateChanged)
 		{
 			foreach (var handler in _authEventHandlers)
@@ -134,20 +107,10 @@ namespace Supabase.Gotrue
 			}
 		}
 
-		/// <summary>
-		/// The currently logged in User. This is a local cache of the current session User. 
-		/// To persist modifications to the User you'll want to use other methods.
-		/// <see cref="Update"/>>
-		/// </summary>
+		/// <inheritdoc />
 		public User? CurrentUser { get => CurrentSession?.User; }
 
-		/// <summary>
-		/// Adds a listener to be notified when the user state changes (e.g. the user logs in, logs out,
-		/// the token is refreshed, etc).
-		///
-		/// <see cref="AuthState"/>
-		/// </summary>
-		/// <param name="authEventHandler"></param>
+		/// <inheritdoc />
 		public void AddStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
 		{
 			if (_authEventHandlers.Contains(authEventHandler)) return;
@@ -155,10 +118,7 @@ namespace Supabase.Gotrue
 			_authEventHandlers.Add(authEventHandler);
 		}
 
-		/// <summary>
-		/// Removes a specified listener from event state changes.
-		/// </summary>
-		/// <param name="authEventHandler"></param>
+		/// <inheritdoc />
 		public void RemoveStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
 		{
 			if (!_authEventHandlers.Contains(authEventHandler)) return;
@@ -166,12 +126,8 @@ namespace Supabase.Gotrue
 			_authEventHandlers.Remove(authEventHandler);
 		}
 
-		/// <summary>
-		/// Clears all of the listeners from receiving event state changes.
-		///
-		/// WARNING: The persistence handler and refresh token thread are installed as state change
-		/// listeners. Clearing the listeners will also delete these handlers.
-		/// </summary>
+
+		/// <inheritdoc />
 		public void ClearStateChangedListeners()
 		{
 			_authEventHandlers.Clear();
@@ -180,58 +136,15 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public bool Online { get; set; } = true;
 
-		/// <summary>
-		/// The current Session as managed by this client. Does not refresh tokens or have any other side effects.
-		///
-		/// You probably don't want to directly make changes to this object - you'll want to use other methods
-		/// on this class to make changes.
-		/// </summary>
+		/// <inheritdoc />
 		public Session? CurrentSession { get; private set; }
 
-		/// <summary>
-		/// Signs up a user by email address.
-		/// </summary>
-		/// <remarks>
-		/// By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
-		/// Confirm email determines if users need to confirm their email address after signing up.
-		///     - If Confirm email is enabled, a user is returned but session is null.
-		///     - If Confirm email is disabled, both a user and a session are returned.
-		/// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or
-		/// add additional redirect URLs in your project.
-		/// If signUp() is called for an existing confirmed user:
-		///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
-		///     - If Confirm email is disabled, the error message, User already registered is returned.
-		/// To fetch the currently logged-in user, refer to <see>
-		///     <cref>User</cref>
-		/// </see>.
-		/// </remarks>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public Task<Session?> SignUp(string email, string password, SignUpOptions? options = null) => SignUp(SignUpType.Email, email, password, options);
 
-		/// <summary>
-		/// Signs up a user
-		/// </summary>
-		/// <remarks>
-		/// Calling this method will log out the current user session (if any).
-		/// 
-		/// By default, the user needs to verify their email address before logging in. To turn this off, disable confirm email in your project.
-		/// Confirm email determines if users need to confirm their email address after signing up.
-		///     - If Confirm email is enabled, a user is returned but session is null.
-		///     - If Confirm email is disabled, both a user and a session are returned.
-		/// When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
-		/// If signUp() is called for an existing confirmed user:
-		///     - If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
-		///     - If Confirm email is disabled, the error message, User already registered is returned.
-		/// To fetch the currently logged-in user, refer to <see cref="User"/>.
-		/// </remarks>
-		/// <param name="type"></param>
-		/// <param name="identifier"></param>
-		/// <param name="password"></param>
-		/// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<Session?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null)
 		{
 			if (!Online)
@@ -256,12 +169,7 @@ namespace Supabase.Gotrue
 			return session;
 		}
 
-
-		/// <summary>
-		/// Sends a magic link login email to the specified email.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="options"></param>
+		/// <inheritdoc />
 		public async Task<bool> SignIn(string email, SignInOptions? options = null)
 		{
 			if (!Online)
@@ -271,19 +179,7 @@ namespace Supabase.Gotrue
 			return true;
 		}
 
-		/// <summary>
-		/// Allows signing in with an ID token issued by certain supported providers.
-		/// The [idToken] is verified for validity and a new session is established.
-		/// This method of signing in only supports [Provider.Google] or [Provider.Apple].
-		/// </summary>
-		/// <param name="provider">A supported provider (Google, Apple)</param>
-		/// <param name="idToken">Provided from External Library</param>
-		/// <param name="nonce">Provided from External Library</param>
-		/// <param name="captchaToken">Provided from External Library</param>
-		/// <remarks>Calling this method will eliminate the current session (if any).</remarks>
-		/// <exception>
-		///     <cref>InvalidProviderException</cref>
-		/// </exception>
+		/// <inheritdoc />
 		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
 		{
 			if (!Online)
@@ -297,24 +193,8 @@ namespace Supabase.Gotrue
 			return result;
 		}
 
-		/// <summary>
-		/// Log in a user using magiclink or a one-time password (OTP).
-		/// 
-		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
-		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
-		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-		/// 
-		/// Be aware that you may get back an error message that will not distinguish
-		/// between the cases where the account does not exist or, that the account
-		/// can only be accessed via social login.
-		/// 
-		/// Do note that you will need to configure a Whatsapp sender on Twilio
-		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
-		/// channel is not supported on other providers at this time.
-		/// </summary>
-		/// <remarks>Calling this method will wipe out the current session (if any)</remarks>
-		/// <param name="options"></param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
 			if (!Online)
@@ -324,24 +204,8 @@ namespace Supabase.Gotrue
 			return await _api.SignInWithOtp(options);
 		}
 
-		/// <summary>
-		/// Log in a user using magiclink or a one-time password (OTP).
-		/// 
-		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
-		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
-		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-		/// 
-		/// Be aware that you may get back an error message that will not distinguish
-		/// between the cases where the account does not exist or, that the account
-		/// can only be accessed via social login.
-		/// 
-		/// Do note that you will need to configure a Whatsapp sender on Twilio
-		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
-		/// channel is not supported on other providers at this time.
-		/// </summary>
-		/// <remarks>Calling this method will wipe out the current session (if any)</remarks>
-		/// <param name="options"></param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
 		{
 			if (!Online)
@@ -351,38 +215,18 @@ namespace Supabase.Gotrue
 			return await _api.SignInWithOtp(options);
 		}
 
-		/// <summary>
-		/// Sends a Magic email login link to the specified email.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public Task<bool> SendMagicLink(string email, SignInOptions? options = null) => SignIn(email, options);
 
-		/// <summary>
-		/// Signs in a User.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public Task<Session?> SignIn(string email, string password) => SignIn(SignInType.Email, email, password);
 
-		/// <summary>
-		/// Log in an existing user with an email and password or phone and password.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="password"></param>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public Task<Session?> SignInWithPassword(string email, string password) => SignIn(email, password);
 
-		/// <summary>
-		/// Log in an existing user, or login via a third-party provider.
-		/// </summary>
-		/// <param name="type">Type of Credentials being passed</param>
-		/// <param name="identifierOrToken">An email, phone, or RefreshToken</param>
-		/// <param name="password">Password to account (optional if `RefreshToken`)</param>
-		/// <param name="scopes">A space-separated list of scopes granted to the OAuth application.</param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
 		{
 			if (!Online)
@@ -420,15 +264,8 @@ namespace Supabase.Gotrue
 			return null;
 		}
 
-		/// <summary>
-		/// Retrieves a <see cref="ProviderAuthState"/> to redirect to for signing in with a <see cref="Provider"/>.
-		///
-		/// This will likely be paired with a PKCE flow (set in SignInOptions) - after redirecting the
-		/// user to the flow, you should pair with <see cref="ExchangeCodeForSession(string, string)"/>
-		/// </summary>
-		/// <param name="provider"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public Task<ProviderAuthState> SignIn(Provider provider, SignInOptions? options = null)
 		{
 			if (!Online)
@@ -440,13 +277,8 @@ namespace Supabase.Gotrue
 			return Task.FromResult(providerUri);
 		}
 
-		/// <summary>
-		/// Log in a user given a User supplied OTP received via mobile.
-		/// </summary>
-		/// <param name="phone">The user's phone number.</param>
-		/// <param name="token">Token sent to the user's phone.</param>
-		/// <param name="type">SMS or phone change</param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<Session?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
 		{
 			if (!Online)
@@ -466,13 +298,8 @@ namespace Supabase.Gotrue
 			return null;
 		}
 
-		/// <summary>
-		/// Log in a user give a user supplied OTP received via email.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="token"></param>
-		/// <param name="type">Defaults to MagicLink</param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<Session?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
 		{
 			if (!Online)
@@ -492,10 +319,8 @@ namespace Supabase.Gotrue
 			return null;
 		}
 
-		/// <summary>
-		/// Signs out a user and invalidates the current token.
-		/// </summary>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task SignOut()
 		{
 			if (CurrentSession?.AccessToken != null) await _api.SignOut(CurrentSession.AccessToken);
@@ -503,11 +328,8 @@ namespace Supabase.Gotrue
 			NotifyAuthStateChange(SignedOut);
 		}
 
-		/// <summary>
-		/// Updates a User.
-		/// </summary>
-		/// <param name="attributes"></param>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<User?> Update(UserAttributes attributes)
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
@@ -523,13 +345,8 @@ namespace Supabase.Gotrue
 			return result;
 		}
 
-		/// <summary>
-		/// Used for re-authenticating a user in password changes.
-		///
-		/// See: https://github.com/supabase/gotrue#get-reauthenticate
-		/// </summary>
-		/// <returns></returns>
-		/// <exception cref="GotrueException"></exception>
+
+		/// <inheritdoc />
 		public async Task<bool> Reauthenticate()
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
@@ -543,13 +360,7 @@ namespace Supabase.Gotrue
 			return response.ResponseMessage?.IsSuccessStatusCode ?? false;
 		}
 
-	
-		
-		/// <summary>
-		/// Sends a reset request to an email address.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public async Task<bool> ResetPasswordForEmail(string email)
 		{
 			var result = await _api.ResetPasswordForEmail(email);
@@ -557,10 +368,7 @@ namespace Supabase.Gotrue
 			return true;
 		}
 
-		/// <summary>
-		/// Refreshes the currently logged in User's Session.
-		/// </summary>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public async Task<Session?> RefreshSession()
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
@@ -577,11 +385,7 @@ namespace Supabase.Gotrue
 			return CurrentSession;
 		}
 
-		/// <summary>
-		///  Overrides the JWT on the current session. The JWT will then be sent in all subsequent network requests.
-		/// </summary>
-		/// <param name="accessToken">The JWT access token.</param>
-		/// <returns>Session.</returns>
+		/// <inheritdoc />
 		public Session SetAuth(string accessToken)
 		{
 			CurrentSession ??= new Session();
@@ -648,13 +452,8 @@ namespace Supabase.Gotrue
 			return session;
 		}
 
-		/// <summary>
-		/// Retrieves the Session by calling <see>
-		///     <cref>SessionRetriever</cref>
-		/// </see>
-		/// - sets internal state and timers.
-		/// </summary>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public async Task<Session?> RetrieveSessionAsync()
 		{
 			// No session, so just return.
@@ -695,11 +494,8 @@ namespace Supabase.Gotrue
 			return CurrentSession;
 		}
 
-		/// <summary>
-		/// Logs in an existing user via a third-party provider.
-		/// </summary>
-		/// <param name="codeVerifier"></param>
-		/// <param name="authCode"></param>
+
+		/// <inheritdoc />
 		public async Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode)
 		{
 			var result = await _api.ExchangeCodeForSession(codeVerifier, authCode);
@@ -723,12 +519,8 @@ namespace Supabase.Gotrue
 			set => _api.GetHeaders = value;
 		}
 
-		/// <summary>
-		/// Add a listener to get errors that occur outside of a typical Exception flow.
-		/// In particular, this is used to get errors and messages from the background thread
-		/// that automatically manages refreshing the user's token.
-		/// </summary>
-		/// <param name="listener"></param>
+
+		/// <inheritdoc />
 		public void AddDebugListener(Action<string, Exception?> listener)
 		{
 			_debugNotification ??= new DebugNotification();
@@ -804,18 +596,15 @@ namespace Supabase.Gotrue
 			NotifyAuthStateChange(TokenRefreshed);
 		}
 
-		/// <summary>
-		/// Loads the session from the persistence provider
-		/// </summary>
+
+		/// <inheritdoc />
 		public void LoadSession()
 		{
 			if (_sessionPersistence != null) UpdateSession(_sessionPersistence.Persistence.LoadSession());
 		}
 
-		/// <summary>
-		/// Retrieves the settings from the server
-		/// </summary>
-		/// <returns></returns>
+
+		/// <inheritdoc />
 		public Task<Settings?> Settings()
 		{
 			// if(!Online)
@@ -823,15 +612,16 @@ namespace Supabase.Gotrue
 			return _api.Settings();
 		}
 
-		/// <summary>
-		/// Posts messages and exceptions to the debug listener. This is particularly useful for sorting
-		/// out issues with the refresh token background thread.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="e"></param>
+		/// <inheritdoc />
 		public void Debug(string message, Exception? e = null)
 		{
 			_debugNotification?.Log(message, e);
+		}
+
+		/// <inheritdoc />
+		public void Shutdown()
+		{
+			NotifyAuthStateChange(AuthState.Shutdown);
 		}
 	}
 }

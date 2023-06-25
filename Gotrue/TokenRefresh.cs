@@ -1,7 +1,5 @@
 using System;
-using System.Net.Http;
 using System.Threading;
-using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants.AuthState;
 
@@ -60,6 +58,11 @@ namespace Supabase.Gotrue
 					break;
 				case TokenRefreshed:
 					// Doesn't affect auto refresh
+					break;
+				case Shutdown:
+					_client.Debug("Refresh Timer stopped");
+					_refreshTimer?.Dispose();
+					// Turn off auto-refresh timer
 					break;
 				default: throw new ArgumentOutOfRangeException(nameof(stateChanged), stateChanged, null);
 			}

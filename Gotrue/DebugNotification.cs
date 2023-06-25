@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 namespace Supabase.Gotrue
 {
 	/// <summary>

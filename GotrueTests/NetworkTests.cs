@@ -96,7 +96,13 @@ namespace GotrueTests
 				x = gte;
 			}
 			Assert.AreEqual(FailureHint.Reason.Offline, x?.Reason);
-		}
 
+			// Now let's go online and give it another try.
+			client.Online = true;
+			await client.RefreshToken();
+
+			// Let's try shutting down.
+			client.Shutdown();
+		}
 	}
 }

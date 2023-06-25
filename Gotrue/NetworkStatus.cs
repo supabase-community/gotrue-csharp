@@ -1,7 +1,6 @@
 using System;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-
 namespace Supabase.Gotrue
 {
 	/// <summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-
 namespace Supabase.Gotrue.Exceptions
 {
 	/// <summary>

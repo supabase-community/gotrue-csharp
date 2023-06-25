@@ -1,6 +1,5 @@
 using System;
 using Supabase.Gotrue.Interfaces;
-
 namespace Supabase.Gotrue
 {
 	/// <summary>
@@ -57,6 +56,9 @@ namespace Supabase.Gotrue
 					{
 						Persistence.SaveSession(sender.CurrentSession);
 					}
+					break;
+				case Constants.AuthState.Shutdown:
+					// The session should have already been saved, so we don't need to do anything here.
 					break;
 				default: throw new ArgumentOutOfRangeException(nameof(stateChanged), stateChanged, null);
 			}
