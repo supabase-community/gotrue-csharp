@@ -1,8 +1,21 @@
 ﻿# Changelog
 
+## 4.1.0 - 2023-06-25
+
+- **Minor** [#66](https://github.com/supabase-community/gotrue-csharp/pull/66) - Separates out Admin JWT functionality
+  into a
+  separate `AdminClient`
+- [#67](https://github.com/supabase-community/gotrue-csharp/pull/67) - Adds shutdown method which terminates the
+  background refresh threads.
+- Movement of much of the documentation for methods out of their classes and into their interfaces.
+- Language features locked to C#9
+
+Thanks to [@wiverson](https://github.com/wiverson) for this release!
+
 ## 4.0.5 - 2023-06-17
 
-- [#63](https://github.com/supabase-community/gotrue-csharp/pull/63) - Refresh Thread bug fixes, adds offline support for stateful end user client. Huge thank you to [@wiverson](https://github.com/wiverson) for this work!
+- [#63](https://github.com/supabase-community/gotrue-csharp/pull/63) - Refresh Thread bug fixes, adds offline support
+  for stateful end user client. Huge thank you to [@wiverson](https://github.com/wiverson) for this work!
 
 ## 4.0.4 - 2023-06-10
 
@@ -14,7 +27,8 @@
 
 ## 4.0.2 - 2023-05-15
 
-- [#58](https://github.com/supabase-community/gotrue-csharp/issues/58) - Add support for the `reauthentication` endpoint which allows for secure password changes.
+- [#58](https://github.com/supabase-community/gotrue-csharp/issues/58) - Add support for the `reauthentication` endpoint
+  which allows for secure password changes.
 
 ## 4.0.1 - 2023-05-11
 
@@ -28,25 +42,25 @@
 Huge thank you to [@wiverson](https://github.com/wiverson) for his help on this refactor and release!
 
 - Changes
-  - Exceptions have been simplified to a single `GotrueException`. A `Reason` field has been added
-    to `GotrueException` to clarify what happened. This should also be easier to manage as the Gotrue
-    server API & messages evolve.
-  - The session delegates for `Save`/`Load`/`Destroy` have been simplified to no longer require `async`.
-  - Console logging in a few places (most notable the background refresh thread) has been removed
-    in favor of a notification method. See `Client.AddDebugListener()` and the test cases for examples.
-    This will allow you to implement your own logging strategy (write to temp file, console, user visible
-    err console, etc).
-  - The client now more reliably emits AuthState changes.
-  - There is now a single source of truth for headers in the stateful Client - the `Options` headers.
+    - Exceptions have been simplified to a single `GotrueException`. A `Reason` field has been added
+      to `GotrueException` to clarify what happened. This should also be easier to manage as the Gotrue
+      server API & messages evolve.
+    - The session delegates for `Save`/`Load`/`Destroy` have been simplified to no longer require `async`.
+    - Console logging in a few places (most notable the background refresh thread) has been removed
+      in favor of a notification method. See `Client.AddDebugListener()` and the test cases for examples.
+      This will allow you to implement your own logging strategy (write to temp file, console, user visible
+      err console, etc).
+    - The client now more reliably emits AuthState changes.
+    - There is now a single source of truth for headers in the stateful Client - the `Options` headers.
 - New feature:
-  - Added a `Settings` request to the stateless API only - you can now query the server instance to
-    determine if it's got the settings you need. This might allow for things like a visual
-    component in a tool to verify the GoTrue settings are working correctly, or tests that run differently
-    depending on the server configuration.
+    - Added a `Settings` request to the stateless API only - you can now query the server instance to
+      determine if it's got the settings you need. This might allow for things like a visual
+      component in a tool to verify the GoTrue settings are working correctly, or tests that run differently
+      depending on the server configuration.
 - Implementation notes:
-  - Test cases have been added to help ensure reliability of auth state change notifications
-    and persistence.
-  - Persistence is now managed via the same notifications as auth state change
+    - Test cases have been added to help ensure reliability of auth state change notifications
+      and persistence.
+    - Persistence is now managed via the same notifications as auth state change
 
 ## 3.1.2 - 2023-05-02
 
@@ -159,8 +173,8 @@ Migration from 2.x.x to 3.x.x:
 ## 2.3.3 - 2021-12-29
 
 - Minor: `SignUp` will return a `Session` with a _populated `User` object_ on an unconfirmed signup.
-  - Fixes [#19](https://github.com/supabase-community/gotrue-csharp/issues/19)
-  - Developers who were using a `null` check on `Session.User` will need to adjust accordingly.
+    - Fixes [#19](https://github.com/supabase-community/gotrue-csharp/issues/19)
+    - Developers who were using a `null` check on `Session.User` will need to adjust accordingly.
 
 ## 2.3.2 - 2021-12-25
 
