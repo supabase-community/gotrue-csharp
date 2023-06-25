@@ -960,6 +960,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.Settings
   nameWithType: Client.Settings
+- uid: Supabase.Gotrue.Client.Shutdown
+  name: Shutdown()
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Shutdown
+  commentId: M:Supabase.Gotrue.Client.Shutdown
+  fullName: Supabase.Gotrue.Client.Shutdown()
+  nameWithType: Client.Shutdown()
+- uid: Supabase.Gotrue.Client.Shutdown*
+  name: Shutdown
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Shutdown_
+  commentId: Overload:Supabase.Gotrue.Client.Shutdown
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.Shutdown
+  nameWithType: Client.Shutdown
 - uid: Supabase.Gotrue.Client.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
   name: SignIn(Constants.Provider, SignInOptions)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
@@ -1194,6 +1207,12 @@ references:
   commentId: F:Supabase.Gotrue.Constants.AuthState.PasswordRecovery
   fullName: Supabase.Gotrue.Constants.AuthState.PasswordRecovery
   nameWithType: Constants.AuthState.PasswordRecovery
+- uid: Supabase.Gotrue.Constants.AuthState.Shutdown
+  name: Shutdown
+  href: api/Supabase.Gotrue.Constants.AuthState.html#Supabase_Gotrue_Constants_AuthState_Shutdown
+  commentId: F:Supabase.Gotrue.Constants.AuthState.Shutdown
+  fullName: Supabase.Gotrue.Constants.AuthState.Shutdown
+  nameWithType: Constants.AuthState.Shutdown
 - uid: Supabase.Gotrue.Constants.AuthState.SignedIn
   name: SignedIn
   href: api/Supabase.Gotrue.Constants.AuthState.html#Supabase_Gotrue_Constants_AuthState_SignedIn
@@ -2509,6 +2528,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).CurrentUser
   nameWithType: IGotrueClient<TUser, TSession>.CurrentUser
   nameWithType.vb: IGotrueClient(Of TUser, TSession).CurrentUser
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Debug(System.String,System.Nullable{Exception})
+  name: Debug(String, Nullable<Exception>)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Debug_System_String_System_Nullable_Exception__
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.Debug(System.String,System.Nullable{Exception})
+  name.vb: Debug(String, Nullable(Of Exception))
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Debug(System.String, System.Nullable<Exception>)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Debug(System.String, System.Nullable(Of Exception))
+  nameWithType: IGotrueClient<TUser, TSession>.Debug(String, Nullable<Exception>)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Debug(String, Nullable(Of Exception))
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Debug*
+  name: Debug
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Debug_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.Debug
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Debug
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Debug
+  nameWithType: IGotrueClient<TUser, TSession>.Debug
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Debug
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.ExchangeCodeForSession(System.String,System.String)
   name: ExchangeCodeForSession(String, String)
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_
@@ -2783,6 +2820,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Settings
   nameWithType: IGotrueClient<TUser, TSession>.Settings
   nameWithType.vb: IGotrueClient(Of TUser, TSession).Settings
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Shutdown
+  name: Shutdown()
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Shutdown
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.Shutdown
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Shutdown()
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Shutdown()
+  nameWithType: IGotrueClient<TUser, TSession>.Shutdown()
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Shutdown()
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Shutdown*
+  name: Shutdown
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Shutdown_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.Shutdown
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.Shutdown
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).Shutdown
+  nameWithType: IGotrueClient<TUser, TSession>.Shutdown
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).Shutdown
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
   name: SignIn(Constants.Provider, SignInOptions)
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
