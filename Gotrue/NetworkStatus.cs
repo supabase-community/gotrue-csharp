@@ -1,6 +1,7 @@
 using System;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using Supabase.Gotrue.Interfaces;
 namespace Supabase.Gotrue
 {
 	/// <summary>
@@ -12,12 +13,12 @@ namespace Supabase.Gotrue
 	/// </summary>
 	public class NetworkStatus
 	{
-		private readonly Client _client;
+		private readonly IGotrueClient<User, Session> _client;
 		/// <summary>
 		/// Set up a listener for the network status.
 		/// </summary>
 		/// <param name="client"></param>
-		public NetworkStatus(Client client)
+		public NetworkStatus(IGotrueClient<User, Session> client)
 		{
 			_client = client;
 		}
