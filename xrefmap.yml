@@ -3498,12 +3498,15 @@ references:
   commentId: T:Supabase.Gotrue.NetworkStatus
   fullName: Supabase.Gotrue.NetworkStatus
   nameWithType: NetworkStatus
-- uid: Supabase.Gotrue.NetworkStatus.#ctor(Supabase.Gotrue.Client)
-  name: NetworkStatus(Client)
-  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus__ctor_Supabase_Gotrue_Client_
-  commentId: M:Supabase.Gotrue.NetworkStatus.#ctor(Supabase.Gotrue.Client)
-  fullName: Supabase.Gotrue.NetworkStatus.NetworkStatus(Supabase.Gotrue.Client)
-  nameWithType: NetworkStatus.NetworkStatus(Client)
+- uid: Supabase.Gotrue.NetworkStatus.#ctor(Supabase.Gotrue.Interfaces.IGotrueClient{Supabase.Gotrue.User,Supabase.Gotrue.Session})
+  name: NetworkStatus(IGotrueClient<User, Session>)
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus__ctor_Supabase_Gotrue_Interfaces_IGotrueClient_Supabase_Gotrue_User_Supabase_Gotrue_Session__
+  commentId: M:Supabase.Gotrue.NetworkStatus.#ctor(Supabase.Gotrue.Interfaces.IGotrueClient{Supabase.Gotrue.User,Supabase.Gotrue.Session})
+  name.vb: NetworkStatus(IGotrueClient(Of User, Session))
+  fullName: Supabase.Gotrue.NetworkStatus.NetworkStatus(Supabase.Gotrue.Interfaces.IGotrueClient<Supabase.Gotrue.User, Supabase.Gotrue.Session>)
+  fullName.vb: Supabase.Gotrue.NetworkStatus.NetworkStatus(Supabase.Gotrue.Interfaces.IGotrueClient(Of Supabase.Gotrue.User, Supabase.Gotrue.Session))
+  nameWithType: NetworkStatus.NetworkStatus(IGotrueClient<User, Session>)
+  nameWithType.vb: NetworkStatus.NetworkStatus(IGotrueClient(Of User, Session))
 - uid: Supabase.Gotrue.NetworkStatus.#ctor*
   name: NetworkStatus
   href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus__ctor_
