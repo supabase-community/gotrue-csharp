@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 4.1.1 - 2023-06-29
+
+- [#68](https://github.com/supabase-community/gotrue-csharp/pull/68) Changes Network Status to use the interface instead of client
+
 ## 4.1.0 - 2023-06-25
 
 - **Minor** [#66](https://github.com/supabase-community/gotrue-csharp/pull/66) - Separates out Admin JWT functionality
