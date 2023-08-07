@@ -30,6 +30,11 @@ namespace Supabase.Gotrue
 		private Timer? _refreshTimer;
 
 		/// <summary>
+		/// Turn on debug logging for the TokenRefresh
+		/// </summary>
+		public bool Debug;
+
+		/// <summary>
 		/// Turns the auto-refresh timer on or off based on the current auth state
 		/// </summary>
 		/// <param name="sender">The Client and Session data</param>
@@ -40,17 +45,20 @@ namespace Supabase.Gotrue
 			switch (stateChanged)
 			{
 				case SignedIn:
-					_client.Debug("Refresh Timer started");
+					if (Debug)
+						_client.Debug("Refresh Timer started");
 					InitRefreshTimer();
 					// Turn on auto-refresh timer
 					break;
 				case SignedOut:
-					_client.Debug("Refresh Timer stopped");
+					if (Debug)
+						_client.Debug("Refresh Timer stopped");
 					_refreshTimer?.Dispose();
 					// Turn off auto-refresh timer
 					break;
 				case UserUpdated:
-					_client.Debug("Refresh Timer restarted");
+					if (Debug)
+						_client.Debug("Refresh Timer restarted");
 					InitRefreshTimer();
 					break;
 				case PasswordRecovery:
@@ -60,7 +68,8 @@ namespace Supabase.Gotrue
 					// Doesn't affect auto refresh
 					break;
 				case Shutdown:
-					_client.Debug("Refresh Timer stopped");
+					if (Debug)
+						_client.Debug("Refresh Timer stopped");
 					_refreshTimer?.Dispose();
 					// Turn off auto-refresh timer
 					break;
@@ -75,7 +84,8 @@ namespace Supabase.Gotrue
 		{
 			if (_client.CurrentSession == null || _client.CurrentSession.ExpiresIn == default)
 			{
-				_client.Debug($"No session, refresh timer not started");
+				if (Debug)
+					_client.Debug($"No session, refresh timer not started");
 				return;
 			}
 
@@ -83,7 +93,8 @@ namespace Supabase.Gotrue
 
 			if (_client.CurrentSession.Expired())
 			{
-				_client.Debug($"Token expired, signing out");
+				if (Debug)
+					_client.Debug($"Token expired, signing out");
 				_client.NotifyAuthStateChange(SignedOut);
 				return;
 			}
@@ -102,11 +113,13 @@ namespace Supabase.Gotrue
 
 				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
 
-				_client.Debug($"Refresh timer scheduled {timeout.TotalMinutes} minutes");
+				if (Debug)
+					_client.Debug($"Refresh timer scheduled {timeout.TotalMinutes} minutes");
 			}
 			catch (Exception e)
 			{
-				_client.Debug($"Failed to initialize refresh timer", e);
+				if (Debug)
+					_client.Debug($"Failed to initialize refresh timer", e);
 			}
 		}
 
@@ -129,7 +142,8 @@ namespace Supabase.Gotrue
 			catch (Exception ex)
 			{
 				// Something unusually bad happened!
-				_client.Debug(ex.Message, ex);
+				if (Debug)
+					_client.Debug(ex.Message, ex);
 			}
 			// Due is set to 5000ms
 			_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);

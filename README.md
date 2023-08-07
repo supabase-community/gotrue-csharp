@@ -13,6 +13,15 @@
 
 ## New Features
 
+### Unity Support
+
+The Client works with Unity. You can find an example of a session persistence
+implementation for Unity at this [gist](https://gist.github.com/wiverson/fbb07498743dff19b72c9c58599931e9).
+
+```csharp
+
+```
+
 ### Offline Support
 
 The Client now better supports online/offline usage. The Client now has a simple boolean option "Online"
@@ -22,12 +31,15 @@ to automatically go online & offline based on the device's network status.
 To use this new NetworkStatus, add the following:
 
 ```csharp
-
+// Create the client
 var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
-var status = new NetworkStatus(client);
+// Create the network status monitor
+var status = new NetworkStatus();
+// Tell the network status monitor to update the client's online status
+status.Client = client;
+// Start the network status monitor
 await status.StartAsync();
 // rest of the usual client configuration
-
 ```
 
 Only the stateful Client supports this feature, and only for the managed user sessions.
