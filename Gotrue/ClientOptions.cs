@@ -24,6 +24,11 @@ namespace Supabase.Gotrue
 		public bool AutoRefreshToken { get; set; } = true;
 
 		/// <summary>
+		/// Ask the TokenRefresh system to log extra debug info
+		/// </summary>
+		public bool DebugRefreshToken { get; set; } = false;
+
+		/// <summary>
 		/// By default, the Client will attempt to refresh the token when roughly 1/5 of the
 		/// time is left before expiration (assuming AutoRefreshToken is true).
 		///

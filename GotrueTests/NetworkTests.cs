@@ -27,15 +27,22 @@ namespace GotrueTests
 		[TestMethod("Good Ping Check")]
 		public async Task GoodPingTest()
 		{
-			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			var clientOptions = new ClientOptions { AllowUnconfirmedUserSessions = true };
+			var client = new Client(clientOptions);
 			client.Online = false;
-			var status = new NetworkStatus(client);
-			await status.PingCheck();
+			var status = new NetworkStatus();
+
+			var url =
+				$"{clientOptions.Url}/settings";
+
+			status.Client = client;
+			var online = await status.PingCheck(url);
+			Assert.IsTrue(online);
 			Assert.IsTrue(client.Online);
 
 			client.Online = false;
 
-			await status.StartAsync();
+			await status.StartAsync(url);
 			Assert.IsTrue(client.Online);
 		}
 
@@ -47,8 +54,10 @@ namespace GotrueTests
 				AllowUnconfirmedUserSessions = true, Url = "https://badprojecturl.supabase.co"
 			});
 			client.Online = true;
-			var status = new NetworkStatus(client);
-			await status.PingCheck();
+			var status = new NetworkStatus();
+			status.Client = client;
+			var online = await status.PingCheck("https://badprojecturl.supabase.co");
+			Assert.IsFalse(online);
 			Assert.IsFalse(client.Online);
 		}
 

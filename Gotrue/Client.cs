@@ -11,7 +11,6 @@ using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 namespace Supabase.Gotrue
 {
-
 	/// <inheritdoc />
 	public class Client : IGotrueClient<User, Session>
 	{
@@ -23,7 +22,8 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Handlers for notifications of state changes.
 		/// </summary>
-		private readonly List<IGotrueClient<User, Session>.AuthEventHandler> _authEventHandlers = new List<IGotrueClient<User, Session>.AuthEventHandler>();
+		private readonly List<IGotrueClient<User, Session>.AuthEventHandler> _authEventHandlers =
+			new List<IGotrueClient<User, Session>.AuthEventHandler>();
 
 		/// <summary>
 		/// Gets notifications if there is a failure not visible by exceptions (e.g. background thread refresh failure)
@@ -34,6 +34,11 @@ namespace Supabase.Gotrue
 		/// Object called to persist the session (e.g. filesystem or cookie)
 		/// </summary>
 		private IGotruePersistenceListener<Session>? _sessionPersistence;
+
+		/// <summary>
+		/// Get the TokenRefresh object, if it exists
+		/// </summary>
+		public TokenRefresh? TokenRefresh { get; }
 
 		/// <summary>
 		/// Initializes the GoTrue stateful client. 
@@ -73,7 +78,8 @@ namespace Supabase.Gotrue
 
 			if (options.AutoRefreshToken)
 			{
-				_authEventHandlers.Add(new TokenRefresh(this).ManageAutoRefresh);
+				TokenRefresh = new TokenRefresh(this);
+				_authEventHandlers.Add(TokenRefresh.ManageAutoRefresh);
 			}
 		}
 
@@ -108,7 +114,10 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public User? CurrentUser { get => CurrentSession?.User; }
+		public User? CurrentUser
+		{
+			get => CurrentSession?.User;
+		}
 
 		/// <inheritdoc />
 		public void AddStateChangedListener(IGotrueClient<User, Session>.AuthEventHandler authEventHandler)
@@ -141,11 +150,13 @@ namespace Supabase.Gotrue
 
 
 		/// <inheritdoc />
-		public Task<Session?> SignUp(string email, string password, SignUpOptions? options = null) => SignUp(SignUpType.Email, email, password, options);
+		public Task<Session?> SignUp(string email, string password, SignUpOptions? options = null) =>
+			SignUp(SignUpType.Email, email, password, options);
 
 
 		/// <inheritdoc />
-		public async Task<Session?> SignUp(SignUpType type, string identifier, string password, SignUpOptions? options = null)
+		public async Task<Session?> SignUp(SignUpType type, string identifier, string password,
+			SignUpOptions? options = null)
 		{
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
@@ -180,15 +191,15 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
+		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null,
+			string? captchaToken = null)
 		{
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
-			DestroySession();
 			var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
 
-			if (result != null) NotifyAuthStateChange(SignedIn);
+			UpdateSession(result);
 
 			return result;
 		}
@@ -227,7 +238,8 @@ namespace Supabase.Gotrue
 
 
 		/// <inheritdoc />
-		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null, string? scopes = null)
+		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null,
+			string? scopes = null)
 		{
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
@@ -255,7 +267,8 @@ namespace Supabase.Gotrue
 				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
-			if (newSession?.User?.ConfirmedAt != null || newSession?.User != null && Options.AllowUnconfirmedUserSessions)
+			if (newSession?.User?.ConfirmedAt != null ||
+			    newSession?.User != null && Options.AllowUnconfirmedUserSessions)
 			{
 				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
@@ -406,7 +419,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public async Task<Session?> GetSessionFromUrl(Uri uri, bool storeSession = true)
 		{
-			var query = string.IsNullOrEmpty(uri.Fragment) ? HttpUtility.ParseQueryString(uri.Query) : HttpUtility.ParseQueryString('?' + uri.Fragment.TrimStart('#'));
+			var query = string.IsNullOrEmpty(uri.Fragment)
+				? HttpUtility.ParseQueryString(uri.Query)
+				: HttpUtility.ParseQueryString('?' + uri.Fragment.TrimStart('#'));
 
 			var errorDescription = query.Get("error_description");
 
@@ -607,8 +622,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public Task<Settings?> Settings()
 		{
-			// if(!Online)
-			// 	throw new GotrueException("Cannot retrieve settings while offline.", NoSessionFound);
+			if (!Online)
+				return Task.FromResult<Settings?>(null);
 			return _api.Settings();
 		}
 
