@@ -140,9 +140,7 @@ namespace GotrueTests
 			Assert.IsInstanceOfType(session.User, typeof(User));
 
 			// Refresh Token
-			var refreshToken = session.RefreshToken;
-
-			var newSession = await _client.SignIn(SignInType.RefreshToken, refreshToken, options: Options);
+			var newSession = await _client.RefreshToken(session.AccessToken, session.RefreshToken, Options);
 
 			Assert.IsNotNull(newSession.AccessToken);
 			Assert.IsNotNull(newSession.RefreshToken);

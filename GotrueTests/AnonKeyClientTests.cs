@@ -403,7 +403,7 @@ namespace GotrueTests
 			{
 				// Should be raised by `SetSession`
 				if (changed == SignedIn)
-					hasStateChangedTsc.SetResult(true);
+					hasStateChangedTsc.TrySetResult(true);
 			});
 			
 			await _client.SetSession(accessToken, refreshToken);
@@ -414,8 +414,18 @@ namespace GotrueTests
 			Assert.IsNotNull(_client.CurrentSession);
 			Assert.IsNotNull(_client.CurrentUser);
 			Assert.AreEqual(id, _client.CurrentUser.Id);
-			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.AccessToken));
-			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.RefreshToken));
+			
+			// As these are fresh, a new token should not be generated.
+			Assert.AreEqual(accessToken, _client.CurrentSession.AccessToken);
+			Assert.AreEqual(refreshToken, _client.CurrentSession.RefreshToken);
+			
+			await _client.SetSession(accessToken, refreshToken, forceAccessTokenRefresh: true);
+			Assert.IsNotNull(_client.CurrentSession);
+			Assert.IsNotNull(_client.CurrentUser);
+			Assert.AreEqual(id, _client.CurrentUser.Id);
+			
+			// As this is being forced to regenerate, the original should be different than the cached.
+			Assert.AreNotEqual(refreshToken, _client.CurrentSession.RefreshToken);
 		}
 	}
 }
