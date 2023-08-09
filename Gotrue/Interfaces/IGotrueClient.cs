@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Exceptions;
 using static Supabase.Gotrue.Constants;
+
 #pragma warning disable CS1591
 
 namespace Supabase.Gotrue.Interfaces
@@ -141,14 +142,17 @@ namespace Supabase.Gotrue.Interfaces
 		/// 
 		/// 1. Will destroy the current session (if existing)
 		/// 2. Raise a <see cref="AuthState.SignedOut"/> event.
-		/// 3. Request a new session from the server using the provided parameters (effectively validating them).
+		/// 3. Decode token
+		///	  3a. If expired (or bool <paramref name="forceAccessTokenRefresh"></paramref> set), force an access token refresh.
+		///   3b. If not expired, set the <see cref="CurrentSession"/> and retrieve <see cref="CurrentUser"/> from the server using the <paramref name="accessToken"/>.
 		/// 4. Raise a `<see cref="AuthState.SignedIn"/> event if successful.
 		/// </summary>
 		/// <param name="accessToken"></param>
 		/// <param name="refreshToken"></param>
+		/// <param name="forceAccessTokenRefresh"></param>
 		/// <returns></returns>
 		/// <exception cref="GotrueException">Raised when token combination is invalid.</exception>
-		Task<TSession> SetSession(string accessToken, string refreshToken);
+		Task<TSession> SetSession(string accessToken, string refreshToken, bool forceAccessTokenRefresh = false);
 
 		/// <summary>
 		/// Log in an existing user, or login via a third-party provider.
@@ -354,7 +358,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// Loads the session from the persistence layer.
 		/// </summary>
 		void LoadSession();
-		
+
 		/// <summary>
 		/// Retrieves the settings from the server
 		/// </summary>
@@ -380,7 +384,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="message"></param>
 		/// <param name="e"></param>
 		void Debug(string message, Exception? e = null);
-		
+
 		/// <summary>
 		/// Let all of the listeners know that the stateless client is being shutdown.
 		///

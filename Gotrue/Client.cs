@@ -264,7 +264,7 @@ namespace Supabase.Gotrue
 				case SignInType.RefreshToken:
 					if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 						throw new GotrueException("Not logged in.", NoSessionFound);
-					
+
 					await RefreshToken(CurrentSession.AccessToken!, identifierOrToken);
 					return CurrentSession;
 				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -401,19 +401,39 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<Session> SetSession(string accessToken, string refreshToken)
+		public async Task<Session> SetSession(string accessToken, string refreshToken, bool forceAccessTokenRefresh = false)
 		{
 			DestroySession();
-			
+
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
-				throw new GotrueException("`access_token` and `refresh_token` cannot be empty.", NoSessionFound);
+				throw new GotrueException("`accessToken` and `refreshToken` cannot be empty.", NoSessionFound);
 
-			var result = await _api.RefreshAccessToken(accessToken, refreshToken);
+			var payload = JWTDecoder.Decoder.DecodePayload<User>(accessToken);
 
-			if (result == null || string.IsNullOrEmpty(result.AccessToken))
-				throw new GotrueException("Could not generate a session given the provided parameters.", NoSessionFound);
+			if (payload == null || payload.ExpiresAt() == DateTime.MinValue)
+				throw new GotrueException("`accessToken`'s payload was of an unknown structure.", NoSessionFound);
 
-			CurrentSession = result;
+			if (payload.Expired() || forceAccessTokenRefresh)
+			{
+				var result = await _api.RefreshAccessToken(accessToken, refreshToken);
+
+				if (result == null || string.IsNullOrEmpty(result.AccessToken))
+					throw new GotrueException("Could not generate a session given the provided parameters.", NoSessionFound);
+
+				CurrentSession = result;
+				NotifyAuthStateChange(SignedIn);
+				return CurrentSession;
+			}
+
+			CurrentSession = new Session
+			{
+				AccessToken = accessToken,
+				RefreshToken = refreshToken,
+				TokenType = "bearer",
+				ExpiresIn = payload.Exp!.Value,
+				User = await _api.GetUser(accessToken)
+			};
+
 			NotifyAuthStateChange(SignedIn);
 			return CurrentSession;
 		}
@@ -581,7 +601,7 @@ namespace Supabase.Gotrue
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
 				throw new GotrueException("No token provided", NoSessionFound);
 
-			var result = await _api.RefreshAccessToken(refreshToken, accessToken);
+			var result = await _api.RefreshAccessToken(accessToken, refreshToken);
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
@@ -625,6 +645,7 @@ namespace Supabase.Gotrue
 		{
 			if (!Online)
 				return Task.FromResult<Settings?>(null);
+
 			return _api.Settings();
 		}
 
