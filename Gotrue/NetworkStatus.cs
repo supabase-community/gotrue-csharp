@@ -61,7 +61,7 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Pings the URL in the <see cref="Client.Options"/> to check if the network is online.
 		/// 
-		/// https://wutdruyqartmqvkdaxnf.supabase.co/auth/v1/settings
+		/// https://PROJECTID.supabase.co/auth/v1/settings
 		/// </summary>
 		public async Task<bool> PingCheck(string url)
 		{
