@@ -1087,6 +1087,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SignUp
   nameWithType: Client.SignUp
+- uid: Supabase.Gotrue.Client.TokenRefresh
+  name: TokenRefresh
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_TokenRefresh
+  commentId: P:Supabase.Gotrue.Client.TokenRefresh
+  fullName: Supabase.Gotrue.Client.TokenRefresh
+  nameWithType: Client.TokenRefresh
+- uid: Supabase.Gotrue.Client.TokenRefresh*
+  name: TokenRefresh
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_TokenRefresh_
+  commentId: Overload:Supabase.Gotrue.Client.TokenRefresh
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.TokenRefresh
+  nameWithType: Client.TokenRefresh
 - uid: Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
   name: Update(UserAttributes)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Update_Supabase_Gotrue_UserAttributes_
@@ -1151,6 +1164,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.ClientOptions.AutoRefreshToken
   nameWithType: ClientOptions.AutoRefreshToken
+- uid: Supabase.Gotrue.ClientOptions.DebugRefreshToken
+  name: DebugRefreshToken
+  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_DebugRefreshToken
+  commentId: P:Supabase.Gotrue.ClientOptions.DebugRefreshToken
+  fullName: Supabase.Gotrue.ClientOptions.DebugRefreshToken
+  nameWithType: ClientOptions.DebugRefreshToken
+- uid: Supabase.Gotrue.ClientOptions.DebugRefreshToken*
+  name: DebugRefreshToken
+  href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_DebugRefreshToken_
+  commentId: Overload:Supabase.Gotrue.ClientOptions.DebugRefreshToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.ClientOptions.DebugRefreshToken
+  nameWithType: ClientOptions.DebugRefreshToken
 - uid: Supabase.Gotrue.ClientOptions.Headers
   name: Headers
   href: api/Supabase.Gotrue.ClientOptions.html#Supabase_Gotrue_ClientOptions_Headers
@@ -3498,28 +3524,57 @@ references:
   commentId: T:Supabase.Gotrue.NetworkStatus
   fullName: Supabase.Gotrue.NetworkStatus
   nameWithType: NetworkStatus
-- uid: Supabase.Gotrue.NetworkStatus.#ctor(Supabase.Gotrue.Interfaces.IGotrueClient{Supabase.Gotrue.User,Supabase.Gotrue.Session})
-  name: NetworkStatus(IGotrueClient<User, Session>)
-  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus__ctor_Supabase_Gotrue_Interfaces_IGotrueClient_Supabase_Gotrue_User_Supabase_Gotrue_Session__
-  commentId: M:Supabase.Gotrue.NetworkStatus.#ctor(Supabase.Gotrue.Interfaces.IGotrueClient{Supabase.Gotrue.User,Supabase.Gotrue.Session})
-  name.vb: NetworkStatus(IGotrueClient(Of User, Session))
-  fullName: Supabase.Gotrue.NetworkStatus.NetworkStatus(Supabase.Gotrue.Interfaces.IGotrueClient<Supabase.Gotrue.User, Supabase.Gotrue.Session>)
-  fullName.vb: Supabase.Gotrue.NetworkStatus.NetworkStatus(Supabase.Gotrue.Interfaces.IGotrueClient(Of Supabase.Gotrue.User, Supabase.Gotrue.Session))
-  nameWithType: NetworkStatus.NetworkStatus(IGotrueClient<User, Session>)
-  nameWithType.vb: NetworkStatus.NetworkStatus(IGotrueClient(Of User, Session))
-- uid: Supabase.Gotrue.NetworkStatus.#ctor*
-  name: NetworkStatus
-  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus__ctor_
-  commentId: Overload:Supabase.Gotrue.NetworkStatus.#ctor
+- uid: Supabase.Gotrue.NetworkStatus.AddListener(Supabase.Gotrue.NetworkStatus.NetworkListener)
+  name: AddListener(NetworkStatus.NetworkListener)
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_AddListener_Supabase_Gotrue_NetworkStatus_NetworkListener_
+  commentId: M:Supabase.Gotrue.NetworkStatus.AddListener(Supabase.Gotrue.NetworkStatus.NetworkListener)
+  fullName: Supabase.Gotrue.NetworkStatus.AddListener(Supabase.Gotrue.NetworkStatus.NetworkListener)
+  nameWithType: NetworkStatus.AddListener(NetworkStatus.NetworkListener)
+- uid: Supabase.Gotrue.NetworkStatus.AddListener*
+  name: AddListener
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_AddListener_
+  commentId: Overload:Supabase.Gotrue.NetworkStatus.AddListener
   isSpec: "True"
-  fullName: Supabase.Gotrue.NetworkStatus.NetworkStatus
-  nameWithType: NetworkStatus.NetworkStatus
-- uid: Supabase.Gotrue.NetworkStatus.PingCheck
-  name: PingCheck()
-  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_PingCheck
-  commentId: M:Supabase.Gotrue.NetworkStatus.PingCheck
-  fullName: Supabase.Gotrue.NetworkStatus.PingCheck()
-  nameWithType: NetworkStatus.PingCheck()
+  fullName: Supabase.Gotrue.NetworkStatus.AddListener
+  nameWithType: NetworkStatus.AddListener
+- uid: Supabase.Gotrue.NetworkStatus.Client
+  name: Client
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_Client
+  commentId: P:Supabase.Gotrue.NetworkStatus.Client
+  fullName: Supabase.Gotrue.NetworkStatus.Client
+  nameWithType: NetworkStatus.Client
+- uid: Supabase.Gotrue.NetworkStatus.Client*
+  name: Client
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_Client_
+  commentId: Overload:Supabase.Gotrue.NetworkStatus.Client
+  isSpec: "True"
+  fullName: Supabase.Gotrue.NetworkStatus.Client
+  nameWithType: NetworkStatus.Client
+- uid: Supabase.Gotrue.NetworkStatus.Finalize
+  name: Finalize()
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_Finalize
+  commentId: M:Supabase.Gotrue.NetworkStatus.Finalize
+  fullName: Supabase.Gotrue.NetworkStatus.Finalize()
+  nameWithType: NetworkStatus.Finalize()
+- uid: Supabase.Gotrue.NetworkStatus.Finalize*
+  name: Finalize
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_Finalize_
+  commentId: Overload:Supabase.Gotrue.NetworkStatus.Finalize
+  isSpec: "True"
+  fullName: Supabase.Gotrue.NetworkStatus.Finalize
+  nameWithType: NetworkStatus.Finalize
+- uid: Supabase.Gotrue.NetworkStatus.NetworkListener
+  name: NetworkStatus.NetworkListener
+  href: api/Supabase.Gotrue.NetworkStatus.NetworkListener.html
+  commentId: T:Supabase.Gotrue.NetworkStatus.NetworkListener
+  fullName: Supabase.Gotrue.NetworkStatus.NetworkListener
+  nameWithType: NetworkStatus.NetworkListener
+- uid: Supabase.Gotrue.NetworkStatus.PingCheck(System.String)
+  name: PingCheck(String)
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_PingCheck_System_String_
+  commentId: M:Supabase.Gotrue.NetworkStatus.PingCheck(System.String)
+  fullName: Supabase.Gotrue.NetworkStatus.PingCheck(System.String)
+  nameWithType: NetworkStatus.PingCheck(String)
 - uid: Supabase.Gotrue.NetworkStatus.PingCheck*
   name: PingCheck
   href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_PingCheck_
@@ -3527,12 +3582,31 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.NetworkStatus.PingCheck
   nameWithType: NetworkStatus.PingCheck
-- uid: Supabase.Gotrue.NetworkStatus.StartAsync
-  name: StartAsync()
-  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_StartAsync
-  commentId: M:Supabase.Gotrue.NetworkStatus.StartAsync
-  fullName: Supabase.Gotrue.NetworkStatus.StartAsync()
-  nameWithType: NetworkStatus.StartAsync()
+- uid: Supabase.Gotrue.NetworkStatus.Ready
+  name: Ready
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_Ready
+  commentId: F:Supabase.Gotrue.NetworkStatus.Ready
+  fullName: Supabase.Gotrue.NetworkStatus.Ready
+  nameWithType: NetworkStatus.Ready
+- uid: Supabase.Gotrue.NetworkStatus.RemoveListener(Supabase.Gotrue.NetworkStatus.NetworkListener)
+  name: RemoveListener(NetworkStatus.NetworkListener)
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_RemoveListener_Supabase_Gotrue_NetworkStatus_NetworkListener_
+  commentId: M:Supabase.Gotrue.NetworkStatus.RemoveListener(Supabase.Gotrue.NetworkStatus.NetworkListener)
+  fullName: Supabase.Gotrue.NetworkStatus.RemoveListener(Supabase.Gotrue.NetworkStatus.NetworkListener)
+  nameWithType: NetworkStatus.RemoveListener(NetworkStatus.NetworkListener)
+- uid: Supabase.Gotrue.NetworkStatus.RemoveListener*
+  name: RemoveListener
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_RemoveListener_
+  commentId: Overload:Supabase.Gotrue.NetworkStatus.RemoveListener
+  isSpec: "True"
+  fullName: Supabase.Gotrue.NetworkStatus.RemoveListener
+  nameWithType: NetworkStatus.RemoveListener
+- uid: Supabase.Gotrue.NetworkStatus.StartAsync(System.String)
+  name: StartAsync(String)
+  href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_StartAsync_System_String_
+  commentId: M:Supabase.Gotrue.NetworkStatus.StartAsync(System.String)
+  fullName: Supabase.Gotrue.NetworkStatus.StartAsync(System.String)
+  nameWithType: NetworkStatus.StartAsync(String)
 - uid: Supabase.Gotrue.NetworkStatus.StartAsync*
   name: StartAsync
   href: api/Supabase.Gotrue.NetworkStatus.html#Supabase_Gotrue_NetworkStatus_StartAsync_
@@ -4462,6 +4536,12 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.TokenRefresh.TokenRefresh
   nameWithType: TokenRefresh.TokenRefresh
+- uid: Supabase.Gotrue.TokenRefresh.Debug
+  name: Debug
+  href: api/Supabase.Gotrue.TokenRefresh.html#Supabase_Gotrue_TokenRefresh_Debug
+  commentId: F:Supabase.Gotrue.TokenRefresh.Debug
+  fullName: Supabase.Gotrue.TokenRefresh.Debug
+  nameWithType: TokenRefresh.Debug
 - uid: Supabase.Gotrue.TokenRefresh.ManageAutoRefresh(Supabase.Gotrue.Interfaces.IGotrueClient{Supabase.Gotrue.User,Supabase.Gotrue.Session},Supabase.Gotrue.Constants.AuthState)
   name: ManageAutoRefresh(IGotrueClient<User, Session>, Constants.AuthState)
   href: api/Supabase.Gotrue.TokenRefresh.html#Supabase_Gotrue_TokenRefresh_ManageAutoRefresh_Supabase_Gotrue_Interfaces_IGotrueClient_Supabase_Gotrue_User_Supabase_Gotrue_Session__Supabase_Gotrue_Constants_AuthState_
