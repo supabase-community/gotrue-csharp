@@ -76,16 +76,11 @@ namespace Supabase.Gotrue
 
 					session = await api.SignInWithPhone(identifierOrToken, password!);
 					break;
-				case SignInType.RefreshToken:
-					session = await RefreshToken(identifierOrToken, options);
-					break;
 				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
 			if (session?.User?.ConfirmedAt != null || session?.User != null && options.AllowUnconfirmedUserSessions)
-			{
 				return session;
-			}
 
 			return null;
 		}
