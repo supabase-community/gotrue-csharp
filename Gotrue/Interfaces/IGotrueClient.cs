@@ -137,12 +137,18 @@ namespace Supabase.Gotrue.Interfaces
 		Task<bool> SendMagicLink(string email, SignInOptions? options = null);
 
 		/// <summary>
-		///  Overrides the JWT access token for the current session. The access token will
-		/// then be sent in all subsequent network requests.
+		/// Sets a new session given a user's access token and their refresh token.
+		/// 
+		/// 1. Will destroy the current session (if existing)
+		/// 2. Raise a <see cref="AuthState.SignedOut"/> event.
+		/// 3. Request a new session from the server using the provided parameters (effectively validating them).
+		/// 4. Raise a `<see cref="AuthState.SignedIn"/> event if successful.
 		/// </summary>
-		/// <param name="accessToken">The JWT access token.</param>
-		/// <returns>Session.</returns>
-		TSession SetAuth(string accessToken);
+		/// <param name="accessToken"></param>
+		/// <param name="refreshToken"></param>
+		/// <returns></returns>
+		/// <exception cref="GotrueException">Raised when token combination is invalid.</exception>
+		Task<TSession> SetSession(string accessToken, string refreshToken);
 
 		/// <summary>
 		/// Log in an existing user, or login via a third-party provider.
@@ -381,5 +387,11 @@ namespace Supabase.Gotrue.Interfaces
 		/// In particular, the background thread that is used to refresh the token is stopped.
 		/// </summary>
 		public void Shutdown();
+
+		/// <summary>
+		/// Refreshes a Token using the current session.
+		/// </summary>
+		/// <returns></returns>
+		public Task RefreshToken();
 	}
 }
