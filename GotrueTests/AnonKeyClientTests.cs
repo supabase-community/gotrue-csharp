@@ -378,5 +378,44 @@ namespace GotrueTests
 
 			Assert.IsTrue(user != null);
 		}
+
+		[TestMethod("Client: Can Set Session")]
+		public async Task ClientCanSetSession()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(email, PASSWORD);
+
+			Assert.IsNotNull(_client.CurrentSession);
+			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.AccessToken));
+			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.RefreshToken));
+
+			var id = _client.CurrentUser.Id;
+			var accessToken = _client.CurrentSession.AccessToken!;
+			var refreshToken = _client.CurrentSession.RefreshToken!;
+			
+			var email2 = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(email2, PASSWORD);
+			
+			Assert.AreNotEqual(accessToken, _client.CurrentSession.AccessToken);
+
+			var hasStateChangedTsc = new TaskCompletionSource<bool>();
+			_client.AddStateChangedListener((sender, changed) =>
+			{
+				// Should be raised by `SetSession`
+				if (changed == SignedIn)
+					hasStateChangedTsc.SetResult(true);
+			});
+			
+			await _client.SetSession(accessToken, refreshToken);
+
+			var hasStateChanged = await hasStateChangedTsc.Task;
+			
+			Assert.IsTrue(hasStateChanged);
+			Assert.IsNotNull(_client.CurrentSession);
+			Assert.IsNotNull(_client.CurrentUser);
+			Assert.AreEqual(id, _client.CurrentUser.Id);
+			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.AccessToken));
+			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.RefreshToken));
+		}
 	}
 }
