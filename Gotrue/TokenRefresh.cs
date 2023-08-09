@@ -104,7 +104,7 @@ namespace Supabase.Gotrue
 				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
 				var interval = (int)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
 
-				var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
+				var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.UtcNow).TotalSeconds);
 
 				if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
 					timeoutSeconds = _client.Options.MaximumRefreshWaitTime;

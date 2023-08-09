@@ -48,7 +48,7 @@ namespace GotrueTests
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
-				IssuedAt = DateTime.Now,
+				IssuedAt = DateTime.UtcNow,
 				Expires = DateTime.UtcNow.AddDays(7),
 				SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
 				Claims = new Dictionary<string, object>()
