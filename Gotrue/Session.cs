@@ -25,14 +25,18 @@ namespace Supabase.Gotrue
         public User? User { get; set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public DateTime ExpiresAt() => new DateTime(CreatedAt.Ticks).AddSeconds(ExpiresIn);
+        /// <summary>
+        /// The expiration date of this session, in UTC time.
+        /// </summary>
+        /// <returns></returns>
+        public DateTime ExpiresAt() => new DateTime(CreatedAt.Ticks).AddSeconds(ExpiresIn).ToUniversalTime();
         
         /// <summary>
         /// Returns true if the session has expired
         /// </summary>
         /// <returns></returns>
-        public bool Expired() => ExpiresAt() < DateTime.Now;
+        public bool Expired() => ExpiresAt() < DateTime.UtcNow;
     }
 }
