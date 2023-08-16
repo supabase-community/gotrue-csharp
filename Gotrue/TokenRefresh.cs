@@ -101,20 +101,12 @@ namespace Supabase.Gotrue
 
 			try
 			{
-				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
-				var interval = (int)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
+				TimeSpan interval = GetInterval();
 
-				var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.UtcNow).TotalSeconds);
-
-				if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
-					timeoutSeconds = _client.Options.MaximumRefreshWaitTime;
-
-				var timeout = TimeSpan.FromSeconds(timeoutSeconds);
-
-				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
+				_refreshTimer = new Timer(HandleRefreshTimerTick, null, interval, interval);
 
 				if (Debug)
-					_client.Debug($"Refresh timer scheduled {timeout.TotalMinutes} minutes");
+					_client.Debug($"Refresh timer scheduled {interval.TotalMinutes} minutes");
 			}
 			catch (Exception e)
 			{
@@ -124,16 +116,33 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// This is the background thread that is set up and runs to refresh the token.
+		/// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
+		/// </summary>
+		private TimeSpan GetInterval()
+		{
+			if (_client.CurrentSession == null || _client.CurrentSession.ExpiresIn == default)
+			{
+				return TimeSpan.Zero;
+			}
+
+			var interval = (int)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
+
+			var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.UtcNow).TotalSeconds);
+
+			if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
+				timeoutSeconds = _client.Options.MaximumRefreshWaitTime;
+
+			return TimeSpan.FromSeconds(timeoutSeconds);
+		}
+
+		/// <summary>
+		/// The timer calls this method at the configured interval to refresh the token.
 		///
-		/// This thread is set up to run every five seconds. If the user is offline,
-		/// it won't try to refresh the token.
+		/// If the user is offline, it won't try to refresh the token.
 		/// </summary>
 		/// <param name="_"></param>
 		private async void HandleRefreshTimerTick(object _)
 		{
-			_refreshTimer?.Dispose();
-
 			try
 			{
 				if (_client.Online)
@@ -145,8 +154,6 @@ namespace Supabase.Gotrue
 				if (Debug)
 					_client.Debug(ex.Message, ex);
 			}
-			// Due is set to 5000ms
-			_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);
 		}
 	}
 }
