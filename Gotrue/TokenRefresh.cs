@@ -13,15 +13,6 @@ namespace Supabase.Gotrue
 		private readonly Client _client;
 
 		/// <summary>
-		/// Sets up the TokenRefresh class, bound to a specific client
-		/// </summary>
-		/// <param name="client"></param>
-		public TokenRefresh(Client client)
-		{
-			_client = client;
-		}
-
-		/// <summary>
 		/// Internal timer reference for token refresh
 		/// <see>
 		///     <cref>AutoRefreshToken</cref>
@@ -34,6 +25,14 @@ namespace Supabase.Gotrue
 		/// </summary>
 		public bool Debug;
 
+		/// <summary>
+		/// Sets up the TokenRefresh class, bound to a specific client
+		/// </summary>
+		/// <param name="client"></param>
+		public TokenRefresh(Client client)
+		{
+			_client = client;
+		}
 		/// <summary>
 		/// Turns the auto-refresh timer on or off based on the current auth state
 		/// </summary>
@@ -82,14 +81,50 @@ namespace Supabase.Gotrue
 		/// </summary>
 		private void InitRefreshTimer()
 		{
+			CreateNewTimer();
+		}
+
+		/// <summary>
+		/// The timer calls this method at the configured interval to refresh the token.
+		///
+		/// If the user is offline, it won't try to refresh the token.
+		/// </summary>
+		private async void HandleRefreshTimerTick(object _)
+    {
+      try
+      {
+				if (_client.Online)
+					await _client.RefreshToken();
+			}
+			catch (Exception ex)
+			{
+				// Something unusually bad happened!
+				if (Debug)
+					_client.Debug(ex.Message, ex);
+			}
+			finally
+			{
+				CreateNewTimer();
+			}
+		}
+
+		/// <summary>
+		/// Create a new refresh timer.
+		/// 
+		/// <para/>
+		/// We pass <see cref="Timeout.InfiniteTimeSpan"/> to ensure the handler only runs once.
+		/// We create a new timer after each refresh so that each refresh runs in a new thread.
+		/// This keeps the refresh going if a thread crashes.
+		/// Creating a thread each refresh is not so expensive when the refresh interval is an hour or longer.
+		/// </summary>
+		private void CreateNewTimer()
+		{
 			if (_client.CurrentSession == null || _client.CurrentSession.ExpiresIn == default)
 			{
 				if (Debug)
 					_client.Debug($"No session, refresh timer not started");
 				return;
 			}
-
-			_refreshTimer?.Dispose();
 
 			if (_client.CurrentSession.Expired())
 			{
@@ -102,8 +137,8 @@ namespace Supabase.Gotrue
 			try
 			{
 				TimeSpan interval = GetInterval();
-
-				_refreshTimer = new Timer(HandleRefreshTimerTick, null, interval, interval);
+				_refreshTimer?.Dispose();
+				_refreshTimer = new Timer(HandleRefreshTimerTick, null, interval, Timeout.InfiniteTimeSpan);
 
 				if (Debug)
 					_client.Debug($"Refresh timer scheduled {interval.TotalMinutes} minutes");
@@ -133,27 +168,6 @@ namespace Supabase.Gotrue
 				timeoutSeconds = _client.Options.MaximumRefreshWaitTime;
 
 			return TimeSpan.FromSeconds(timeoutSeconds);
-		}
-
-		/// <summary>
-		/// The timer calls this method at the configured interval to refresh the token.
-		///
-		/// If the user is offline, it won't try to refresh the token.
-		/// </summary>
-		/// <param name="_"></param>
-		private async void HandleRefreshTimerTick(object _)
-		{
-			try
-			{
-				if (_client.Online)
-					await _client.RefreshToken();
-			}
-			catch (Exception ex)
-			{
-				// Something unusually bad happened!
-				if (Debug)
-					_client.Debug(ex.Message, ex);
-			}
 		}
 	}
 }
