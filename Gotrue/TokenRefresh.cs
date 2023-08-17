@@ -90,9 +90,9 @@ namespace Supabase.Gotrue
 		/// If the user is offline, it won't try to refresh the token.
 		/// </summary>
 		private async void HandleRefreshTimerTick(object _)
-    {
-      try
-      {
+		{
+			try
+			{
 				if (_client.Online)
 					await _client.RefreshToken();
 			}
