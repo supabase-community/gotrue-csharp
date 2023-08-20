@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 4.2.1 - 2023-08-19
+
+- [#74](https://github.com/supabase-community/gotrue-csharp/pull/74) - Fixes bug where token refresh interval was not
+  honored by client. Thanks [@slater1](https://github.com/slater1)!
+
 ## 4.2.0 - 2023-08-13
 
 - **Minor Breaking changes:** [#72](https://github.com/supabase-community/gotrue-csharp/pull/72) - Fixes
