@@ -1,8 +1,24 @@
 ﻿# Changelog
 
+## 4.2.1 - 2023-08-19
+
+- [#74](https://github.com/supabase-community/gotrue-csharp/pull/74) - Fixes bug where token refresh interval was not
+  honored by client. Thanks [@slater1](https://github.com/slater1)!
+
+## 4.2.0 - 2023-08-13
+
+- **Minor Breaking changes:** [#72](https://github.com/supabase-community/gotrue-csharp/pull/72) - Fixes
+  Calling `SetAuth` does not actually set Authorization Headers for subsequent requests by implementing `SetSession`
+    - Removes `RefreshToken(string refreshToken)` and `SetAuth(string accessToken` in favor
+      of `SetSession(string accessToken, string refreshToken)`
+    - Makes `RefreshAccessToken` require `accessToken` and `refreshToken` as parameters - overrides the authorization
+      headers to use the supplied token
+    - Migrates project internal times to use `DateTime.UtcNow` over `DateTime.Now`.
+
 ## 4.1.1 - 2023-06-29
 
-- [#68](https://github.com/supabase-community/gotrue-csharp/pull/68) Changes Network Status to use the interface instead of client
+- [#68](https://github.com/supabase-community/gotrue-csharp/pull/68) Changes Network Status to use the interface instead
+  of client
 
 ## 4.1.0 - 2023-06-25
 

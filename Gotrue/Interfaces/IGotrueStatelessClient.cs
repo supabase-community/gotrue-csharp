@@ -19,31 +19,31 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Create a user
         /// </summary>
-        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="serviceRoleToken">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="options"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        Task<TUser?> CreateUser(string jwt, StatelessClientOptions options, AdminUserAttributes attributes);
+        Task<TUser?> CreateUser(string serviceRoleToken, StatelessClientOptions options, AdminUserAttributes attributes);
       
         /// <summary>
         /// Create a user
         /// </summary>
-        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="serviceRoleToken">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="options"></param>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        Task<TUser?> CreateUser(string jwt, StatelessClientOptions options, string email, string password, AdminUserAttributes? attributes = null);
+        Task<TUser?> CreateUser(string serviceRoleToken, StatelessClientOptions options, string email, string password, AdminUserAttributes? attributes = null);
         
         /// <summary>
         /// Deletes a User.
         /// </summary>
         /// <param name="uid"></param>
-        /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+        /// <param name="serviceRoleToken">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<bool> DeleteUser(string uid, string jwt, StatelessClientOptions options);
+        Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options);
         
         /// <summary>
         /// Initialize/retrieve the underlying API for this client
@@ -63,33 +63,33 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Get User details by JWT. Can be used to validate a JWT.
         /// </summary>
-        /// <param name="jwt">A valid JWT. Must be a JWT that originates from a user.</param>
+        /// <param name="serviceRoleToken">A valid JWT. Must be a JWT that originates from a user.</param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<TUser?> GetUser(string jwt, StatelessClientOptions options);
+        Task<TUser?> GetUser(string serviceRoleToken, StatelessClientOptions options);
         
         /// <summary>
         /// Get User details by Id
         /// </summary>
-        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="serviceRoleToken">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="options"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<TUser?> GetUserById(string jwt, StatelessClientOptions options, string userId);
+        Task<TUser?> GetUserById(string serviceRoleToken, StatelessClientOptions options, string userId);
         
         /// <summary>
         /// Sends an invite email link to the specified email.
         /// </summary>
         /// <param name="email"></param>
-        /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+        /// <param name="serviceRoleToken">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<bool> InviteUserByEmail(string email, string jwt, StatelessClientOptions options);
+        Task<bool> InviteUserByEmail(string email, string serviceRoleToken, StatelessClientOptions options);
         
         /// <summary>
         /// Lists users
         /// </summary>
-        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="serviceRoleToken">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="options"></param>
         /// <param name="filter">A string for example part of the email</param>
         /// <param name="sortBy">Snake case string of the given key, currently only created_at is supported</param>
@@ -97,13 +97,16 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="page">page to show for pagination</param>
         /// <param name="perPage">items per page for pagination</param>
         /// <returns></returns>
-        Task<UserList<User>?> ListUsers(string jwt, StatelessClientOptions options, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
+        Task<UserList<User>?> ListUsers(string serviceRoleToken, StatelessClientOptions options, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
     
         /// <summary>
         /// Refreshes a Token
         /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="refreshToken"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        Task<TSession?> RefreshToken(string refreshToken, StatelessClientOptions options);
+        Task<TSession?> RefreshToken(string accessToken, string refreshToken, StatelessClientOptions options);
         
         /// <summary>
         /// Sends a reset request to an email address.
@@ -179,10 +182,10 @@ namespace Supabase.Gotrue.Interfaces
         /// This will revoke all refresh tokens for the user.
         /// JWT tokens will still be valid for stateless auth until they expire.
         /// </summary>
-        /// <param name="jwt"></param>
+        /// <param name="accessToken"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Task<bool> SignOut(string jwt, StatelessClientOptions options);
+        Task<bool> SignOut(string accessToken, StatelessClientOptions options);
         
         /// <summary>
         /// Signs up a user
@@ -217,32 +220,32 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Update user by Id
         /// </summary>
-        /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+        /// <param name="serviceRoleToken">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="options"></param>
         /// <param name="userId"></param>
         /// <param name="userData"></param>
         /// <returns></returns>
-        Task<TUser?> UpdateUserById(string jwt, StatelessClientOptions options, string userId, AdminUserAttributes userData);
+        Task<TUser?> UpdateUserById(string serviceRoleToken, StatelessClientOptions options, string userId, AdminUserAttributes userData);
    
         /// <summary>
         /// Log in a user given a User supplied OTP received via mobile.
         /// </summary>
         /// <param name="phone">The user's phone number.</param>
-        /// <param name="token">Token sent to the user's phone.</param>
+        /// <param name="otpToken">Token sent to the user's phone.</param>
         /// <param name="options"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        Task<TSession?> VerifyOTP(string phone, string token, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS);
+        Task<TSession?> VerifyOTP(string phone, string otpToken, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS);
        
         /// <summary>
         /// Log in a user give a user supplied OTP received via email.
         /// </summary>
         /// <param name="email"></param>
-        /// <param name="token"></param>
+        /// <param name="otpToken"></param>
         /// <param name="options"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        Task<TSession?> VerifyOTP(string email, string token, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink);
+        Task<TSession?> VerifyOTP(string email, string otpToken, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink);
 
         /// <summary>
         /// Retrieve the current settings for the Gotrue instance.
