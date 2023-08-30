@@ -23,6 +23,7 @@
 
 - [Offline Support](Documentation/OfflineSupport.md)
 - [Refresh Token Thread](Documentation/RefreshTokenThread.md)
+- [Native Sign in with Apple](Documentation/NativeSignInWithApple.md)
 
 ### Troubleshooting
 

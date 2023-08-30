@@ -25,6 +25,9 @@ Unity.
 avoid issues around code stripping removing constructors for JSON-related operations and reflection. Some users have
 reported setting custom ProGuard configurations also works.
 
+Depending on your project, you may want to add Proguard rules to your project.
+See [more info here](https://github.com/supabase-community/supabase-csharp/issues/87).
+
 ## Update and Dirty Flags
 
 Often you may want to perform the following steps:
@@ -47,7 +50,7 @@ You'll want to have some mechanism for sending notifications to the user when ev
 application boots up you'll likely want to refresh the user's session. That's an async request, so you'll want to have a
 mechanism for posting the notification back to both the user and/or the application itself.
 
-# Session Persistence
+## Session Persistence
 
 Note that for a variety of reasons you should only use local device preferences (e.g. screen resolution) with
 PlayerPrefs. PlayerPrefs has a number of limitations, including only supporting access via the user thread.
@@ -101,3 +104,85 @@ variety of different options for setting up SQLite on Unity depending on your ta
 
 Implementing a local sync storage solution is outside the scope of this document. You may want to post ideas, questions,
 and strategies to the forum.
+
+# Unity Setup Step By Step
+
+1. Install the NuGet CLI. Unity doesn't natively support NuGet, so you'll need to install the CLI and then install the
+   package manually.
+
+On macOS, the easiest way to do this is with [Homebrew](https://brew.sh/).
+
+```
+brew install nuget
+```
+
+On Windows, you can install the CLI with [Chocolatey](https://chocolatey.org/).
+
+```
+choco install nuget.commandline
+```
+
+2. Install the Supabase C# library using NuGet. On macOS this command looks like:
+
+```
+nuget install supabase-csharp -OutputDirectory ./Assets/Supabase -Framework netstandard2.0
+```
+
+You can add a version flag if you want to grab a specific version (e.g. `-Version 0.13.1`).
+
+3. Delete conflicting/unneeded libraries.
+
+Here are the core Supabase libraries:
+
+- supabase-storage-csharp.1.4.0
+- supabase-csharp.0.13.1
+- supabase-core.0.0.3
+- realtime-csharp.6.0.4
+- postgrest-csharp.3.2.5
+- gotrue-csharp.4.2.1
+- functions-csharp.1.3.1
+
+Here are the only required supporting libraries as of this writing:
+
+- MimeMapping.2.0.0
+- System.Reactive.5.0.0
+- System.Threading.4.3.0
+- System.Threading.Channels.5.0.0
+- System.Threading.Tasks.4.3.0
+- System.Threading.Tasks.Extensions.4.5.4
+- Websocket.Client.4.6.1
+- JWTDecoder.0.9.2
+
+The rest of the libraries (mostly various System libraries) are already included in Unity
+or are otherwise not required.
+
+4. Install the Unity-specific version of the NewtonSoft JSON libraries. This version is specifically designed to work
+   with Unity.
+
+Open the Package Manager in Unity and press the + (plus) button in the upper-left corner of the window.
+
+Choose the Add package by name option and enter `com.unity.nuget.newtonsoft-json`. Press
+enter. You should see the `Newtonsoft Json` package appear (v3.2.1 as of this writing). Click on the package and then
+click the Download/Install buttons as usual.
+
+5. Install UniTask. UniTask is a library that provides async/await support for Unity. You can install it via the
+   Package Manager. Open the Package Manager in Unity and press the + (plus) button in the upper-left corner of the
+   window.
+
+Choose the Add package by git URL... option and enter `https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask`.
+Press enter. You should see the UniTask package (v2.3.3 as o this writing). Download/install as usual.
+
+6. (Optional) Install a preview version of the Unity test framework that supports running async tests.
+
+This time, open up the Package Manager and select Add Package by name... Enter `com.unity.test-framework` for the
+name of the package and `2.0.1-exp.2` for the version. This version was released on November 14, 2022. Unity may
+prompt you to update to the 2.0.1-pre.18 version, but unfortunately this version was released on January 24, 2022
+and is a downgrade.
+
+7. (Optional) Install the native Sign in with Apple package.
+
+This is only necessary if you plan to support native Sign in with Apple. You can find instructions for installation
+[here](https://github.com/lupidan/apple-signin-unity).
+
+
+

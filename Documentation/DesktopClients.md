@@ -148,6 +148,15 @@ private async void Initialize()
 }
 ```
 
+## More Examples
+
+- [Phantom-KNA](https://gist.github.com/Phantom-KNA)
+  posted this example of [a Xamarin Forms/MAUI](https://gist.github.com/Phantom-KNA/0eabbbe52076370489d0ecbf73f0a6c6)
+  bootstrap/configuration.
+- [kaushalkumar86](https://github.com/kaushalkumar86) posted this 
+example of how to implement the [Realtime notification listeners](https://github.com/supabase-community/realtime-csharp/issues/34#issuecomment-1696985179)
+- [salsa2k](https://github.com/salsa2k) posted this example of working [auth using MAUI Blazor Hybrid](https://github.com/supabase-community/supabase-csharp/discussions/83#discussioncomment-6863545)
+
 ## Next Steps
 
 - Read the [Supabase documentation](https://supabase.com/docs), watch videos, etc.

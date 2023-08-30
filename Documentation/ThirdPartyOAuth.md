@@ -1,4 +1,3 @@
-
 # 3rd Party OAuth
 
 Once again, Gotrue client is written to be agnostic of platform. In order for Gotrue to sign in a user from an Oauth
@@ -22,3 +21,21 @@ var state = await client.SignIn(Constants.Provider.Github, new SignInOptions
 // Url is set as: http://REDIRECT_TO_URL?code=CODE
 var session = await client.ExchangeCodeForSession(state.PKCEVerifier, RETRIEVE_CODE_FROM_GET_PARAMS);
 ```
+
+## Additional Example
+
+Note: Make sure Project Settings -> Auth -> Auth settings -> User Signups is turned ON.
+
+After your implementation with [GoogleSignInClient](https://github.com/googlesamples/google-signin-unity) or another, use the IdToken like this:
+
+```csharp
+var identityToken = Encoding.UTF8.GetString(System.Text.Encoding.UTF8.GetBytes(GoogleIdToken), 0, GoogleIdToken.Length);
+```
+
+And finally use SignInWithIdToken for Login or Create New User:
+
+```csharp
+var user = await Supabase.Auth.SignInWithIdToken(Supabase.Gotrue.Constants.Provider.Google, identityToken);
+```
+
+Thanks to [Phantom-KNA](https://gist.github.com/Phantom-KNA) for this example.
