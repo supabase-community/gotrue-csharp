@@ -1,6 +1,6 @@
 # Offline Support
 
-The Client now better supports online/offline usage. The Client now has a simple boolean option "Online"
+The Supabase Auth client supports online/offline usage. The Client now has a simple boolean option "Online"
 which can be set to to false. This can be combined with the NetworkStatus class to allow the client
 to automatically go online & offline based on the device's network status.
 
@@ -20,5 +20,3 @@ await status.StartAsync();
 
 Only the stateful Client supports this feature, and only for the managed user sessions.
 Admin JWT methods and the stateless client are not affected.
-
-By default, this change will not affect existing code.

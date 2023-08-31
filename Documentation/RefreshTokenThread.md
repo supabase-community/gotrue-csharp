@@ -1,6 +1,6 @@
 # Updated Refresh Token Handling
 
-The Client now supports setting a maximum wait time before refreshing the token. This is useful
+The Supabase client supports setting a maximum wait time before refreshing the token. This is useful
 for scenarios where you want to refresh the token before it expires, but not too often.
 
 By default, GoTrue servers are typically set to expire the token after an hour, and the refresh

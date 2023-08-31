@@ -1,17 +1,16 @@
-
 # Session Persistence
 
 ## Persisting, Retrieving, and Destroying Sessions.
 
 This Gotrue client is written to be agnostic when it comes to session persistence, retrieval, and
-destruction. `ClientOptions` exposes
-properties that allow these to be specified.
+destruction. `ClientOptions` exposes properties that allow these to be specified.
 
 In the event these are specified and the `AutoRefreshToken` option is set, as the `Client` Initializes, it will also
-attempt to
-retrieve, set, and refresh an existing session.
+attempt to retrieve, set, and refresh an existing session.
 
-For example, using `Xamarin.Essentials` in `Xamarin.Forms`, this might look like:
+# Xamarin Example
+
+Using `Xamarin.Essentials` in `Xamarin.Forms`, this might look like:
 
 ```c#
 // This is a method you add your application launch/setup
@@ -64,3 +63,6 @@ internal bool SaveSession(Session session)
     }
 }
 ```
+
+You can find other sample implementations in the [Unity](Unity.md)
+and [Desktop Clients](DesktopClients.md) documentation.

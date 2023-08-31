@@ -15,7 +15,7 @@
 
 - [Getting Started](Documentation/GettingStarted.md)
 - [Unity](Documentation/Unity.md)
-- [Desktop Clients](Documentation/DesktopClients.md)
+- [Desktop/Mobile Clients (e.g. Xamarin, MAUI, etc.)](Documentation/DesktopClients.md)
 - [Server-Side Applications](Documentation/ServerSideApplications.md)
 - [Release Notes/Breaking Changes](Documentation/ReleaseNotes.md)
 
@@ -30,7 +30,7 @@
 - [Troubleshooting](Documentation/TroubleShooting.md)
 - [Discussion Forum](https://github.com/supabase-community/supabase-csharp/discussions)
 
-## Status
+## Features
 
 - [x] API
     - [x] Sign Up with Email

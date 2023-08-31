@@ -3,16 +3,6 @@
 The Client works with Unity. You can find an example of a session persistence
 implementation for Unity at this [gist](https://gist.github.com/wiverson/fbb07498743dff19b72c9c58599931e9).
 
-# Easy Mode
-
-Clone this project. By default it includes settings to connect to a local Supabase instance from the CLI. To connect it
-to your own production Supabase instance, create a new Supabase Settings and then drop it onto the Supabase Manager.
-
-## What's in the Template
-
-Copies of the Supabase libraries.
-Copies of the Supabase supporting libraries.
-
 ## Key Project Setup Details
 
 UniTask is included in the project to help with async/await support. You don't want your game UI to lock up waiting for
@@ -169,7 +159,8 @@ click the Download/Install buttons as usual.
    Package Manager. Open the Package Manager in Unity and press the + (plus) button in the upper-left corner of the
    window.
 
-Choose the Add package by git URL... option and enter `https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask`.
+Choose the Add package by git URL... option and
+enter `https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask`.
 Press enter. You should see the UniTask package (v2.3.3 as o this writing). Download/install as usual.
 
 6. (Optional) Install a preview version of the Unity test framework that supports running async tests.
@@ -184,5 +175,7 @@ and is a downgrade.
 This is only necessary if you plan to support native Sign in with Apple. You can find instructions for installation
 [here](https://github.com/lupidan/apple-signin-unity).
 
+8. You should be able to start working with Supabase!
 
-
+For next steps, check out the [Desktop Clients](DesktopClients.md) documentation to see
+an example of setting up a Supabase manager.

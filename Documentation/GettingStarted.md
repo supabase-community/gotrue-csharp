@@ -15,15 +15,15 @@ create a project, grab the .NET connection string, and use it as you would any o
 However, Supabase also provides a number of other services that are useful for building applications
 and services. These include:
 
-- Authentication (GoTrue)
-- PostgREST (REST API)
-- Realtime
-- Storage
-- Edge Functions
+- Authentication ([GoTrue](https://github.com/supabase/gotrue))
+- PostgREST ([REST API](https://postgrest.org/en/stable/))
+- [Realtime](https://github.com/supabase/realtime)
+- [Storage](https://github.com/supabase/storage-api)
+- [Edge Functions](https://github.com/supabase/edge-runtime)
 
 Authentication is provided by GoTrue, which is a JWT-based authentication service. It provides
-a number of features, including email/password authentication, OAuth, password resets, email 
-verification, and more. In addition, you can use it to handle the native Sign in With Apple and 
+a number of features, including email/password authentication, OAuth, password resets, email
+verification, and more. In addition, you can use it to handle the native Sign in With Apple and
 Sign in With Google authentication systems.
 
 PostgREST is a REST API that is automatically generated from your database schema. It provides
@@ -35,22 +35,30 @@ LISTEN/NOTIFY and WebSockets.
 Storage is a service that provides a simple interface for storing files. It is based on Postgres
 and provides a number of features, including file versioning, metadata, and more.
 
-Edge Functions is a service that provides a way to run serverless functions on the edge. It is
-based on Cloudflare Workers and provides a number of features, including authentication, caching,
-and more.
+Edge Functions is a service that provides a way to run serverless functions on the edge.
 
 The Supabase C# library provides a wrapper around the various REST APIs provided by Supabase and
 the various server components (e.g. GoTrue, Realtime, etc.). It also provides a number of
-convenience methods for working with the various services.
+convenience methods and classes - for example, utilities to make the native Sign in with Apple
+flow easier.
 
 ## Basic Concepts
 
-There are two main ways to access your Supabase instance - either via an "untrusted" client 
-(e.g. Unity or some other desktop client) or a "trusted" client (e.g. a server-side application).
+There are two main ways to access your Supabase instance - either via an "untrusted" client
+(e.g. Unity or some other mobile/desktop client) or a "trusted" client (e.g. a server-side application).
 
-The untrusted clients have two main aspects - first, you'll likely want to manage the user
-state (e.g. login, logout, etc.) and second, you'll be using the anonomous/public API key to 
-access those services.
+The untrusted clients have two key factors - first, you'll likely want to manage the user
+state (e.g. login, logout, etc.) and second, you'll be using the anonymous/public API key to
+access those services. The user is expected to use some kind of credentials (e.g. email/password,
+OAuth, or a JWT from a native sign-in dialog, etc.) to access the services. The Supabase session
+(a JWT issued by GoTrue) serves as the authentication token for the various services.
+
+Tip: If you aren't familiar with JWTs, you can read more about them [here](https://jwt.io/introduction/).
+You can also use this site to decode the JWTs issued by GoTrue, which you may find helpful
+when learning about Supabase Auth. If you are a traditional server-side dev, you might find
+it helpful to think of the JWT as a session cookie, except that it is cryptographically signed
+(proving that it was "minted" by GoTrue). You can use standard JWT libraries to decode the
+token, access the details, and verify the signature.
 
 Trusted, server-side code is usually best managed as a stateless system, where each request
 is managed independently. In this scenario, you will often want to use the library in conjunction
