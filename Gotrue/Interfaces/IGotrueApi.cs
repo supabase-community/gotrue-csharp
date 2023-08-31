@@ -16,7 +16,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TUser?> GetUserById(string jwt, string userId);
 		Task<BaseResponse> InviteUserByEmail(string email, string jwt);
 		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
-		Task<TSession?> RefreshAccessToken(string accessToken, string refreshToken);
+		Task<TSession?> RefreshAccessToken(string refreshToken);
 		Task<BaseResponse> ResetPasswordForEmail(string email);
 		Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null);
 		Task<BaseResponse> SendMobileOTP(string phone);

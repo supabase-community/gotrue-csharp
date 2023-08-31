@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Exceptions;
 using static Supabase.Gotrue.Constants;
-
 #pragma warning disable CS1591
 
 namespace Supabase.Gotrue.Interfaces
@@ -138,21 +137,12 @@ namespace Supabase.Gotrue.Interfaces
 		Task<bool> SendMagicLink(string email, SignInOptions? options = null);
 
 		/// <summary>
-		/// Sets a new session given a user's access token and their refresh token.
-		/// 
-		/// 1. Will destroy the current session (if existing)
-		/// 2. Raise a <see cref="AuthState.SignedOut"/> event.
-		/// 3. Decode token
-		///	  3a. If expired (or bool <paramref name="forceAccessTokenRefresh"></paramref> set), force an access token refresh.
-		///   3b. If not expired, set the <see cref="CurrentSession"/> and retrieve <see cref="CurrentUser"/> from the server using the <paramref name="accessToken"/>.
-		/// 4. Raise a `<see cref="AuthState.SignedIn"/> event if successful.
+		///  Overrides the JWT access token for the current session. The access token will
+		/// then be sent in all subsequent network requests.
 		/// </summary>
-		/// <param name="accessToken"></param>
-		/// <param name="refreshToken"></param>
-		/// <param name="forceAccessTokenRefresh"></param>
-		/// <returns></returns>
-		/// <exception cref="GotrueException">Raised when token combination is invalid.</exception>
-		Task<TSession> SetSession(string accessToken, string refreshToken, bool forceAccessTokenRefresh = false);
+		/// <param name="accessToken">The JWT access token.</param>
+		/// <returns>Session.</returns>
+		TSession SetAuth(string accessToken);
 
 		/// <summary>
 		/// Log in an existing user, or login via a third-party provider.
@@ -358,7 +348,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// Loads the session from the persistence layer.
 		/// </summary>
 		void LoadSession();
-
+		
 		/// <summary>
 		/// Retrieves the settings from the server
 		/// </summary>
@@ -384,18 +374,12 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="message"></param>
 		/// <param name="e"></param>
 		void Debug(string message, Exception? e = null);
-
+		
 		/// <summary>
 		/// Let all of the listeners know that the stateless client is being shutdown.
 		///
 		/// In particular, the background thread that is used to refresh the token is stopped.
 		/// </summary>
 		public void Shutdown();
-
-		/// <summary>
-		/// Refreshes a Token using the current session.
-		/// </summary>
-		/// <returns></returns>
-		public Task RefreshToken();
 	}
 }

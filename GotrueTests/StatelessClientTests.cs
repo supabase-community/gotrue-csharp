@@ -48,7 +48,7 @@ namespace GotrueTests
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
-				IssuedAt = DateTime.UtcNow,
+				IssuedAt = DateTime.Now,
 				Expires = DateTime.UtcNow.AddDays(7),
 				SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
 				Claims = new Dictionary<string, object>()
@@ -140,7 +140,9 @@ namespace GotrueTests
 			Assert.IsInstanceOfType(session.User, typeof(User));
 
 			// Refresh Token
-			var newSession = await _client.RefreshToken(session.AccessToken, session.RefreshToken, Options);
+			var refreshToken = session.RefreshToken;
+
+			var newSession = await _client.SignIn(SignInType.RefreshToken, refreshToken, options: Options);
 
 			Assert.IsNotNull(newSession.AccessToken);
 			Assert.IsNotNull(newSession.RefreshToken);

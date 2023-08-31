@@ -13,6 +13,15 @@ namespace Supabase.Gotrue
 		private readonly Client _client;
 
 		/// <summary>
+		/// Sets up the TokenRefresh class, bound to a specific client
+		/// </summary>
+		/// <param name="client"></param>
+		public TokenRefresh(Client client)
+		{
+			_client = client;
+		}
+
+		/// <summary>
 		/// Internal timer reference for token refresh
 		/// <see>
 		///     <cref>AutoRefreshToken</cref>
@@ -25,14 +34,6 @@ namespace Supabase.Gotrue
 		/// </summary>
 		public bool Debug;
 
-		/// <summary>
-		/// Sets up the TokenRefresh class, bound to a specific client
-		/// </summary>
-		/// <param name="client"></param>
-		public TokenRefresh(Client client)
-		{
-			_client = client;
-		}
 		/// <summary>
 		/// Turns the auto-refresh timer on or off based on the current auth state
 		/// </summary>
@@ -81,50 +82,14 @@ namespace Supabase.Gotrue
 		/// </summary>
 		private void InitRefreshTimer()
 		{
-			CreateNewTimer();
-		}
-
-		/// <summary>
-		/// The timer calls this method at the configured interval to refresh the token.
-		///
-		/// If the user is offline, it won't try to refresh the token.
-		/// </summary>
-		private async void HandleRefreshTimerTick(object _)
-		{
-			try
-			{
-				if (_client.Online)
-					await _client.RefreshToken();
-			}
-			catch (Exception ex)
-			{
-				// Something unusually bad happened!
-				if (Debug)
-					_client.Debug(ex.Message, ex);
-			}
-			finally
-			{
-				CreateNewTimer();
-			}
-		}
-
-		/// <summary>
-		/// Create a new refresh timer.
-		/// 
-		/// <para/>
-		/// We pass <see cref="Timeout.InfiniteTimeSpan"/> to ensure the handler only runs once.
-		/// We create a new timer after each refresh so that each refresh runs in a new thread.
-		/// This keeps the refresh going if a thread crashes.
-		/// Creating a thread each refresh is not so expensive when the refresh interval is an hour or longer.
-		/// </summary>
-		private void CreateNewTimer()
-		{
 			if (_client.CurrentSession == null || _client.CurrentSession.ExpiresIn == default)
 			{
 				if (Debug)
 					_client.Debug($"No session, refresh timer not started");
 				return;
 			}
+
+			_refreshTimer?.Dispose();
 
 			if (_client.CurrentSession.Expired())
 			{
@@ -136,12 +101,20 @@ namespace Supabase.Gotrue
 
 			try
 			{
-				TimeSpan interval = GetInterval();
-				_refreshTimer?.Dispose();
-				_refreshTimer = new Timer(HandleRefreshTimerTick, null, interval, Timeout.InfiniteTimeSpan);
+				// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
+				var interval = (int)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
+
+				var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.Now).TotalSeconds);
+
+				if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
+					timeoutSeconds = _client.Options.MaximumRefreshWaitTime;
+
+				var timeout = TimeSpan.FromSeconds(timeoutSeconds);
+
+				_refreshTimer = new Timer(HandleRefreshTimerTick, null, timeout, Timeout.InfiniteTimeSpan);
 
 				if (Debug)
-					_client.Debug($"Refresh timer scheduled {interval.TotalMinutes} minutes");
+					_client.Debug($"Refresh timer scheduled {timeout.TotalMinutes} minutes");
 			}
 			catch (Exception e)
 			{
@@ -151,23 +124,29 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
-		/// Interval should be t - (1/5(n)) (i.e. if session time (t) 3600s, attempt refresh at 2880s or 720s (1/5) seconds before expiration)
+		/// This is the background thread that is set up and runs to refresh the token.
+		///
+		/// This thread is set up to run every five seconds. If the user is offline,
+		/// it won't try to refresh the token.
 		/// </summary>
-		private TimeSpan GetInterval()
+		/// <param name="_"></param>
+		private async void HandleRefreshTimerTick(object _)
 		{
-			if (_client.CurrentSession == null || _client.CurrentSession.ExpiresIn == default)
+			_refreshTimer?.Dispose();
+
+			try
 			{
-				return TimeSpan.Zero;
+				if (_client.Online)
+					await _client.RefreshToken();
 			}
-
-			var interval = (int)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
-
-			var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.UtcNow).TotalSeconds);
-
-			if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
-				timeoutSeconds = _client.Options.MaximumRefreshWaitTime;
-
-			return TimeSpan.FromSeconds(timeoutSeconds);
+			catch (Exception ex)
+			{
+				// Something unusually bad happened!
+				if (Debug)
+					_client.Debug(ex.Message, ex);
+			}
+			// Due is set to 5000ms
+			_refreshTimer = new Timer(HandleRefreshTimerTick, null, 5000, -1);
 		}
 	}
 }

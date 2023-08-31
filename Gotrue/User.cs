@@ -65,13 +65,7 @@ namespace Supabase.Gotrue
 
         [JsonProperty("user_metadata")]
         public Dictionary<string, object> UserMetadata { get; set; } = new Dictionary<string, object>();
-        
-        [JsonProperty("exp")]
-        internal int? Exp { get; set; }
 
-        internal DateTime ExpiresAt() => Exp.HasValue ? DateTimeOffset.FromUnixTimeSeconds(Exp.Value).UtcDateTime : DateTime.MinValue;
-        
-        internal bool Expired() => ExpiresAt() < DateTime.UtcNow;
     }
 
     /// <summary>

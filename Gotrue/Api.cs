@@ -599,25 +599,19 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
 		}
-		
+
 		/// <summary>
-		/// Generates a new Session given a user's access token and refresh token.
+		/// Generates a new JWT
 		/// </summary>
 		/// <param name="refreshToken"></param>
-		/// <param name="accessToken"></param>
 		/// <returns></returns>
-		public Task<Session?> RefreshAccessToken(string accessToken, string refreshToken)
+		public Task<Session?> RefreshAccessToken(string refreshToken)
 		{
-			var headers = new Dictionary<string, string>
-			{
-				{ "Authorization", $"Bearer {accessToken}" },
-			};
-			
 			var data = new Dictionary<string, string> {
 				{ "refresh_token", refreshToken }
 			};
 
-			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers.MergeLeft(headers));
+			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers);
 		}
 	}
 }
