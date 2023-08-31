@@ -76,11 +76,16 @@ namespace Supabase.Gotrue
 
 					session = await api.SignInWithPhone(identifierOrToken, password!);
 					break;
+				case SignInType.RefreshToken:
+					session = await RefreshToken(identifierOrToken, options);
+					break;
 				default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 
 			if (session?.User?.ConfirmedAt != null || session?.User != null && options.AllowUnconfirmedUserSessions)
+			{
 				return session;
+			}
 
 			return null;
 		}
@@ -89,17 +94,17 @@ namespace Supabase.Gotrue
 		public ProviderAuthState SignIn(Provider provider, StatelessClientOptions options, SignInOptions? signInOptions = null) => GetApi(options).GetUriForProvider(provider, signInOptions);
 
 		/// <inheritdoc />
-		public async Task<bool> SignOut(string accessToken, StatelessClientOptions options)
+		public async Task<bool> SignOut(string jwt, StatelessClientOptions options)
 		{
-			var result = await GetApi(options).SignOut(accessToken);
+			var result = await GetApi(options).SignOut(jwt);
 			result.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}
 		
 		/// <inheritdoc />
-		public async Task<Session?> VerifyOTP(string phone, string otpToken, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS)
+		public async Task<Session?> VerifyOTP(string phone, string token, StatelessClientOptions options, MobileOtpType type = MobileOtpType.SMS)
 		{
-			var session = await GetApi(options).VerifyMobileOTP(phone, otpToken, type);
+			var session = await GetApi(options).VerifyMobileOTP(phone, token, type);
 
 			if (session?.AccessToken != null)
 			{
@@ -110,9 +115,9 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<Session?> VerifyOTP(string email, string otpToken, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink)
+		public async Task<Session?> VerifyOTP(string email, string token, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink)
 		{
-			var session = await GetApi(options).VerifyEmailOTP(email, otpToken, type);
+			var session = await GetApi(options).VerifyEmailOTP(email, token, type);
 
 			if (session?.AccessToken != null)
 			{
@@ -130,9 +135,9 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<bool> InviteUserByEmail(string email, string serviceRoleToken, StatelessClientOptions options)
+		public async Task<bool> InviteUserByEmail(string email, string jwt, StatelessClientOptions options)
 		{
-			var response = await GetApi(options).InviteUserByEmail(email, serviceRoleToken);
+			var response = await GetApi(options).InviteUserByEmail(email, jwt);
 			response.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}
@@ -146,50 +151,50 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<UserList<User>?> ListUsers(string serviceRoleToken, StatelessClientOptions options, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending,
+		public async Task<UserList<User>?> ListUsers(string jwt, StatelessClientOptions options, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending,
 			int? page = null, int? perPage = null)
 		{
-			return await GetApi(options).ListUsers(serviceRoleToken, filter, sortBy, sortOrder, page, perPage);
+			return await GetApi(options).ListUsers(jwt, filter, sortBy, sortOrder, page, perPage);
 		}
 
 		/// <inheritdoc />
-		public async Task<User?> GetUserById(string serviceRoleToken, StatelessClientOptions options, string userId)
+		public async Task<User?> GetUserById(string jwt, StatelessClientOptions options, string userId)
 		{
-			return await GetApi(options).GetUserById(serviceRoleToken, userId);
+			return await GetApi(options).GetUserById(jwt, userId);
 		}
 
 		/// <inheritdoc />
-		public async Task<User?> GetUser(string serviceRoleToken, StatelessClientOptions options)
+		public async Task<User?> GetUser(string jwt, StatelessClientOptions options)
 		{
-			return await GetApi(options).GetUser(serviceRoleToken);
+			return await GetApi(options).GetUser(jwt);
 		}
 
 		/// <inheritdoc />
-		public Task<User?> CreateUser(string serviceRoleToken, StatelessClientOptions options, string email, string password, AdminUserAttributes? attributes = null)
+		public Task<User?> CreateUser(string jwt, StatelessClientOptions options, string email, string password, AdminUserAttributes? attributes = null)
 		{
 			attributes ??= new AdminUserAttributes();
 			attributes.Email = email;
 			attributes.Password = password;
 
-			return CreateUser(serviceRoleToken, options, attributes);
+			return CreateUser(jwt, options, attributes);
 		}
 
 		/// <inheritdoc />
-		public async Task<User?> CreateUser(string serviceRoleToken, StatelessClientOptions options, AdminUserAttributes attributes)
+		public async Task<User?> CreateUser(string jwt, StatelessClientOptions options, AdminUserAttributes attributes)
 		{
-			return await GetApi(options).CreateUser(serviceRoleToken, attributes);
+			return await GetApi(options).CreateUser(jwt, attributes);
 		}
 
 		/// <inheritdoc />
-		public async Task<User?> UpdateUserById(string serviceRoleToken, StatelessClientOptions options, string userId, AdminUserAttributes userData)
+		public async Task<User?> UpdateUserById(string jwt, StatelessClientOptions options, string userId, AdminUserAttributes userData)
 		{
-			return await GetApi(options).UpdateUserById(serviceRoleToken, userId, userData);
+			return await GetApi(options).UpdateUserById(jwt, userId, userData);
 		}
 
 		/// <inheritdoc />
-		public async Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options)
+		public async Task<bool> DeleteUser(string uid, string jwt, StatelessClientOptions options)
 		{
-			var result = await GetApi(options).DeleteUser(uid, serviceRoleToken);
+			var result = await GetApi(options).DeleteUser(uid, jwt);
 			result.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}
@@ -239,8 +244,7 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<Session?> RefreshToken(string accessToken, string refreshToken, StatelessClientOptions options) => 
-			await GetApi(options).RefreshAccessToken(accessToken, refreshToken);
+		public async Task<Session?> RefreshToken(string refreshToken, StatelessClientOptions options) => await GetApi(options).RefreshAccessToken(refreshToken);
 
 		/// <summary>
 		/// Class representation options available to the <see cref="Client"/>.
