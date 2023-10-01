@@ -382,6 +382,13 @@ namespace Supabase.Gotrue
 			result.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}
+		
+		/// <inheritdoc />
+		public async Task<ResetPasswordForEmailState> ResetPasswordForEmail(ResetPasswordForEmailOptions options)
+		{
+			var state = await _api.ResetPasswordForEmail(options);
+			return state;
+		}
 
 		/// <inheritdoc />
 		public async Task<Session?> RefreshSession()

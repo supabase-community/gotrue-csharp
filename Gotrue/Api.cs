@@ -215,8 +215,8 @@ namespace Supabase.Gotrue
 
 			var body = new Dictionary<string, object?>
 			{
-				{"provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
-				{"id_token", idToken }
+				{ "provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
+				{ "id_token", idToken }
 			};
 
 			if (!string.IsNullOrEmpty(nonce))
@@ -273,7 +273,8 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<Session?> SignUpWithPhone(string phone, string password, SignUpOptions? options = null)
 		{
-			var body = new Dictionary<string, object> {
+			var body = new Dictionary<string, object>
+			{
 				{ "phone", phone },
 				{ "password", password },
 			};
@@ -304,7 +305,8 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<Session?> SignInWithPhone(string phone, string password)
 		{
-			var data = new Dictionary<string, object> {
+			var data = new Dictionary<string, object>
+			{
 				{ "phone", phone },
 				{ "password", password }
 			};
@@ -331,7 +333,8 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<Session?> VerifyMobileOTP(string phone, string token, MobileOtpType type)
 		{
-			var data = new Dictionary<string, string> {
+			var data = new Dictionary<string, string>
+			{
 				{ "phone", phone },
 				{ "token", token },
 				{ "type", Core.Helpers.GetMappedToAttr(type).Mapping }
@@ -348,7 +351,8 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<Session?> VerifyEmailOTP(string email, string token, EmailOtpType type)
 		{
-			var data = new Dictionary<string, string> {
+			var data = new Dictionary<string, string>
+			{
 				{ "email", email },
 				{ "token", token },
 				{ "type", Core.Helpers.GetMappedToAttr(type).Mapping }
@@ -365,6 +369,40 @@ namespace Supabase.Gotrue
 		{
 			var data = new Dictionary<string, string> { { "email", email } };
 			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/recover", data, Headers);
+		}
+
+		/// <summary>
+		/// Sends a password reset request to an email address.
+		///
+		/// This Method supports the PKCE Flow
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		public async Task<ResetPasswordForEmailState> ResetPasswordForEmail(ResetPasswordForEmailOptions options)
+		{
+			var url = string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/recover" : $"{Url}/recover?redirect_to={options.RedirectTo}";
+			string? verifier = null;
+
+			var body = new Dictionary<string, object>
+			{
+				{ "email", options.Email },
+			};
+
+			if (options.FlowType == OAuthFlowType.PKCE)
+			{
+				var challenge = Helpers.GenerateNonce();
+				verifier = Helpers.GeneratePKCENonceVerifier(challenge);
+
+				body.Add("code_challenge", challenge);
+				body.Add("code_challenge_method", "s256");
+			}
+
+			if (!string.IsNullOrEmpty(options.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+
+			await Helpers.MakeRequest(HttpMethod.Post, url, body, Headers);
+
+			return new ResetPasswordForEmailState { PKCEVerifier = verifier };
 		}
 
 		/// <summary>
@@ -599,7 +637,7 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
 		}
-		
+
 		/// <summary>
 		/// Generates a new Session given a user's access token and refresh token.
 		/// </summary>
@@ -612,8 +650,9 @@ namespace Supabase.Gotrue
 			{
 				{ "Authorization", $"Bearer {accessToken}" },
 			};
-			
-			var data = new Dictionary<string, string> {
+
+			var data = new Dictionary<string, string>
+			{
 				{ "refresh_token", refreshToken }
 			};
 

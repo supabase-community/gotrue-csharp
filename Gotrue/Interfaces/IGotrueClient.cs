@@ -116,6 +116,15 @@ namespace Supabase.Gotrue.Interfaces
 		Task<bool> ResetPasswordForEmail(string email);
 
 		/// <summary>
+		/// Sends a password reset request to an email address.
+		///
+		/// Supports the PKCE Flow (the `verifier` from <see cref="ResetPasswordForEmailState"/> will be combined with <see cref="ExchangeCodeForSession"/> in response)
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		Task<ResetPasswordForEmailState> ResetPasswordForEmail(ResetPasswordForEmailOptions options);
+
+		/// <summary>
 		/// Typically called as part of the startup process for the client.
 		///
 		/// This will take the currently loaded session (e.g. from a persistence implementation) and

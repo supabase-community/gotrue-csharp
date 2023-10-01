@@ -355,6 +355,22 @@ namespace GotrueTests
 			IsTrue(result);
 		}
 
+		[TestMethod("Client: Send Reset Password Email (PKCE)")]
+		public async Task ClientSendsResetPasswordForEmailPKCE()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(email, PASSWORD);
+			var options = new ResetPasswordForEmailOptions(email)
+			{
+				RedirectTo = "http://localhost:3000",
+				FlowType = Constants.OAuthFlowType.PKCE
+			};
+			
+			var result = await _client.ResetPasswordForEmail(options);
+			
+			IsFalse(string.IsNullOrEmpty(result.PKCEVerifier));
+		}
+
 		[TestMethod("Client: Get Settings")]
 		public async Task Settings()
 		{
@@ -376,7 +392,7 @@ namespace GotrueTests
 			await _client.SignOut();
 			var user = await _client.SignIn(email, newPassword);
 
-			Assert.IsTrue(user != null);
+			IsTrue(user != null);
 		}
 
 		[TestMethod("Client: Can Set Session")]
@@ -385,18 +401,18 @@ namespace GotrueTests
 			var email = $"{RandomString(12)}@supabase.io";
 			await _client.SignUp(email, PASSWORD);
 
-			Assert.IsNotNull(_client.CurrentSession);
-			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.AccessToken));
-			Assert.IsFalse(string.IsNullOrEmpty(_client.CurrentSession.RefreshToken));
+			IsNotNull(_client.CurrentSession);
+			IsFalse(string.IsNullOrEmpty(_client.CurrentSession.AccessToken));
+			IsFalse(string.IsNullOrEmpty(_client.CurrentSession.RefreshToken));
 
 			var id = _client.CurrentUser.Id;
 			var accessToken = _client.CurrentSession.AccessToken!;
 			var refreshToken = _client.CurrentSession.RefreshToken!;
-			
+
 			var email2 = $"{RandomString(12)}@supabase.io";
 			await _client.SignUp(email2, PASSWORD);
-			
-			Assert.AreNotEqual(accessToken, _client.CurrentSession.AccessToken);
+
+			AreNotEqual(accessToken, _client.CurrentSession.AccessToken);
 
 			var hasStateChangedTsc = new TaskCompletionSource<bool>();
 			_client.AddStateChangedListener((sender, changed) =>
@@ -405,27 +421,27 @@ namespace GotrueTests
 				if (changed == SignedIn)
 					hasStateChangedTsc.TrySetResult(true);
 			});
-			
+
 			await _client.SetSession(accessToken, refreshToken);
 
 			var hasStateChanged = await hasStateChangedTsc.Task;
-			
-			Assert.IsTrue(hasStateChanged);
-			Assert.IsNotNull(_client.CurrentSession);
-			Assert.IsNotNull(_client.CurrentUser);
-			Assert.AreEqual(id, _client.CurrentUser.Id);
-			
+
+			IsTrue(hasStateChanged);
+			IsNotNull(_client.CurrentSession);
+			IsNotNull(_client.CurrentUser);
+			AreEqual(id, _client.CurrentUser.Id);
+
 			// As these are fresh, a new token should not be generated.
-			Assert.AreEqual(accessToken, _client.CurrentSession.AccessToken);
-			Assert.AreEqual(refreshToken, _client.CurrentSession.RefreshToken);
-			
+			AreEqual(accessToken, _client.CurrentSession.AccessToken);
+			AreEqual(refreshToken, _client.CurrentSession.RefreshToken);
+
 			await _client.SetSession(accessToken, refreshToken, forceAccessTokenRefresh: true);
-			Assert.IsNotNull(_client.CurrentSession);
-			Assert.IsNotNull(_client.CurrentUser);
-			Assert.AreEqual(id, _client.CurrentUser.Id);
-			
+			IsNotNull(_client.CurrentSession);
+			IsNotNull(_client.CurrentUser);
+			AreEqual(id, _client.CurrentUser.Id);
+
 			// As this is being forced to regenerate, the original should be different than the cached.
-			Assert.AreNotEqual(refreshToken, _client.CurrentSession.RefreshToken);
+			AreNotEqual(refreshToken, _client.CurrentSession.RefreshToken);
 		}
 	}
 }

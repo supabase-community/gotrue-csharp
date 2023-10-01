@@ -33,7 +33,7 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// The user's email address.
 		/// </summary>
-		public string Email { get; set; }
+		public string Email { get; private set; }
 
 		/// <summary>
 		/// The redirect url embedded in the email link.

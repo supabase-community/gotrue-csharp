@@ -2,6 +2,7 @@
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
+
 #pragma warning disable CS1591
 
 namespace Supabase.Gotrue.Interfaces
@@ -18,6 +19,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
 		Task<TSession?> RefreshAccessToken(string accessToken, string refreshToken);
 		Task<BaseResponse> ResetPasswordForEmail(string email);
+		Task<ResetPasswordForEmailState> ResetPasswordForEmail(ResetPasswordForEmailOptions options);
 		Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null);
 		Task<BaseResponse> SendMobileOTP(string phone);
 		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null);
