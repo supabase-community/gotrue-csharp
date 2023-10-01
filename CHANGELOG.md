@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 4.2.2 - 2023-10-01
+
+- [#78](https://github.com/supabase-community/gotrue-csharp/issues/78) - Implements PKCE flow support
+  for `ResetPasswordForEmail`.
+
 ## 4.2.1 - 2023-08-19
 
 - [#74](https://github.com/supabase-community/gotrue-csharp/pull/74) - Fixes bug where token refresh interval was not
