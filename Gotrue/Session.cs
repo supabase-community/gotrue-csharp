@@ -31,7 +31,7 @@ namespace Supabase.Gotrue
         /// The expiration date of this session, in UTC time.
         /// </summary>
         /// <returns></returns>
-        public DateTime ExpiresAt() => new DateTime(CreatedAt.Ticks).AddSeconds(ExpiresIn).ToUniversalTime();
+        public DateTime ExpiresAt() => new DateTimeOffset(CreatedAt).AddSeconds(ExpiresIn).ToUniversalTime().DateTime;
         
         /// <summary>
         /// Returns true if the session has expired
