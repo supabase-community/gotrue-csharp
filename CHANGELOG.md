@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 4.2.3 - 2023-10-11
+
+- [#80](https://github.com/supabase-community/gotrue-csharp/pull/80) Fixes `Session.Expires()` not being calculated correctly. Thanks [@dayjay](https://github.com/Dayjay)!
+
 ## 4.2.2 - 2023-10-01
 
 - [#78](https://github.com/supabase-community/gotrue-csharp/issues/78) - Implements PKCE flow support
