@@ -257,11 +257,17 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="email"></param>
 		/// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
+		/// <param name="options"></param>
 		/// <returns></returns>
-		public Task<BaseResponse> InviteUserByEmail(string email, string jwt)
+		public Task<BaseResponse> InviteUserByEmail(string email, string jwt, InviteUserByEmailOptions? options = null)
 		{
-			var data = new Dictionary<string, string> { { "email", email } };
-			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/invite", data, CreateAuthedRequestHeaders(jwt));
+			var url = options == null || string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/invite" : $"{Url}/invite?redirect_to={options.RedirectTo}";
+			var body = new Dictionary<string, object> { { "email", email } };
+
+			if (options?.Data != null)
+				body["data"] = options.Data;
+			
+			return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAuthedRequestHeaders(jwt));
 		}
 
 		/// <summary>

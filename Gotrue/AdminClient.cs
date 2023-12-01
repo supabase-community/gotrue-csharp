@@ -57,9 +57,9 @@ namespace Supabase.Gotrue
 		public Task<User?> GetUser(string jwt) => _api.GetUser(jwt);
 
 		/// <inheritdoc />
-		public async Task<bool> InviteUserByEmail(string email)
+		public async Task<bool> InviteUserByEmail(string email, InviteUserByEmailOptions? options = null)
 		{
-			var response = await _api.InviteUserByEmail(email, _serviceKey);
+			var response = await _api.InviteUserByEmail(email, _serviceKey, options);
 			response.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}

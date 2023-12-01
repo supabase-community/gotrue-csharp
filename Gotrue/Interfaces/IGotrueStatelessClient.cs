@@ -76,15 +76,16 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<TUser?> GetUserById(string serviceRoleToken, StatelessClientOptions options, string userId);
-        
+
         /// <summary>
         /// Sends an invite email link to the specified email.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="serviceRoleToken">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <param name="options"></param>
+        /// <param name="inviteOptions"></param>
         /// <returns></returns>
-        Task<bool> InviteUserByEmail(string email, string serviceRoleToken, StatelessClientOptions options);
+        Task<bool> InviteUserByEmail(string email, string serviceRoleToken, StatelessClientOptions options, InviteUserByEmailOptions? inviteOptions = null);
         
         /// <summary>
         /// Lists users

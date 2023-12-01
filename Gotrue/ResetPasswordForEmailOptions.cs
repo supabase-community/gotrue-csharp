@@ -30,6 +30,10 @@
 		/// </summary>
 		public string? PKCEVerifier { get; set; }
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ResetPasswordForEmailOptions"/> class with the provided email.
+		/// </summary>
+		/// <param name="email">The email of the user account for which the password is being reset.</param>
 		public ResetPasswordForEmailOptions(string email)
 		{
 			Email = email;

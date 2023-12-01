@@ -15,7 +15,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<BaseResponse> DeleteUser(string uid, string jwt);
 		Task<TUser?> GetUser(string jwt);
 		Task<TUser?> GetUserById(string jwt, string userId);
-		Task<BaseResponse> InviteUserByEmail(string email, string jwt);
+		Task<BaseResponse> InviteUserByEmail(string email, string jwt, InviteUserByEmailOptions? options = null);
 		Task<UserList<TUser>?> ListUsers(string jwt, string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null);
 		Task<TSession?> RefreshAccessToken(string accessToken, string refreshToken);
 		Task<BaseResponse> ResetPasswordForEmail(string email);

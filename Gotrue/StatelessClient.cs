@@ -130,9 +130,9 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<bool> InviteUserByEmail(string email, string serviceRoleToken, StatelessClientOptions options)
+		public async Task<bool> InviteUserByEmail(string email, string serviceRoleToken, StatelessClientOptions options, InviteUserByEmailOptions? invitationOptions = null)
 		{
-			var response = await GetApi(options).InviteUserByEmail(email, serviceRoleToken);
+			var response = await GetApi(options).InviteUserByEmail(email, serviceRoleToken, invitationOptions);
 			response.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}

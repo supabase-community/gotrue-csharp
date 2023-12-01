@@ -51,8 +51,9 @@ namespace Supabase.Gotrue.Interfaces
 		/// Sends an email to the user.
 		/// </summary>
 		/// <param name="email"></param>
+		/// <param name="options"></param>
 		/// <returns></returns>
-		Task<bool> InviteUserByEmail(string email);
+		Task<bool> InviteUserByEmail(string email, InviteUserByEmailOptions? options = null);
 
 		/// <summary>
 		/// Lists users
