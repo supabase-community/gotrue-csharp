@@ -97,12 +97,12 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.AdminClient.GetUserById
   nameWithType: AdminClient.GetUserById
-- uid: Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String)
-  name: InviteUserByEmail(String)
-  href: api/Supabase.Gotrue.AdminClient.html#Supabase_Gotrue_AdminClient_InviteUserByEmail_System_String_
-  commentId: M:Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String)
-  fullName: Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String)
-  nameWithType: AdminClient.InviteUserByEmail(String)
+- uid: Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  name: InviteUserByEmail(String, InviteUserByEmailOptions)
+  href: api/Supabase.Gotrue.AdminClient.html#Supabase_Gotrue_AdminClient_InviteUserByEmail_System_String_Supabase_Gotrue_InviteUserByEmailOptions_
+  commentId: M:Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName: Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String, Supabase.Gotrue.InviteUserByEmailOptions)
+  nameWithType: AdminClient.InviteUserByEmail(String, InviteUserByEmailOptions)
 - uid: Supabase.Gotrue.AdminClient.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.AdminClient.html#Supabase_Gotrue_AdminClient_InviteUserByEmail_
@@ -349,12 +349,12 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.Headers
   nameWithType: Api.Headers
-- uid: Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String)
-  name: InviteUserByEmail(String, String)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_InviteUserByEmail_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String)
-  fullName: Supabase.Gotrue.Api.InviteUserByEmail(System.String, System.String)
-  nameWithType: Api.InviteUserByEmail(String, String)
+- uid: Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  name: InviteUserByEmail(String, String, InviteUserByEmailOptions)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_InviteUserByEmail_System_String_System_String_Supabase_Gotrue_InviteUserByEmailOptions_
+  commentId: M:Supabase.Gotrue.Api.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName: Supabase.Gotrue.Api.InviteUserByEmail(System.String, System.String, Supabase.Gotrue.InviteUserByEmailOptions)
+  nameWithType: Api.InviteUserByEmail(String, String, InviteUserByEmailOptions)
 - uid: Supabase.Gotrue.Api.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_InviteUserByEmail_
@@ -1948,14 +1948,14 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueAdminClient(Of TUser).GetUserById
   nameWithType: IGotrueAdminClient<TUser>.GetUserById
   nameWithType.vb: IGotrueAdminClient(Of TUser).GetUserById
-- uid: Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.InviteUserByEmail(System.String)
-  name: InviteUserByEmail(String)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html#Supabase_Gotrue_Interfaces_IGotrueAdminClient_1_InviteUserByEmail_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.InviteUserByEmail(System.String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueAdminClient<TUser>.InviteUserByEmail(System.String)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueAdminClient(Of TUser).InviteUserByEmail(System.String)
-  nameWithType: IGotrueAdminClient<TUser>.InviteUserByEmail(String)
-  nameWithType.vb: IGotrueAdminClient(Of TUser).InviteUserByEmail(String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.InviteUserByEmail(System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  name: InviteUserByEmail(String, InviteUserByEmailOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html#Supabase_Gotrue_Interfaces_IGotrueAdminClient_1_InviteUserByEmail_System_String_Supabase_Gotrue_InviteUserByEmailOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.InviteUserByEmail(System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueAdminClient<TUser>.InviteUserByEmail(System.String, Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueAdminClient(Of TUser).InviteUserByEmail(System.String, Supabase.Gotrue.InviteUserByEmailOptions)
+  nameWithType: IGotrueAdminClient<TUser>.InviteUserByEmail(String, InviteUserByEmailOptions)
+  nameWithType.vb: IGotrueAdminClient(Of TUser).InviteUserByEmail(String, InviteUserByEmailOptions)
 - uid: Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html#Supabase_Gotrue_Interfaces_IGotrueAdminClient_1_InviteUserByEmail_
@@ -2128,14 +2128,14 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).GetUserById
   nameWithType: IGotrueApi<TUser, TSession>.GetUserById
   nameWithType.vb: IGotrueApi(Of TUser, TSession).GetUserById
-- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.InviteUserByEmail(System.String,System.String)
-  name: InviteUserByEmail(String, String)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_InviteUserByEmail_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.InviteUserByEmail(System.String,System.String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.InviteUserByEmail(System.String, System.String)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).InviteUserByEmail(System.String, System.String)
-  nameWithType: IGotrueApi<TUser, TSession>.InviteUserByEmail(String, String)
-  nameWithType.vb: IGotrueApi(Of TUser, TSession).InviteUserByEmail(String, String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  name: InviteUserByEmail(String, String, InviteUserByEmailOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_InviteUserByEmail_System_String_System_String_Supabase_Gotrue_InviteUserByEmailOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.InviteUserByEmail(System.String, System.String, Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).InviteUserByEmail(System.String, System.String, Supabase.Gotrue.InviteUserByEmailOptions)
+  nameWithType: IGotrueApi<TUser, TSession>.InviteUserByEmail(String, String, InviteUserByEmailOptions)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).InviteUserByEmail(String, String, InviteUserByEmailOptions)
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_InviteUserByEmail_
@@ -3317,14 +3317,14 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).GetUserById
   nameWithType: IGotrueStatelessClient<TUser, TSession>.GetUserById
   nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).GetUserById
-- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  name: InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_InviteUserByEmail_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.InviteUserByEmail(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).InviteUserByEmail(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  nameWithType: IGotrueStatelessClient<TUser, TSession>.InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions)
-  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.InviteUserByEmailOptions)
+  name: InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions, InviteUserByEmailOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_InviteUserByEmail_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_Supabase_Gotrue_InviteUserByEmailOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.InviteUserByEmail(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).InviteUserByEmail(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, Supabase.Gotrue.InviteUserByEmailOptions)
+  nameWithType: IGotrueStatelessClient<TUser, TSession>.InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions, InviteUserByEmailOptions)
+  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions, InviteUserByEmailOptions)
 - uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_InviteUserByEmail_
@@ -3563,6 +3563,38 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).VerifyOTP
   nameWithType: IGotrueStatelessClient<TUser, TSession>.VerifyOTP
   nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).VerifyOTP
+- uid: Supabase.Gotrue.InviteUserByEmailOptions
+  name: InviteUserByEmailOptions
+  href: api/Supabase.Gotrue.InviteUserByEmailOptions.html
+  commentId: T:Supabase.Gotrue.InviteUserByEmailOptions
+  fullName: Supabase.Gotrue.InviteUserByEmailOptions
+  nameWithType: InviteUserByEmailOptions
+- uid: Supabase.Gotrue.InviteUserByEmailOptions.Data
+  name: Data
+  href: api/Supabase.Gotrue.InviteUserByEmailOptions.html#Supabase_Gotrue_InviteUserByEmailOptions_Data
+  commentId: P:Supabase.Gotrue.InviteUserByEmailOptions.Data
+  fullName: Supabase.Gotrue.InviteUserByEmailOptions.Data
+  nameWithType: InviteUserByEmailOptions.Data
+- uid: Supabase.Gotrue.InviteUserByEmailOptions.Data*
+  name: Data
+  href: api/Supabase.Gotrue.InviteUserByEmailOptions.html#Supabase_Gotrue_InviteUserByEmailOptions_Data_
+  commentId: Overload:Supabase.Gotrue.InviteUserByEmailOptions.Data
+  isSpec: "True"
+  fullName: Supabase.Gotrue.InviteUserByEmailOptions.Data
+  nameWithType: InviteUserByEmailOptions.Data
+- uid: Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo
+  name: RedirectTo
+  href: api/Supabase.Gotrue.InviteUserByEmailOptions.html#Supabase_Gotrue_InviteUserByEmailOptions_RedirectTo
+  commentId: P:Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo
+  fullName: Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo
+  nameWithType: InviteUserByEmailOptions.RedirectTo
+- uid: Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo*
+  name: RedirectTo
+  href: api/Supabase.Gotrue.InviteUserByEmailOptions.html#Supabase_Gotrue_InviteUserByEmailOptions_RedirectTo_
+  commentId: Overload:Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo
+  isSpec: "True"
+  fullName: Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo
+  nameWithType: InviteUserByEmailOptions.RedirectTo
 - uid: Supabase.Gotrue.NetworkStatus
   name: NetworkStatus
   href: api/Supabase.Gotrue.NetworkStatus.html
@@ -4435,12 +4467,12 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.GetUserById
   nameWithType: StatelessClient.GetUserById
-- uid: Supabase.Gotrue.StatelessClient.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  name: InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions)
-  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_InviteUserByEmail_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
-  commentId: M:Supabase.Gotrue.StatelessClient.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  fullName: Supabase.Gotrue.StatelessClient.InviteUserByEmail(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
-  nameWithType: StatelessClient.InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.StatelessClient.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.InviteUserByEmailOptions)
+  name: InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions, InviteUserByEmailOptions)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_InviteUserByEmail_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_Supabase_Gotrue_InviteUserByEmailOptions_
+  commentId: M:Supabase.Gotrue.StatelessClient.InviteUserByEmail(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions,Supabase.Gotrue.InviteUserByEmailOptions)
+  fullName: Supabase.Gotrue.StatelessClient.InviteUserByEmail(System.String, System.String, Supabase.Gotrue.StatelessClient.StatelessClientOptions, Supabase.Gotrue.InviteUserByEmailOptions)
+  nameWithType: StatelessClient.InviteUserByEmail(String, String, StatelessClient.StatelessClientOptions, InviteUserByEmailOptions)
 - uid: Supabase.Gotrue.StatelessClient.InviteUserByEmail*
   name: InviteUserByEmail
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_InviteUserByEmail_

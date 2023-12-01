@@ -456,19 +456,19 @@ Used in trusted server environments, not client apps.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_AdminClient_InviteUserByEmail_System_String_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_AdminClient_InviteUserByEmail_System_String_Supabase_Gotrue_InviteUserByEmailOptions_.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String%2CSupabase.Gotrue.InviteUserByEmailOptions)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/AdminClient.cs/#L60">View Source</a>
   </span>
   <a id="Supabase_Gotrue_AdminClient_InviteUserByEmail_" data-uid="Supabase.Gotrue.AdminClient.InviteUserByEmail*"></a>
-  <h4 id="Supabase_Gotrue_AdminClient_InviteUserByEmail_System_String_" data-uid="Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String)">InviteUserByEmail(String)</h4>
+  <h4 id="Supabase_Gotrue_AdminClient_InviteUserByEmail_System_String_Supabase_Gotrue_InviteUserByEmailOptions_" data-uid="Supabase.Gotrue.AdminClient.InviteUserByEmail(System.String,Supabase.Gotrue.InviteUserByEmailOptions)">InviteUserByEmail(String, InviteUserByEmailOptions)</h4>
   <div class="markdown level1 summary"><p>Sends an email to the user.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; InviteUserByEmail(string email)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; InviteUserByEmail(string email, InviteUserByEmailOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -483,6 +483,11 @@ Used in trusted server environments, not client apps.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">email</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Supabase.Gotrue.InviteUserByEmailOptions.html">InviteUserByEmailOptions</a></td>
+        <td><span class="parametername">options</span></td>
         <td></td>
       </tr>
     </tbody>
