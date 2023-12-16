@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 using static GotrueTests.TestUtils;
@@ -176,6 +177,78 @@ namespace GotrueTests
 			var helloAppleVerifier = Helpers.GenerateSHA256NonceFromRawNonce(helloNonce);
 			IsNotNull(helloAppleVerifier);
 			AreEqual("f533268b824e95839010fd876b7f565e3f69c9220b1a701f42ccfec97c2cd321", helloAppleVerifier);
+		}
+
+		[TestMethod("Service Role: Generate Email Signup Link")]
+		public async Task GenerateEmailSignupLink()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var options = new GenerateLinkSignupOptions(email, PASSWORD);
+
+			var result = await _client.GenerateLink(options);
+
+			AreEqual(result.VerificationType, "signup");
+		}
+
+		[TestMethod("Service Role: Generate Email Invite Link")]
+		public async Task GenerateEmailInviteLink()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var options = new GenerateLinkOptions(GenerateLinkOptions.LinkType.Invite, email);
+
+			var result = await _client.GenerateLink(options);
+
+			AreEqual(result.VerificationType, "invite");
+		}
+
+		[TestMethod("Service Role: Generate Email Magic Link")]
+		public async Task GenerateEmailMagicLink()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var options = new GenerateLinkOptions(GenerateLinkOptions.LinkType.MagicLink, email);
+
+			var result = await _client.GenerateLink(options);
+
+			// Since this is a non-existent user, this is considered a "signup"
+			AreEqual(result.VerificationType, "signup");
+
+			var result2 = await _client.GenerateLink(options);
+
+			// When trying again, this should produce a 'magiclink'
+			AreEqual(result2.VerificationType, "magiclink");
+		}
+
+		[TestMethod("Service Role: Generate Email Recovery Link")]
+		public async Task GenerateEmailRecoveryLink()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+
+			var options = new GenerateLinkOptions(GenerateLinkOptions.LinkType.MagicLink, email);
+			var result = await _client.GenerateLink(options);
+
+			// Since this is a non-existent user, this is considered a "signup"
+			AreEqual(result.VerificationType, "signup");
+
+			var options2 = new GenerateLinkOptions(GenerateLinkOptions.LinkType.Recovery, email);
+			var result2 = await _client.GenerateLink(options2);
+			AreEqual(result2.VerificationType, "recovery");
+		}
+
+		[TestMethod("Service Role: Generate Email Change Link")]
+		public async Task GenerateEmailChangeLink()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var newEmail = $"{RandomString(12)}@supabase.io";
+
+			await _client.CreateUser(new AdminUserAttributes() { Email = email });
+
+			var options = new GenerateLinkEmailChangeCurrentOptions(email, newEmail);
+			var result = await _client.GenerateLink(options);
+			AreEqual(result.VerificationType, "email_change_current");
+
+			var options2 = new GenerateLinkEmailChangeNewOptions(email, newEmail);
+			var result2 = await _client.GenerateLink(options2);
+			AreEqual(result2.VerificationType, "email_change_new");
 		}
 	}
 }

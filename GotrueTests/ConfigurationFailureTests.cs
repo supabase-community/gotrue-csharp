@@ -43,6 +43,7 @@ namespace GotrueTests
 			{
 				await adminClient.ListUsers();
 			});
+			
 			AreEqual(AdminTokenRequired, x.Reason);
 		}
 	}

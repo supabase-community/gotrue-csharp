@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Responses;
+
 namespace Supabase.Gotrue
 {
 	/// <summary>
@@ -95,6 +98,18 @@ namespace Supabase.Gotrue
 		public Task<User?> UpdateUserById(string userId, AdminUserAttributes userData)
 		{
 			return _api.UpdateUserById(_serviceKey, userId, userData);
+		}
+		/// <inheritdoc />
+		public async Task<GenerateLinkResponse?> GenerateLink(GenerateLinkOptions options)
+		{
+			 var response = await _api.GenerateLink(_serviceKey, options);
+			 response.ResponseMessage?.EnsureSuccessStatusCode();
+
+			 if (response.Content is null)
+				 return null;
+			 
+			 var result = JsonConvert.DeserializeObject<GenerateLinkResponse>(response.Content);
+			 return result;
 		}
 
 		/// <inheritdoc />

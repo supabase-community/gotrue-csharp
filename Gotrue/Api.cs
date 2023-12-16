@@ -643,6 +643,18 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
 		}
+		
+		/// <summary>
+		/// Generates email links and OTPs to be sent via a custom email provider.
+		/// </summary>
+		/// <param name="jwt"></param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		public Task<BaseResponse> GenerateLink(string jwt, GenerateLinkOptions options)
+		{
+			var url = string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/admin/generate_link" : $"{Url}/admin/generate_link?redirect_to={options.RedirectTo}";
+			return Helpers.MakeRequest(HttpMethod.Post, url, options, CreateAuthedRequestHeaders(jwt));
+		}
 
 		/// <summary>
 		/// Generates a new Session given a user's access token and refresh token.

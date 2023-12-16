@@ -1,5 +1,8 @@
 using System.Threading.Tasks;
+using Supabase.Core.Attributes;
 using Supabase.Core.Interfaces;
+using Supabase.Gotrue.Responses;
+
 namespace Supabase.Gotrue.Interfaces
 {
 	/// <summary>
@@ -81,5 +84,13 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="userData"></param>
 		/// <returns></returns>
 		public Task<User?> UpdateUserById(string userId, AdminUserAttributes userData);
+
+		/// <summary>
+		/// Generates email links and OTPs to be sent via a custom email provider.
+		/// </summary>
+		/// <param name="type">The type of link to be sent.</param>
+		/// <param name="options">Options for this call. `Password` is required for <see cref="GenerateLinkOptions.LinkType.SignUp"/>, `Data` is an optional parameter for <see cref="GenerateLinkOptions.LinkType.Signup"/>.</param>
+		/// <returns></returns>
+		public Task<GenerateLinkResponse?> GenerateLink(GenerateLinkOptions options);
 	}
 }
