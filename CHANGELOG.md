@@ -1,12 +1,20 @@
 ﻿# Changelog
 
+## 4.2.5 - 2023-12-15
+
+- [#82](https://github.com/supabase-community/gotrue-csharp/issues/81) - Implements #82 - Creates a `GenerateLink`
+  method on the `AdminClient` that supports `signup`, `invite`, `magiclink`, `recovery`, `email_change_new`
+  and `email_change_current`
+
 ## 4.2.4 - 2023-12-1
 
-- [#81](https://github.com/supabase-community/gotrue-csharp/issues/81) - Adds `InviteUserByEmailOptions` as a parameter to the Gotrue Admin Client
+- [#81](https://github.com/supabase-community/gotrue-csharp/issues/81) - Adds `InviteUserByEmailOptions` as a parameter
+  to the Gotrue Admin Client
 
 ## 4.2.3 - 2023-10-11
 
-- [#80](https://github.com/supabase-community/gotrue-csharp/pull/80) Fixes `Session.Expires()` not being calculated correctly. Thanks [@dayjay](https://github.com/Dayjay)!
+- [#80](https://github.com/supabase-community/gotrue-csharp/pull/80) Fixes `Session.Expires()` not being calculated
+  correctly. Thanks [@dayjay](https://github.com/Dayjay)!
 
 ## 4.2.2 - 2023-10-01
 
