@@ -58,6 +58,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.AdminClient.DeleteUser
   nameWithType: AdminClient.DeleteUser
+- uid: Supabase.Gotrue.AdminClient.GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  name: GenerateLink(GenerateLinkOptions)
+  href: api/Supabase.Gotrue.AdminClient.html#Supabase_Gotrue_AdminClient_GenerateLink_Supabase_Gotrue_GenerateLinkOptions_
+  commentId: M:Supabase.Gotrue.AdminClient.GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  fullName: Supabase.Gotrue.AdminClient.GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  nameWithType: AdminClient.GenerateLink(GenerateLinkOptions)
+- uid: Supabase.Gotrue.AdminClient.GenerateLink*
+  name: GenerateLink
+  href: api/Supabase.Gotrue.AdminClient.html#Supabase_Gotrue_AdminClient_GenerateLink_
+  commentId: Overload:Supabase.Gotrue.AdminClient.GenerateLink
+  isSpec: "True"
+  fullName: Supabase.Gotrue.AdminClient.GenerateLink
+  nameWithType: AdminClient.GenerateLink
 - uid: Supabase.Gotrue.AdminClient.GetHeaders
   name: GetHeaders
   href: api/Supabase.Gotrue.AdminClient.html#Supabase_Gotrue_AdminClient_GetHeaders
@@ -284,6 +297,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.ExchangeCodeForSession
   nameWithType: Api.ExchangeCodeForSession
+- uid: Supabase.Gotrue.Api.GenerateLink(System.String,Supabase.Gotrue.GenerateLinkOptions)
+  name: GenerateLink(String, GenerateLinkOptions)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GenerateLink_System_String_Supabase_Gotrue_GenerateLinkOptions_
+  commentId: M:Supabase.Gotrue.Api.GenerateLink(System.String,Supabase.Gotrue.GenerateLinkOptions)
+  fullName: Supabase.Gotrue.Api.GenerateLink(System.String, Supabase.Gotrue.GenerateLinkOptions)
+  nameWithType: Api.GenerateLink(String, GenerateLinkOptions)
+- uid: Supabase.Gotrue.Api.GenerateLink*
+  name: GenerateLink
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GenerateLink_
+  commentId: Overload:Supabase.Gotrue.Api.GenerateLink
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.GenerateLink
+  nameWithType: Api.GenerateLink
 - uid: Supabase.Gotrue.Api.GetHeaders
   name: GetHeaders
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_GetHeaders
@@ -1812,6 +1838,202 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Exceptions.GotrueException.StatusCode
   nameWithType: GotrueException.StatusCode
+- uid: Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions
+  name: GenerateLinkEmailChangeCurrentOptions
+  href: api/Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.html
+  commentId: T:Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions
+  fullName: Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions
+  nameWithType: GenerateLinkEmailChangeCurrentOptions
+- uid: Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.#ctor(System.String,System.String)
+  name: GenerateLinkEmailChangeCurrentOptions(String, String)
+  href: api/Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.html#Supabase_Gotrue_GenerateLinkEmailChangeCurrentOptions__ctor_System_String_System_String_
+  commentId: M:Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.#ctor(System.String,System.String)
+  fullName: Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.GenerateLinkEmailChangeCurrentOptions(System.String, System.String)
+  nameWithType: GenerateLinkEmailChangeCurrentOptions.GenerateLinkEmailChangeCurrentOptions(String, String)
+- uid: Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.#ctor*
+  name: GenerateLinkEmailChangeCurrentOptions
+  href: api/Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.html#Supabase_Gotrue_GenerateLinkEmailChangeCurrentOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.GenerateLinkEmailChangeCurrentOptions
+  nameWithType: GenerateLinkEmailChangeCurrentOptions.GenerateLinkEmailChangeCurrentOptions
+- uid: Supabase.Gotrue.GenerateLinkEmailChangeNewOptions
+  name: GenerateLinkEmailChangeNewOptions
+  href: api/Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.html
+  commentId: T:Supabase.Gotrue.GenerateLinkEmailChangeNewOptions
+  fullName: Supabase.Gotrue.GenerateLinkEmailChangeNewOptions
+  nameWithType: GenerateLinkEmailChangeNewOptions
+- uid: Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.#ctor(System.String,System.String)
+  name: GenerateLinkEmailChangeNewOptions(String, String)
+  href: api/Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.html#Supabase_Gotrue_GenerateLinkEmailChangeNewOptions__ctor_System_String_System_String_
+  commentId: M:Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.#ctor(System.String,System.String)
+  fullName: Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.GenerateLinkEmailChangeNewOptions(System.String, System.String)
+  nameWithType: GenerateLinkEmailChangeNewOptions.GenerateLinkEmailChangeNewOptions(String, String)
+- uid: Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.#ctor*
+  name: GenerateLinkEmailChangeNewOptions
+  href: api/Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.html#Supabase_Gotrue_GenerateLinkEmailChangeNewOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.GenerateLinkEmailChangeNewOptions
+  nameWithType: GenerateLinkEmailChangeNewOptions.GenerateLinkEmailChangeNewOptions
+- uid: Supabase.Gotrue.GenerateLinkOptions
+  name: GenerateLinkOptions
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html
+  commentId: T:Supabase.Gotrue.GenerateLinkOptions
+  fullName: Supabase.Gotrue.GenerateLinkOptions
+  nameWithType: GenerateLinkOptions
+- uid: Supabase.Gotrue.GenerateLinkOptions.#ctor(Supabase.Gotrue.GenerateLinkOptions.LinkType,System.String)
+  name: GenerateLinkOptions(GenerateLinkOptions.LinkType, String)
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions__ctor_Supabase_Gotrue_GenerateLinkOptions_LinkType_System_String_
+  commentId: M:Supabase.Gotrue.GenerateLinkOptions.#ctor(Supabase.Gotrue.GenerateLinkOptions.LinkType,System.String)
+  fullName: Supabase.Gotrue.GenerateLinkOptions.GenerateLinkOptions(Supabase.Gotrue.GenerateLinkOptions.LinkType, System.String)
+  nameWithType: GenerateLinkOptions.GenerateLinkOptions(GenerateLinkOptions.LinkType, String)
+- uid: Supabase.Gotrue.GenerateLinkOptions.#ctor*
+  name: GenerateLinkOptions
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.GenerateLinkOptions
+  nameWithType: GenerateLinkOptions.GenerateLinkOptions
+- uid: Supabase.Gotrue.GenerateLinkOptions.Data
+  name: Data
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Data
+  commentId: P:Supabase.Gotrue.GenerateLinkOptions.Data
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Data
+  nameWithType: GenerateLinkOptions.Data
+- uid: Supabase.Gotrue.GenerateLinkOptions.Data*
+  name: Data
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Data_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.Data
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Data
+  nameWithType: GenerateLinkOptions.Data
+- uid: Supabase.Gotrue.GenerateLinkOptions.Email
+  name: Email
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Email
+  commentId: P:Supabase.Gotrue.GenerateLinkOptions.Email
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Email
+  nameWithType: GenerateLinkOptions.Email
+- uid: Supabase.Gotrue.GenerateLinkOptions.Email*
+  name: Email
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Email_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.Email
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Email
+  nameWithType: GenerateLinkOptions.Email
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType
+  name: GenerateLinkOptions.LinkType
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html
+  commentId: T:Supabase.Gotrue.GenerateLinkOptions.LinkType
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType
+  nameWithType: GenerateLinkOptions.LinkType
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeCurrent
+  name: EmailChangeCurrent
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html#Supabase_Gotrue_GenerateLinkOptions_LinkType_EmailChangeCurrent
+  commentId: F:Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeCurrent
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeCurrent
+  nameWithType: GenerateLinkOptions.LinkType.EmailChangeCurrent
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeNew
+  name: EmailChangeNew
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html#Supabase_Gotrue_GenerateLinkOptions_LinkType_EmailChangeNew
+  commentId: F:Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeNew
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeNew
+  nameWithType: GenerateLinkOptions.LinkType.EmailChangeNew
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType.Invite
+  name: Invite
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html#Supabase_Gotrue_GenerateLinkOptions_LinkType_Invite
+  commentId: F:Supabase.Gotrue.GenerateLinkOptions.LinkType.Invite
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType.Invite
+  nameWithType: GenerateLinkOptions.LinkType.Invite
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType.MagicLink
+  name: MagicLink
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html#Supabase_Gotrue_GenerateLinkOptions_LinkType_MagicLink
+  commentId: F:Supabase.Gotrue.GenerateLinkOptions.LinkType.MagicLink
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType.MagicLink
+  nameWithType: GenerateLinkOptions.LinkType.MagicLink
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType.Recovery
+  name: Recovery
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html#Supabase_Gotrue_GenerateLinkOptions_LinkType_Recovery
+  commentId: F:Supabase.Gotrue.GenerateLinkOptions.LinkType.Recovery
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType.Recovery
+  nameWithType: GenerateLinkOptions.LinkType.Recovery
+- uid: Supabase.Gotrue.GenerateLinkOptions.LinkType.SignUp
+  name: SignUp
+  href: api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html#Supabase_Gotrue_GenerateLinkOptions_LinkType_SignUp
+  commentId: F:Supabase.Gotrue.GenerateLinkOptions.LinkType.SignUp
+  fullName: Supabase.Gotrue.GenerateLinkOptions.LinkType.SignUp
+  nameWithType: GenerateLinkOptions.LinkType.SignUp
+- uid: Supabase.Gotrue.GenerateLinkOptions.NewEmail
+  name: NewEmail
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_NewEmail
+  commentId: P:Supabase.Gotrue.GenerateLinkOptions.NewEmail
+  fullName: Supabase.Gotrue.GenerateLinkOptions.NewEmail
+  nameWithType: GenerateLinkOptions.NewEmail
+- uid: Supabase.Gotrue.GenerateLinkOptions.NewEmail*
+  name: NewEmail
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_NewEmail_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.NewEmail
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.NewEmail
+  nameWithType: GenerateLinkOptions.NewEmail
+- uid: Supabase.Gotrue.GenerateLinkOptions.Password
+  name: Password
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Password
+  commentId: P:Supabase.Gotrue.GenerateLinkOptions.Password
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Password
+  nameWithType: GenerateLinkOptions.Password
+- uid: Supabase.Gotrue.GenerateLinkOptions.Password*
+  name: Password
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Password_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.Password
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Password
+  nameWithType: GenerateLinkOptions.Password
+- uid: Supabase.Gotrue.GenerateLinkOptions.RedirectTo
+  name: RedirectTo
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_RedirectTo
+  commentId: P:Supabase.Gotrue.GenerateLinkOptions.RedirectTo
+  fullName: Supabase.Gotrue.GenerateLinkOptions.RedirectTo
+  nameWithType: GenerateLinkOptions.RedirectTo
+- uid: Supabase.Gotrue.GenerateLinkOptions.RedirectTo*
+  name: RedirectTo
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_RedirectTo_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.RedirectTo
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.RedirectTo
+  nameWithType: GenerateLinkOptions.RedirectTo
+- uid: Supabase.Gotrue.GenerateLinkOptions.Type
+  name: Type
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Type
+  commentId: P:Supabase.Gotrue.GenerateLinkOptions.Type
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Type
+  nameWithType: GenerateLinkOptions.Type
+- uid: Supabase.Gotrue.GenerateLinkOptions.Type*
+  name: Type
+  href: api/Supabase.Gotrue.GenerateLinkOptions.html#Supabase_Gotrue_GenerateLinkOptions_Type_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkOptions.Type
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkOptions.Type
+  nameWithType: GenerateLinkOptions.Type
+- uid: Supabase.Gotrue.GenerateLinkSignupOptions
+  name: GenerateLinkSignupOptions
+  href: api/Supabase.Gotrue.GenerateLinkSignupOptions.html
+  commentId: T:Supabase.Gotrue.GenerateLinkSignupOptions
+  fullName: Supabase.Gotrue.GenerateLinkSignupOptions
+  nameWithType: GenerateLinkSignupOptions
+- uid: Supabase.Gotrue.GenerateLinkSignupOptions.#ctor(System.String,System.String)
+  name: GenerateLinkSignupOptions(String, String)
+  href: api/Supabase.Gotrue.GenerateLinkSignupOptions.html#Supabase_Gotrue_GenerateLinkSignupOptions__ctor_System_String_System_String_
+  commentId: M:Supabase.Gotrue.GenerateLinkSignupOptions.#ctor(System.String,System.String)
+  fullName: Supabase.Gotrue.GenerateLinkSignupOptions.GenerateLinkSignupOptions(System.String, System.String)
+  nameWithType: GenerateLinkSignupOptions.GenerateLinkSignupOptions(String, String)
+- uid: Supabase.Gotrue.GenerateLinkSignupOptions.#ctor*
+  name: GenerateLinkSignupOptions
+  href: api/Supabase.Gotrue.GenerateLinkSignupOptions.html#Supabase_Gotrue_GenerateLinkSignupOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.GenerateLinkSignupOptions.#ctor
+  isSpec: "True"
+  fullName: Supabase.Gotrue.GenerateLinkSignupOptions.GenerateLinkSignupOptions
+  nameWithType: GenerateLinkSignupOptions.GenerateLinkSignupOptions
 - uid: Supabase.Gotrue.Helpers
   name: Helpers
   href: api/Supabase.Gotrue.Helpers.html
@@ -1914,6 +2136,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueAdminClient(Of TUser).DeleteUser
   nameWithType: IGotrueAdminClient<TUser>.DeleteUser
   nameWithType.vb: IGotrueAdminClient(Of TUser).DeleteUser
+- uid: Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  name: GenerateLink(GenerateLinkOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html#Supabase_Gotrue_Interfaces_IGotrueAdminClient_1_GenerateLink_Supabase_Gotrue_GenerateLinkOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueAdminClient<TUser>.GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueAdminClient(Of TUser).GenerateLink(Supabase.Gotrue.GenerateLinkOptions)
+  nameWithType: IGotrueAdminClient<TUser>.GenerateLink(GenerateLinkOptions)
+  nameWithType.vb: IGotrueAdminClient(Of TUser).GenerateLink(GenerateLinkOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.GenerateLink*
+  name: GenerateLink
+  href: api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html#Supabase_Gotrue_Interfaces_IGotrueAdminClient_1_GenerateLink_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.GenerateLink
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueAdminClient<TUser>.GenerateLink
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueAdminClient(Of TUser).GenerateLink
+  nameWithType: IGotrueAdminClient<TUser>.GenerateLink
+  nameWithType.vb: IGotrueAdminClient(Of TUser).GenerateLink
 - uid: Supabase.Gotrue.Interfaces.IGotrueAdminClient`1.GetUser(System.String)
   name: GetUser(String)
   href: api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html#Supabase_Gotrue_Interfaces_IGotrueAdminClient_1_GetUser_System_String_
@@ -2077,6 +2316,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).ExchangeCodeForSession
   nameWithType: IGotrueApi<TUser, TSession>.ExchangeCodeForSession
   nameWithType.vb: IGotrueApi(Of TUser, TSession).ExchangeCodeForSession
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.GenerateLink(System.String,Supabase.Gotrue.GenerateLinkOptions)
+  name: GenerateLink(String, GenerateLinkOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_GenerateLink_System_String_Supabase_Gotrue_GenerateLinkOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.GenerateLink(System.String,Supabase.Gotrue.GenerateLinkOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.GenerateLink(System.String, Supabase.Gotrue.GenerateLinkOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).GenerateLink(System.String, Supabase.Gotrue.GenerateLinkOptions)
+  nameWithType: IGotrueApi<TUser, TSession>.GenerateLink(String, GenerateLinkOptions)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).GenerateLink(String, GenerateLinkOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.GenerateLink*
+  name: GenerateLink
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_GenerateLink_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueApi`2.GenerateLink
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.GenerateLink
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).GenerateLink
+  nameWithType: IGotrueApi<TUser, TSession>.GenerateLink
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).GenerateLink
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.GetUriForProvider(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
   name: GetUriForProvider(Constants.Provider, SignInOptions)
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_GetUriForProvider_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
@@ -3947,6 +4203,77 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Responses.BaseResponse.ResponseMessage
   nameWithType: BaseResponse.ResponseMessage
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse
+  name: GenerateLinkResponse
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html
+  commentId: T:Supabase.Gotrue.Responses.GenerateLinkResponse
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse
+  nameWithType: GenerateLinkResponse
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.ActionLink
+  name: ActionLink
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_ActionLink
+  commentId: P:Supabase.Gotrue.Responses.GenerateLinkResponse.ActionLink
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.ActionLink
+  nameWithType: GenerateLinkResponse.ActionLink
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.ActionLink*
+  name: ActionLink
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_ActionLink_
+  commentId: Overload:Supabase.Gotrue.Responses.GenerateLinkResponse.ActionLink
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.ActionLink
+  nameWithType: GenerateLinkResponse.ActionLink
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.EmailOtp
+  name: EmailOtp
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_EmailOtp
+  commentId: P:Supabase.Gotrue.Responses.GenerateLinkResponse.EmailOtp
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.EmailOtp
+  nameWithType: GenerateLinkResponse.EmailOtp
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.EmailOtp*
+  name: EmailOtp
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_EmailOtp_
+  commentId: Overload:Supabase.Gotrue.Responses.GenerateLinkResponse.EmailOtp
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.EmailOtp
+  nameWithType: GenerateLinkResponse.EmailOtp
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.HashedToken
+  name: HashedToken
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_HashedToken
+  commentId: P:Supabase.Gotrue.Responses.GenerateLinkResponse.HashedToken
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.HashedToken
+  nameWithType: GenerateLinkResponse.HashedToken
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.HashedToken*
+  name: HashedToken
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_HashedToken_
+  commentId: Overload:Supabase.Gotrue.Responses.GenerateLinkResponse.HashedToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.HashedToken
+  nameWithType: GenerateLinkResponse.HashedToken
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.RedirectTo
+  name: RedirectTo
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_RedirectTo
+  commentId: P:Supabase.Gotrue.Responses.GenerateLinkResponse.RedirectTo
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.RedirectTo
+  nameWithType: GenerateLinkResponse.RedirectTo
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.RedirectTo*
+  name: RedirectTo
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_RedirectTo_
+  commentId: Overload:Supabase.Gotrue.Responses.GenerateLinkResponse.RedirectTo
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.RedirectTo
+  nameWithType: GenerateLinkResponse.RedirectTo
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.VerificationType
+  name: VerificationType
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_VerificationType
+  commentId: P:Supabase.Gotrue.Responses.GenerateLinkResponse.VerificationType
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.VerificationType
+  nameWithType: GenerateLinkResponse.VerificationType
+- uid: Supabase.Gotrue.Responses.GenerateLinkResponse.VerificationType*
+  name: VerificationType
+  href: api/Supabase.Gotrue.Responses.GenerateLinkResponse.html#Supabase_Gotrue_Responses_GenerateLinkResponse_VerificationType_
+  commentId: Overload:Supabase.Gotrue.Responses.GenerateLinkResponse.VerificationType
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Responses.GenerateLinkResponse.VerificationType
+  nameWithType: GenerateLinkResponse.VerificationType
 - uid: Supabase.Gotrue.Session
   name: Session
   href: api/Supabase.Gotrue.Session.html
