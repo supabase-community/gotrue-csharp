@@ -229,7 +229,7 @@ namespace Supabase.Gotrue
 			var session = new Session
 			{
 				AccessToken = accessToken,
-				ExpiresIn = int.Parse(expiresIn),
+				ExpiresIn = long.Parse(expiresIn),
 				RefreshToken = refreshToken,
 				TokenType = tokenType,
 				User = user

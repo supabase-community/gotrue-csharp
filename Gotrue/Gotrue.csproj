@@ -52,9 +52,9 @@
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="JWTDecoder" Version="0.9.2" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="supabase-core" Version="0.0.3" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
     </ItemGroup>
     <ItemGroup>
         <None Remove="Exceptions\" />
