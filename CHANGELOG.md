@@ -1,8 +1,13 @@
 ﻿# Changelog
 
+## 4.2.6 - 2023-12-30
+
+- [#83](https://github.com/supabase-community/gotrue-csharp/pull/83) Replaces JWTDecoder package with
+  System.IdentityModel.Tokens.Jwt. Thanks [@FantasyTeddy](https://github.com/FantasyTeddy)!
+
 ## 4.2.5 - 2023-12-15
 
-- [#82](https://github.com/supabase-community/gotrue-csharp/issues/81) - Implements #82 - Creates a `GenerateLink`
+- [#82](https://github.com/supabase-community/gotrue-csharp/issues/82) - Implements #82 - Creates a `GenerateLink`
   method on the `AdminClient` that supports `signup`, `invite`, `magiclink`, `recovery`, `email_change_new`
   and `email_change_current`
 
