@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
@@ -415,12 +416,12 @@ namespace Supabase.Gotrue
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
 				throw new GotrueException("`accessToken` and `refreshToken` cannot be empty.", NoSessionFound);
 
-			var payload = JWTDecoder.Decoder.DecodePayload<User>(accessToken);
+			var payload = new JwtSecurityTokenHandler().ReadJwtToken(accessToken).Payload;
 
-			if (payload == null || payload.ExpiresAt() == DateTime.MinValue)
+			if (payload == null || payload.ValidTo == DateTime.MinValue)
 				throw new GotrueException("`accessToken`'s payload was of an unknown structure.", NoSessionFound);
 
-			if (payload.Expired() || forceAccessTokenRefresh)
+			if (payload.ValidTo < DateTime.UtcNow || forceAccessTokenRefresh)
 			{
 				var result = await _api.RefreshAccessToken(accessToken, refreshToken);
 

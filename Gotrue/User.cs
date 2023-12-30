@@ -68,10 +68,6 @@ namespace Supabase.Gotrue
         
         [JsonProperty("exp")]
         internal int? Exp { get; set; }
-
-        internal DateTime ExpiresAt() => Exp.HasValue ? DateTimeOffset.FromUnixTimeSeconds(Exp.Value).UtcDateTime : DateTime.MinValue;
-        
-        internal bool Expired() => ExpiresAt() < DateTime.UtcNow;
     }
 
     /// <summary>
