@@ -160,9 +160,9 @@ namespace Supabase.Gotrue
 				return TimeSpan.Zero;
 			}
 
-			var interval = (int)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
+			var interval = (long)Math.Floor(_client.CurrentSession.ExpiresIn * 4.0f / 5.0f);
 
-			var timeoutSeconds = Convert.ToInt32((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.UtcNow).TotalSeconds);
+			var timeoutSeconds = Convert.ToInt64((_client.CurrentSession.CreatedAt.AddSeconds(interval) - DateTime.UtcNow).TotalSeconds);
 
 			if (timeoutSeconds > _client.Options.MaximumRefreshWaitTime)
 				timeoutSeconds = _client.Options.MaximumRefreshWaitTime;

@@ -438,7 +438,7 @@ namespace Supabase.Gotrue
 				AccessToken = accessToken,
 				RefreshToken = refreshToken,
 				TokenType = "bearer",
-				ExpiresIn = payload.Exp!.Value,
+				ExpiresIn = payload.Expiration!.Value,
 				User = await _api.GetUser(accessToken)
 			};
 
@@ -485,7 +485,7 @@ namespace Supabase.Gotrue
 			var session = new Session
 			{
 				AccessToken = accessToken,
-				ExpiresIn = int.Parse(expiresIn),
+				ExpiresIn = long.Parse(expiresIn),
 				RefreshToken = refreshToken,
 				TokenType = tokenType,
 				User = user

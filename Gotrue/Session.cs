@@ -13,7 +13,7 @@ namespace Supabase.Gotrue
         public string? AccessToken { get; set; }
 
         [JsonProperty("expires_in")]
-        public int ExpiresIn { get; set; }
+        public long ExpiresIn { get; set; }
 
         [JsonProperty("refresh_token")]
         public string? RefreshToken { get; set; }
