@@ -9,7 +9,7 @@ namespace Supabase.Gotrue.Responses
 	{
 		/// <summary>
 		/// The email link to send to the user.
-		/// The action_link follows the following format: auth/v1/verify?type={verification_type}&token={hashed_token}&redirect_to={redirect_to}
+		/// The action_link follows the following format: auth/v1/verify?type={verification_type}&amp;token={hashed_token}&amp;redirect_to={redirect_to}
 		/// </summary>
 		[JsonProperty("action_link")]
 		public string? ActionLink { get; set; }
