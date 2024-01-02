@@ -12,9 +12,6 @@ namespace Supabase.Gotrue
     /// </summary>
     public class User
     {
-        [JsonProperty("action_link")]
-        public string? ActionLink { get; set; }
-
         [JsonProperty("app_metadata")]
         public Dictionary<string, object> AppMetadata { get; set; } = new Dictionary<string, object>();
 
@@ -65,9 +62,6 @@ namespace Supabase.Gotrue
 
         [JsonProperty("user_metadata")]
         public Dictionary<string, object> UserMetadata { get; set; } = new Dictionary<string, object>();
-        
-        [JsonProperty("exp")]
-        internal int? Exp { get; set; }
     }
 
     /// <summary>

@@ -14,16 +14,34 @@ namespace Supabase.Gotrue
 		/// </summary>
 		public enum LinkType
 		{
+			/// <summary>
+			/// Generate a signup link.
+			/// </summary>
 			[MapTo("signup")]
 			SignUp,
+			/// <summary>
+			/// Generate an invite link.
+			/// </summary>
 			[MapTo("invite")]
 			Invite,
+			/// <summary>
+			/// Generate a magic link.
+			/// </summary>
 			[MapTo("magiclink")]
 			MagicLink,
+			/// <summary>
+			/// Generate a recovery link.
+			/// </summary>
 			[MapTo("recovery")]
 			Recovery,
+			/// <summary>
+			/// Generate an email change link to be sent to the current email address.
+			/// </summary>
 			[MapTo("email_change_current")]
 			EmailChangeCurrent,
+			/// <summary>
+			/// Generate an email change link to be sent to the new email address.
+			/// </summary>
 			[MapTo("email_change_new")]
 			EmailChangeNew
 		}
@@ -86,6 +104,14 @@ namespace Supabase.Gotrue
 	/// </summary>
 	public class GenerateLinkSignupOptions : GenerateLinkOptions
 	{
+		/// <summary>
+		/// Constructs options for <see cref="GenerateLinkOptions.LinkType.SignUp"/>
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="password"></param>
+		/// <remarks>
+		/// <see cref="GenerateLinkOptions.Data"/> is optional
+		/// </remarks>
 		public GenerateLinkSignupOptions(string email, string password) : base(LinkType.SignUp, email)
 		{
 			Password = password;
@@ -97,6 +123,11 @@ namespace Supabase.Gotrue
 	/// </summary>
 	public class GenerateLinkEmailChangeCurrentOptions: GenerateLinkOptions
 	{
+		/// <summary>
+		/// Constructs options for <see cref="GenerateLinkOptions.LinkType.EmailChangeCurrent"/>
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="newEmail"></param>
 		public GenerateLinkEmailChangeCurrentOptions(string email, string newEmail) : base(LinkType.EmailChangeCurrent, email)
 		{
 			NewEmail = newEmail;
@@ -108,6 +139,11 @@ namespace Supabase.Gotrue
 	/// </summary>
 	public class GenerateLinkEmailChangeNewOptions: GenerateLinkOptions
 	{
+		/// <summary>
+		/// Constructs options for <see cref="GenerateLinkOptions.LinkType.EmailChangeNew"/>
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="newEmail"></param>
 		public GenerateLinkEmailChangeNewOptions(string email, string newEmail) : base(LinkType.EmailChangeNew, email)
 		{
 			NewEmail = newEmail;
