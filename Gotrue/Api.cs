@@ -196,6 +196,26 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
+		/// Creates a new anonymous user.
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns>A session where the is_anonymous claim in the access token JWT set to true</returns>
+		public async Task<Session?> SignInAnonymously(SignInAnonymouslyOptions? options = null)
+		{
+			var url = $"{Url}/signup";
+
+			var body = new Dictionary<string, object>();
+
+			if (options?.Data != null)
+				body.Add("data", options.Data);
+
+			if (options != null && !string.IsNullOrEmpty(options.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+
+			return await Helpers.MakeRequest<Session>(HttpMethod.Post, url, body, Headers);
+		}
+
+		/// <summary>
 		/// Allows signing in with an ID token issued by certain supported providers.
 		/// The [idToken] is verified for validity and a new session is established.
 		/// This method of signing in only supports [Provider.Google] or [Provider.Apple].
@@ -266,7 +286,7 @@ namespace Supabase.Gotrue
 
 			if (options?.Data != null)
 				body["data"] = options.Data;
-			
+
 			return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAuthedRequestHeaders(jwt));
 		}
 
@@ -279,6 +299,9 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<Session?> SignUpWithPhone(string phone, string password, SignUpOptions? options = null)
 		{
+			if (string.IsNullOrEmpty(phone))
+				throw new GotrueException("Phone number not provided.", FailureHint.Reason.UserBadPhoneNumber);
+
 			var body = new Dictionary<string, object>
 			{
 				{ "phone", phone },
@@ -643,7 +666,7 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
 		}
-		
+
 		/// <summary>
 		/// Generates email links and OTPs to be sent via a custom email provider.
 		/// </summary>

@@ -207,6 +207,20 @@ namespace GotrueTests
 			IsNotNull(newSession.User);
 		}
 
+		[TestMethod("Client: Signs In Anon User")]
+		public async Task ClientSignsInAnonymously()
+		{
+			var options = new SignInAnonymouslyOptions()
+			{
+				Data = new Dictionary<string, object>() { { "first_name", "John" } }
+			};
+
+			var session = await _client.SignInAnonymously(options);
+
+			IsNotNull(session);
+			AreEqual("John", session.User.UserMetadata["first_name"]);
+		}
+
 		[TestMethod("Client: Sends Magic Login Email")]
 		public async Task ClientSendsMagicLoginEmail()
 		{

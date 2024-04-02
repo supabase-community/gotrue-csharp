@@ -258,7 +258,6 @@ namespace Supabase.Gotrue
 						await _api.SendMobileOTP(identifierOrToken);
 						return null;
 					}
-
 					newSession = await _api.SignInWithPhone(identifierOrToken, password!);
 					UpdateSession(newSession);
 					break;
@@ -293,6 +292,20 @@ namespace Supabase.Gotrue
 			return Task.FromResult(providerUri);
 		}
 
+		/// <inheritdoc />
+		public async Task<Session?> SignInAnonymously(SignInAnonymouslyOptions? options = null)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			DestroySession();
+
+			var newSession = await _api.SignInAnonymously(options);
+			UpdateSession(newSession);
+
+			NotifyAuthStateChange(SignedIn);
+			return CurrentSession;
+		}
 
 		/// <inheritdoc />
 		public async Task<Session?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
@@ -383,7 +396,7 @@ namespace Supabase.Gotrue
 			result.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}
-		
+
 		/// <inheritdoc />
 		public async Task<ResetPasswordForEmailState> ResetPasswordForEmail(ResetPasswordForEmailOptions options)
 		{

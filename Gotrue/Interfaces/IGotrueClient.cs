@@ -263,6 +263,13 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null);
 
 		/// <summary>
+		/// Creates a new anonymous user.
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns>A session where the is_anonymous claim in the access token JWT set to true</returns>
+		Task<TSession?> SignInAnonymously(SignInAnonymouslyOptions? options = null);
+		
+		/// <summary>
 		/// Logs in an existing user via a third-party provider.
 		/// </summary>
 		/// <param name="codeVerifier"></param>
