@@ -2,7 +2,7 @@
 services:
 
   gotrue:
-    image: supabase/gotrue:v2.145.0
+    image: supabase/gotrue:v2.146.0-rc.10
     ports:
       - "9999:9999"
     environment:

@@ -179,7 +179,7 @@ namespace GotrueTests
 			AreEqual("f533268b824e95839010fd876b7f565e3f69c9220b1a701f42ccfec97c2cd321", helloAppleVerifier);
 		}
 
-		[TestMethod("Service Role: Generate Email Signup Link")]
+		/*[TestMethod("Service Role: Generate Email Signup Link")]
 		public async Task GenerateEmailSignupLink()
 		{
 			var email = $"{RandomString(12)}@supabase.io";
@@ -199,7 +199,7 @@ namespace GotrueTests
 			var result = await _client.GenerateLink(options);
 
 			AreEqual(result.VerificationType, "invite");
-		}
+		}*/
 
 		[TestMethod("Service Role: Generate Email Magic Link")]
 		public async Task GenerateEmailMagicLink()

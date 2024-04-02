@@ -661,7 +661,8 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Calls the GoTrue server to get the settings (for example, if email auto confirmation is turned on)
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>mpose up -d
+		/// </returns>
 		public Task<Settings?> Settings()
 		{
 			return Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
@@ -676,6 +677,7 @@ namespace Supabase.Gotrue
 		public Task<BaseResponse> GenerateLink(string jwt, GenerateLinkOptions options)
 		{
 			var url = string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/admin/generate_link" : $"{Url}/admin/generate_link?redirect_to={options.RedirectTo}";
+			
 			return Helpers.MakeRequest(HttpMethod.Post, url, options, CreateAuthedRequestHeaders(jwt));
 		}
 

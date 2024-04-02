@@ -49,25 +49,25 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// The type of link being generated
 		/// </summary>
-		[JsonProperty("type")]
+		[JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
 		public string Type { get; }
 		
 		/// <summary>
 		/// The User's Email
 		/// </summary>
-		[JsonProperty("email")]
+		[JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
 		public string Email { get; }
 		
 		/// <summary>
 		/// Only required if generating a signup link.
 		/// </summary>
-		[JsonProperty("password")]
+		[JsonProperty("password", NullValueHandling = NullValueHandling.Ignore)]
 		public string? Password { get; set; }
 		
 		/// <summary>
 		/// The user's new email. Only required if type is 'email_change_current' or 'email_change_new'.
 		/// </summary>
-		[JsonProperty("new_email")]
+		[JsonProperty("new_email", NullValueHandling = NullValueHandling.Ignore)]
 		public string? NewEmail { get; set; }
 		
 		/// <summary>
@@ -81,6 +81,7 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// The URL which will be appended to the email link generated.
 		/// </summary>
+		[JsonIgnore]
 		public string? RedirectTo { get; set; }
 
 		/// <summary>

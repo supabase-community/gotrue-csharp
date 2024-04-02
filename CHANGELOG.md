@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 4.2.7 - 2024-04-02
+
+- [#88](https://github.com/supabase-community/gotrue-csharp/issues/88) Implement `signInAnonymously` from the JS client
+- Include additional 3rd party providers in constants.
+
 ## 4.2.6 - 2023-12-30
 
 - [#83](https://github.com/supabase-community/gotrue-csharp/pull/83) Replaces JWTDecoder package with
