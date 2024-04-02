@@ -2,7 +2,7 @@
 services:
 
   gotrue:
-    image: supabase/gotrue:v2.129.0
+    image: supabase/gotrue:v2.145.0
     ports:
       - "9999:9999"
     environment:
@@ -22,6 +22,7 @@ services:
       GOTRUE_MAILER_AUTOCONFIRM: "true"
       GOTRUE_SMS_AUTOCONFIRM: 'true'
       GOTRUE_SMS_PROVIDER: "twilio"
+      GOTRUE_EXTERNAL_ANONYMOUS_USERS_ENABLED: 'true'
 
     depends_on:
       - db
