@@ -439,6 +439,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.InviteUserByEmail
   nameWithType: Api.InviteUserByEmail
+- uid: Supabase.Gotrue.Api.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  name: LinkIdentity(string, Provider, SignInOptions)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_LinkIdentity_System_String_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
+  commentId: M:Supabase.Gotrue.Api.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  name.vb: LinkIdentity(String, Provider, SignInOptions)
+  fullName: Supabase.Gotrue.Api.LinkIdentity(string, Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  fullName.vb: Supabase.Gotrue.Api.LinkIdentity(String, Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  nameWithType: Api.LinkIdentity(string, Constants.Provider, SignInOptions)
+  nameWithType.vb: Api.LinkIdentity(String, Constants.Provider, SignInOptions)
+- uid: Supabase.Gotrue.Api.LinkIdentity*
+  name: LinkIdentity
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_LinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Api.LinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.LinkIdentity
+  nameWithType: Api.LinkIdentity
 - uid: Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
   name: ListUsers(string, string?, string?, SortOrder, int?, int?)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
@@ -685,6 +701,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.SignUpWithPhone
   nameWithType: Api.SignUpWithPhone
+- uid: Supabase.Gotrue.Api.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)
+  name: UnlinkIdentity(string, UserIdentity)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_UnlinkIdentity_System_String_Supabase_Gotrue_UserIdentity_
+  commentId: M:Supabase.Gotrue.Api.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)
+  name.vb: UnlinkIdentity(String, UserIdentity)
+  fullName: Supabase.Gotrue.Api.UnlinkIdentity(string, Supabase.Gotrue.UserIdentity)
+  fullName.vb: Supabase.Gotrue.Api.UnlinkIdentity(String, Supabase.Gotrue.UserIdentity)
+  nameWithType: Api.UnlinkIdentity(string, UserIdentity)
+  nameWithType.vb: Api.UnlinkIdentity(String, UserIdentity)
+- uid: Supabase.Gotrue.Api.UnlinkIdentity*
+  name: UnlinkIdentity
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_UnlinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Api.UnlinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.UnlinkIdentity
+  nameWithType: Api.UnlinkIdentity
 - uid: Supabase.Gotrue.Api.UpdateUser(System.String,Supabase.Gotrue.UserAttributes)
   name: UpdateUser(string, UserAttributes)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_UpdateUser_System_String_Supabase_Gotrue_UserAttributes_
@@ -921,6 +953,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.GetUser
   nameWithType: Client.GetUser
+- uid: Supabase.Gotrue.Client.LinkIdentity(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  name: LinkIdentity(Provider, SignInOptions)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_LinkIdentity_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
+  commentId: M:Supabase.Gotrue.Client.LinkIdentity(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  fullName: Supabase.Gotrue.Client.LinkIdentity(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  nameWithType: Client.LinkIdentity(Constants.Provider, SignInOptions)
+- uid: Supabase.Gotrue.Client.LinkIdentity*
+  name: LinkIdentity
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_LinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Client.LinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.LinkIdentity
+  nameWithType: Client.LinkIdentity
 - uid: Supabase.Gotrue.Client.LoadSession
   name: LoadSession()
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_LoadSession
@@ -1306,6 +1351,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.TokenRefresh
   nameWithType: Client.TokenRefresh
+- uid: Supabase.Gotrue.Client.UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  name: UnlinkIdentity(UserIdentity)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_UnlinkIdentity_Supabase_Gotrue_UserIdentity_
+  commentId: M:Supabase.Gotrue.Client.UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  fullName: Supabase.Gotrue.Client.UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  nameWithType: Client.UnlinkIdentity(UserIdentity)
+- uid: Supabase.Gotrue.Client.UnlinkIdentity*
+  name: UnlinkIdentity
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_UnlinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Client.UnlinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.UnlinkIdentity
+  nameWithType: Client.UnlinkIdentity
 - uid: Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)
   name: Update(UserAttributes)
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_Update_Supabase_Gotrue_UserAttributes_
@@ -1850,6 +1908,12 @@ references:
   commentId: F:Supabase.Gotrue.Exceptions.FailureHint.Reason.ExpiredRefreshToken
   fullName: Supabase.Gotrue.Exceptions.FailureHint.Reason.ExpiredRefreshToken
   nameWithType: FailureHint.Reason.ExpiredRefreshToken
+- uid: Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidFlowType
+  name: InvalidFlowType
+  href: api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_InvalidFlowType
+  commentId: F:Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidFlowType
+  fullName: Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidFlowType
+  nameWithType: FailureHint.Reason.InvalidFlowType
 - uid: Supabase.Gotrue.Exceptions.FailureHint.Reason.InvalidRefreshToken
   name: InvalidRefreshToken
   href: api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_InvalidRefreshToken
@@ -2652,6 +2716,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).InviteUserByEmail
   nameWithType: IGotrueApi<TUser, TSession>.InviteUserByEmail
   nameWithType.vb: IGotrueApi(Of TUser, TSession).InviteUserByEmail
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  name: LinkIdentity(string, Provider, SignInOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentity_System_String_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  name.vb: LinkIdentity(String, Provider, SignInOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.LinkIdentity(string, Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).LinkIdentity(String, Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  nameWithType: IGotrueApi<TUser, TSession>.LinkIdentity(string, Constants.Provider, SignInOptions)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).LinkIdentity(String, Constants.Provider, SignInOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity*
+  name: LinkIdentity
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.LinkIdentity
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).LinkIdentity
+  nameWithType: IGotrueApi<TUser, TSession>.LinkIdentity
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).LinkIdentity
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})
   name: ListUsers(string, string?, string?, SortOrder, int?, int?)
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__
@@ -2936,6 +3018,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignUpWithPhone
   nameWithType: IGotrueApi<TUser, TSession>.SignUpWithPhone
   nameWithType.vb: IGotrueApi(Of TUser, TSession).SignUpWithPhone
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)
+  name: UnlinkIdentity(string, UserIdentity)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_UnlinkIdentity_System_String_Supabase_Gotrue_UserIdentity_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)
+  name.vb: UnlinkIdentity(String, UserIdentity)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.UnlinkIdentity(string, Supabase.Gotrue.UserIdentity)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).UnlinkIdentity(String, Supabase.Gotrue.UserIdentity)
+  nameWithType: IGotrueApi<TUser, TSession>.UnlinkIdentity(string, UserIdentity)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).UnlinkIdentity(String, UserIdentity)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity*
+  name: UnlinkIdentity
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_UnlinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.UnlinkIdentity
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).UnlinkIdentity
+  nameWithType: IGotrueApi<TUser, TSession>.UnlinkIdentity
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).UnlinkIdentity
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.UpdateUser(System.String,Supabase.Gotrue.UserAttributes)
   name: UpdateUser(string, UserAttributes)
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_UpdateUser_System_String_Supabase_Gotrue_UserAttributes_
@@ -3184,6 +3284,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).GetUser
   nameWithType: IGotrueClient<TUser, TSession>.GetUser
   nameWithType.vb: IGotrueClient(Of TUser, TSession).GetUser
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentity(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  name: LinkIdentity(Provider, SignInOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_LinkIdentity_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentity(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.LinkIdentity(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).LinkIdentity(Supabase.Gotrue.Constants.Provider, Supabase.Gotrue.SignInOptions)
+  nameWithType: IGotrueClient<TUser, TSession>.LinkIdentity(Constants.Provider, SignInOptions)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).LinkIdentity(Constants.Provider, SignInOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentity*
+  name: LinkIdentity
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_LinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.LinkIdentity
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).LinkIdentity
+  nameWithType: IGotrueClient<TUser, TSession>.LinkIdentity
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).LinkIdentity
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.LoadSession
   name: LoadSession()
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_LoadSession
@@ -3619,6 +3736,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignUp
   nameWithType: IGotrueClient<TUser, TSession>.SignUp
   nameWithType.vb: IGotrueClient(Of TUser, TSession).SignUp
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  name: UnlinkIdentity(UserIdentity)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_UnlinkIdentity_Supabase_Gotrue_UserIdentity_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).UnlinkIdentity(Supabase.Gotrue.UserIdentity)
+  nameWithType: IGotrueClient<TUser, TSession>.UnlinkIdentity(UserIdentity)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).UnlinkIdentity(UserIdentity)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.UnlinkIdentity*
+  name: UnlinkIdentity
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_UnlinkIdentity_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.UnlinkIdentity
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.UnlinkIdentity
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).UnlinkIdentity
+  nameWithType: IGotrueClient<TUser, TSession>.UnlinkIdentity
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).UnlinkIdentity
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.Update(Supabase.Gotrue.UserAttributes)
   name: Update(UserAttributes)
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_Update_Supabase_Gotrue_UserAttributes_
@@ -5897,6 +6031,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.UserIdentity.IdentityData
   nameWithType: UserIdentity.IdentityData
+- uid: Supabase.Gotrue.UserIdentity.IdentityId
+  name: IdentityId
+  href: api/Supabase.Gotrue.UserIdentity.html#Supabase_Gotrue_UserIdentity_IdentityId
+  commentId: P:Supabase.Gotrue.UserIdentity.IdentityId
+  fullName: Supabase.Gotrue.UserIdentity.IdentityId
+  nameWithType: UserIdentity.IdentityId
+- uid: Supabase.Gotrue.UserIdentity.IdentityId*
+  name: IdentityId
+  href: api/Supabase.Gotrue.UserIdentity.html#Supabase_Gotrue_UserIdentity_IdentityId_
+  commentId: Overload:Supabase.Gotrue.UserIdentity.IdentityId
+  isSpec: "True"
+  fullName: Supabase.Gotrue.UserIdentity.IdentityId
+  nameWithType: UserIdentity.IdentityId
 - uid: Supabase.Gotrue.UserIdentity.LastSignInAt
   name: LastSignInAt
   href: api/Supabase.Gotrue.UserIdentity.html#Supabase_Gotrue_UserIdentity_LastSignInAt

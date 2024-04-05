@@ -438,6 +438,50 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
 
 
+  <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentity_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity*"></a>
+
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentity_System_String_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)">
+  LinkIdentity(string, Provider, SignInOptions)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.</p>
+<p>This method requires the PKCE flow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ProviderAuthState&gt; LinkIdentity(string token, Constants.Provider provider, SignInOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>User's token</p>
+</dd>
+    <dt><code>provider</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Provider</a></dt>
+    <dd><p>Provider to Link</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignInOptions.html">SignInOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_ListUsers_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers*"></a>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})">
@@ -1064,6 +1108,47 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TSession&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_UnlinkIdentity_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity*"></a>
+
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_UnlinkIdentity_System_String_Supabase_Gotrue_UserIdentity_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)">
+  UnlinkIdentity(string, UserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; UnlinkIdentity(string token, UserIdentity userIdentity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>User's token</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="Supabase.Gotrue.UserIdentity.html">UserIdentity</a></dt>
+    <dd><p>Identity to be unlinked</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
     <dd></dd>
   </dl>
 

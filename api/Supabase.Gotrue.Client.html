@@ -287,7 +287,7 @@ To persist modifications to the User you'll want to use other methods.
 
   <h3 id="Supabase_Gotrue_Client_GetHeaders" data-uid="Supabase.Gotrue.Client.GetHeaders">
   GetHeaders
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L579"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L605"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Headers sent to the API on every request.</p>
@@ -422,7 +422,7 @@ to turn this on and off as the device goes online and offline.</p>
 
   <h3 id="Supabase_Gotrue_Client_AddDebugListener_System_Action_System_String_System_Exception__" data-uid="Supabase.Gotrue.Client.AddDebugListener(System.Action{System.String,System.Exception})">
   AddDebugListener(Action&lt;string, Exception?&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L587"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L613"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add a listener to get errors that occur outside of a typical Exception flow.
@@ -520,7 +520,7 @@ listeners. Clearing the listeners will also delete these handlers.</p>
 
   <h3 id="Supabase_Gotrue_Client_Debug_System_String_System_Exception_" data-uid="Supabase.Gotrue.Client.Debug(System.String,System.Exception)">
   Debug(string, Exception?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L674"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L700"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Posts messages and exceptions to the debug listener. This is particularly useful for sorting
@@ -555,7 +555,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_ExchangeCodeForSession_System_String_System_String_" data-uid="Supabase.Gotrue.Client.ExchangeCodeForSession(System.String,System.String)">
   ExchangeCodeForSession(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L562"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L588"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Logs in an existing user via a third-party provider.</p>
@@ -594,7 +594,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_GetSessionFromUrl_System_Uri_System_Boolean_" data-uid="Supabase.Gotrue.Client.GetSessionFromUrl(System.Uri,System.Boolean)">
   GetSessionFromUrl(Uri, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L468"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L494"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Parses a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> out of a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uri">Uri</a>'s Query parameters.</p>
@@ -667,11 +667,52 @@ out issues with the refresh token background thread.</p>
 
 
 
+  <a id="Supabase_Gotrue_Client_LinkIdentity_" data-uid="Supabase.Gotrue.Client.LinkIdentity*"></a>
+
+  <h3 id="Supabase_Gotrue_Client_LinkIdentity_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Client.LinkIdentity(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)">
+  LinkIdentity(Provider, SignInOptions)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L352"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.</p>
+<p>This method requires the PKCE flow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ProviderAuthState&gt; LinkIdentity(Constants.Provider provider, SignInOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>provider</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Provider</a></dt>
+    <dd><p>Provider to Link</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignInOptions.html">SignInOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Client_LoadSession_" data-uid="Supabase.Gotrue.Client.LoadSession*"></a>
 
   <h3 id="Supabase_Gotrue_Client_LoadSession" data-uid="Supabase.Gotrue.Client.LoadSession">
   LoadSession()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L658"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L684"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads the session from the persistence layer.</p>
@@ -731,7 +772,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_Reauthenticate" data-uid="Supabase.Gotrue.Client.Reauthenticate">
   Reauthenticate()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L379"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L405"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Used for re-authenticating a user in password changes.</p>
@@ -769,7 +810,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_RefreshSession" data-uid="Supabase.Gotrue.Client.RefreshSession">
   RefreshSession()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L408"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L434"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Refreshes the currently logged in User's Session.</p>
@@ -801,7 +842,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_RefreshToken" data-uid="Supabase.Gotrue.Client.RefreshToken">
   RefreshToken()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L635"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L661"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Refreshes a Token using the current session.</p>
@@ -833,7 +874,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_RefreshToken_System_String_System_String_" data-uid="Supabase.Gotrue.Client.RefreshToken(System.String,System.String)">
   RefreshToken(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L620"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L646"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -903,7 +944,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_ResetPasswordForEmail_Supabase_Gotrue_ResetPasswordForEmailOptions_" data-uid="Supabase.Gotrue.Client.ResetPasswordForEmail(Supabase.Gotrue.ResetPasswordForEmailOptions)">
   ResetPasswordForEmail(ResetPasswordForEmailOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L401"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L427"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends a password reset request to an email address.</p>
@@ -941,7 +982,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_ResetPasswordForEmail_System_String_" data-uid="Supabase.Gotrue.Client.ResetPasswordForEmail(System.String)">
   ResetPasswordForEmail(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L393"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L419"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends a reset request to an email address.</p>
@@ -978,7 +1019,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Client_RetrieveSessionAsync" data-uid="Supabase.Gotrue.Client.RetrieveSessionAsync">
   RetrieveSessionAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L520"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L546"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Typically called as part of the startup process for the client.</p>
@@ -1086,7 +1127,7 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Client_SetSession_System_String_System_String_System_Boolean_" data-uid="Supabase.Gotrue.Client.SetSession(System.String,System.String,System.Boolean)">
   SetSession(string, string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L425"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L451"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets a new session given a user's access token and their refresh token.</p>
@@ -1141,7 +1182,7 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Client_Settings" data-uid="Supabase.Gotrue.Client.Settings">
   Settings()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L665"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L691"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the settings from the server</p>
@@ -1173,7 +1214,7 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Client_Shutdown" data-uid="Supabase.Gotrue.Client.Shutdown">
   Shutdown()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L680"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L706"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Let all of the listeners know that the stateless client is being shutdown.</p>
@@ -1594,7 +1635,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Client_SignOut" data-uid="Supabase.Gotrue.Client.SignOut">
   SignOut()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L353"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L379"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Signs out a user and invalidates the current token.</p>
@@ -1732,11 +1773,49 @@ To fetch the currently logged-in user, refer to <see><cref>User</cref></see>.</p
 
 
 
+  <a id="Supabase_Gotrue_Client_UnlinkIdentity_" data-uid="Supabase.Gotrue.Client.UnlinkIdentity*"></a>
+
+  <h3 id="Supabase_Gotrue_Client_UnlinkIdentity_Supabase_Gotrue_UserIdentity_" data-uid="Supabase.Gotrue.Client.UnlinkIdentity(Supabase.Gotrue.UserIdentity)">
+  UnlinkIdentity(UserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L367"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; UnlinkIdentity(UserIdentity userIdentity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>userIdentity</code> <a class="xref" href="Supabase.Gotrue.UserIdentity.html">UserIdentity</a></dt>
+    <dd><p>Identity to be unlinked</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Client_Update_" data-uid="Supabase.Gotrue.Client.Update*"></a>
 
   <h3 id="Supabase_Gotrue_Client_Update_Supabase_Gotrue_UserAttributes_" data-uid="Supabase.Gotrue.Client.Update(Supabase.Gotrue.UserAttributes)">
   Update(UserAttributes)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L362"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L388"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates a User.</p>
