@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 4.3.0 - 2024-04-04
+
+- [MINOR] Re: [#89](https://github.com/supabase-community/gotrue-csharp/issues/89) Update signature
+  for `SignInWithIdToken` which adds an optional `accessToken` parameter, update doc comments, and call `DestroySession`
+  in method
+- Re: [#88](https://github.com/supabase-community/gotrue-csharp/issues/88), Add `IsAnonymous` property to `User`
+- Re: [#90](https://github.com/supabase-community/gotrue-csharp/issues/90) Implement `LinkIdentity` and `UnlinkIdentity`
+
 ## 4.2.7 - 2024-04-02
 
 - [#88](https://github.com/supabase-community/gotrue-csharp/issues/88) Implement `signInAnonymously` from the JS client
