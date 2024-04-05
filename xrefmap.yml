@@ -602,15 +602,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.SignInWithEmail
   nameWithType: Api.SignInWithEmail
-- uid: Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name: SignInWithIdToken(Provider, string, string?, string?)
-  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name.vb: SignInWithIdToken(Provider, String, String, String)
-  fullName: Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?)
-  fullName.vb: Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String)
-  nameWithType: Api.SignInWithIdToken(Constants.Provider, string, string?, string?)
-  nameWithType.vb: Api.SignInWithIdToken(Constants.Provider, String, String, String)
+- uid: Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name: SignInWithIdToken(Provider, string, string?, string?, string?)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name.vb: SignInWithIdToken(Provider, String, String, String, String)
+  fullName: Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?, string?)
+  fullName.vb: Supabase.Gotrue.Api.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String, String)
+  nameWithType: Api.SignInWithIdToken(Constants.Provider, string, string?, string?, string?)
+  nameWithType.vb: Api.SignInWithIdToken(Constants.Provider, String, String, String, String)
 - uid: Supabase.Gotrue.Api.SignInWithIdToken*
   name: SignInWithIdToken
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_SignInWithIdToken_
@@ -1249,15 +1249,15 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.SignInAnonymously
   nameWithType: Client.SignInAnonymously
-- uid: Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name: SignInWithIdToken(Provider, string, string?, string?)
-  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name.vb: SignInWithIdToken(Provider, String, String, String)
-  fullName: Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?)
-  fullName.vb: Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String)
-  nameWithType: Client.SignInWithIdToken(Constants.Provider, string, string?, string?)
-  nameWithType.vb: Client.SignInWithIdToken(Constants.Provider, String, String, String)
+- uid: Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name: SignInWithIdToken(Provider, string, string?, string?, string?)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name.vb: SignInWithIdToken(Provider, String, String, String, String)
+  fullName: Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?, string?)
+  fullName.vb: Supabase.Gotrue.Client.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String, String)
+  nameWithType: Client.SignInWithIdToken(Constants.Provider, string, string?, string?, string?)
+  nameWithType.vb: Client.SignInWithIdToken(Constants.Provider, String, String, String, String)
 - uid: Supabase.Gotrue.Client.SignInWithIdToken*
   name: SignInWithIdToken
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_SignInWithIdToken_
@@ -2903,15 +2903,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithEmail
   nameWithType: IGotrueApi<TUser, TSession>.SignInWithEmail
   nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithEmail
-- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name: SignInWithIdToken(Provider, string, string?, string?)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name.vb: SignInWithIdToken(Provider, String, String, String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String)
-  nameWithType: IGotrueApi<TUser, TSession>.SignInWithIdToken(Constants.Provider, string, string?, string?)
-  nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithIdToken(Constants.Provider, String, String, String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name: SignInWithIdToken(Provider, string, string?, string?, string?)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name.vb: SignInWithIdToken(Provider, String, String, String, String)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?, string?)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String, String)
+  nameWithType: IGotrueApi<TUser, TSession>.SignInWithIdToken(Constants.Provider, string, string?, string?, string?)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).SignInWithIdToken(Constants.Provider, String, String, String, String)
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken*
   name: SignInWithIdToken
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithIdToken_
@@ -3631,15 +3631,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInAnonymously
   nameWithType: IGotrueClient<TUser, TSession>.SignInAnonymously
   nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInAnonymously
-- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name: SignInWithIdToken(Provider, string, string?, string?)
-  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_
-  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)
-  name.vb: SignInWithIdToken(Provider, String, String, String)
-  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?)
-  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String)
-  nameWithType: IGotrueClient<TUser, TSession>.SignInWithIdToken(Constants.Provider, string, string?, string?)
-  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInWithIdToken(Constants.Provider, String, String, String)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name: SignInWithIdToken(Provider, string, string?, string?, string?)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name.vb: SignInWithIdToken(Provider, String, String, String, String)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.SignInWithIdToken(Supabase.Gotrue.Constants.Provider, string, string?, string?, string?)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).SignInWithIdToken(Supabase.Gotrue.Constants.Provider, String, String, String, String)
+  nameWithType: IGotrueClient<TUser, TSession>.SignInWithIdToken(Constants.Provider, string, string?, string?, string?)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).SignInWithIdToken(Constants.Provider, String, String, String, String)
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithIdToken*
   name: SignInWithIdToken
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithIdToken_

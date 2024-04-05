@@ -855,8 +855,8 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
   <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithIdToken_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken*"></a>
 
-  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String)">
-  SignInWithIdToken(Provider, string, string?, string?)
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)">
+  SignInWithIdToken(Provider, string, string?, string?, string?)
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -864,7 +864,7 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;TSession?&gt; SignInWithIdToken(Constants.Provider provider, string idToken, string? nonce = null, string? captchaToken = null)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;TSession?&gt; SignInWithIdToken(Constants.Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -872,6 +872,8 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
     <dt><code>provider</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Provider</a></dt>
     <dd></dd>
     <dt><code>idToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>accessToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>nonce</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
