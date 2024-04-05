@@ -441,62 +441,17 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		private Dictionary<string, string> CreateAuthedRequestHeaders(string jwt)
 		{
-			var headers = new Dictionary<string, string>(Headers);
-
-			headers["Authorization"] = $"Bearer {jwt}";
+			var headers = new Dictionary<string, string>(Headers)
+			{
+				["Authorization"] = $"Bearer {jwt}"
+			};
 
 			return headers;
 		}
 
-		/// <summary>
-		/// Generates the relevant login URI for a third-party provider.
-		/// </summary>
-		/// <param name="provider"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
-		public ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null)
-		{
-			var builder = new UriBuilder($"{Url}/authorize");
-			var result = new ProviderAuthState(builder.Uri);
-
-			var attr = Core.Helpers.GetMappedToAttr(provider);
-			var query = HttpUtility.ParseQueryString("");
-			options ??= new SignInOptions();
-
-			if (options.FlowType == OAuthFlowType.PKCE)
-			{
-				var codeVerifier = Helpers.GenerateNonce();
-				var codeChallenge = Helpers.GeneratePKCENonceVerifier(codeVerifier);
-
-				query.Add("flow_type", "pkce");
-				query.Add("code_challenge", codeChallenge);
-				query.Add("code_challenge_method", "s256");
-
-				result.PKCEVerifier = codeVerifier;
-			}
-
-			if (attr is MapToAttribute)
-			{
-				query.Add("provider", attr.Mapping);
-
-				if (!string.IsNullOrEmpty(options.Scopes))
-					query.Add("scopes", options.Scopes);
-
-				if (!string.IsNullOrEmpty(options.RedirectTo))
-					query.Add("redirect_to", options.RedirectTo);
-
-				if (options.QueryParams != null)
-					foreach (var param in options.QueryParams)
-						query[param.Key] = param.Value;
-
-				builder.Query = query.ToString();
-
-				result.Uri = builder.Uri;
-				return result;
-			}
-
-			throw new Exception("Unknown provider");
-		}
+		/// <inheritdoc />
+		public ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null) =>
+			Helpers.GetUrlForProvider($"{Url}/authorize", provider, options);
 
 		/// <summary>
 		/// Log in an existing user via code from third-party provider.
@@ -514,6 +469,21 @@ namespace Supabase.Gotrue
 			};
 
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, Headers);
+		}
+		
+		/// <inheritdoc />
+		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
+		{
+			var state = Helpers.GetUrlForProvider($"{Url}/user/identities/authorize", provider, options);
+			await Helpers.MakeRequest(HttpMethod.Get, state.Uri.ToString(), null, CreateAuthedRequestHeaders(token));
+			return state;
+		}
+
+		/// <inheritdoc />
+		public async Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity)
+		{
+			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/${userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
+			return result.ResponseMessage is { IsSuccessStatusCode: true };
 		}
 
 		/// <summary>
@@ -677,7 +647,7 @@ namespace Supabase.Gotrue
 		public Task<BaseResponse> GenerateLink(string jwt, GenerateLinkOptions options)
 		{
 			var url = string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/admin/generate_link" : $"{Url}/admin/generate_link?redirect_to={options.RedirectTo}";
-			
+
 			return Helpers.MakeRequest(HttpMethod.Post, url, options, CreateAuthedRequestHeaders(jwt));
 		}
 

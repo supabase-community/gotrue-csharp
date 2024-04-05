@@ -23,6 +23,11 @@ services:
       GOTRUE_SMS_AUTOCONFIRM: 'true'
       GOTRUE_SMS_PROVIDER: "twilio"
       GOTRUE_EXTERNAL_ANONYMOUS_USERS_ENABLED: 'true'
+      GOTRUE_EXTERNAL_GITHUB_ENABLED: true
+      GOTRUE_EXTERNAL_GITHUB_CLIENT_ID: myappclientid
+      GOTRUE_EXTERNAL_GITHUB_SECRET: clientsecretvaluessssh
+      GOTRUE_EXTERNAL_GITHUB_REDIRECT_URI: http://localhost:3000/callback
+      GOTRUE_SECURITY_MANUAL_LINKING_ENABLED: 'true'
 
     depends_on:
       - db

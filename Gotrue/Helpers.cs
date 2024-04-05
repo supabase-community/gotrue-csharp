@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
+using Supabase.Core.Attributes;
+using Supabase.Core.Extensions;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Responses;
 namespace Supabase.Gotrue
@@ -71,6 +73,57 @@ namespace Supabase.Gotrue
 			foreach (var t in hash)
 				result += t.ToString("x2");
 
+			return result;
+		}
+
+		/// <summary>
+		/// Generates the relevant login URL for a third-party provider.
+		///
+		/// Modeled after: https://github.com/supabase/auth-js/blob/92fefbd49f25e20793ca74d5b83142a1bb805a18/src/GoTrueClient.ts#L2294-L2332
+		/// </summary>
+		/// <param name="url"></param>
+		/// <param name="provider"></param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		internal static ProviderAuthState GetUrlForProvider(string url, Constants.Provider provider, SignInOptions? options = null)
+		{
+			var builder = new UriBuilder(url);
+			var result = new ProviderAuthState(builder.Uri);
+
+			var attr = Core.Helpers.GetMappedToAttr(provider);
+			var query = HttpUtility.ParseQueryString("");
+			options ??= new SignInOptions();
+
+			if (options.FlowType == Constants.OAuthFlowType.PKCE)
+			{
+				var codeVerifier = Helpers.GenerateNonce();
+				var codeChallenge = Helpers.GeneratePKCENonceVerifier(codeVerifier);
+
+				query.Add("flow_type", "pkce");
+				query.Add("code_challenge", codeChallenge);
+				query.Add("code_challenge_method", "s256");
+
+				result.PKCEVerifier = codeVerifier;
+			}
+
+			if (attr == null)
+				throw new Exception("Unknown provider");
+
+			query.Add("provider", attr.Mapping);
+
+			if (!string.IsNullOrEmpty(options.Scopes))
+				query.Add("scopes", options.Scopes);
+
+			if (!string.IsNullOrEmpty(options.RedirectTo))
+				query.Add("redirect_to", options.RedirectTo);
+
+			if (options.QueryParams != null)
+				foreach (var param in options.QueryParams)
+					query[param.Key] = param.Value;
+
+			builder.Query = query.ToString();
+
+			result.Uri = builder.Uri;
 			return result;
 		}
 

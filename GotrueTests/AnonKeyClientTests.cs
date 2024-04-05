@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
@@ -382,6 +383,28 @@ namespace GotrueTests
 			};
 
 			var result = await _client.ResetPasswordForEmail(options);
+
+			IsFalse(string.IsNullOrEmpty(result.PKCEVerifier));
+		}
+
+		[TestMethod("Client: Can Form LinkIdentity (PKCE)")]
+		public async Task ClientLinkIdentityPKCE()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+
+			await ThrowsExceptionAsync<GotrueException>(async () => await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions
+			{
+				FlowType = Constants.OAuthFlowType.PKCE
+			}));
+
+			await ThrowsExceptionAsync<GotrueException>(async () => await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions()));
+
+			var session = await _client.SignUp(email, PASSWORD);
+
+			var result = await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions
+			{
+				FlowType = Constants.OAuthFlowType.PKCE
+			});
 
 			IsFalse(string.IsNullOrEmpty(result.PKCEVerifier));
 		}

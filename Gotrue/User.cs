@@ -165,25 +165,28 @@ namespace Supabase.Gotrue
 	/// </summary>
 	public class UserIdentity
 	{
-		[JsonProperty("created_at")]
-		public DateTime CreatedAt { get; set; }
-
 		[JsonProperty("id")]
 		public string? Id { get; set; }
+
+		[JsonProperty("user_id")]
+		public string? UserId { get; set; }
 
 		[JsonProperty("identity_data")]
 		public Dictionary<string, object> IdentityData { get; set; } = new Dictionary<string, object>();
 
-		[JsonProperty("last_sign_in_at")]
-		public DateTime LastSignInAt { get; set; }
-
+		[JsonProperty("identity_id")]
+		public string IdentityId { get; set; } = null!;
+		
 		[JsonProperty("provider")]
 		public string? Provider { get; set; }
 
+		[JsonProperty("created_at")]
+		public DateTime CreatedAt { get; set; }
+		
+		[JsonProperty("last_sign_in_at")]
+		public DateTime LastSignInAt { get; set; }
+		
 		[JsonProperty("updated_at")]
 		public DateTime? UpdatedAt { get; set; }
-
-		[JsonProperty("user_id")]
-		public string? UserId { get; set; }
 	}
 }

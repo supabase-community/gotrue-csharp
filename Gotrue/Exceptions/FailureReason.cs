@@ -75,7 +75,11 @@ namespace Supabase.Gotrue.Exceptions
 			/// <summary>
 			/// Something wrong with the URL to session transformation
 			/// </summary>
-			BadSessionUrl
+			BadSessionUrl,
+			/// <summary>
+			/// An invalid authentication flow has been selected.
+			/// </summary>
+			InvalidFlowType
 		}
 
 		/// <summary>

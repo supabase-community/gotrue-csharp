@@ -347,7 +347,33 @@ namespace Supabase.Gotrue
 
 			return null;
 		}
+		
+		/// <inheritdoc />
+		public Task<ProviderAuthState> LinkIdentity(Provider provider, SignInOptions options)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
 
+			if (CurrentSession == null || CurrentUser == null)
+				throw new GotrueException("A valid session is required.", NoSessionFound);
+
+			if (options.FlowType != OAuthFlowType.PKCE)
+				throw new GotrueException("PKCE flow type is required for this action.", InvalidFlowType);
+			
+			return _api.LinkIdentity(CurrentSession.AccessToken!, provider, options);
+		}
+
+		/// <inheritdoc />
+		public Task<bool> UnlinkIdentity(UserIdentity userIdentity)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			if (CurrentSession == null || CurrentUser == null)
+				throw new GotrueException("A valid session is required.", NoSessionFound);
+
+			return _api.UnlinkIdentity(CurrentSession.AccessToken!, userIdentity);
+		}
 
 		/// <inheritdoc />
 		public async Task SignOut()

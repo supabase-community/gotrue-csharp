@@ -363,6 +363,23 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink);
 
 		/// <summary>
+		/// Links an oauth identity to an existing user.
+		///
+		/// This method requires the PKCE flow.
+		/// </summary>
+		/// <param name="provider">Provider to Link</param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		Task<ProviderAuthState> LinkIdentity(Provider provider, SignInOptions options);
+
+		/// <summary>
+		/// Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.
+		/// </summary>
+		/// <param name="userIdentity">Identity to be unlinked</param>
+		/// <returns></returns>
+		Task<bool> UnlinkIdentity(UserIdentity userIdentity);
+		
+		/// <summary>
 		/// Add a listener to get errors that occur outside of a typical Exception flow.
 		/// In particular, this is used to get errors and messages from the background thread
 		/// that automatically manages refreshing the user's token.

@@ -40,6 +40,25 @@ namespace Supabase.Gotrue.Interfaces
 		Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode);
 		Task<Settings?> Settings();
 		Task<BaseResponse> GenerateLink(string jwt, GenerateLinkOptions options);
+
+		/// <summary>
+		/// Links an oauth identity to an existing user.
+		/// 
+		/// This method requires the PKCE flow.
+		/// </summary>
+		/// <param name="token">User's token</param>
+		/// <param name="provider">Provider to Link</param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options);
+
+		/// <summary>
+		/// Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.
+		/// </summary>
+		/// <param name="token">User's token</param>
+		/// <param name="userIdentity">Identity to be unlinked</param>
+		/// <returns></returns>
+		Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity);
 	}
 
 }
