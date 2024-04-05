@@ -5664,6 +5664,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.User.InvitedAt
   nameWithType: User.InvitedAt
+- uid: Supabase.Gotrue.User.IsAnonymous
+  name: IsAnonymous
+  href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_IsAnonymous
+  commentId: P:Supabase.Gotrue.User.IsAnonymous
+  fullName: Supabase.Gotrue.User.IsAnonymous
+  nameWithType: User.IsAnonymous
+- uid: Supabase.Gotrue.User.IsAnonymous*
+  name: IsAnonymous
+  href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_IsAnonymous_
+  commentId: Overload:Supabase.Gotrue.User.IsAnonymous
+  isSpec: "True"
+  fullName: Supabase.Gotrue.User.IsAnonymous
+  nameWithType: User.IsAnonymous
 - uid: Supabase.Gotrue.User.LastSignInAt
   name: LastSignInAt
   href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_LastSignInAt
