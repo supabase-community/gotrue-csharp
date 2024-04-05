@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 4.3.1 - 2024-04-05
+
+- Re: [#89](https://github.com/supabase-community/gotrue-csharp/issues/89), Only add `access_token` to request body when
+  it is explicitly declared.
+
 ## 4.3.0 - 2024-04-04
 
 - [MINOR] Re: [#89](https://github.com/supabase-community/gotrue-csharp/issues/89) Update signature
