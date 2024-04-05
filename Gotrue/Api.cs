@@ -238,8 +238,10 @@ namespace Supabase.Gotrue
 			{
 				{ "provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
 				{ "id_token", idToken },
-				{ "access_token", accessToken }
 			};
+
+			if (!string.IsNullOrEmpty(accessToken))
+				body.Add("access_token", accessToken);
 
 			if (!string.IsNullOrEmpty(nonce))
 				body.Add("nonce", nonce);

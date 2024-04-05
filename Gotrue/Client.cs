@@ -203,6 +203,7 @@ namespace Supabase.Gotrue
 			var result = await _api.SignInWithIdToken(provider, idToken, accessToken, nonce, captchaToken);
 
 			UpdateSession(result);
+			NotifyAuthStateChange(SignedIn);
 
 			return result;
 		}
