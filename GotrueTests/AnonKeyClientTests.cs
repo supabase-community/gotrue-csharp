@@ -218,6 +218,7 @@ namespace GotrueTests
 			var session = await _client.SignInAnonymously(options);
 
 			IsNotNull(session);
+			IsTrue(session.User.IsAnonymous);
 			AreEqual("John", session.User.UserMetadata["first_name"]);
 		}
 
