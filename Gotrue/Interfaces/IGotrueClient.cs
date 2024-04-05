@@ -252,15 +252,16 @@ namespace Supabase.Gotrue.Interfaces
 		/// The [idToken] is verified for validity and a new session is established.
 		/// This method of signing in only supports [Provider.Google] or [Provider.Apple].
 		/// </summary>
-		/// <param name="provider">A supported provider (Google, Apple)</param>
-		/// <param name="idToken">Provided from External Library</param>
-		/// <param name="nonce">Provided from External Library</param>
-		/// <param name="captchaToken">Provided from External Library</param>
+		/// <param name="provider">Provider name or OIDC `iss` value identifying which provider should be used to verify the provided token. Supported names: `google`, `apple`, `azure`, `facebook`</param>
+		/// <param name="idToken">OIDC ID token issued by the specified provider. The `iss` claim in the ID token must match the supplied provider. Some ID tokens contain an `at_hash` which require that you provide an `access_token` value to be accepted properly. If the token contains a `nonce` claim you must supply the nonce used to obtain the ID token.</param>
+		/// <param name="accessToken">If the ID token contains an `at_hash` claim, then the hash of this value is compared to the value in the ID token.</param>
+		/// <param name="nonce">If the ID token contains a `nonce` claim, then the hash of this value is compared to the value in the ID token.</param>
+		/// <param name="captchaToken">Verification token received when the user completes the captcha on the site.</param>
 		/// <remarks>Calling this method will eliminate the current session (if any).</remarks>
 		/// <exception>
 		///     <cref>InvalidProviderException</cref>
 		/// </exception>
-		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null);
+		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null);
 
 		/// <summary>
 		/// Creates a new anonymous user.

@@ -220,23 +220,25 @@ namespace Supabase.Gotrue
 		/// The [idToken] is verified for validity and a new session is established.
 		/// This method of signing in only supports [Provider.Google] or [Provider.Apple].
 		/// </summary>
-		/// <param name="provider">A supported provider (Google, Apple)</param>
-		/// <param name="idToken"></param>
-		/// <param name="nonce"></param>
-		/// <param name="captchaToken"></param>
+		/// <param name="provider">A supported provider (Google, Apple, Azure, Facebook)</param>
+		/// <param name="idToken">OIDC ID token issued by the specified provider. The `iss` claim in the ID token must match the supplied provider. Some ID tokens contain an `at_hash` which require that you provide an `access_token` value to be accepted properly. If the token contains a `nonce` claim you must supply the nonce used to obtain the ID token.</param>
+		/// <param name="accessToken">If the ID token contains an `at_hash` claim, then the hash of this value is compared to the value in the ID token.</param>
+		/// <param name="nonce">If the ID token contains a `nonce` claim, then the hash of this value is compared to the value in the ID token.</param>
+		/// <param name="captchaToken">Verification token received when the user completes the captcha on the site.</param>
 		/// <returns></returns>
 		/// <exception>
 		///     <cref>InvalidProviderException</cref>
 		/// </exception>
-		public Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null)
+		public Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null)
 		{
-			if (provider != Provider.Google && provider != Provider.Apple)
-				throw new GotrueException($"Provider must be `Provider.Google` or `Provider.Apple` not {provider}");
+			if (provider != Provider.Google && provider != Provider.Apple && provider != Provider.Azure && provider != Provider.Facebook)
+				throw new GotrueException($"Provider must be `Google`, `Apple`, `Azure`, or `Facebook` not {provider}");
 
 			var body = new Dictionary<string, object?>
 			{
 				{ "provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
-				{ "id_token", idToken }
+				{ "id_token", idToken },
+				{ "access_token", accessToken }
 			};
 
 			if (!string.IsNullOrEmpty(nonce))
@@ -244,7 +246,6 @@ namespace Supabase.Gotrue
 
 			if (!string.IsNullOrEmpty(captchaToken))
 				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } });
-
 
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, Headers);
 		}
@@ -470,7 +471,7 @@ namespace Supabase.Gotrue
 
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, Headers);
 		}
-		
+
 		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
 		{

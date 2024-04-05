@@ -22,7 +22,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<ResetPasswordForEmailState> ResetPasswordForEmail(ResetPasswordForEmailOptions options);
 		Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null);
 		Task<BaseResponse> SendMobileOTP(string phone);
-		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null, string? captchaToken = null);
+		Task<TSession?> SignInWithIdToken(Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null);
 		Task<TSession?> SignInWithEmail(string email, string password);
 		Task<TSession?> SignInWithPhone(string phone, string password);
 		Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options);

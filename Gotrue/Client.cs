@@ -192,13 +192,15 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? nonce = null,
+		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? accessToken = null, string? nonce = null,
 			string? captchaToken = null)
 		{
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
-			var result = await _api.SignInWithIdToken(provider, idToken, nonce, captchaToken);
+			DestroySession();
+
+			var result = await _api.SignInWithIdToken(provider, idToken, accessToken, nonce, captchaToken);
 
 			UpdateSession(result);
 
@@ -347,7 +349,7 @@ namespace Supabase.Gotrue
 
 			return null;
 		}
-		
+
 		/// <inheritdoc />
 		public Task<ProviderAuthState> LinkIdentity(Provider provider, SignInOptions options)
 		{
@@ -359,7 +361,7 @@ namespace Supabase.Gotrue
 
 			if (options.FlowType != OAuthFlowType.PKCE)
 				throw new GotrueException("PKCE flow type is required for this action.", InvalidFlowType);
-			
+
 			return _api.LinkIdentity(CurrentSession.AccessToken!, provider, options);
 		}
 
