@@ -53,8 +53,8 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="supabase-core" Version="0.0.3" />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+        <PackageReference Include="Supabase.Core" Version="1.0.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
     </ItemGroup>
     <ItemGroup>
         <None Remove="Exceptions\" />
