@@ -4,12 +4,14 @@
 
 <p align="center">
   <img src="https://github.com/supabase/gotrue-csharp/workflows/Build%20And%20Test/badge.svg"/>
-  <a href="https://www.nuget.org/packages/gotrue-csharp/">
-    <img src="https://img.shields.io/badge/dynamic/json?color=green&label=Nuget%20Release&query=data[0].version&url=https%3A%2F%2Fazuresearch-usnc.nuget.org%2Fquery%3Fq%3Dpackageid%3Agotrue-csharp"/>
+  <a href="https://www.nuget.org/packages/Supabase.Gotrue/">
+    <img src="https://img.shields.io/nuget/vpre/Supabase.Gotrue"/>
   </a>
 </p>
 
 ---
+
+## [Notice]: v5.0.0 renames this package from `gotrue-csharp` to `Supabase.Gotrue`. The depreciation notice has been set in NuGet. The API remains the same.
 
 ## New Features
 

@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 5.0.0 - 2024-04-21
+
+- Re: [#135](supabase-community/supabase-csharp#135) Update nuget package name `gotrue-csharp` to `Supabase.Gotrue`
+- Update dependencies
+
 ## 4.3.1 - 2024-04-05
 
 - Re: [#89](https://github.com/supabase-community/gotrue-csharp/issues/89), Only add `access_token` to request body when
