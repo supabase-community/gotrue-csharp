@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gotrue", "Gotrue\Gotrue.csproj", "{88818A9F-8595-481A-A8FB-039D86118CE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GotrueTests", "GotrueTests\GotrueTests.csproj", "{B2C4F4BD-572E-4182-A2C9-8E5C9F6AD04C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{228693BB-A395-4123-93E8-5299FF875615}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		docker-compose.yml = docker-compose.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GotrueExample", "GotrueExample\GotrueExample.csproj", "{7DD97085-C72E-43B8-A55B-2DFBF6F1AB03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D5046CDD-42A3-41AE-9F96-DF92A7ABB093}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{E5502D64-C4E6-4E87-9882-80D4CC38F877}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+		.github\workflows\build-documentation.yaml = .github\workflows\build-documentation.yaml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88818A9F-8595-481A-A8FB-039D86118CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88818A9F-8595-481A-A8FB-039D86118CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88818A9F-8595-481A-A8FB-039D86118CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88818A9F-8595-481A-A8FB-039D86118CE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2C4F4BD-572E-4182-A2C9-8E5C9F6AD04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C4F4BD-572E-4182-A2C9-8E5C9F6AD04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C4F4BD-572E-4182-A2C9-8E5C9F6AD04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C4F4BD-572E-4182-A2C9-8E5C9F6AD04C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD97085-C72E-43B8-A55B-2DFBF6F1AB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD97085-C72E-43B8-A55B-2DFBF6F1AB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD97085-C72E-43B8-A55B-2DFBF6F1AB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD97085-C72E-43B8-A55B-2DFBF6F1AB03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3CB8EBAC-5D93-461A-8D2D-B83A69E49B4B}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.VersionControlPolicy = $2
+		version = 2.4.0
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D5046CDD-42A3-41AE-9F96-DF92A7ABB093} = {228693BB-A395-4123-93E8-5299FF875615}
+		{E5502D64-C4E6-4E87-9882-80D4CC38F877} = {D5046CDD-42A3-41AE-9F96-DF92A7ABB093}
+	EndGlobalSection
+EndGlobal
