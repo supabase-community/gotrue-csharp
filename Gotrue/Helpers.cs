@@ -206,7 +206,7 @@ namespace Supabase.Gotrue
 
 			try
 			{
-				var response = await Client.SendAsync(requestMessage);
+				using var response = await Client.SendAsync(requestMessage).ConfigureAwait(false);
 				var content = await response.Content.ReadAsStringAsync();
 				if (!response.IsSuccessStatusCode)
 				{
