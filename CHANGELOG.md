@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 5.0.1 - 2024-05-16
+
+- Re: [#96](https://github.com/supabase-community/postgrest-csharp/pull/96) Set `ConfigureAwait(false)` the response to
+  prevent deadlocking applications. Thanks [@pur3extreme](https://github.com/pur3extreme)!
+
 ## 5.0.0 - 2024-04-21
 
 - Re: [#135](supabase-community/supabase-csharp#135) Update nuget package name `gotrue-csharp` to `Supabase.Gotrue`
