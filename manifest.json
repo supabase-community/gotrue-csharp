@@ -452,6 +452,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.SSOResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.SSOResponse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Supabase.Gotrue.Session.yml",
       "output": {
         ".html": {
@@ -486,16 +496,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.SignInOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Supabase.Gotrue.SignInOptionsWithSsoOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Supabase.Gotrue.SignInOptionsWithSsoOptions.html"
         }
       },
       "version": ""
@@ -542,20 +542,20 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Supabase.Gotrue.SignUpOptions.yml",
+      "source_relative_path": "api/Supabase.Gotrue.SignInWithSSOOptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Supabase.Gotrue.SignUpOptions.html"
+          "relative_path": "api/Supabase.Gotrue.SignInWithSSOOptions.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Supabase.Gotrue.SsoResponse.yml",
+      "source_relative_path": "api/Supabase.Gotrue.SignUpOptions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Supabase.Gotrue.SsoResponse.html"
+          "relative_path": "api/Supabase.Gotrue.SignUpOptions.html"
         }
       },
       "version": ""
