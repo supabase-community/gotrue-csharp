@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 5.0.3 - 2024-05-31
+
+- Implement `SignInWithSSO`. Huge thank you to [@Rycko1](https://github.com/Rycko1)
+
 ## 5.0.2 - 2024-05-20
 
 - Add missing properties (`ProviderRefreshToken` and `ProviderToken`) to `Session` object to reflect current state
