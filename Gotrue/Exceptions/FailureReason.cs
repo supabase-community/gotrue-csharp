@@ -79,7 +79,15 @@ namespace Supabase.Gotrue.Exceptions
 			/// <summary>
 			/// An invalid authentication flow has been selected.
 			/// </summary>
-			InvalidFlowType
+			InvalidFlowType,
+			/// <summary>
+			/// The SSO domain provided was not registered via the CLI
+			/// </summary>
+			SsoDomainNotFound,
+			/// <summary>
+			/// The sso provider ID was incorrect or does not exist
+			/// </summary>
+			SsoProviderNotFound
 		}
 
 		/// <summary>
@@ -107,6 +115,8 @@ namespace Supabase.Gotrue.Exceptions
 				401 when gte.Content.Contains("This endpoint requires a Bearer token") => AdminTokenRequired,
 				403 when gte.Content.Contains("Invalid token") => AdminTokenRequired,
 				403 when gte.Content.Contains("invalid JWT") => AdminTokenRequired,
+				404 when gte.Content.Contains("No SSO provider assigned for this domain") => SsoDomainNotFound,
+				404 when gte.Content.Contains("No such SSO provider") => SsoProviderNotFound,
 				422 when gte.Content.Contains("User already registered") => UserAlreadyRegistered,
 				422 when gte.Content.Contains("Phone") && gte.Content.Contains("Email") => UserBadMultiple,
 				422 when gte.Content.Contains("email") && gte.Content.Contains("password") => UserBadMultiple,

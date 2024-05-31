@@ -266,11 +266,13 @@ to handle email verification.
     - [x] Get User by Id
     - [x] Create User
     - [x] Update User by Id
+    - [x] Sign In with Single Sign On (SSO)
 - [x] Client
     - [x] Get User
     - [x] Refresh Session
     - [x] Auth State Change Handler
     - [x] Provider Sign In (Provides URL)
+    - [x] Sign In with Single Sign On (SSO)
 - [x] Provide Interfaces for Custom Token Persistence Functionality
 - [x] Documentation
 - [x] Unit Tests

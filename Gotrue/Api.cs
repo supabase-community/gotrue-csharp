@@ -114,15 +114,15 @@ namespace Supabase.Gotrue
 
 		/// <summary>
 		/// Log in a user using magiclink or a one-time password (OTP).
-		/// 
+		///
 		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
 		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
 		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-		/// 
+		///
 		/// Be aware that you may get back an error message that will not distinguish
 		/// between the cases where the account does not exist or, that the account
 		/// can only be accessed via social login.
-		/// 
+		///
 		/// Do note that you will need to configure a Whatsapp sender on Twilio
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
@@ -160,15 +160,15 @@ namespace Supabase.Gotrue
 
 		/// <summary>
 		/// Log in a user using magiclink or a one-time password (OTP).
-		/// 
+		///
 		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
 		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
 		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-		/// 
+		///
 		/// Be aware that you may get back an error message that will not distinguish
 		/// between the cases where the account does not exist or, that the account
 		/// can only be accessed via social login.
-		/// 
+		///
 		/// Do note that you will need to configure a Whatsapp sender on Twilio
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
@@ -250,6 +250,55 @@ namespace Supabase.Gotrue
 				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } });
 
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, Headers);
+		}
+
+		private Task<SsoResponse?> SignInWithSsoInternal(Guid? providerId = null, string? domain = null, SignInOptionsWithSsoOptions? options = null)
+		{
+			if(providerId != null && domain != null)
+				throw new GotrueException($"Both providerId and domain were provided to the API, " +
+				                          $"you must supply either one or the other but not both providerId={providerId}, domain={domain}");
+			if(providerId == null && domain == null)
+				throw new GotrueException($"Both providerId and domain were null " +
+				                          $"you must supply either one or the other but not both providerId={providerId}, domain={domain}");
+
+			string? codeChallenge = null;
+			string? codeChallengeMethod = null;
+			if (options?.FlowType == OAuthFlowType.PKCE)
+			{
+				var codeVerifier = Helpers.GenerateNonce();
+				codeChallenge = Helpers.GeneratePKCENonceVerifier(codeVerifier);
+				codeChallengeMethod = "s256";
+			}
+
+			var body = new Dictionary<string, object?>
+			{
+				{  providerId != null ? "provider_id" : "domain",  providerId != null ? providerId.ToString() : domain},
+				{ "redirect_to", options?.RedirectTo },
+
+				// this is important, it will not auto redirect the request and instead return the Uri needed to handle the login
+				// without this in the body the request will automatically redirect to the providers sign in page
+				{ "skip_http_redirect", true },
+
+				{ "code_challenge", codeChallenge },
+				{ "code_challenge_method", codeChallengeMethod }
+			};
+
+			if (!string.IsNullOrEmpty(options?.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", options?.CaptchaToken } });
+
+			return Helpers.MakeRequest<SsoResponse>(HttpMethod.Post, $"{Url}/sso", body, Headers);
+		}
+
+		/// <inheritdoc />
+		public Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null)
+		{
+			return SignInWithSsoInternal(providerId: providerId, options: options);
+		}
+
+		/// <inheritdoc />
+		public Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null)
+		{
+			return SignInWithSsoInternal(domain: domain, options: options);
 		}
 
 		/// <summary>
