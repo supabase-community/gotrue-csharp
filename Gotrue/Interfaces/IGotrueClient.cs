@@ -278,7 +278,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="providerId">The guid of the provider you wish to use, obtained from running supabase sso list from the CLI</param>
 		/// <param name="options">The redirect uri and captcha token, if any</param>
 		/// <returns>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</returns>
-		Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null);
+		Task<SSOResponse?> SignInWithSSO(Guid providerId, SignInWithSSOOptions? options = null);
 
 		/// <summary>
 		/// Sign in using single sign on (SSO) as supported by supabase
@@ -291,7 +291,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// </param>
 		/// <param name="options">The redirect uri and captcha token, if any</param>
 		/// <returns>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</returns>
-		Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null);
+		Task<SSOResponse?> SignInWithSSO(string domain, SignInWithSSOOptions? options = null);
 
 		/// <summary>
 		/// Logs in an existing user via a third-party provider.

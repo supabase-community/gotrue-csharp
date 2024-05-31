@@ -296,25 +296,25 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null)
+		public Task<SSOResponse?> SignInWithSSO(Guid providerId, SignInWithSSOOptions? options = null)
 		{
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
 			DestroySession();
 
-			return _api.SignInWithSso(providerId, options);
+			return _api.SignInWithSSO(providerId, options);
 		}
 
 		/// <inheritdoc />
-		public Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null)
+		public Task<SSOResponse?> SignInWithSSO(string domain, SignInWithSSOOptions? options = null)
 		{
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
 			DestroySession();
 
-			return _api.SignInWithSso(domain, options);
+			return _api.SignInWithSSO(domain, options);
 		}
 
 		/// <inheritdoc />

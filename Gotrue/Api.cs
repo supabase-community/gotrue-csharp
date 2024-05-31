@@ -252,7 +252,7 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, Headers);
 		}
 
-		private Task<SsoResponse?> SignInWithSsoInternal(Guid? providerId = null, string? domain = null, SignInOptionsWithSsoOptions? options = null)
+		private Task<SSOResponse?> SignInWithSsoInternal(Guid? providerId = null, string? domain = null, SignInWithSSOOptions? options = null)
 		{
 			if(providerId != null && domain != null)
 				throw new GotrueException($"Both providerId and domain were provided to the API, " +
@@ -286,17 +286,17 @@ namespace Supabase.Gotrue
 			if (!string.IsNullOrEmpty(options?.CaptchaToken))
 				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", options?.CaptchaToken } });
 
-			return Helpers.MakeRequest<SsoResponse>(HttpMethod.Post, $"{Url}/sso", body, Headers);
+			return Helpers.MakeRequest<SSOResponse>(HttpMethod.Post, $"{Url}/sso", body, Headers);
 		}
 
 		/// <inheritdoc />
-		public Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null)
+		public Task<SSOResponse?> SignInWithSSO(Guid providerId, SignInWithSSOOptions? options = null)
 		{
 			return SignInWithSsoInternal(providerId: providerId, options: options);
 		}
 
 		/// <inheritdoc />
-		public Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null)
+		public Task<SSOResponse?> SignInWithSSO(string domain, SignInWithSSOOptions? options = null)
 		{
 			return SignInWithSsoInternal(domain: domain, options: options);
 		}
