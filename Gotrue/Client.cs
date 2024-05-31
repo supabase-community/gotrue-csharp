@@ -42,14 +42,14 @@ namespace Supabase.Gotrue
 		public TokenRefresh? TokenRefresh { get; }
 
 		/// <summary>
-		/// Initializes the GoTrue stateful client. 
-		/// 
+		/// Initializes the GoTrue stateful client.
+		///
 		/// You will likely want to at least specify a <see>
 		///     <cref>ClientOptions.Url</cref>
 		/// </see>
-		/// 
+		///
 		/// Sessions are not automatically retrieved when this object is created.
-		/// 
+		///
 		/// If you want to load the session from your persistence store, <see>
 		///     <cref>GotrueSessionPersistence</cref>
 		/// </see>.
@@ -62,7 +62,7 @@ namespace Supabase.Gotrue
 		/// and then refresh it. If your application is listening for session changes, you'll
 		/// get two SignIn notifications if the persisted session is valid - one for the
 		/// session loaded from disk, and a second on a successful session refresh.
-		/// 
+		///
 		/// <remarks></remarks>
 		/// <example>
 		///		var client = new Supabase.Gotrue.Client(options);
@@ -293,6 +293,28 @@ namespace Supabase.Gotrue
 
 			var providerUri = _api.GetUriForProvider(provider, options);
 			return Task.FromResult(providerUri);
+		}
+
+		/// <inheritdoc />
+		public Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			DestroySession();
+
+			return _api.SignInWithSso(providerId, options);
+		}
+
+		/// <inheritdoc />
+		public Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			DestroySession();
+
+			return _api.SignInWithSso(domain, options);
 		}
 
 		/// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
@@ -28,6 +29,8 @@ namespace Supabase.Gotrue.Interfaces
 		Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options);
 		Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options);
 		Task<TSession?> SignInAnonymously(SignInAnonymouslyOptions? options = null);
+		Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null);
+		Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null);
 		Task<BaseResponse> SignOut(string jwt);
 		Task<TSession?> SignUpWithEmail(string email, string password, SignUpOptions? options = null);
 		Task<TSession?> SignUpWithPhone(string phone, string password, SignUpOptions? options = null);
@@ -43,7 +46,7 @@ namespace Supabase.Gotrue.Interfaces
 
 		/// <summary>
 		/// Links an oauth identity to an existing user.
-		/// 
+		///
 		/// This method requires the PKCE flow.
 		/// </summary>
 		/// <param name="token">User's token</param>

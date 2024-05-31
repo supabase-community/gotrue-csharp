@@ -28,7 +28,7 @@ namespace Supabase.Gotrue.Interfaces
 	{
 		/// <summary>
 		/// Indicates if the client should be considered online or offline.
-		/// 
+		///
 		/// In a server environment, this client would likely always be online.
 		///
 		/// On a mobile client, you will want to pair this with a network implementation
@@ -45,7 +45,7 @@ namespace Supabase.Gotrue.Interfaces
 		TSession? CurrentSession { get; }
 
 		/// <summary>
-		/// The currently logged in User. This is a local cache of the current session User. 
+		/// The currently logged in User. This is a local cache of the current session User.
 		/// To persist modifications to the User you'll want to use other methods.
 		/// <see cref="Update"/>>
 		/// </summary>
@@ -139,7 +139,7 @@ namespace Supabase.Gotrue.Interfaces
 		///
 		/// Most of the interesting configuration for this flow is done in the
 		/// Supabase/GoTrue admin panel.
-		/// 
+		///
 		/// </summary>
 		/// <param name="email"></param>
 		/// <param name="options"></param>
@@ -148,7 +148,7 @@ namespace Supabase.Gotrue.Interfaces
 
 		/// <summary>
 		/// Sets a new session given a user's access token and their refresh token.
-		/// 
+		///
 		/// 1. Will destroy the current session (if existing)
 		/// 2. Raise a <see cref="AuthState.SignedOut"/> event.
 		/// 3. Decode token
@@ -190,15 +190,15 @@ namespace Supabase.Gotrue.Interfaces
 
 		/// <summary>
 		/// Log in a user using magiclink or a one-time password (OTP).
-		/// 
+		///
 		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
 		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
 		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-		/// 
+		///
 		/// Be aware that you may get back an error message that will not distinguish
 		/// between the cases where the account does not exist or, that the account
 		/// can only be accessed via social login.
-		/// 
+		///
 		/// Do note that you will need to configure a Whatsapp sender on Twilio
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
@@ -210,15 +210,15 @@ namespace Supabase.Gotrue.Interfaces
 
 		/// <summary>
 		/// Log in a user using magiclink or a one-time password (OTP).
-		/// 
+		///
 		/// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
 		/// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
 		/// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-		/// 
+		///
 		/// Be aware that you may get back an error message that will not distinguish
 		/// between the cases where the account does not exist or, that the account
 		/// can only be accessed via social login.
-		/// 
+		///
 		/// Do note that you will need to configure a Whatsapp sender on Twilio
 		/// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 		/// channel is not supported on other providers at this time.
@@ -269,7 +269,30 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="options"></param>
 		/// <returns>A session where the is_anonymous claim in the access token JWT set to true</returns>
 		Task<TSession?> SignInAnonymously(SignInAnonymouslyOptions? options = null);
-		
+
+		/// <summary>
+		/// Sign in using single sign on (SSO) as supported by supabase
+		/// To use SSO you need to first set up the providers using the supabase CLI
+		/// please follow the guide found here: https://supabase.com/docs/guides/auth/enterprise-sso/auth-sso-saml
+		/// </summary>
+		/// <param name="providerId">The guid of the provider you wish to use, obtained from running supabase sso list from the CLI</param>
+		/// <param name="options">The redirect uri and captcha token, if any</param>
+		/// <returns>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</returns>
+		Task<SsoResponse?> SignInWithSso(Guid providerId, SignInOptionsWithSsoOptions? options = null);
+
+		/// <summary>
+		/// Sign in using single sign on (SSO) as supported by supabase
+		/// To use SSO you need to first set up the providers using the supabase CLI
+		/// please follow the guide found here: https://supabase.com/docs/guides/auth/enterprise-sso/auth-sso-saml
+		/// </summary>
+		/// <param name="domain">
+		/// Your organizations email domain to use for sign in, this domain needs to already be registered with supabase by running the CLI commands
+		/// Example: `google.com`
+		/// </param>
+		/// <param name="options">The redirect uri and captcha token, if any</param>
+		/// <returns>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</returns>
+		Task<SsoResponse?> SignInWithSso(string domain, SignInOptionsWithSsoOptions? options = null);
+
 		/// <summary>
 		/// Logs in an existing user via a third-party provider.
 		/// </summary>
@@ -282,7 +305,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// </summary>
 		/// <remarks>
 		/// Calling this method will log out the current user session (if any).
-		/// 
+		///
 		/// By default, the user needs to verify their email address before logging in. To turn this off, disable confirm email in your project.
 		/// Confirm email determines if users need to confirm their email address after signing up.
 		///     - If Confirm email is enabled, a user is returned but session is null.
@@ -379,7 +402,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="userIdentity">Identity to be unlinked</param>
 		/// <returns></returns>
 		Task<bool> UnlinkIdentity(UserIdentity userIdentity);
-		
+
 		/// <summary>
 		/// Add a listener to get errors that occur outside of a typical Exception flow.
 		/// In particular, this is used to get errors and messages from the background thread
