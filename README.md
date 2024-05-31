@@ -27,7 +27,7 @@ implementation for Unity at this [gist](https://gist.github.com/wiverson/fbb0749
 ### Offline Support
 
 The Client now better supports online/offline usage. The Client now has a simple boolean option "Online"
-which can be set to false. This can be combined with the NetworkStatus class to allow the client
+which can be set to to false. This can be combined with the NetworkStatus class to allow the client
 to automatically go online & offline based on the device's network status.
 
 To use this new NetworkStatus, add the following:
@@ -252,27 +252,27 @@ to handle email verification.
 ## Status
 
 - [x] API
-  - [x] Sign Up with Email
-  - [x] Sign In with Email
-  - [x] Send Magic Link Email
-  - [x] Invite User by Email
-  - [x] Reset Password for Email
-  - [x] Signout
-  - [x] Get Url for Provider
-  - [x] Get User
-  - [x] Update User
-  - [x] Refresh Access Token
-  - [x] List Users (includes filtering, sorting, pagination)
-  - [x] Get User by Id
-  - [x] Create User
-  - [x] Update User by Id
-  - [x] Sign In with Single Sign On (SSO)
+    - [x] Sign Up with Email
+    - [x] Sign In with Email
+    - [x] Send Magic Link Email
+    - [x] Invite User by Email
+    - [x] Reset Password for Email
+    - [x] Signout
+    - [x] Get Url for Provider
+    - [x] Get User
+    - [x] Update User
+    - [x] Refresh Access Token
+    - [x] List Users (includes filtering, sorting, pagination)
+    - [x] Get User by Id
+    - [x] Create User
+    - [x] Update User by Id
+    - [x] Sign In with Single Sign On (SSO)
 - [x] Client
-  - [x] Get User
-  - [x] Refresh Session
-  - [x] Auth State Change Handler
-  - [x] Provider Sign In (Provides URL)
-  - [x] Sign In with Single Sign On (SSO)
+    - [x] Get User
+    - [x] Refresh Session
+    - [x] Auth State Change Handler
+    - [x] Provider Sign In (Provides URL)
+    - [x] Sign In with Single Sign On (SSO)
 - [x] Provide Interfaces for Custom Token Persistence Functionality
 - [x] Documentation
 - [x] Unit Tests
