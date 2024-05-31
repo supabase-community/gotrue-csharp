@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class SignInWithPasswordlessPhoneOptions | gotrue-csharp </title>
+      <title>Class SignInOptionsWithSsoOptions | gotrue-csharp </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class SignInWithPasswordlessPhoneOptions | gotrue-csharp ">
+      <meta name="title" content="Class SignInOptionsWithSsoOptions | gotrue-csharp ">
       
-      <meta name="description" content="Options used for signing in a user with passwordless Options">
+      <meta name="description" content="Options used for signing in a user using single sign on (SSO).">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_SignInWithPasswordlessPhoneOptions.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.SignInWithPasswordlessPhoneOptions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/supabase-community/gotrue-csharp/new/master/apiSpec/new?filename=Supabase_Gotrue_SignInOptionsWithSsoOptions.md&amp;value=---%0Auid%3A%20Supabase.Gotrue.SignInOptionsWithSsoOptions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions">
+        <article data-uid="Supabase.Gotrue.SignInOptionsWithSsoOptions">
 
 
 
-  <h1 id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions" class="text-break">
-Class SignInWithPasswordlessPhoneOptions  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithPasswordlessOptions.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Supabase_Gotrue_SignInOptionsWithSsoOptions" data-uid="Supabase.Gotrue.SignInOptionsWithSsoOptions" class="text-break">
+Class SignInOptionsWithSsoOptions  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithSsoOptions.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,12 @@ Class SignInWithPasswordlessPhoneOptions  <a class="header-action link-secondary
   <dl><dt>Assembly</dt><dd>Supabase.Gotrue.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Options used for signing in a user with passwordless Options</p>
+  <div class="markdown summary"><p>Options used for signing in a user using single sign on (SSO).</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SignInWithPasswordlessPhoneOptions : SignInWithPasswordlessOptions</code></pre>
+    <pre><code class="lang-csharp hljs">public class SignInOptionsWithSsoOptions : SignInOptions</code></pre>
   </div>
 
 
@@ -112,8 +112,8 @@ Class SignInWithPasswordlessPhoneOptions  <a class="header-action link-secondary
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Supabase.Gotrue.SignInWithPasswordlessOptions.html">SignInWithPasswordlessOptions</a></div>
-      <div><span class="xref">SignInWithPasswordlessPhoneOptions</span></div>
+      <div><a class="xref" href="Supabase.Gotrue.SignInOptions.html">SignInOptions</a></div>
+      <div><span class="xref">SignInOptionsWithSsoOptions</span></div>
     </dd>
   </dl>
 
@@ -123,13 +123,16 @@ Class SignInWithPasswordlessPhoneOptions  <a class="header-action link-secondary
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_Data">SignInWithPasswordlessOptions.Data</a>
+      <a class="xref" href="Supabase.Gotrue.SignInOptions.html#Supabase_Gotrue_SignInOptions_RedirectTo">SignInOptions.RedirectTo</a>
     </div>
     <div>
-      <a class="xref" href="Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_CaptchaToken">SignInWithPasswordlessOptions.CaptchaToken</a>
+      <a class="xref" href="Supabase.Gotrue.SignInOptions.html#Supabase_Gotrue_SignInOptions_Scopes">SignInOptions.Scopes</a>
     </div>
     <div>
-      <a class="xref" href="Supabase.Gotrue.SignInWithPasswordlessOptions.html#Supabase_Gotrue_SignInWithPasswordlessOptions_ShouldCreateUser">SignInWithPasswordlessOptions.ShouldCreateUser</a>
+      <a class="xref" href="Supabase.Gotrue.SignInOptions.html#Supabase_Gotrue_SignInOptions_QueryParams">SignInOptions.QueryParams</a>
+    </div>
+    <div>
+      <a class="xref" href="Supabase.Gotrue.SignInOptions.html#Supabase_Gotrue_SignInOptions_FlowType">SignInOptions.FlowType</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -159,91 +162,24 @@ Class SignInWithPasswordlessPhoneOptions  <a class="header-action link-secondary
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions__ctor_" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.#ctor*"></a>
-
-  <h3 id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions__ctor_System_String_" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.#ctor(System.String)">
-  SignInWithPasswordlessPhoneOptions(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithPasswordlessOptions.cs/#L88"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SignInWithPasswordlessPhoneOptions(string phone)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>phone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The user's phone number</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Channel_" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel*"></a>
+  <a id="Supabase_Gotrue_SignInOptionsWithSsoOptions_CaptchaToken_" data-uid="Supabase.Gotrue.SignInOptionsWithSsoOptions.CaptchaToken*"></a>
 
-  <h3 id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Channel" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Channel">
-  Channel
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithPasswordlessOptions.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Supabase_Gotrue_SignInOptionsWithSsoOptions_CaptchaToken" data-uid="Supabase.Gotrue.SignInOptionsWithSsoOptions.CaptchaToken">
+  CaptchaToken
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithSsoOptions.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Messaging channel to use (e.g. whatsapp or sms), Defaults to SMS.</p>
+  <div class="markdown level1 summary"><p>Verification token received when the user completes the captcha on the site.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SignInWithPasswordlessPhoneOptions.MessagingChannel Channel { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html">SignInWithPasswordlessPhoneOptions</a>.<a class="xref" href="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.html">MessagingChannel</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Phone_" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone*"></a>
-
-  <h3 id="Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_Phone" data-uid="Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.Phone">
-  Phone
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithPasswordlessOptions.cs/#L80"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The user's phone number</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Phone { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonProperty(&quot;captchaToken&quot;)]
+public string? CaptchaToken { get; set; }</code></pre>
   </div>
 
 
@@ -267,7 +203,7 @@ Class SignInWithPasswordlessPhoneOptions  <a class="header-action link-secondary
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithPasswordlessOptions.cs/#L58" class="edit-link">Edit this page</a>
+          <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/SignInWithSsoOptions.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

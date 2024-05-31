@@ -492,6 +492,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.SignInOptionsWithSsoOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.SignInOptionsWithSsoOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.yml",
       "output": {
         ".html": {
@@ -536,6 +546,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Supabase.Gotrue.SignUpOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.SsoResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.SsoResponse.html"
         }
       },
       "version": ""
