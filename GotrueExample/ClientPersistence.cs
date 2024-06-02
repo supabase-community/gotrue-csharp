@@ -31,8 +31,6 @@ public class ClientPersistence : IGotrueSessionPersistence<Session>
     public ClientPersistence(ILogger<ClientPersistence> logger)
     {
         Logger = logger;
-
-        // this listener will OVERRIDE any auth listeners you attach manually via AddStateChangedListener, see Supabase.Gotrue.Client.SetPersistence
         IGotruePersistenceListener<Session> persistenceListener = new PersistenceListener(this);
         persistenceListener.Persistence.LoadSession();
     }
