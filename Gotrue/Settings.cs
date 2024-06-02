@@ -21,10 +21,14 @@ namespace Supabase.Gotrue
 		[JsonProperty("sms_provider")]
 		public string? SmsProvider { get; set; }
 
-		[JsonProperty("external")]
-		public Dictionary<string, bool>? Services { get; set; }
+		[JsonProperty("mfa_enabled")]
+		public bool? MFAEnabled { get; set; }
 
-		[JsonProperty("external_labels")]
-		public Dictionary<string, string>? Labels { get; set; }
+		// SAML = SSO enabled
+		[JsonProperty("saml_enabled")]
+		public bool? SAMLEnabled { get; set; }
+
+		[JsonProperty("external")]
+		public Dictionary<string, bool>? ExternalProviders { get; set; }
 	}
 }

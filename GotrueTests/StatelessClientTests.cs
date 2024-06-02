@@ -76,8 +76,8 @@ namespace GotrueTests
 		{
 			var settings = await _client.Settings(Options);
 			Assert.IsNotNull(settings);
-			Assert.IsFalse(settings.Services["zoom"]);
-			Assert.IsTrue(settings.Services["email"]);
+			Assert.IsFalse(settings.ExternalProviders["zoom"]);
+			Assert.IsTrue(settings.ExternalProviders["email"]);
 			Assert.IsFalse(settings.DisableSignup);
 			Assert.IsTrue(settings.MailerAutoConfirm);
 			Assert.IsTrue(settings.PhoneAutoConfirm);

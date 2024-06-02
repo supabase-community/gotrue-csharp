@@ -227,6 +227,52 @@ var state = await client.SignIn(Constants.Provider.Github, new SignInOptions
 var session = await client.ExchangeCodeForSession(state.PKCEVerifier, RETRIEVE_CODE_FROM_GET_PARAMS);
 ```
 
+## Sign In With Single Sign On (SSO)
+Single Sign On (SSO) is an enterprise level authentication protocol that allows a single enterprise account to
+access many apps at once. A few examples of supported SSO providers are Okta, Microsoft Entra and Google Workspaces
+
+If not already done so, you must first add an SSO provider to your supabase project via the supabase CLI.
+See the following [link](https://supabase.com/docs/guides/auth/enterprise-sso/auth-sso-saml) for more info on how to
+configure SSO providers
+
+The flow functions similar to the OAuth flow and supports many of the same parameters. Under the hood
+the flow is handled quite differently by the GoTrue server but the client is agnostic to the difference in 
+implementations and session info is handled in the same way as the OAuth flow
+
+General auth flow is as follows:
+
+1. Request initiated by calling `SignInWithSSO`
+   1. The `RedirectTo` attribute is recommended for handling the callback and converting to a session
+1. `ssoResposne` contains the providers login Uri, navigate to this
+1. User logs in with provider (Okta/Auth0, Microsoft Entra, Google Workspaces ect...)
+1. Supabase GoTrue server handles SAML exchange for us
+   1. Supabase GoTrue server generates session info and appends it to the callback (RedirectedTo) url
+1. We can then use either `ExchangeCodeForSession(code)` or `GetSessionFromUrl(callbackUri)`
+
+```csharp
+using Constants = Supabase.Gotrue.Constants;
+
+var ssoResponse = await client.SignInWithSSO("supabase.io", new SignInWithSSOOptions
+{
+    RedirectTo = "https://localhost:3000/welcome"
+});
+
+// Handle login via ssoResponse.Uri
+//
+// When the user logs in using the Uri from the ssoResponse, 
+// they will be redirected to the RedirectTo
+
+// In callback received from Supabase returning to RedirectTo (set above)
+// Url is set as: http://REDIRECT_TO_URL?access_token=foobar&expires_at=123...
+var session = await client.GetSessionFromUrl(url);
+```
+
+For handling session persistence its recommended using a session persistence layer, take a look at
+the following [example](GotrueExample/SupabaseClientPersistence.cs)
+
+For additional info on how the GoTrue server handles SSO requests see 
+[here](https://github.com/supabase/auth/blob/55409f797bea55068a3fafdddd6cfdb78feba1b4/internal/api/samlacs.go#L315-L316)
+and [here](https://github.com/supabase/auth/blob/55409f797bea55068a3fafdddd6cfdb78feba1b4/internal/api/token.go#L54-L55)
 ## Troubleshooting
 
 **Q: I've created a User but while attempting to log in it throws an exception:**
