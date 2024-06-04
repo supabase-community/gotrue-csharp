@@ -1679,6 +1679,12 @@ references:
   commentId: T:Supabase.Gotrue.Constants.Provider
   fullName: Supabase.Gotrue.Constants.Provider
   nameWithType: Constants.Provider
+- uid: Supabase.Gotrue.Constants.Provider.AnonymousUsers
+  name: AnonymousUsers
+  href: api/Supabase.Gotrue.Constants.Provider.html#Supabase_Gotrue_Constants_Provider_AnonymousUsers
+  commentId: F:Supabase.Gotrue.Constants.Provider.AnonymousUsers
+  fullName: Supabase.Gotrue.Constants.Provider.AnonymousUsers
+  nameWithType: Constants.Provider.AnonymousUsers
 - uid: Supabase.Gotrue.Constants.Provider.Apple
   name: Apple
   href: api/Supabase.Gotrue.Constants.Provider.html#Supabase_Gotrue_Constants_Provider_Apple
@@ -5060,19 +5066,32 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Settings.DisableSignup
   nameWithType: Settings.DisableSignup
-- uid: Supabase.Gotrue.Settings.Labels
-  name: Labels
-  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_Labels
-  commentId: P:Supabase.Gotrue.Settings.Labels
-  fullName: Supabase.Gotrue.Settings.Labels
-  nameWithType: Settings.Labels
-- uid: Supabase.Gotrue.Settings.Labels*
-  name: Labels
-  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_Labels_
-  commentId: Overload:Supabase.Gotrue.Settings.Labels
+- uid: Supabase.Gotrue.Settings.ExternalProviders
+  name: ExternalProviders
+  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_ExternalProviders
+  commentId: P:Supabase.Gotrue.Settings.ExternalProviders
+  fullName: Supabase.Gotrue.Settings.ExternalProviders
+  nameWithType: Settings.ExternalProviders
+- uid: Supabase.Gotrue.Settings.ExternalProviders*
+  name: ExternalProviders
+  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_ExternalProviders_
+  commentId: Overload:Supabase.Gotrue.Settings.ExternalProviders
   isSpec: "True"
-  fullName: Supabase.Gotrue.Settings.Labels
-  nameWithType: Settings.Labels
+  fullName: Supabase.Gotrue.Settings.ExternalProviders
+  nameWithType: Settings.ExternalProviders
+- uid: Supabase.Gotrue.Settings.MFAEnabled
+  name: MFAEnabled
+  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_MFAEnabled
+  commentId: P:Supabase.Gotrue.Settings.MFAEnabled
+  fullName: Supabase.Gotrue.Settings.MFAEnabled
+  nameWithType: Settings.MFAEnabled
+- uid: Supabase.Gotrue.Settings.MFAEnabled*
+  name: MFAEnabled
+  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_MFAEnabled_
+  commentId: Overload:Supabase.Gotrue.Settings.MFAEnabled
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Settings.MFAEnabled
+  nameWithType: Settings.MFAEnabled
 - uid: Supabase.Gotrue.Settings.MailerAutoConfirm
   name: MailerAutoConfirm
   href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_MailerAutoConfirm
@@ -5099,19 +5118,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Settings.PhoneAutoConfirm
   nameWithType: Settings.PhoneAutoConfirm
-- uid: Supabase.Gotrue.Settings.Services
-  name: Services
-  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_Services
-  commentId: P:Supabase.Gotrue.Settings.Services
-  fullName: Supabase.Gotrue.Settings.Services
-  nameWithType: Settings.Services
-- uid: Supabase.Gotrue.Settings.Services*
-  name: Services
-  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_Services_
-  commentId: Overload:Supabase.Gotrue.Settings.Services
+- uid: Supabase.Gotrue.Settings.SAMLEnabled
+  name: SAMLEnabled
+  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_SAMLEnabled
+  commentId: P:Supabase.Gotrue.Settings.SAMLEnabled
+  fullName: Supabase.Gotrue.Settings.SAMLEnabled
+  nameWithType: Settings.SAMLEnabled
+- uid: Supabase.Gotrue.Settings.SAMLEnabled*
+  name: SAMLEnabled
+  href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_SAMLEnabled_
+  commentId: Overload:Supabase.Gotrue.Settings.SAMLEnabled
   isSpec: "True"
-  fullName: Supabase.Gotrue.Settings.Services
-  nameWithType: Settings.Services
+  fullName: Supabase.Gotrue.Settings.SAMLEnabled
+  nameWithType: Settings.SAMLEnabled
 - uid: Supabase.Gotrue.Settings.SmsProvider
   name: SmsProvider
   href: api/Supabase.Gotrue.Settings.html#Supabase_Gotrue_Settings_SmsProvider
