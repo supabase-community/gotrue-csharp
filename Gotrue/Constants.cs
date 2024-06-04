@@ -62,6 +62,8 @@ namespace Supabase.Gotrue
 		/// </summary>
 		public enum Provider
 		{
+			[MapTo("anonymous_users")]
+			AnonymousUsers,
 			[MapTo("apple")]
 			Apple,
 			[MapTo("azure")]

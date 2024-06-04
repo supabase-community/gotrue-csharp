@@ -4,6 +4,9 @@ using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
 {
+	/// <summary>
+	/// Options for handling signing in anonymously
+	/// </summary>
 	public class SignInAnonymouslyOptions
 	{
 		/// <summary>
