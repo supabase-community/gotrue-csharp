@@ -1,8 +1,12 @@
 ﻿# Changelog
 
+## 5.0.4 - 2024-06-09
+
+- Various minor SSO fixes. Thanks [@Rycko1](https://github.com/Rycko1)!
+
 ## 5.0.3 - 2024-05-31
 
-- Implement `SignInWithSSO`. Huge thank you to [@Rycko1](https://github.com/Rycko1)
+- Implement `SignInWithSSO`. Huge thank you to [@Rycko1](https://github.com/Rycko1)!
 
 ## 5.0.2 - 2024-05-20
 
