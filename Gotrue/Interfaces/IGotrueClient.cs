@@ -359,7 +359,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// Signs out a user and invalidates the current token.
 		/// </summary>
 		/// <returns></returns>
-		Task SignOut();
+		Task SignOut(SignOutScope scope = SignOutScope.Global);
 
 		/// <summary>
 		/// Updates a User.

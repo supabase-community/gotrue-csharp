@@ -31,7 +31,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> SignInAnonymously(SignInAnonymouslyOptions? options = null);
 		Task<SSOResponse?> SignInWithSSO(Guid providerId, SignInWithSSOOptions? options = null);
 		Task<SSOResponse?> SignInWithSSO(string domain, SignInWithSSOOptions? options = null);
-		Task<BaseResponse> SignOut(string jwt);
+		Task<BaseResponse> SignOut(string jwt, SignOutScope scope = SignOutScope.Global);
 		Task<TSession?> SignUpWithEmail(string email, string password, SignUpOptions? options = null);
 		Task<TSession?> SignUpWithPhone(string phone, string password, SignUpOptions? options = null);
 		Task<TUser?> UpdateUser(string jwt, UserAttributes attributes);

@@ -542,12 +542,13 @@ namespace Supabase.Gotrue
 		/// Removes a logged-in session.
 		/// </summary>
 		/// <param name="jwt"></param>
+		/// <param name="scope"></param>
 		/// <returns></returns>
-		public Task<BaseResponse> SignOut(string jwt)
+		public Task<BaseResponse> SignOut(string jwt, SignOutScope scope = SignOutScope.Global)
 		{
 			var data = new Dictionary<string, string>();
 
-			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/logout", data, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/logout?scope={Core.Helpers.GetMappedToAttr(scope).Mapping}", data, CreateAuthedRequestHeaders(jwt));
 		}
 
 		/// <summary>
