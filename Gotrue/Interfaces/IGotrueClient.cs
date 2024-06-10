@@ -356,8 +356,9 @@ namespace Supabase.Gotrue.Interfaces
 		Task<bool> Reauthenticate();
 
 		/// <summary>
-		/// Signs out a user and invalidates the current token.
+		/// Signs out and invalidates all sessions for a user.
 		/// </summary>
+		/// <param name="scope">Determines which sessions should be invalidated. By default, it will invalidate all session for a user</param>
 		/// <returns></returns>
 		Task SignOut(SignOutScope scope = SignOutScope.Global);
 
