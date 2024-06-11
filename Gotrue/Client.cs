@@ -401,9 +401,9 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task SignOut()
+		public async Task SignOut(SignOutScope scope = SignOutScope.Global)
 		{
-			if (CurrentSession?.AccessToken != null) await _api.SignOut(CurrentSession.AccessToken);
+			if (CurrentSession?.AccessToken != null) await _api.SignOut(CurrentSession.AccessToken, scope);
 			UpdateSession(null);
 			NotifyAuthStateChange(SignedOut);
 		}

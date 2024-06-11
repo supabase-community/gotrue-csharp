@@ -150,5 +150,15 @@ namespace Supabase.Gotrue
 			Email,
 			Phone
 		}
-	}
+
+        public enum SignOutScope
+        {
+            [MapTo("global")]
+            Global,
+            [MapTo("local")]
+            Local,
+            [MapTo("others")]
+            Others
+        }
+    }
 }
