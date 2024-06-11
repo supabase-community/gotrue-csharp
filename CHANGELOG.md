@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 5.0.5 - 2024-06-11
+
+- Allow for scoped `SignOut`. Thanks [@AndrewKahr](https://github.com/AndrewKahr)!
+
 ## 5.0.4 - 2024-06-09
 
 - Various minor SSO fixes. Thanks [@Rycko1](https://github.com/Rycko1)!
