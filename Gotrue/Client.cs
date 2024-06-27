@@ -374,6 +374,26 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public async Task<Session?> VerifyTokenHash(string tokenHash, EmailOtpType type = EmailOtpType.Email)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			DestroySession();
+
+			var session = await _api.VerifyTokenHash(tokenHash, type);
+
+			if (session?.AccessToken != null)
+			{
+				UpdateSession(session);
+				NotifyAuthStateChange(SignedIn);
+				return session;
+			}
+
+			return null;
+		}
+
+		/// <inheritdoc />
 		public Task<ProviderAuthState> LinkIdentity(Provider provider, SignInOptions options)
 		{
 			if (!Online)

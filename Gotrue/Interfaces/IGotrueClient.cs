@@ -388,6 +388,14 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink);
 
 		/// <summary>
+		/// Log in a user given the token hash used in an email confirmation link.
+		/// </summary>
+		/// <param name="tokenHash"></param>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		Task<TSession?> VerifyTokenHash(string tokenHash, EmailOtpType type = EmailOtpType.Email);
+
+		/// <summary>
 		/// Links an oauth identity to an existing user.
 		///
 		/// This method requires the PKCE flow.

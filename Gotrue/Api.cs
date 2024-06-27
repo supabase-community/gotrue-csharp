@@ -442,6 +442,22 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
+		/// Verify token hash used in an email confirmation link.
+		/// </summary>
+		/// <param name="tokenHash">The token hash used in an email confirmation link</param>
+		/// <param name="type">Type of verification, e.g. email.</param>
+		/// <returns></returns>
+		public Task<Session?> VerifyTokenHash(string tokenHash, EmailOtpType type)
+		{
+			var data = new Dictionary<string, string>
+			{
+				{ "token_hash", tokenHash },
+				{ "type", Core.Helpers.GetMappedToAttr(type).Mapping }
+			};
+			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/verify", data, Headers);
+		}
+
+		/// <summary>
 		/// Sends a reset request to an email address.
 		/// </summary>
 		/// <param name="email"></param>
