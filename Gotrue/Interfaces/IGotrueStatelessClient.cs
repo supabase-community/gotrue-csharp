@@ -249,6 +249,15 @@ namespace Supabase.Gotrue.Interfaces
         Task<TSession?> VerifyOTP(string email, string otpToken, StatelessClientOptions options, EmailOtpType type = EmailOtpType.MagicLink);
 
         /// <summary>
+        /// Log in a user given the token hash used in an email confirmation link.
+        /// </summary>
+        /// <param name="tokenHash"></param>
+        /// <param name="options"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        Task<TSession?> VerifyTokenHash(string tokenHash, StatelessClientOptions options, EmailOtpType type = EmailOtpType.Email);
+
+        /// <summary>
         /// Retrieve the current settings for the Gotrue instance.
         /// </summary>
         /// <param name="options"></param>

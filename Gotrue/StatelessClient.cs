@@ -123,6 +123,19 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public async Task<Session?> VerifyTokenHash(string tokenHash, StatelessClientOptions options, EmailOtpType type = EmailOtpType.Email)
+		{
+			var session = await GetApi(options).VerifyTokenHash(tokenHash, type);
+
+			if (session?.AccessToken != null)
+			{
+				return session;
+			}
+
+			return null;
+		}
+
+		/// <inheritdoc />
 		public async Task<User?> Update(string accessToken, UserAttributes attributes, StatelessClientOptions options)
 		{
 			var result = await GetApi(options).UpdateUser(accessToken, attributes);

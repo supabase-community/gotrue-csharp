@@ -53,7 +53,9 @@ namespace Supabase.Gotrue
 			[MapTo("recovery")]
 			Recovery,
 			[MapTo("email_change")]
-			EmailChange
+			EmailChange,
+			[MapTo("email")]
+			Email
 		}
 
 		/// <summary>
