@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 5.0.6 - 2024-06-29
+
+- [Re: #98](https://github.com/supabase-community/gotrue-csharp/pull/98) Introduces `VerifyTokenHash` to support the
+  PKCE flow for email signup. Thanks [@alexbakker](https://github.com/alexbakker)!
+
 ## 5.0.5 - 2024-06-11
 
 - Allow for scoped `SignOut`. Thanks [@AndrewKahr](https://github.com/AndrewKahr)!
