@@ -29,11 +29,10 @@ namespace Supabase.Gotrue
 		{
 			// ReSharper disable once StringLiteralTypo
 			const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
-			var random = new Random();
 			var nonce = new char[128];
 			for (var i = 0; i < nonce.Length; i++)
 			{
-				nonce[i] = chars[random.Next(chars.Length)];
+				nonce[i] = chars[RandomNumberGenerator.GetInt32(0, chars.Length)];
 			}
 
 			return new string(nonce);
