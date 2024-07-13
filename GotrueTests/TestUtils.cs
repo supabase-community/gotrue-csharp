@@ -35,18 +35,18 @@ namespace GotrueTests
 			return $"+1{inner}";
 		}
 
-        /// <summary>
-        /// Returns a random number within the limits specified via parameters.
-        /// </summary>
-        /// <param name="minValue">Minimum value. Default 0.</param>
-        /// <param name="maxValue">Maximum value. Default 1000.</param>
-        /// <returns>Integer within the range.</returns>
-        public static int RandomNumber(int minValue = 0, int maxValue = 1000)
-        {
-            return Random.Next(minValue, maxValue);
-        }
+		/// <summary>
+		/// Returns a random number within the limits specified via parameters.
+		/// </summary>
+		/// <param name="minValue">Minimum value. Default 0.</param>
+		/// <param name="maxValue">Maximum value. Default 1000.</param>
+		/// <returns>Integer within the range.</returns>
+		public static int RandomNumber(int minValue = 0, int maxValue = 1000)
+		{
+			return Random.Next(minValue, maxValue);
+		}
 
-        public static string GenerateServiceRoleToken()
+		public static string GenerateServiceRoleToken()
 		{
 			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
 
