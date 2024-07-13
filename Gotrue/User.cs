@@ -61,7 +61,10 @@ namespace Supabase.Gotrue
 		[JsonProperty("updated_at")]
 		public DateTime? UpdatedAt { get; set; }
 
-		[JsonProperty("is_anonymous")]
+        [JsonProperty("banned_until")]
+        public DateTime? BannedUntil { get; set; }
+
+        [JsonProperty("is_anonymous")]
 		public bool IsAnonymous { get; set; }
 
 		[JsonProperty("user_metadata")]
@@ -103,7 +106,20 @@ namespace Supabase.Gotrue
 		/// </summary>
 		[JsonProperty("phone_confirm")]
 		public bool? PhoneConfirm { get; set; }
-	}
+
+        /// <summary>
+        /// <para>Determines how long a user is banned for. </para>
+		/// <para>This property is ignored when creating a user.
+        /// If you want to create a user banned, first create the user then update it sending this property.</para>
+        /// <para>The format for the ban duration follows a strict sequence of decimal numbers with a unit suffix.
+        /// Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".</para>
+        /// <para>For example, some possible durations include: '300ms', '2h45m', '1200s'.</para>
+		/// <para>Setting the ban duration to "none" lifts the ban on the user.</para>
+        /// <para>Only a service role can modify.</para>
+        /// </summary>
+        [JsonProperty("ban_duration")]
+        public string? BanDuration { get; set; }
+    }
 
 	/// <summary>
 	/// Ref: https://supabase.github.io/gotrue-js/interfaces/UserAttributes.html
