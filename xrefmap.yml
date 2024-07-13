@@ -221,6 +221,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.AdminUserAttributes.AppMetadata
   nameWithType: AdminUserAttributes.AppMetadata
+- uid: Supabase.Gotrue.AdminUserAttributes.BanDuration
+  name: BanDuration
+  href: api/Supabase.Gotrue.AdminUserAttributes.html#Supabase_Gotrue_AdminUserAttributes_BanDuration
+  commentId: P:Supabase.Gotrue.AdminUserAttributes.BanDuration
+  fullName: Supabase.Gotrue.AdminUserAttributes.BanDuration
+  nameWithType: AdminUserAttributes.BanDuration
+- uid: Supabase.Gotrue.AdminUserAttributes.BanDuration*
+  name: BanDuration
+  href: api/Supabase.Gotrue.AdminUserAttributes.html#Supabase_Gotrue_AdminUserAttributes_BanDuration_
+  commentId: Overload:Supabase.Gotrue.AdminUserAttributes.BanDuration
+  isSpec: "True"
+  fullName: Supabase.Gotrue.AdminUserAttributes.BanDuration
+  nameWithType: AdminUserAttributes.BanDuration
 - uid: Supabase.Gotrue.AdminUserAttributes.EmailConfirm
   name: EmailConfirm
   href: api/Supabase.Gotrue.AdminUserAttributes.html#Supabase_Gotrue_AdminUserAttributes_EmailConfirm
@@ -6031,6 +6044,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.User.Aud
   nameWithType: User.Aud
+- uid: Supabase.Gotrue.User.BannedUntil
+  name: BannedUntil
+  href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_BannedUntil
+  commentId: P:Supabase.Gotrue.User.BannedUntil
+  fullName: Supabase.Gotrue.User.BannedUntil
+  nameWithType: User.BannedUntil
+- uid: Supabase.Gotrue.User.BannedUntil*
+  name: BannedUntil
+  href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_BannedUntil_
+  commentId: Overload:Supabase.Gotrue.User.BannedUntil
+  isSpec: "True"
+  fullName: Supabase.Gotrue.User.BannedUntil
+  nameWithType: User.BannedUntil
 - uid: Supabase.Gotrue.User.ConfirmationSentAt
   name: ConfirmationSentAt
   href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmationSentAt
