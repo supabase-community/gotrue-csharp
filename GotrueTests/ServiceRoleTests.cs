@@ -140,6 +140,30 @@ namespace GotrueTests
 			AreNotEqual(createdUser.Email, updatedUser.Email);
 		}
 
+		[TestMethod("Service Role: Ban User by Id")]
+		public async Task BanUserById()
+		{
+			var createdUser = await _client.CreateUser($"{RandomString(12)}@supabase.io", PASSWORD);
+
+			IsNotNull(createdUser);
+
+			int banDurationSeconds = RandomNumber();
+			DateTime bannedUntil = DateTime.UtcNow + TimeSpan.FromSeconds(banDurationSeconds);
+			var updatedUser = await _client.UpdateUserById(createdUser.Id ?? throw new InvalidOperationException(), new AdminUserAttributes { BanDuration = $"{banDurationSeconds}s" });
+
+			IsNotNull(updatedUser);
+
+			AreEqual(createdUser.Id, updatedUser.Id);
+			IsNotNull(updatedUser.BannedUntil);
+			IsTrue((updatedUser.BannedUntil.Value - bannedUntil).Duration().TotalSeconds < 1);
+
+			updatedUser = await _client.UpdateUserById(createdUser.Id ?? throw new InvalidOperationException(), new AdminUserAttributes { BanDuration = "none" });
+			IsNotNull(updatedUser);
+
+			AreEqual(createdUser.Id, updatedUser.Id);
+			IsFalse(updatedUser.BannedUntil.HasValue);
+		}
+
 		[TestMethod("Service Role: Delete User")]
 		public async Task DeletesUser()
 		{
