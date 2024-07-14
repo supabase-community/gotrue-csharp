@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 6.0.0 - 2024-07-14
+
+- Major: Change to targeting framework to `netstandard2.1`
+    - [Re: #99](https://github.com/supabase-community/gotrue-csharp/pull/99) Use a CSPRNG to generate the code verifier.
+      Thanks [@alexbakker](https://github.com/alexbakker)!
+- [Re: #101](https://github.com/supabase-community/gotrue-csharp/pull/101) Ban user functionality.
+  Thanks [@celestebyte](https://github.com/celestebyte)!
+
 ## 5.0.6 - 2024-06-29
 
 - [Re: #98](https://github.com/supabase-community/gotrue-csharp/pull/98) Introduces `VerifyTokenHash` to support the
