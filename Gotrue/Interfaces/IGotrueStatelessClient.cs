@@ -44,7 +44,16 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="options"></param>
         /// <returns></returns>
         Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options);
-        
+
+        /// <summary>
+        /// Logs in an existing user via a third-party provider.
+        /// </summary>
+        /// <param name="codeVerifier"></param>
+        /// <param name="authCode"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        Task<TSession?> ExchangeCodeForSession(string codeVerifier, string authCode, StatelessClientOptions options);
+
         /// <summary>
         /// Initialize/retrieve the underlying API for this client
         /// </summary>

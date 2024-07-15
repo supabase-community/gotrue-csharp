@@ -208,6 +208,12 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public async Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode, StatelessClientOptions options)
+		{
+			return await GetApi(options).ExchangeCodeForSession(codeVerifier, authCode);
+		}
+
+		/// <inheritdoc />
 		public async Task<Session?> GetSessionFromUrl(Uri uri, StatelessClientOptions options)
 		{
 			var query = HttpUtility.ParseQueryString(uri.Query);
