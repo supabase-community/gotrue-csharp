@@ -4188,6 +4188,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).DeleteUser
   nameWithType: IGotrueStatelessClient<TUser, TSession>.DeleteUser
   nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).DeleteUser
+- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ExchangeCodeForSession(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name: ExchangeCodeForSession(string, string, StatelessClientOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_ExchangeCodeForSession_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ExchangeCodeForSession(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name.vb: ExchangeCodeForSession(String, String, StatelessClientOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.ExchangeCodeForSession(string, string, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).ExchangeCodeForSession(String, String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  nameWithType: IGotrueStatelessClient<TUser, TSession>.ExchangeCodeForSession(string, string, StatelessClient.StatelessClientOptions)
+  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).ExchangeCodeForSession(String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ExchangeCodeForSession*
+  name: ExchangeCodeForSession
+  href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_ExchangeCodeForSession_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.ExchangeCodeForSession
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>.ExchangeCodeForSession
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueStatelessClient(Of TUser, TSession).ExchangeCodeForSession
+  nameWithType: IGotrueStatelessClient<TUser, TSession>.ExchangeCodeForSession
+  nameWithType.vb: IGotrueStatelessClient(Of TUser, TSession).ExchangeCodeForSession
 - uid: Supabase.Gotrue.Interfaces.IGotrueStatelessClient`2.GetApi(Supabase.Gotrue.StatelessClient.StatelessClientOptions)
   name: GetApi(StatelessClientOptions)
   href: api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html#Supabase_Gotrue_Interfaces_IGotrueStatelessClient_2_GetApi_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
@@ -5619,6 +5637,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.StatelessClient.DeleteUser
   nameWithType: StatelessClient.DeleteUser
+- uid: Supabase.Gotrue.StatelessClient.ExchangeCodeForSession(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name: ExchangeCodeForSession(string, string, StatelessClientOptions)
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ExchangeCodeForSession_System_String_System_String_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
+  commentId: M:Supabase.Gotrue.StatelessClient.ExchangeCodeForSession(System.String,System.String,Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  name.vb: ExchangeCodeForSession(String, String, StatelessClientOptions)
+  fullName: Supabase.Gotrue.StatelessClient.ExchangeCodeForSession(string, string, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  fullName.vb: Supabase.Gotrue.StatelessClient.ExchangeCodeForSession(String, String, Supabase.Gotrue.StatelessClient.StatelessClientOptions)
+  nameWithType: StatelessClient.ExchangeCodeForSession(string, string, StatelessClient.StatelessClientOptions)
+  nameWithType.vb: StatelessClient.ExchangeCodeForSession(String, String, StatelessClient.StatelessClientOptions)
+- uid: Supabase.Gotrue.StatelessClient.ExchangeCodeForSession*
+  name: ExchangeCodeForSession
+  href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_ExchangeCodeForSession_
+  commentId: Overload:Supabase.Gotrue.StatelessClient.ExchangeCodeForSession
+  isSpec: "True"
+  fullName: Supabase.Gotrue.StatelessClient.ExchangeCodeForSession
+  nameWithType: StatelessClient.ExchangeCodeForSession
 - uid: Supabase.Gotrue.StatelessClient.GetApi(Supabase.Gotrue.StatelessClient.StatelessClientOptions)
   name: GetApi(StatelessClientOptions)
   href: api/Supabase.Gotrue.StatelessClient.html#Supabase_Gotrue_StatelessClient_GetApi_Supabase_Gotrue_StatelessClient_StatelessClientOptions_
