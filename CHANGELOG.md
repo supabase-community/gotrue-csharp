@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 6.0.1 - 2024-07-19
+
+- [Re: #102](https://github.com/supabase-community/gotrue-csharp/pull/102) Add ExchangeCodeForSession to StatelessClient.
+  Thanks [@alexbakker](https://github.com/alexbakker)!
+
 ## 6.0.0 - 2024-07-14
 
 - Major: Change to targeting framework to `netstandard2.1`
