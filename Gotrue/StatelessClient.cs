@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
@@ -15,6 +16,10 @@ namespace Supabase.Gotrue
 		{
 			var api = GetApi(options);
 			return await api.Settings();
+		}
+		public async Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams, StatelessClientOptions options)
+		{
+			return await GetApi(options).Enroll(jwt, mfaEnrollParams);
 		}
 
 		/// <inheritdoc />

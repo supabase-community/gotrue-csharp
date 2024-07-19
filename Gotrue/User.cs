@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Supabase.Gotrue.Mfa;
 
 #pragma warning disable CS1591
 
@@ -66,6 +67,9 @@ namespace Supabase.Gotrue
 
 		[JsonProperty("is_anonymous")]
 		public bool IsAnonymous { get; set; }
+		
+		[JsonProperty("factors")]
+		public List<Factor> Factors { get; set; }
 
 		[JsonProperty("user_metadata")]
 		public Dictionary<string, object> UserMetadata { get; set; } = new Dictionary<string, object>();

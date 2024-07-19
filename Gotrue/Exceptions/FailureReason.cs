@@ -87,7 +87,8 @@ namespace Supabase.Gotrue.Exceptions
 			/// <summary>
 			/// The sso provider ID was incorrect or does not exist
 			/// </summary>
-			SsoProviderNotFound
+			SsoProviderNotFound,
+			MfaChallengeUnverified,
 		}
 
 		/// <summary>

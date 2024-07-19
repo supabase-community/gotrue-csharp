@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
+using Supabase.Gotrue.Mfa;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
 
@@ -44,6 +45,10 @@ namespace Supabase.Gotrue.Interfaces
 		Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode);
 		Task<Settings?> Settings();
 		Task<BaseResponse> GenerateLink(string jwt, GenerateLinkOptions options);
+		Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams);
+		Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams);
+		Task<MfaVerifyResponse?> Verify(string jwt, MfaVerifyParams mfaVerifyParams);
+		Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaVerifyParams);
 
 		/// <summary>
 		/// Links an oauth identity to an existing user.

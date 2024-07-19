@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Exceptions;
+using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
 
 #pragma warning disable CS1591
@@ -463,5 +464,44 @@ namespace Supabase.Gotrue.Interfaces
 		/// </summary>
 		/// <returns></returns>
 		public Task RefreshToken();
+		
+		#region MFA
+		/**
+		 * Starts the enrollment process for a new Multi-Factor Authentication (MFA)
+		 * factor. This method creates a new `unverified` factor.
+		 * To verify a factor, present the QR code or secret to the user and ask them to add it to their
+		 * authenticator app.
+		 * The user has to enter the code from their authenticator app to verify it.
+		 *
+		 * Upon verifying a factor, all other sessions are logged out and the current session's authenticator level is promoted to `aal2`.
+		 *
+		 */
+		Task<MfaEnrollResponse?> Enroll(MfaEnrollParams mfaEnrollParams);
+
+		/**
+		 * Prepares a challenge used to verify that a user has access to a MFA
+		 * factor.
+		 */
+		Task<MfaChallengeResponse?> Challenge(MfaChallengeParams mfaChallengeParams);
+
+		/**
+		 * Verifies a code against a challenge. The verification code is
+		 * provided by the user by entering a code seen in their authenticator app.
+		 */
+		Task<Session?> Verify(MfaVerifyParams mfaVerifyParams);
+
+		/**
+		 * Unenroll removes a MFA factor.
+		 * A user has to have an `aal2` authenticator level in order to unenroll a `verified` factor.
+		 */
+		Task<MfaUnenrollResponse?> Unenroll(MfaUnenrollParams mfaUnenrollParams);
+
+		/// <summary>
+		/// Returns the list of MFA factors enabled for this user
+		/// </summary>
+		Task<MfaListFactorsResponse?> ListFactors();
+
+		#endregion
+
 	}
 }

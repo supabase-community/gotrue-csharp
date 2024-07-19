@@ -32,6 +32,7 @@ namespace Supabase.Gotrue
 			switch (stateChanged)
 			{
 				case Constants.AuthState.SignedIn:
+				case Constants.AuthState.MfaChallengeVerified:
 					if (sender == null)
 						throw new ArgumentException("Tried to save a null session (1)");
 					if (sender.CurrentSession == null)

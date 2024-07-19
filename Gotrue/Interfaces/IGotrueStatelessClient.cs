@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.StatelessClient;
 
@@ -272,5 +273,7 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="options"></param>
         /// <returns></returns>
         Task<Settings?> Settings(StatelessClientOptions options);
+        
+        Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams, StatelessClientOptions options);
     }
 }

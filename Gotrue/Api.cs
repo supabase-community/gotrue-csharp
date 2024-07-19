@@ -9,6 +9,7 @@ using Supabase.Core.Attributes;
 using Supabase.Core.Extensions;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Mfa;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
 
@@ -539,6 +540,44 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, Headers);
 		}
 
+		
+		/// <inheritdoc />
+		public Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams)
+		{
+			var body = new Dictionary<string, object>
+			{
+				{ "friendly_name", mfaEnrollParams.FriendlyName },
+				{ "factor_type", mfaEnrollParams.FactorType },
+				{ "issuer", mfaEnrollParams.Issuer }
+			};
+			
+			return Helpers.MakeRequest<MfaEnrollResponse>(HttpMethod.Post, $"{Url}/factors", body, CreateAuthedRequestHeaders(jwt));
+		}
+
+		/// <inheritdoc />
+		public Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams)
+		{
+			return Helpers.MakeRequest<MfaChallengeResponse>(HttpMethod.Post, $"{Url}/factors/{mfaChallengeParams.FactorId}/challenge", null, CreateAuthedRequestHeaders(jwt));
+		}
+		
+		/// <inheritdoc />
+		public Task<MfaVerifyResponse?> Verify(string jwt, MfaVerifyParams mfaVerifyParams)
+		{
+			var body = new Dictionary<string, object>
+			{
+				{ "code", mfaVerifyParams.Code },
+				{ "challenge_id", mfaVerifyParams.ChallengeId }
+			};
+			
+			return Helpers.MakeRequest<MfaVerifyResponse>(HttpMethod.Post, $"{Url}/factors/{mfaVerifyParams.FactorId}/verify", body, CreateAuthedRequestHeaders(jwt));
+		}
+		
+		/// <inheritdoc />
+		public Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaUnenrollParams)
+		{
+			return Helpers.MakeRequest<MfaUnenrollResponse>(HttpMethod.Delete, $"{Url}/factors/{mfaUnenrollParams.FactorId}", null, CreateAuthedRequestHeaders(jwt));
+		}
+		
 		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
 		{

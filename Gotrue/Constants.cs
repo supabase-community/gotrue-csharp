@@ -120,7 +120,8 @@ namespace Supabase.Gotrue
 			UserUpdated,
 			PasswordRecovery,
 			TokenRefreshed,
-			Shutdown
+			Shutdown,
+			MfaChallengeVerified
 		}
 
 		/// <summary>
