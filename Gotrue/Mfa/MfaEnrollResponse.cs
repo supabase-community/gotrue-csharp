@@ -7,7 +7,7 @@ namespace Supabase.Gotrue.Mfa
 		// ID of the factor that was just enrolled (in an unverified state).
 		[JsonProperty("id")]
 		public string Id { get; set; }
-		
+
 		// Type of MFA factor. Only `totp` supported for now.
 		[JsonProperty("type")]
 		public string Type { get; set; }

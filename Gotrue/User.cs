@@ -67,7 +67,7 @@ namespace Supabase.Gotrue
 
 		[JsonProperty("is_anonymous")]
 		public bool IsAnonymous { get; set; }
-		
+
 		[JsonProperty("factors")]
 		public List<Factor> Factors { get; set; }
 

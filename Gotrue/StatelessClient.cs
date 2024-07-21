@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
+using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
@@ -17,9 +21,114 @@ namespace Supabase.Gotrue
 			var api = GetApi(options);
 			return await api.Settings();
 		}
+
+		/// <inheritdoc />
 		public async Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams, StatelessClientOptions options)
 		{
 			return await GetApi(options).Enroll(jwt, mfaEnrollParams);
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams, StatelessClientOptions options)
+		{
+			return await GetApi(options).Challenge(jwt, mfaChallengeParams);
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaVerifyResponse?> Verify(string jwt, MfaVerifyParams mfaVerifyParams, StatelessClientOptions options)
+		{
+			return await GetApi(options).Verify(jwt, mfaVerifyParams);
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaVerifyResponse?> ChallengeAndVerify(string jwt, MfaChallengeAndVerifyParams mfaChallengeAndVerifyParams, StatelessClientOptions options)
+		{
+			var api = GetApi(options);
+			var challengeResponse = await api.Challenge(jwt, new MfaChallengeParams
+			{
+				FactorId = mfaChallengeAndVerifyParams.FactorId
+			});
+
+			if (challengeResponse != null)
+			{
+				var verifyResponse = await api.Verify(jwt, new MfaVerifyParams
+				{
+					FactorId = mfaChallengeAndVerifyParams.FactorId,
+					ChallengeId = challengeResponse.Id,
+					Code = mfaChallengeAndVerifyParams.Code
+				});
+
+				return verifyResponse;
+			}
+
+			return null;
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaUnenrollParams, StatelessClientOptions options)
+		{
+			return await GetApi(options).Unenroll(jwt, mfaUnenrollParams);
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaListFactorsResponse?> ListFactors(string jwt, StatelessClientOptions options)
+		{
+			var api = GetApi(options);
+			var user = await api.GetUser(jwt);
+
+			if (user != null)
+			{
+				var response = new MfaListFactorsResponse()
+				{
+					All = user.Factors,
+					Totp = user.Factors.Where(x => x.FactorType == "totp" && x.Status == "verified").ToList()
+				};
+
+				return response;
+			}
+
+			return null;
+		}
+		public async Task<MfaGetAuthenticatorAssuranceLevelResponse?> GetAuthenticatorAssuranceLevel(string jwt, StatelessClientOptions options)
+		{
+			var api = GetApi(options);
+			var user = await api.GetUser(jwt);
+
+			if (user != null)
+			{
+				var payload = new JwtSecurityTokenHandler().ReadJwtToken(jwt).Payload;
+
+				if (payload == null || payload.ValidTo == DateTime.MinValue)
+					throw new Exception("`accessToken`'s payload was of an unknown structure.");
+
+				AuthenticatorAssuranceLevel? currentLevel = null;
+
+				if (payload.ContainsKey("aal"))
+				{
+					currentLevel = Enum.TryParse(payload["aal"].ToString(), out AuthenticatorAssuranceLevel parsedLevel) ? parsedLevel : (AuthenticatorAssuranceLevel?)null;
+				}
+
+				AuthenticatorAssuranceLevel? nextLevel = currentLevel;
+
+				var verifiedFactors = user.Factors?.Where(factor => factor.Status == "verified").ToList() ?? new List<Factor>();
+				if (verifiedFactors.Count > 0)
+				{
+					nextLevel = AuthenticatorAssuranceLevel.aal2;
+				}
+
+				var currentAuthenticationMethods = payload.Amr.Select(x => JsonConvert.DeserializeObject<AmrEntry>(x));
+
+				var response = new MfaGetAuthenticatorAssuranceLevelResponse
+				{
+					CurrentLevel = currentLevel,
+					NextLevel = nextLevel,
+					CurrentAuthenticationMethods = currentAuthenticationMethods.ToArray()
+				};
+
+				return response;
+			}
+
+			return null;
 		}
 
 		/// <inheritdoc />

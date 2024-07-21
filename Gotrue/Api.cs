@@ -540,7 +540,6 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, url.ToString(), body, Headers);
 		}
 
-		
 		/// <inheritdoc />
 		public Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams)
 		{
@@ -550,7 +549,7 @@ namespace Supabase.Gotrue
 				{ "factor_type", mfaEnrollParams.FactorType },
 				{ "issuer", mfaEnrollParams.Issuer }
 			};
-			
+
 			return Helpers.MakeRequest<MfaEnrollResponse>(HttpMethod.Post, $"{Url}/factors", body, CreateAuthedRequestHeaders(jwt));
 		}
 
@@ -559,7 +558,7 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<MfaChallengeResponse>(HttpMethod.Post, $"{Url}/factors/{mfaChallengeParams.FactorId}/challenge", null, CreateAuthedRequestHeaders(jwt));
 		}
-		
+
 		/// <inheritdoc />
 		public Task<MfaVerifyResponse?> Verify(string jwt, MfaVerifyParams mfaVerifyParams)
 		{
@@ -568,16 +567,16 @@ namespace Supabase.Gotrue
 				{ "code", mfaVerifyParams.Code },
 				{ "challenge_id", mfaVerifyParams.ChallengeId }
 			};
-			
+
 			return Helpers.MakeRequest<MfaVerifyResponse>(HttpMethod.Post, $"{Url}/factors/{mfaVerifyParams.FactorId}/verify", body, CreateAuthedRequestHeaders(jwt));
 		}
-		
+
 		/// <inheritdoc />
 		public Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaUnenrollParams)
 		{
 			return Helpers.MakeRequest<MfaUnenrollResponse>(HttpMethod.Delete, $"{Url}/factors/{mfaUnenrollParams.FactorId}", null, CreateAuthedRequestHeaders(jwt));
 		}
-		
+
 		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
 		{

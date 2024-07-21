@@ -37,7 +37,7 @@ namespace Supabase.Gotrue
 		/// Object called to persist the session (e.g. filesystem or cookie)
 		/// </summary>
 		private IGotruePersistenceListener<Session>? _sessionPersistence;
-		
+
 		/// <summary>
 		/// Get the TokenRefresh object, if it exists
 		/// </summary>
@@ -762,7 +762,7 @@ namespace Supabase.Gotrue
 
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
-			
+
 			return await _api.Enroll(CurrentSession.AccessToken, mfaEnrollParams);
 		}
 
@@ -774,7 +774,7 @@ namespace Supabase.Gotrue
 
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
-			
+
 			return await _api.Challenge(CurrentSession.AccessToken, mfaChallengeParams);
 		}
 
@@ -788,10 +788,10 @@ namespace Supabase.Gotrue
 				throw new GotrueException("Only supported when online", Offline);
 
 			var result =  await _api.Verify(CurrentSession.AccessToken, mfaVerifyParams);
-			
+
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
-			
+
 			var session = new Session
 			{
 				AccessToken = result.AccessToken,
@@ -800,10 +800,54 @@ namespace Supabase.Gotrue
 				ExpiresIn = result.ExpiresIn,
 				User = result.User
 			};
-			
+
 			UpdateSession(session);
 			NotifyAuthStateChange(MfaChallengeVerified);
-			
+
+			return session;
+		}
+
+		/// <inheritdoc />
+		public async Task<Session?> ChallengeAndVerify(MfaChallengeAndVerifyParams mfaChallengeAndVerifyParams)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			var challengeResponse = await _api.Challenge(CurrentSession.AccessToken, new MfaChallengeParams
+			{
+				FactorId = mfaChallengeAndVerifyParams.FactorId
+			});
+
+			if (challengeResponse == null)
+			{
+				return null;
+			}
+
+			var result =  await _api.Verify(CurrentSession.AccessToken, new MfaVerifyParams
+			{
+				FactorId = mfaChallengeAndVerifyParams.FactorId,
+				Code = mfaChallengeAndVerifyParams.Code,
+				ChallengeId = challengeResponse.Id
+			});
+
+			if (result == null || string.IsNullOrEmpty(result.AccessToken))
+				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
+
+			var session = new Session
+			{
+				AccessToken = result.AccessToken,
+				RefreshToken = result.RefreshToken,
+				TokenType = "bearer",
+				ExpiresIn = result.ExpiresIn,
+				User = result.User
+			};
+
+			UpdateSession(session);
+			NotifyAuthStateChange(MfaChallengeVerified);
+
 			return session;
 		}
 
@@ -815,10 +859,10 @@ namespace Supabase.Gotrue
 
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
-			
+
 			return  await _api.Unenroll(CurrentSession.AccessToken, mfaUnenrollParams);
 		}
-		
+
 		/// <inheritdoc />
 		public Task<MfaListFactorsResponse?> ListFactors()
 		{
@@ -838,14 +882,14 @@ namespace Supabase.Gotrue
 		{
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new GotrueException("Not Logged in.", NoSessionFound);
-			
+
 			var payload = new JwtSecurityTokenHandler().ReadJwtToken(CurrentSession.AccessToken).Payload;
 
 			if (payload == null || payload.ValidTo == DateTime.MinValue)
 				throw new GotrueException("`accessToken`'s payload was of an unknown structure.", NoSessionFound);
 
 			AuthenticatorAssuranceLevel? currentLevel = null;
-			
+
 			if (payload.ContainsKey("aal"))
 			{
 				currentLevel = Enum.TryParse(payload["aal"].ToString(), out AuthenticatorAssuranceLevel parsedLevel) ? parsedLevel : (AuthenticatorAssuranceLevel?)null;
@@ -867,7 +911,7 @@ namespace Supabase.Gotrue
 				NextLevel = nextLevel,
 				CurrentAuthenticationMethods = currentAuthenticationMethods.ToArray()
 			};
-			
+
 			return Task.FromResult(response);
 		}
 	}
