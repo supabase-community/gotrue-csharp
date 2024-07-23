@@ -204,7 +204,6 @@ namespace Supabase.Gotrue
 	                        session = await api.SignUpWithEmail(attributes, options);
 	                        break;
 	                    case SignUpType.Phone:
-	                        UnityEngine.Debug.LogError("Phone Sign in with User Attributes currently Unsupported");
 	                        session = await api.SignUpWithPhone(attributes, options);
 	                        break;
 	                }
@@ -225,7 +224,6 @@ namespace Supabase.Gotrue
 	                Session session = null;
 	                if (ex.Response.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
 	                {
-	                    UnityEngine.Debug.LogWarning($"User already exists, login user instead.");
 	                    switch (type)
 	                    {
 	                        case SignUpType.Email:
