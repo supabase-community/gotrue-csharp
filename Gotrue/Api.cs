@@ -578,6 +578,18 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public Task<BaseResponse> ListFactors(string jwt, MfaAdminListFactorsParams listFactorsParams)
+		{
+			return Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/users/{listFactorsParams.UserId}/factors", null, CreateAuthedRequestHeaders(jwt));
+		}
+
+		/// <inheritdoc />
+		public Task<MfaAdminDeleteFactorResponse?> DeleteFactor(string jwt, MfaAdminDeleteFactorParams deleteFactorParams)
+		{
+			return Helpers.MakeRequest<MfaAdminDeleteFactorResponse>(HttpMethod.Delete, $"{Url}/admin/users/{deleteFactorParams.UserId}/factors/{deleteFactorParams.Id}", null, CreateAuthedRequestHeaders(jwt));
+		}
+
+		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
 		{
 			var state = Helpers.GetUrlForProvider($"{Url}/user/identities/authorize", provider, options);

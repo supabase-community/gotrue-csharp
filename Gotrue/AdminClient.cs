@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Mfa;
 using Supabase.Gotrue.Responses;
 
 namespace Supabase.Gotrue
@@ -99,6 +100,7 @@ namespace Supabase.Gotrue
 		{
 			return _api.UpdateUserById(_serviceKey, userId, userData);
 		}
+
 		/// <inheritdoc />
 		public async Task<GenerateLinkResponse?> GenerateLink(GenerateLinkOptions options)
 		{
@@ -110,6 +112,29 @@ namespace Supabase.Gotrue
 			 
 			 var result = JsonConvert.DeserializeObject<GenerateLinkResponse>(response.Content);
 			 return result;
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaAdminListFactorsResponse?> ListFactors(MfaAdminListFactorsParams listFactorsParams)
+		{
+			var response = await _api.ListFactors(_serviceKey, listFactorsParams);
+			response.ResponseMessage?.EnsureSuccessStatusCode();
+
+			if (response.Content is null)
+				return null;
+
+			var result = JsonConvert.DeserializeObject<List<Factor>>(response.Content);
+			var listFactorsResponse = new MfaAdminListFactorsResponse
+			{
+				Factors = result
+			};
+
+			return listFactorsResponse;
+		}
+
+		public async Task<MfaAdminDeleteFactorResponse?> DeleteFactor(MfaAdminDeleteFactorParams deleteFactorParams)
+		{
+			return await _api.DeleteFactor(_serviceKey, deleteFactorParams);
 		}
 
 		/// <inheritdoc />

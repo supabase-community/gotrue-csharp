@@ -49,6 +49,8 @@ namespace Supabase.Gotrue.Interfaces
 		Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams);
 		Task<MfaVerifyResponse?> Verify(string jwt, MfaVerifyParams mfaVerifyParams);
 		Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaVerifyParams);
+		Task<BaseResponse> ListFactors(string jwt, MfaAdminListFactorsParams listFactorsParams);
+		Task<MfaAdminDeleteFactorResponse?> DeleteFactor(string jwt, MfaAdminDeleteFactorParams deleteFactorParams);
 
 		/// <summary>
 		/// Links an oauth identity to an existing user.
