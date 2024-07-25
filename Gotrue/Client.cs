@@ -872,7 +872,7 @@ namespace Supabase.Gotrue
 			var response = new MfaListFactorsResponse()
 			{
 				All = CurrentSession.User!.Factors,
-				Totp = CurrentSession.User!.Factors.Where(x => x.FactorType == "totp" && x.Status == "verified").ToList()
+				Totp = CurrentSession.User!.Factors?.Where(x => x.FactorType == "totp" && x.Status == "verified").ToList()
 			};
 
 			return Task.FromResult(response);

@@ -69,7 +69,7 @@ namespace Supabase.Gotrue
 		public bool IsAnonymous { get; set; }
 
 		[JsonProperty("factors")]
-		public List<Factor> Factors { get; set; }
+		public List<Factor> Factors { get; set; } = new List<Factor>();
 
 		[JsonProperty("user_metadata")]
 		public Dictionary<string, object> UserMetadata { get; set; } = new Dictionary<string, object>();
