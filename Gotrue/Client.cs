@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
@@ -586,7 +588,6 @@ namespace Supabase.Gotrue
 			return session;
 		}
 
-
 		/// <inheritdoc />
 		public async Task<Session?> RetrieveSessionAsync()
 		{
@@ -751,6 +752,167 @@ namespace Supabase.Gotrue
 		public void Shutdown()
 		{
 			NotifyAuthStateChange(AuthState.Shutdown);
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaEnrollResponse?> Enroll(MfaEnrollParams mfaEnrollParams)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			return await _api.Enroll(CurrentSession.AccessToken, mfaEnrollParams);
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaChallengeResponse?> Challenge(MfaChallengeParams mfaChallengeParams)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			return await _api.Challenge(CurrentSession.AccessToken, mfaChallengeParams);
+		}
+
+		/// <inheritdoc />
+		public async Task<Session?> Verify(MfaVerifyParams mfaVerifyParams)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			var result =  await _api.Verify(CurrentSession.AccessToken, mfaVerifyParams);
+
+			if (result == null || string.IsNullOrEmpty(result.AccessToken))
+				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
+
+			var session = new Session
+			{
+				AccessToken = result.AccessToken,
+				RefreshToken = result.RefreshToken,
+				TokenType = "bearer",
+				ExpiresIn = result.ExpiresIn,
+				User = result.User
+			};
+
+			UpdateSession(session);
+			NotifyAuthStateChange(MfaChallengeVerified);
+
+			return session;
+		}
+
+		/// <inheritdoc />
+		public async Task<Session?> ChallengeAndVerify(MfaChallengeAndVerifyParams mfaChallengeAndVerifyParams)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			var challengeResponse = await _api.Challenge(CurrentSession.AccessToken, new MfaChallengeParams
+			{
+				FactorId = mfaChallengeAndVerifyParams.FactorId
+			});
+
+			if (challengeResponse == null)
+			{
+				return null;
+			}
+
+			var result =  await _api.Verify(CurrentSession.AccessToken, new MfaVerifyParams
+			{
+				FactorId = mfaChallengeAndVerifyParams.FactorId,
+				Code = mfaChallengeAndVerifyParams.Code,
+				ChallengeId = challengeResponse.Id
+			});
+
+			if (result == null || string.IsNullOrEmpty(result.AccessToken))
+				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
+
+			var session = new Session
+			{
+				AccessToken = result.AccessToken,
+				RefreshToken = result.RefreshToken,
+				TokenType = "bearer",
+				ExpiresIn = result.ExpiresIn,
+				User = result.User
+			};
+
+			UpdateSession(session);
+			NotifyAuthStateChange(MfaChallengeVerified);
+
+			return session;
+		}
+
+		/// <inheritdoc />
+		public async Task<MfaUnenrollResponse?> Unenroll(MfaUnenrollParams mfaUnenrollParams)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			return  await _api.Unenroll(CurrentSession.AccessToken, mfaUnenrollParams);
+		}
+
+		/// <inheritdoc />
+		public Task<MfaListFactorsResponse?> ListFactors()
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			var response = new MfaListFactorsResponse()
+			{
+				All = CurrentSession.User!.Factors,
+				Totp = CurrentSession.User!.Factors?.Where(x => x.FactorType == "totp" && x.Status == "verified").ToList()
+			};
+
+			return Task.FromResult(response);
+		}
+
+		public Task<MfaGetAuthenticatorAssuranceLevelResponse?> GetAuthenticatorAssuranceLevel()
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+
+			var payload = new JwtSecurityTokenHandler().ReadJwtToken(CurrentSession.AccessToken).Payload;
+
+			if (payload == null || payload.ValidTo == DateTime.MinValue)
+				throw new GotrueException("`accessToken`'s payload was of an unknown structure.", NoSessionFound);
+
+			AuthenticatorAssuranceLevel? currentLevel = null;
+
+			if (payload.ContainsKey("aal"))
+			{
+				currentLevel = Enum.TryParse(payload["aal"].ToString(), out AuthenticatorAssuranceLevel parsedLevel) ? parsedLevel : (AuthenticatorAssuranceLevel?)null;
+			}
+
+			AuthenticatorAssuranceLevel? nextLevel = currentLevel;
+
+			var verifiedFactors = CurrentSession.User!.Factors?.Where(factor => factor.Status == "verified").ToList() ?? new List<Factor>();
+			if (verifiedFactors.Count > 0)
+			{
+				nextLevel = AuthenticatorAssuranceLevel.aal2;
+			}
+
+			var currentAuthenticationMethods = payload.Amr.Select(x => JsonConvert.DeserializeObject<AmrEntry>(x));
+
+			var response = new MfaGetAuthenticatorAssuranceLevelResponse
+			{
+				CurrentLevel = currentLevel,
+				NextLevel = nextLevel,
+				CurrentAuthenticationMethods = currentAuthenticationMethods.ToArray()
+			};
+
+			return Task.FromResult(response);
 		}
 	}
 }

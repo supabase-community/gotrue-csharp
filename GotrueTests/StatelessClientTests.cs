@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
+using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.StatelessClient;
 using static Supabase.Gotrue.Constants;
 
@@ -366,6 +367,82 @@ namespace GotrueTests
 
 			Assert.AreEqual(createdUser.Id, updatedUser.Id);
 			Assert.AreNotEqual(createdUser.Email, updatedUser.Email);
+		}
+
+		[TestMethod("MFA: Enroll user")]
+		public async Task MfaEnroll()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			await _client.SignUp(email, PASSWORD, Options);
+
+			var session = await _client.SignIn(email, PASSWORD, Options);
+			Assert.IsNotNull(session.AccessToken);
+			Assert.IsInstanceOfType(session.User, typeof(User));
+
+			var enrollResponse = await _client.Enroll(session.AccessToken, new MfaEnrollParams
+			{
+				FactorType = "totp",
+				Issuer = "Supabase",
+				FriendlyName = "Enroll test",
+			}, Options);
+
+			Assert.IsNotNull(enrollResponse);
+
+			var challengeResponse = await _client.Challenge(session.AccessToken, new MfaChallengeParams
+			{
+				FactorId = enrollResponse.Id
+			}, Options);
+			Assert.IsNotNull(challengeResponse.Id);
+
+			string totpCode = TotpGenerator.GeneratePin(enrollResponse.Totp.Secret, 30, 6);
+			var verifyResponse = await _client.Verify(session.AccessToken, new MfaVerifyParams
+			{
+				FactorId = enrollResponse.Id,
+				ChallengeId = challengeResponse.Id,
+				Code = totpCode
+			}, Options);
+			Assert.IsNotNull(verifyResponse);
+			Assert.IsNotNull(verifyResponse.AccessToken);
+
+			await _client.SignOut(session.AccessToken, Options);
+
+			session = await _client.SignIn(email, PASSWORD, Options);
+			Assert.IsNotNull(session);
+			Assert.IsNotNull(session.AccessToken);
+
+			var assuranceLevel = await _client.GetAuthenticatorAssuranceLevel(session.AccessToken, Options);
+			Assert.AreEqual(AuthenticatorAssuranceLevel.aal1, assuranceLevel.CurrentLevel);
+			Assert.AreEqual(AuthenticatorAssuranceLevel.aal2, assuranceLevel.NextLevel);
+
+			totpCode = TotpGenerator.GeneratePin(enrollResponse.Totp.Secret, 30, 6);
+			var challengeAndVerify = await _client.ChallengeAndVerify(session.AccessToken, new MfaChallengeAndVerifyParams
+			{
+				FactorId = enrollResponse.Id,
+				Code = totpCode
+			}, Options);
+
+			assuranceLevel = await _client.GetAuthenticatorAssuranceLevel(challengeAndVerify.AccessToken, Options);
+			Assert.AreEqual(AuthenticatorAssuranceLevel.aal2, assuranceLevel.CurrentLevel);
+			Assert.AreEqual(AuthenticatorAssuranceLevel.aal2, assuranceLevel.NextLevel);
+
+			var factors = await _client.ListFactors(session.AccessToken, Options);
+			Assert.IsTrue(factors.Totp.Count == 1);
+
+			var unenrollResponse = await _client.Unenroll(session.AccessToken, new MfaUnenrollParams
+			{
+				FactorId = enrollResponse.Id
+			}, Options);
+			Assert.IsNotNull(unenrollResponse);
+
+			await _client.SignOut(session.AccessToken, Options);
+
+			session = await _client.SignIn(email, PASSWORD, Options);
+			assuranceLevel = await _client.GetAuthenticatorAssuranceLevel(session.AccessToken, Options);
+			Assert.AreEqual(AuthenticatorAssuranceLevel.aal1, assuranceLevel.CurrentLevel);
+			Assert.AreEqual(AuthenticatorAssuranceLevel.aal1, assuranceLevel.NextLevel);
+
+			factors = await _client.ListFactors(session.AccessToken, Options);
+			Assert.IsTrue(factors.Totp.Count == 0);
 		}
 	}
 }

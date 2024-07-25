@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.StatelessClient;
 
@@ -272,5 +273,78 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="options"></param>
         /// <returns></returns>
         Task<Settings?> Settings(StatelessClientOptions options);
+
+
+        /// <summary>
+        /// Starts the enrollment process for a new Multi-Factor Authentication (MFA)
+        /// factor. This method creates a new `unverified` factor.
+        /// To verify a factor, present the QR code or secret to the user and ask them to add it to their
+        /// authenticator app.
+        /// The user has to enter the code from their authenticator app to verify it.
+        ///
+        /// Upon verifying a factor, all other sessions are logged out and the current session's authenticator level is promoted to `aal2`.
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="mfaEnrollParams"></param>
+        /// <param name="options"></param>
+        Task<MfaEnrollResponse?> Enroll(string jwt, MfaEnrollParams mfaEnrollParams, StatelessClientOptions options);
+
+        /// <summary>
+        /// Prepares a challenge used to verify that a user has access to a MFA
+        /// factor.
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="mfaChallengeParams"></param>
+        /// <param name="options"></param>
+        Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams, StatelessClientOptions options);
+
+        /// <summary>
+        /// Verifies a code against a challenge. The verification code is
+        /// provided by the user by entering a code seen in their authenticator app. </summary>
+        /// <param name="jwt"></param>
+        /// <param name="mfaVerifyParams"></param>
+        /// <param name="options"></param>
+        Task<MfaVerifyResponse?> Verify(string jwt, MfaVerifyParams mfaVerifyParams, StatelessClientOptions options);
+
+        /// <summary>
+        /// Helper method which creates a challenge and immediately uses the given code to verify against it thereafter. The verification code is
+        /// provided by the user by entering a code seen in their authenticator app.
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="mfaChallengeAndVerifyParams"></param>
+        /// <param name="options"></param>
+        Task<MfaVerifyResponse?> ChallengeAndVerify(string jwt, MfaChallengeAndVerifyParams mfaChallengeAndVerifyParams, StatelessClientOptions options);
+
+        /// <summary>
+        /// Unenroll removes a MFA factor.
+        /// A user has to have an `aal2` authenticator level in order to unenroll a `verified` factor.
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="mfaUnenrollParams"></param>
+        /// <param name="options"></param>
+        Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaUnenrollParams, StatelessClientOptions options);
+
+        /// <summary>
+        /// Returns the list of MFA factors enabled for this user
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="options"></param>
+        Task<MfaListFactorsResponse?> ListFactors(string jwt, StatelessClientOptions options);
+
+        /// <summary>
+        /// Returns the Authenticator Assurance Level (AAL) for the active session.
+        ///
+        /// - `aal1` (or `null`) means that the user's identity has been verified only
+        /// with a conventional login (email+password, OTP, magic link, social login,
+        /// etc.).
+        /// - `aal2` means that the user's identity has been verified both with a conventional login and at least one MFA factor.
+        ///
+        /// Although this method returns a promise, it's fairly quick (microseconds)
+        /// and rarely uses the network. You can use this to check whether the current
+        /// user needs to be shown a screen to verify their MFA factors.
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <param name="options"></param>
+        Task<MfaGetAuthenticatorAssuranceLevelResponse?> GetAuthenticatorAssuranceLevel(string jwt, StatelessClientOptions options);
     }
 }
