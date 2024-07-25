@@ -1,8 +1,14 @@
 ﻿# Changelog
 
+## 6.0.2 - 2024-07-25
+
+- [Re: 103](https://github.com/supabase-community/gotrue-csharp/pull/103) Add support for MFA signup and login flows.
+  Huge thanks to [@michaelschattgen](https://github.com/michaelschattgen) for this implementation!
+
 ## 6.0.1 - 2024-07-19
 
-- [Re: #102](https://github.com/supabase-community/gotrue-csharp/pull/102) Add ExchangeCodeForSession to StatelessClient.
+- [Re: #102](https://github.com/supabase-community/gotrue-csharp/pull/102) Add ExchangeCodeForSession to
+  StatelessClient.
   Thanks [@alexbakker](https://github.com/alexbakker)!
 
 ## 6.0.0 - 2024-07-14
