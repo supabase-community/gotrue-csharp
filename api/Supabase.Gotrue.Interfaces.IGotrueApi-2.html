@@ -210,6 +210,44 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
 
 
+  <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_DeleteFactor_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.DeleteFactor*"></a>
+
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_DeleteFactor_System_String_Supabase_Gotrue_Mfa_MfaAdminDeleteFactorParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.DeleteFactor(System.String,Supabase.Gotrue.Mfa.MfaAdminDeleteFactorParams)">
+  DeleteFactor(string, MfaAdminDeleteFactorParams)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;MfaAdminDeleteFactorResponse?&gt; DeleteFactor(string jwt, MfaAdminDeleteFactorParams deleteFactorParams)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jwt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>deleteFactorParams</code> <a class="xref" href="Supabase.Gotrue.Mfa.MfaAdminDeleteFactorParams.html">MfaAdminDeleteFactorParams</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.Mfa.MfaAdminDeleteFactorResponse.html">MfaAdminDeleteFactorResponse</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_DeleteUser_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.DeleteUser*"></a>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_DeleteUser_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.DeleteUser(System.String,System.String)">
@@ -518,7 +556,7 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentity_System_String_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)">
   LinkIdentity(string, Provider, SignInOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.</p>
@@ -545,6 +583,44 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_ListFactors_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.ListFactors*"></a>
+
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_ListFactors_System_String_Supabase_Gotrue_Mfa_MfaAdminListFactorsParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.ListFactors(System.String,Supabase.Gotrue.Mfa.MfaAdminListFactorsParams)">
+  ListFactors(string, MfaAdminListFactorsParams)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;BaseResponse&gt; ListFactors(string jwt, MfaAdminListFactorsParams listFactorsParams)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jwt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>listFactorsParams</code> <a class="xref" href="Supabase.Gotrue.Mfa.MfaAdminListFactorsParams.html">MfaAdminListFactorsParams</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.Responses.BaseResponse.html">BaseResponse</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -1319,7 +1395,7 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_UnlinkIdentity_System_String_Supabase_Gotrue_UserIdentity_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)">
   UnlinkIdentity(string, UserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>

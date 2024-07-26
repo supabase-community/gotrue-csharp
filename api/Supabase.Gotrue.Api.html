@@ -309,7 +309,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_CreateUser_System_String_Supabase_Gotrue_AdminUserAttributes_" data-uid="Supabase.Gotrue.Api.CreateUser(System.String,Supabase.Gotrue.AdminUserAttributes)">
   CreateUser(string, AdminUserAttributes?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L695"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L707"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Create a user</p>
@@ -346,11 +346,49 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
 
 
+  <a id="Supabase_Gotrue_Api_DeleteFactor_" data-uid="Supabase.Gotrue.Api.DeleteFactor*"></a>
+
+  <h3 id="Supabase_Gotrue_Api_DeleteFactor_System_String_Supabase_Gotrue_Mfa_MfaAdminDeleteFactorParams_" data-uid="Supabase.Gotrue.Api.DeleteFactor(System.String,Supabase.Gotrue.Mfa.MfaAdminDeleteFactorParams)">
+  DeleteFactor(string, MfaAdminDeleteFactorParams)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L587"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;MfaAdminDeleteFactorResponse?&gt; DeleteFactor(string jwt, MfaAdminDeleteFactorParams deleteFactorParams)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jwt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>deleteFactorParams</code> <a class="xref" href="Supabase.Gotrue.Mfa.MfaAdminDeleteFactorParams.html">MfaAdminDeleteFactorParams</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.Mfa.MfaAdminDeleteFactorResponse.html">MfaAdminDeleteFactorResponse</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Api_DeleteUser_" data-uid="Supabase.Gotrue.Api.DeleteUser*"></a>
 
   <h3 id="Supabase_Gotrue_Api_DeleteUser_System_String_System_String_" data-uid="Supabase.Gotrue.Api.DeleteUser(System.String,System.String)">
   DeleteUser(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L732"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L744"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Delete a user</p>
@@ -470,7 +508,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_GenerateLink_System_String_Supabase_Gotrue_GenerateLinkOptions_" data-uid="Supabase.Gotrue.Api.GenerateLink(System.String,Supabase.Gotrue.GenerateLinkOptions)">
   GenerateLink(string, GenerateLinkOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L754"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L766"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Generates email links and OTPs to be sent via a custom email provider.</p>
@@ -547,7 +585,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_GetUser_System_String_" data-uid="Supabase.Gotrue.Api.GetUser(System.String)">
   GetUser(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L613"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L625"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets User Details</p>
@@ -584,7 +622,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_GetUserById_System_String_System_String_" data-uid="Supabase.Gotrue.Api.GetUserById(System.String,System.String)">
   GetUserById(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L626"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L638"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get User details by Id</p>
@@ -667,7 +705,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_LinkIdentity_System_String_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Api.LinkIdentity(System.String,Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)">
   LinkIdentity(string, Provider, SignInOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L581"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L593"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.</p>
@@ -707,11 +745,49 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
 
 
+  <a id="Supabase_Gotrue_Api_ListFactors_" data-uid="Supabase.Gotrue.Api.ListFactors*"></a>
+
+  <h3 id="Supabase_Gotrue_Api_ListFactors_System_String_Supabase_Gotrue_Mfa_MfaAdminListFactorsParams_" data-uid="Supabase.Gotrue.Api.ListFactors(System.String,Supabase.Gotrue.Mfa.MfaAdminListFactorsParams)">
+  ListFactors(string, MfaAdminListFactorsParams)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L581"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;BaseResponse&gt; ListFactors(string jwt, MfaAdminListFactorsParams listFactorsParams)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jwt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>listFactorsParams</code> <a class="xref" href="Supabase.Gotrue.Mfa.MfaAdminListFactorsParams.html">MfaAdminListFactorsParams</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.Responses.BaseResponse.html">BaseResponse</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Api_ListUsers_" data-uid="Supabase.Gotrue.Api.ListUsers*"></a>
 
   <h3 id="Supabase_Gotrue_Api_ListUsers_System_String_System_String_System_String_Supabase_Gotrue_Constants_SortOrder_System_Nullable_System_Int32__System_Nullable_System_Int32__" data-uid="Supabase.Gotrue.Api.ListUsers(System.String,System.String,System.String,Supabase.Gotrue.Constants.SortOrder,System.Nullable{System.Int32},System.Nullable{System.Int32})">
   ListUsers(string, string?, string?, SortOrder, int?, int?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L654"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L666"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Lists users</p>
@@ -764,7 +840,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_Reauthenticate_System_String_" data-uid="Supabase.Gotrue.Api.Reauthenticate(System.String)">
   Reauthenticate(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L721"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L733"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends a re-authentication request, used for password changes.</p>
@@ -803,7 +879,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_RefreshAccessToken_System_String_System_String_" data-uid="Supabase.Gotrue.Api.RefreshAccessToken(System.String,System.String)">
   RefreshAccessToken(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L767"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L779"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Generates a new Session given a user's access token and refresh token.</p>
@@ -994,7 +1070,7 @@ Headers specified in the constructor will ALWAYS take precedence over headers re
 
   <h3 id="Supabase_Gotrue_Api_Settings" data-uid="Supabase.Gotrue.Api.Settings">
   Settings()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L743"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L755"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Calls the GoTrue server to get the settings (for example, if email auto confirmation is turned on)</p>
@@ -1365,7 +1441,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Api_SignOut_System_String_Supabase_Gotrue_Constants_SignOutScope_" data-uid="Supabase.Gotrue.Api.SignOut(System.String,Supabase.Gotrue.Constants.SignOutScope)">
   SignOut(string, SignOutScope)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L601"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L613"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes a logged-in session.</p>
@@ -1528,7 +1604,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Api_UnlinkIdentity_System_String_Supabase_Gotrue_UserIdentity_" data-uid="Supabase.Gotrue.Api.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)">
   UnlinkIdentity(string, UserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L589"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L601"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>
@@ -1569,7 +1645,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Api_UpdateUser_System_String_Supabase_Gotrue_UserAttributes_" data-uid="Supabase.Gotrue.Api.UpdateUser(System.String,Supabase.Gotrue.UserAttributes)">
   UpdateUser(string, UserAttributes)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L639"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L651"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates the User data</p>
@@ -1608,7 +1684,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Api_UpdateUserById_System_String_System_String_Supabase_Gotrue_UserAttributes_" data-uid="Supabase.Gotrue.Api.UpdateUserById(System.String,System.String,Supabase.Gotrue.UserAttributes)">
   UpdateUserById(string, string, UserAttributes)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L709"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Api.cs/#L721"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Update user by Id</p>
