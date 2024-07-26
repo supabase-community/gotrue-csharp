@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 6.0.3 - 2024-07-26
+
+- [Re: 105](https://github.com/supabase-community/gotrue-csharp/pull/105) Add admin calls for MFA. Big thanks
+  to [@michaelschattgen](https://github.com/michaelschattgen).
+
 ## 6.0.2 - 2024-07-25
 
 - [Re: 103](https://github.com/supabase-community/gotrue-csharp/pull/103) Add support for MFA signup and login flows.
