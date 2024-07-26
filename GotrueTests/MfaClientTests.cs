@@ -19,11 +19,15 @@ namespace GotrueTests;
 public class MfaClientTests
 {
 	private IGotrueClient<User, Session> _client;
+	private IGotrueAdminClient<User> _adminClient;
+
+	private readonly string _serviceKey = GenerateServiceRoleToken();
 
 	[TestInitialize]
 	public void TestInitializer()
 	{
 		_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+		_adminClient = new AdminClient(_serviceKey, new ClientOptions { AllowUnconfirmedUserSessions = true });
 	}
 
 	[TestMethod("MFA: Complete flow")]
@@ -101,6 +105,86 @@ public class MfaClientTests
 
 		factors = await _client.ListFactors();
 		IsTrue(factors.Totp.Count == 0);
+	}
+
+	[TestMethod("MFA Admin: List factors for user")]
+	public async Task MfaAdminListFactorsForUser()
+	{
+		var email = $"{RandomString(12)}@supabase.io";
+		var session = await _client.SignUp(email, PASSWORD);
+		VerifyGoodSession(session);
+
+		var mfaEnrollParams = new MfaEnrollParams
+		{
+			Issuer = "Supabase",
+			FactorType = "totp",
+			FriendlyName = "Enroll test"
+		};
+
+		var enrollResponse = await _client.Enroll(mfaEnrollParams);
+		IsNotNull(enrollResponse.Id);
+
+		var factors = await _adminClient.ListFactors(new MfaAdminListFactorsParams
+		{
+			UserId = session.User.Id
+		});
+		IsNotNull(factors);
+		AreEqual(1, factors.Factors.Count);
+		AreEqual(enrollResponse.Id, factors.Factors.FirstOrDefault().Id);
+		AreEqual("unverified", factors.Factors.FirstOrDefault().Status);
+
+		var totpCode = TotpGenerator.GeneratePin(enrollResponse.Totp.Secret, 30, 6);
+		await _client.ChallengeAndVerify(new MfaChallengeAndVerifyParams
+		{
+			FactorId = enrollResponse.Id,
+			Code = totpCode
+		});
+
+		factors = await _adminClient.ListFactors(new MfaAdminListFactorsParams
+		{
+			UserId = session.User.Id
+		});
+		IsNotNull(factors);
+		AreEqual(1, factors.Factors.Count);
+		AreEqual(enrollResponse.Id, factors.Factors.FirstOrDefault().Id);
+		AreEqual("verified", factors.Factors.FirstOrDefault().Status);
+	}
+
+	[TestMethod("MFA Admin: Delete factor for user")]
+	public async Task MfaAdminDeleteFactorForUser()
+	{
+		var email = $"{RandomString(12)}@supabase.io";
+		var session = await _client.SignUp(email, PASSWORD);
+		VerifyGoodSession(session);
+
+		var mfaEnrollParams = new MfaEnrollParams
+		{
+			Issuer = "Supabase",
+			FactorType = "totp",
+			FriendlyName = "Enroll test"
+		};
+
+		var enrollResponse = await _client.Enroll(mfaEnrollParams);
+		IsNotNull(enrollResponse.Id);
+
+		var listFactors = await _adminClient.ListFactors(new MfaAdminListFactorsParams
+		{
+			UserId = session.User.Id
+		});
+		AreEqual(1, listFactors.Factors.Count);
+
+		var deleteFactorResponse = await _adminClient.DeleteFactor(new MfaAdminDeleteFactorParams
+		{
+			Id = enrollResponse.Id,
+			UserId = session.User.Id
+		});
+		AreEqual(enrollResponse.Id, deleteFactorResponse.Id);
+
+		listFactors = await _adminClient.ListFactors(new MfaAdminListFactorsParams
+		{
+			UserId = session.User.Id
+		});
+		AreEqual(0, listFactors.Factors.Count);
 	}
 
 	[TestMethod("MFA: Invalid TOTP")]

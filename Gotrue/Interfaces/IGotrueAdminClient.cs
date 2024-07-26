@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Supabase.Core.Attributes;
 using Supabase.Core.Interfaces;
+using Supabase.Gotrue.Mfa;
 using Supabase.Gotrue.Responses;
 
 namespace Supabase.Gotrue.Interfaces
@@ -91,5 +92,19 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="options">Options for this call. `Password` is required for <see cref="GenerateLinkOptions.LinkType.SignUp"/>, `Data` is an optional parameter for <see cref="GenerateLinkOptions.LinkType.SignUp"/>.</param>
 		/// <returns></returns>
 		public Task<GenerateLinkResponse?> GenerateLink(GenerateLinkOptions options);
+
+		/// <summary>
+		/// Lists all factors associated to a specific user.
+		/// </summary>
+		/// <param name="listFactorParams">A <see cref="MfaAdminListFactorsParams"/> object that contains the user id.</param>
+		/// <returns>A list of <see cref="Factor"/> that this user has enabled.</returns>
+		public Task<MfaAdminListFactorsResponse?> ListFactors(MfaAdminListFactorsParams listFactorsParams);
+
+		/// <summary>
+		/// Deletes a factor on a user. This will log the user out of all active sessions if the deleted factor was verified.
+		/// </summary>
+		/// <param name="listFactorParams">A <see cref="MfaAdminListFactorsParams"/> object that contains the user id.</param>
+		/// <returns>A <see cref="MfaAdminDeleteFactorResponse"/> containing the deleted factor id.</returns>
+		public Task<MfaAdminDeleteFactorResponse?> DeleteFactor(MfaAdminDeleteFactorParams deleteFactorParams);
 	}
 }
