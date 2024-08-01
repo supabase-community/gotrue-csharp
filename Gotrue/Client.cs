@@ -183,6 +183,70 @@ namespace Supabase.Gotrue
 			return session;
 		}
 
+                
+	        /// <summary>
+	        /// Signs up a user by email address
+	        /// </summary>
+	        /// <param name="email"></param>
+	        /// <param name="password"></param>
+	        /// <param name="options">Object containing redirectTo and optional user metadata (data)</param>
+	        /// <returns></returns>
+	        public Task<Session> SignUp(string email, string password, SignUpOptions options = null) => SignUp(SignUpType.Email, email, password, options);
+	
+	        public async Task<Session> SignUp(SignUpType type, UserAttributes attributes, SignUpOptions options = null)
+	        {
+	            await DestroySession();
+	
+	            try
+	            {
+	                Session session = null;
+	                switch (type)
+	                {
+	                    case SignUpType.Email:
+	                        session = await api.SignUpWithEmail(attributes, options);
+	                        break;
+	                    case SignUpType.Phone:
+	                        session = await api.SignUpWithPhone(attributes, options);
+	                        break;
+	                }
+	
+	                if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
+	                {
+	                    await PersistSession(session);
+	
+	                    StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+	
+	                    return CurrentSession;
+	                }
+	
+	                return session;
+	            }
+	            catch (RequestException ex)
+	            {
+	                Session session = null;
+	                if (ex.Response.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
+	                {
+	                    switch (type)
+	                    {
+	                        case SignUpType.Email:
+	                            session = await api.SignInWithEmail(attributes);
+	                            break;
+	                        case SignUpType.Phone:
+	                            session = await api.SignUpWithPhone(attributes, options);
+	                            break;
+	                    }
+	
+	                    if (session?.User?.ConfirmedAt != null || (session.User != null && Options.AllowUnconfirmedUserSessions))
+	                    {
+	                        await PersistSession(session);
+	                        StateChanged?.Invoke(this, new ClientStateChanged(AuthState.SignedIn));
+	                        return CurrentSession;
+	                    }
+	                }
+	                return session;
+	            }
+	         }
+
 		/// <inheritdoc />
 		public async Task<bool> SignIn(string email, SignInOptions? options = null)
 		{
