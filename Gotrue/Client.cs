@@ -712,9 +712,6 @@ namespace Supabase.Gotrue
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.AccessToken) || string.IsNullOrEmpty(CurrentSession?.RefreshToken))
 				throw new GotrueException("No current session.", NoSessionFound);
 
-			if (CurrentSession!.Expired())
-				throw new GotrueException("Session expired", ExpiredRefreshToken);
-
 			var result = await _api.RefreshAccessToken(CurrentSession.AccessToken!, CurrentSession.RefreshToken!);
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
