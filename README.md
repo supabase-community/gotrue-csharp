@@ -170,7 +170,7 @@ async void Initialize() {
     client.AddStateChangedListener(AuthStateListener);
 
     // Load the session from persistence
-    client.LoadSession();
+    await client.LoadSessionAsync();
     // Loads the session using SessionRetriever and sets state internally.
     await client.RetrieveSessionAsync();
 }
