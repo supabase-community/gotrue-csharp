@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+
 namespace Supabase.Gotrue.Interfaces
 {
 	/// <summary>
@@ -23,6 +26,13 @@ namespace Supabase.Gotrue.Interfaces
 		/// Loads the session from the persistence implementation. Returns null if there is no session.
 		/// </summary>
 		/// <returns></returns>
+		[Obsolete("Use LoadSessionAsync instead")]
 		public TSession? LoadSession();
+		
+		/// <summary>
+		/// Loads the session asynchronously from the persistence implementation. Returns null if there is no session.
+		/// </summary>
+		/// <returns></returns>
+		public Task<TSession?> LoadSessionAsync() => Task.FromResult(LoadSession());
 	}
 }

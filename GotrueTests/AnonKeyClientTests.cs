@@ -95,7 +95,7 @@ namespace GotrueTests
 			newClient.AddStateChangedListener(AuthStateListener);
 
 			// Loads the session from storage
-			newClient.LoadSession();
+			await newClient.LoadSessionAsync();
 
 			Contains(_stateChanges, SignedIn);
 			AreEqual(newClient.CurrentSession, newPersistence.SavedSession);
