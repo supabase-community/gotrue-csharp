@@ -595,21 +595,13 @@ namespace Supabase.Gotrue
 			if (CurrentSession == null)
 				return null;
 
-			// Check to see if the session has expired. If so go ahead and destroy it.
-			if (CurrentSession != null && CurrentSession.Expired())
-			{
-				_debugNotification?.Log($"Loaded session has expired");
-				DestroySession();
-				return null;
-			}
-
 			// If we aren't online, we can't refresh the token
 			if (!Online)
 			{
 				throw new GotrueException("Only supported when online", Offline);
 			}
 
-			// We have a session, and hasn't expired, and we seem to be online. Let's try to refresh it.
+			// We have a session, and we seem to be online. Let's try to refresh it.
 			if (Options.AutoRefreshToken && CurrentSession?.RefreshToken != null)
 			{
 				try
@@ -711,9 +703,6 @@ namespace Supabase.Gotrue
 
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.AccessToken) || string.IsNullOrEmpty(CurrentSession?.RefreshToken))
 				throw new GotrueException("No current session.", NoSessionFound);
-
-			if (CurrentSession!.Expired())
-				throw new GotrueException("Session expired", ExpiredRefreshToken);
 
 			var result = await _api.RefreshAccessToken(CurrentSession.AccessToken!, CurrentSession.RefreshToken!);
 
