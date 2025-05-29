@@ -69,9 +69,9 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<bool> DeleteUser(string uid)
+		public async Task<bool> DeleteUser(string uid, bool shouldSoftDelete = false)
 		{
-			var result = await _api.DeleteUser(uid, _serviceKey);
+			var result = await _api.DeleteUser(_serviceKey, uid, shouldSoftDelete);
 			result.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}
