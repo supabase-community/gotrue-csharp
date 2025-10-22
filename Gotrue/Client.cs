@@ -518,14 +518,19 @@ namespace Supabase.Gotrue
 				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
 			}
-
+			
+			var iat = payload.IssuedAt;
+			var exp = payload.ValidTo;
+			var expiresIn = (long)(exp - iat).TotalSeconds;
+			
 			CurrentSession = new Session
 			{
 				AccessToken = accessToken,
 				RefreshToken = refreshToken,
 				TokenType = "bearer",
-				ExpiresIn = payload.Expiration!.Value,
-				User = await _api.GetUser(accessToken)
+				ExpiresIn = expiresIn,
+				User = await _api.GetUser(accessToken),
+				CreatedAt = iat,
 			};
 
 			NotifyAuthStateChange(SignedIn);
@@ -568,13 +573,16 @@ namespace Supabase.Gotrue
 
 			var user = await _api.GetUser(accessToken);
 
+			var payload = new JwtSecurityTokenHandler().ReadJwtToken(accessToken).Payload;
+
 			var session = new Session
 			{
 				AccessToken = accessToken,
 				ExpiresIn = long.Parse(expiresIn),
 				RefreshToken = refreshToken,
 				TokenType = tokenType,
-				User = user
+				User = user,
+				CreatedAt = payload.IssuedAt,
 			};
 
 			if (storeSession)
@@ -594,14 +602,6 @@ namespace Supabase.Gotrue
 			// No session, so just return.
 			if (CurrentSession == null)
 				return null;
-
-			// Check to see if the session has expired. If so go ahead and destroy it.
-			if (CurrentSession != null && CurrentSession.Expired())
-			{
-				_debugNotification?.Log($"Loaded session has expired");
-				DestroySession();
-				return null;
-			}
 
 			// If we aren't online, we can't refresh the token
 			if (!Online)
@@ -691,6 +691,9 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task RefreshToken(string accessToken, string refreshToken)
 		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+			
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
 				throw new GotrueException("No token provided", NoSessionFound);
 
@@ -711,9 +714,6 @@ namespace Supabase.Gotrue
 
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.AccessToken) || string.IsNullOrEmpty(CurrentSession?.RefreshToken))
 				throw new GotrueException("No current session.", NoSessionFound);
-
-			if (CurrentSession!.Expired())
-				throw new GotrueException("Session expired", ExpiredRefreshToken);
 
 			var result = await _api.RefreshAccessToken(CurrentSession.AccessToken!, CurrentSession.RefreshToken!);
 
@@ -792,13 +792,16 @@ namespace Supabase.Gotrue
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
 
+			var payload = new JwtSecurityTokenHandler().ReadJwtToken(result.AccessToken).Payload;
+			
 			var session = new Session
 			{
 				AccessToken = result.AccessToken,
 				RefreshToken = result.RefreshToken,
 				TokenType = "bearer",
 				ExpiresIn = result.ExpiresIn,
-				User = result.User
+				User = result.User,
+				CreatedAt = payload.IssuedAt,
 			};
 
 			UpdateSession(session);
@@ -836,13 +839,15 @@ namespace Supabase.Gotrue
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
 
+			var payload = new JwtSecurityTokenHandler().ReadJwtToken(result.AccessToken).Payload;
 			var session = new Session
 			{
 				AccessToken = result.AccessToken,
 				RefreshToken = result.RefreshToken,
 				TokenType = "bearer",
 				ExpiresIn = result.ExpiresIn,
-				User = result.User
+				User = result.User,
+				CreatedAt = payload.IssuedAt,
 			};
 
 			UpdateSession(session);
