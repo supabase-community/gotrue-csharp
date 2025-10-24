@@ -530,7 +530,6 @@ namespace Supabase.Gotrue
 				TokenType = "bearer",
 				ExpiresIn = expiresIn,
 				User = await _api.GetUser(accessToken),
-				CreatedAt = iat,
 			};
 
 			NotifyAuthStateChange(SignedIn);
@@ -573,8 +572,6 @@ namespace Supabase.Gotrue
 
 			var user = await _api.GetUser(accessToken);
 
-			var payload = new JwtSecurityTokenHandler().ReadJwtToken(accessToken).Payload;
-
 			var session = new Session
 			{
 				AccessToken = accessToken,
@@ -582,7 +579,6 @@ namespace Supabase.Gotrue
 				RefreshToken = refreshToken,
 				TokenType = tokenType,
 				User = user,
-				CreatedAt = payload.IssuedAt,
 			};
 
 			if (storeSession)
@@ -791,8 +787,6 @@ namespace Supabase.Gotrue
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
-
-			var payload = new JwtSecurityTokenHandler().ReadJwtToken(result.AccessToken).Payload;
 			
 			var session = new Session
 			{
@@ -800,8 +794,7 @@ namespace Supabase.Gotrue
 				RefreshToken = result.RefreshToken,
 				TokenType = "bearer",
 				ExpiresIn = result.ExpiresIn,
-				User = result.User,
-				CreatedAt = payload.IssuedAt,
+				User = result.User
 			};
 
 			UpdateSession(session);
@@ -838,8 +831,7 @@ namespace Supabase.Gotrue
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
-
-			var payload = new JwtSecurityTokenHandler().ReadJwtToken(result.AccessToken).Payload;
+			
 			var session = new Session
 			{
 				AccessToken = result.AccessToken,
@@ -847,7 +839,6 @@ namespace Supabase.Gotrue
 				TokenType = "bearer",
 				ExpiresIn = result.ExpiresIn,
 				User = result.User,
-				CreatedAt = payload.IssuedAt,
 			};
 
 			UpdateSession(session);
