@@ -488,7 +488,7 @@ namespace Supabase.Gotrue
 
 			await RefreshToken();
 
-			var user = await _api.GetUser(CurrentSession.AccessToken!);
+			var user = await _api.GetUser(CurrentSession.AccessToken);
 			CurrentSession.User = user;
 
 			return CurrentSession;
@@ -693,13 +693,22 @@ namespace Supabase.Gotrue
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
 				throw new GotrueException("No token provided", NoSessionFound);
 
-			var result = await _api.RefreshAccessToken(accessToken, refreshToken);
+			try
+			{
+				var result = await _api.RefreshAccessToken(accessToken, refreshToken);
 
-			if (result == null || string.IsNullOrEmpty(result.AccessToken))
-				throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
-
-			CurrentSession = result;
-			NotifyAuthStateChange(TokenRefreshed);
+				if (result == null || string.IsNullOrEmpty(result.AccessToken))
+					throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
+				
+				CurrentSession = result;
+				NotifyAuthStateChange(TokenRefreshed);	
+			}
+			catch (GotrueException ex) when (ex.Reason is InvalidRefreshToken)
+			{
+				DestroySession();
+				NotifyAuthStateChange(SignedOut);
+				throw;
+			}
 		}
 
 		/// <inheritdoc />
@@ -711,14 +720,22 @@ namespace Supabase.Gotrue
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession?.AccessToken) || string.IsNullOrEmpty(CurrentSession?.RefreshToken))
 				throw new GotrueException("No current session.", NoSessionFound);
 
-			var result = await _api.RefreshAccessToken(CurrentSession.AccessToken!, CurrentSession.RefreshToken!);
+			try
+			{
+				var result = await _api.RefreshAccessToken(CurrentSession.AccessToken!, CurrentSession.RefreshToken!);
+				if (result == null || string.IsNullOrEmpty(result.AccessToken))
+					throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
 
-			if (result == null || string.IsNullOrEmpty(result.AccessToken))
-				throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
+				CurrentSession = result;
 
-			CurrentSession = result;
-
-			NotifyAuthStateChange(TokenRefreshed);
+				NotifyAuthStateChange(TokenRefreshed);	
+			}
+			catch (GotrueException ex) when (ex.Reason is InvalidRefreshToken)
+			{
+				DestroySession();
+				NotifyAuthStateChange(SignedOut);
+				throw;
+			}
 		}
 
 
