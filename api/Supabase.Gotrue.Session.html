@@ -225,7 +225,7 @@ public DateTime CreatedAt { get; set; }</code></pre>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Session.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The number of seconds until the token expires (since it was issued). Returned when a login is confirmed.</p>
+  <div class="markdown level1 summary"><p>The number of seconds until the access token expires (since it was issued). Returned when a login is confirmed.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -407,74 +407,6 @@ public User? User { get; set; }</code></pre>
     <dt><a class="xref" href="Supabase.Gotrue.User.html">User</a></dt>
     <dd></dd>
   </dl>
-
-
-
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Supabase_Gotrue_Session_Expired_" data-uid="Supabase.Gotrue.Session.Expired*"></a>
-
-  <h3 id="Supabase_Gotrue_Session_Expired" data-uid="Supabase.Gotrue.Session.Expired">
-  Expired()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Session.cs/#L63"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Returns true if the session has expired</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Expired()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Supabase_Gotrue_Session_ExpiresAt_" data-uid="Supabase.Gotrue.Session.ExpiresAt*"></a>
-
-  <h3 id="Supabase_Gotrue_Session_ExpiresAt" data-uid="Supabase.Gotrue.Session.ExpiresAt">
-  ExpiresAt()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Session.cs/#L57"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The expiration date of this session, in UTC time.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DateTime ExpiresAt()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
 
 
 
