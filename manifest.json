@@ -18,7 +18,11 @@
           "relative_path": "api/Supabase.Gotrue.AdminClient.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.AdminClient",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.AdminClient.yml\" sourcestartlinenumber=\"1\">Admin client for interacting with the Gotrue API. Intended for use on\nservers or other secure environments.</p>\n<p sourcefile=\"api/Supabase.Gotrue.AdminClient.yml\" sourcestartlinenumber=\"4\">This client does NOT manage user sessions or track any other state.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -28,7 +32,11 @@
           "relative_path": "api/Supabase.Gotrue.AdminUserAttributes.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.AdminUserAttributes",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.AdminUserAttributes.yml\" sourcestartlinenumber=\"1\">Ref: <a href=\"https://supabase.github.io/gotrue-js/interfaces/AdminUserAttributes.html\" sourcefile=\"api/Supabase.Gotrue.AdminUserAttributes.yml\" sourcestartlinenumber=\"1\">https://supabase.github.io/gotrue-js/interfaces/AdminUserAttributes.html</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -38,7 +46,11 @@
           "relative_path": "api/Supabase.Gotrue.Api.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Api",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Api.yml\" sourcestartlinenumber=\"1\">The REST calls to the Gotrue API.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -48,7 +60,11 @@
           "relative_path": "api/Supabase.Gotrue.Client.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Client",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Client.yml\" sourcestartlinenumber=\"1\">Supports all classes in the .NET class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all .NET classes; it is the root of the type hierarchy.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -58,7 +74,11 @@
           "relative_path": "api/Supabase.Gotrue.ClientOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.ClientOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.ClientOptions.yml\" sourcestartlinenumber=\"1\">Class representation options available to the <xref href=\"Supabase.Gotrue.Client\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -68,7 +88,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.AuthState.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.AuthState",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Constants.AuthState.yml\" sourcestartlinenumber=\"1\">States that the Auth Client will raise events for.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -78,7 +102,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.EmailOtpType.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.EmailOtpType",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -88,7 +116,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.MobileOtpType.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.MobileOtpType",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -98,7 +130,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.OAuthFlowType.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.OAuthFlowType",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Constants.OAuthFlowType.yml\" sourcestartlinenumber=\"1\">Represents an OAuth Flow type</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -108,7 +144,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.Provider.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.Provider",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Constants.Provider.yml\" sourcestartlinenumber=\"1\">Providers available to Supabase\nRef: <a href=\"https://supabase.github.io/gotrue-js/modules.html#Provider\" sourcefile=\"api/Supabase.Gotrue.Constants.Provider.yml\" sourcestartlinenumber=\"2\">https://supabase.github.io/gotrue-js/modules.html#Provider</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -118,7 +158,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.SignInType.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.SignInType",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Constants.SignInType.yml\" sourcestartlinenumber=\"1\">Specifies the functionality expected from the <code sourcefile=\"api/Supabase.Gotrue.Constants.SignInType.yml\" sourcestartlinenumber=\"1\">SignIn</code> method</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -128,7 +172,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.SignOutScope.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.SignOutScope",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -138,7 +186,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.SignUpType.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.SignUpType",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Constants.SignUpType.yml\" sourcestartlinenumber=\"1\">Specifies the functionality expected from the <code sourcefile=\"api/Supabase.Gotrue.Constants.SignUpType.yml\" sourcestartlinenumber=\"1\">SignUp</code> method</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -148,7 +200,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.SortOrder.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants.SortOrder",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -158,7 +214,11 @@
           "relative_path": "api/Supabase.Gotrue.Constants.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Constants",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Constants.yml\" sourcestartlinenumber=\"1\">Constants used throughout the Gotrue Client</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -168,7 +228,11 @@
           "relative_path": "api/Supabase.Gotrue.DebugNotification.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.DebugNotification",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.DebugNotification.yml\" sourcestartlinenumber=\"1\">Manages the debug listeners for the Gotrue Client. You'll want to install a debug listener\nto get debug information back - especially for errors from the background RefreshToken thread.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -178,7 +242,11 @@
           "relative_path": "api/Supabase.Gotrue.Exceptions.FailureHint.Reason.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Exceptions.FailureHint.Reason",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Exceptions.FailureHint.Reason.yml\" sourcestartlinenumber=\"1\">Best effort guess at why the exception was thrown.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -188,7 +256,11 @@
           "relative_path": "api/Supabase.Gotrue.Exceptions.FailureHint.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Exceptions.FailureHint",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Exceptions.FailureHint.yml\" sourcestartlinenumber=\"1\">Maps Supabase server errors to hints based on the status code and the contents of the error message.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -198,7 +270,11 @@
           "relative_path": "api/Supabase.Gotrue.Exceptions.GotrueException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Exceptions.GotrueException",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Exceptions.GotrueException.yml\" sourcestartlinenumber=\"1\">Errors from the GoTrue server are wrapped by this exception</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -208,7 +284,11 @@
           "relative_path": "api/Supabase.Gotrue.Exceptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Exceptions",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -218,7 +298,11 @@
           "relative_path": "api/Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.GenerateLinkEmailChangeCurrentOptions.yml\" sourcestartlinenumber=\"1\">Shortcut options for <xref href=\"Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeCurrent\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -228,7 +312,11 @@
           "relative_path": "api/Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.GenerateLinkEmailChangeNewOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.GenerateLinkEmailChangeNewOptions.yml\" sourcestartlinenumber=\"1\">Shortcut options for <xref href=\"Supabase.Gotrue.GenerateLinkOptions.LinkType.EmailChangeNew\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -238,7 +326,11 @@
           "relative_path": "api/Supabase.Gotrue.GenerateLinkOptions.LinkType.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.GenerateLinkOptions.LinkType",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.GenerateLinkOptions.LinkType.yml\" sourcestartlinenumber=\"1\">Mapping of link types that can be generated.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -248,7 +340,11 @@
           "relative_path": "api/Supabase.Gotrue.GenerateLinkOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.GenerateLinkOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.GenerateLinkOptions.yml\" sourcestartlinenumber=\"1\">Options for Generating an Email Link</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -258,7 +354,11 @@
           "relative_path": "api/Supabase.Gotrue.GenerateLinkSignupOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.GenerateLinkSignupOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.GenerateLinkSignupOptions.yml\" sourcestartlinenumber=\"1\">Shortcut options for <xref href=\"Supabase.Gotrue.GenerateLinkOptions.LinkType.SignUp\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -268,7 +368,11 @@
           "relative_path": "api/Supabase.Gotrue.Helpers.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Helpers",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Helpers.yml\" sourcestartlinenumber=\"1\">Utility methods to assist with flow. Includes nonce generation and verification.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -278,7 +382,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotrueAdminClient<TUser>",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueAdminClient-1.yml\" sourcestartlinenumber=\"1\">Interface for the Gotrue Admin Client (auth).</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -288,7 +396,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -298,7 +410,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotrueClient-2.AuthEventHandler.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.AuthEventHandler",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.AuthEventHandler.yml\" sourcestartlinenumber=\"1\">The method that is called when there is a user state change.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -308,7 +424,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"1\">GoTrue stateful Client.</p>\n<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"3\">This class is best used as a long-lived singleton object in your application. You can attach listeners\nto be notified of changes to the user log in state, a persistence system for sessions across application\nlaunches, and more. It includes a (optional, on by default) background thread that runs to refresh the\nuser's session token.</p>\n<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"8\">Check out the test suite for examples of use.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -318,7 +438,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotruePersistenceListener-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotruePersistenceListener<TSession>",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotruePersistenceListener-1.yml\" sourcestartlinenumber=\"1\">Interface for a session persistence auth state handler.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -328,7 +452,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotrueSessionPersistence-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotrueSessionPersistence<TSession>",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueSessionPersistence-1.yml\" sourcestartlinenumber=\"1\">Interface for session persistence. As a reminder, make sure you handle exceptions and\nother error conditions in your implementation.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -338,7 +466,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces.IGotrueStatelessClient<TUser, TSession>",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueStatelessClient-2.yml\" sourcestartlinenumber=\"1\">A Stateless Gotrue Client</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -348,7 +480,11 @@
           "relative_path": "api/Supabase.Gotrue.Interfaces.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Interfaces",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -358,7 +494,11 @@
           "relative_path": "api/Supabase.Gotrue.InviteUserByEmailOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.InviteUserByEmailOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.InviteUserByEmailOptions.yml\" sourcestartlinenumber=\"1\">A utility class that represents options for sending a User an Invitation</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -368,7 +508,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.AmrEntry.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.AmrEntry",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -378,7 +522,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.AuthenticatorAssuranceLevel.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.AuthenticatorAssuranceLevel",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -388,7 +536,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.Factor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.Factor",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -398,7 +550,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaAdminDeleteFactorParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaAdminDeleteFactorParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -408,7 +564,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaAdminDeleteFactorResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaAdminDeleteFactorResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -418,7 +578,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaAdminListFactorsParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaAdminListFactorsParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -428,7 +592,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaAdminListFactorsResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaAdminListFactorsResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -438,7 +606,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaChallengeAndVerifyParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaChallengeAndVerifyParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -448,7 +620,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaChallengeParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaChallengeParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -458,7 +634,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaChallengeResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaChallengeResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -468,7 +648,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaEnrollParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaEnrollParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -478,7 +662,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaEnrollResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaEnrollResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -488,7 +676,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaGetAuthenticatorAssuranceLevelResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaGetAuthenticatorAssuranceLevelResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -498,7 +690,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaListFactorsResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaListFactorsResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -508,7 +704,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaUnenrollParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaUnenrollParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -518,7 +718,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaUnenrollResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaUnenrollResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -528,7 +732,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaVerifyParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaVerifyParams",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -538,7 +746,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.MfaVerifyResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.MfaVerifyResponse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -548,7 +760,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.TOTP.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa.TOTP",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -558,7 +774,11 @@
           "relative_path": "api/Supabase.Gotrue.Mfa.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Mfa",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -568,7 +788,11 @@
           "relative_path": "api/Supabase.Gotrue.NetworkStatus.NetworkListener.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.NetworkStatus.NetworkListener",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.NetworkStatus.NetworkListener.yml\" sourcestartlinenumber=\"1\">A delegate for listening to network changes.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -578,7 +802,11 @@
           "relative_path": "api/Supabase.Gotrue.NetworkStatus.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.NetworkStatus",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.NetworkStatus.yml\" sourcestartlinenumber=\"1\">A Network status system to pair with the <xref href=\"Supabase.Gotrue.Client.Online\" data-throw-if-not-resolved=\"false\"></xref>Client.</p>\n<see>\n    <cref>https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/network-info</cref>\n</see>\n"
     },
     {
       "type": "ManagedReference",
@@ -588,7 +816,11 @@
           "relative_path": "api/Supabase.Gotrue.PasswordlessSignInState.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.PasswordlessSignInState",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.PasswordlessSignInState.yml\" sourcestartlinenumber=\"1\">A utility class that represents a successful response from a request to send a user\nPasswordless Sign In.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -598,7 +830,11 @@
           "relative_path": "api/Supabase.Gotrue.PersistenceListener.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.PersistenceListener",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.PersistenceListener.yml\" sourcestartlinenumber=\"1\">Manages the persistence of the Gotrue Session. You'll want to install a persistence listener\nto persist user sessions between app restarts.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -608,7 +844,11 @@
           "relative_path": "api/Supabase.Gotrue.ProviderAuthState.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.ProviderAuthState",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.ProviderAuthState.yml\" sourcestartlinenumber=\"1\">Represents an OAuth Provider's URI and Parameters.</p>\n<p sourcefile=\"api/Supabase.Gotrue.ProviderAuthState.yml\" sourcestartlinenumber=\"3\">For use with Provider Auth, PKCE Auth, and ID Token auth.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -618,7 +858,11 @@
           "relative_path": "api/Supabase.Gotrue.ResetPasswordForEmailOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.ResetPasswordForEmailOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.ResetPasswordForEmailOptions.yml\" sourcestartlinenumber=\"1\">A utility class that represents a successful response from a request to send a user's password reset using the PKCE flow.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -628,7 +872,11 @@
           "relative_path": "api/Supabase.Gotrue.ResetPasswordForEmailState.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.ResetPasswordForEmailState",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.ResetPasswordForEmailState.yml\" sourcestartlinenumber=\"1\">A utility class that represents a successful response from a request to send a user's password reset using the PKCE flow.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -638,7 +886,11 @@
           "relative_path": "api/Supabase.Gotrue.Responses.BaseResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Responses.BaseResponse",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Responses.BaseResponse.yml\" sourcestartlinenumber=\"1\">A wrapper class from which all Responses derive.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -648,7 +900,11 @@
           "relative_path": "api/Supabase.Gotrue.Responses.GenerateLinkResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Responses.GenerateLinkResponse",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Responses.GenerateLinkResponse.yml\" sourcestartlinenumber=\"1\">An extended user response returned when generating a link.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -658,7 +914,11 @@
           "relative_path": "api/Supabase.Gotrue.Responses.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Responses",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -668,7 +928,11 @@
           "relative_path": "api/Supabase.Gotrue.SSOResponse.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SSOResponse",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SSOResponse.yml\" sourcestartlinenumber=\"1\">Single sign on (SSO) response data deserialized from the API {supabaseAuthUrl}/sso</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -678,7 +942,11 @@
           "relative_path": "api/Supabase.Gotrue.Session.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Session",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Session.yml\" sourcestartlinenumber=\"1\">Represents a Gotrue Session</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -688,7 +956,11 @@
           "relative_path": "api/Supabase.Gotrue.Settings.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.Settings",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Settings.yml\" sourcestartlinenumber=\"1\">Settings data retrieved from the GoTrue server.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -698,7 +970,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInAnonymouslyOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInAnonymouslyOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInAnonymouslyOptions.yml\" sourcestartlinenumber=\"1\">Options for handling signing in anonymously</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -708,7 +984,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInOptions.yml\" sourcestartlinenumber=\"1\">Options used for signing in a user.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -718,7 +998,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInWithPasswordlessEmailOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.yml\" sourcestartlinenumber=\"1\">Options used for signing in a user with passwordless Options</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -728,7 +1012,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInWithPasswordlessOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInWithPasswordlessOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInWithPasswordlessOptions.yml\" sourcestartlinenumber=\"1\">Options used for signing in a user with passwordless Options</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -738,7 +1026,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.MessagingChannel.yml\" sourcestartlinenumber=\"1\">Represents a messaging channel to use for sending the OTP.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -748,7 +1040,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInWithPasswordlessPhoneOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInWithPasswordlessPhoneOptions.yml\" sourcestartlinenumber=\"1\">Options used for signing in a user with passwordless Options</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -758,7 +1054,11 @@
           "relative_path": "api/Supabase.Gotrue.SignInWithSSOOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignInWithSSOOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignInWithSSOOptions.yml\" sourcestartlinenumber=\"1\">Options used for signing in a user using single sign on (SSO).</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -768,7 +1068,11 @@
           "relative_path": "api/Supabase.Gotrue.SignUpOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.SignUpOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.SignUpOptions.yml\" sourcestartlinenumber=\"1\">Options used for signing up a user.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -778,7 +1082,11 @@
           "relative_path": "api/Supabase.Gotrue.StatelessClient.StatelessClientOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.StatelessClient.StatelessClientOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.StatelessClient.StatelessClientOptions.yml\" sourcestartlinenumber=\"1\">Class representation options available to the <xref href=\"Supabase.Gotrue.Client\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -788,7 +1096,11 @@
           "relative_path": "api/Supabase.Gotrue.StatelessClient.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.StatelessClient",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.StatelessClient.yml\" sourcestartlinenumber=\"1\">Supports all classes in the .NET class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all .NET classes; it is the root of the type hierarchy.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -798,7 +1110,11 @@
           "relative_path": "api/Supabase.Gotrue.TokenRefresh.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.TokenRefresh",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.TokenRefresh.yml\" sourcestartlinenumber=\"1\">Manages the auto-refresh of the Gotrue Session.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -808,7 +1124,11 @@
           "relative_path": "api/Supabase.Gotrue.User.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.User",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.User.yml\" sourcestartlinenumber=\"1\">Represents a Gotrue User\nRef: <a href=\"https://supabase.github.io/gotrue-js/interfaces/User.html\" sourcefile=\"api/Supabase.Gotrue.User.yml\" sourcestartlinenumber=\"2\">https://supabase.github.io/gotrue-js/interfaces/User.html</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -818,7 +1138,11 @@
           "relative_path": "api/Supabase.Gotrue.UserAttributes.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.UserAttributes",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.UserAttributes.yml\" sourcestartlinenumber=\"1\">Ref: <a href=\"https://supabase.github.io/gotrue-js/interfaces/UserAttributes.html\" sourcefile=\"api/Supabase.Gotrue.UserAttributes.yml\" sourcestartlinenumber=\"1\">https://supabase.github.io/gotrue-js/interfaces/UserAttributes.html</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -828,7 +1152,11 @@
           "relative_path": "api/Supabase.Gotrue.UserIdentity.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.UserIdentity",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.UserIdentity.yml\" sourcestartlinenumber=\"1\">Ref: <a href=\"https://supabase.github.io/gotrue-js/interfaces/UserIdentity.html\" sourcefile=\"api/Supabase.Gotrue.UserIdentity.yml\" sourcestartlinenumber=\"1\">https://supabase.github.io/gotrue-js/interfaces/UserIdentity.html</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -838,7 +1166,11 @@
           "relative_path": "api/Supabase.Gotrue.UserList-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.UserList<TUser>",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -848,7 +1180,11 @@
           "relative_path": "api/Supabase.Gotrue.VerifyOTPParams.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.VerifyOTPParams",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.VerifyOTPParams.yml\" sourcestartlinenumber=\"1\">Ref: <a href=\"https://supabase.github.io/gotrue-js/interfaces/VerifyEmailOTPParams.html\" sourcefile=\"api/Supabase.Gotrue.VerifyOTPParams.yml\" sourcestartlinenumber=\"1\">https://supabase.github.io/gotrue-js/interfaces/VerifyEmailOTPParams.html</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -858,17 +1194,21 @@
           "relative_path": "api/Supabase.Gotrue.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue",
+      "Summary": null
     },
     {
       "type": "Toc",
       "source_relative_path": "api/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/toc.json"
-        },
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
         }
       },
       "version": ""
@@ -887,11 +1227,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
