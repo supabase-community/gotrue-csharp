@@ -40,11 +40,12 @@ namespace Supabase.Gotrue.Interfaces
         /// <summary>
         /// Deletes a User.
         /// </summary>
-        /// <param name="uid"></param>
         /// <param name="serviceRoleToken">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <param name="options"></param>
+        /// <param name="uid"></param>
+        /// <param name="shouldSoftDelete">If true, then the user will be soft-deleted. Defaults to false.</param>
         /// <returns></returns>
-        Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options);
+        Task<bool> DeleteUser(string serviceRoleToken, StatelessClientOptions options, string uid, bool shouldSoftDelete = false);
 
         /// <summary>
         /// Logs in an existing user via a third-party provider.

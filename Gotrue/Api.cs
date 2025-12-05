@@ -738,12 +738,17 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Delete a user
 		/// </summary>
-		/// <param name="uid">The user uid you want to remove.</param>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="uid">The user uid you want to remove.</param>
+		/// <param name="shouldSoftDelete">If true, then the user will be soft-deleted.</param>
 		/// <returns></returns>
-		public Task<BaseResponse> DeleteUser(string uid, string jwt)
+		public Task<BaseResponse> DeleteUser(string jwt, string uid, bool shouldSoftDelete)
 		{
-			var data = new Dictionary<string, string>();
+			var data = new Dictionary<string, bool>
+			{
+				{ "should_soft_delete", shouldSoftDelete }
+			};
+			
 			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
 		}
 

@@ -259,7 +259,7 @@ namespace GotrueTests
 			var uid = session.User.Id;
 
 			var serviceRoleKey = GenerateServiceRoleToken();
-			var result = await _client.DeleteUser(uid, serviceRoleKey, Options);
+			var result = await _client.DeleteUser(serviceRoleKey, Options, uid);
 
 			Assert.IsTrue(result);
 		}
