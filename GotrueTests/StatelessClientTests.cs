@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
@@ -426,6 +424,20 @@ namespace GotrueTests
 
 			factors = await _client.ListFactors(session.AccessToken, Options);
 			Assert.IsTrue(factors.Totp.Count == 0);
+		}
+		
+		[TestMethod("StatelessClient: Timeout error")]
+		public async Task SignsUpUserTimeout()
+		{
+			
+			var client = new StatelessClient();
+		    var options = new StatelessClientOptions() { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 1};
+			var email = $"{RandomString(12)}@supabase.io";
+			
+			await ThrowsExceptionAsync<TaskCanceledException>(async () =>
+			{
+				await client.SignUp(email, PASSWORD, options);
+			});
 		}
 	}
 }

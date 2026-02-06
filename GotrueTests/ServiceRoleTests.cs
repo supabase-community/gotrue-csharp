@@ -23,7 +23,7 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = TestUtils.AdminClient;
+			_client = TestUtils.AdminClient();
 		}
 
 		[TestMethod("Service Role: Update User")]

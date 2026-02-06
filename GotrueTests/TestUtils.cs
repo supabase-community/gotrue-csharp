@@ -21,7 +21,7 @@ namespace GotrueTests
 		
 		public static Client Client() => new(new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 10000});
 		
-		public static AdminClient AdminClient = new(GenerateServiceRoleToken(), new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 10000});
+		public static AdminClient AdminClient() => new(GenerateServiceRoleToken(), new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 10000});
 
 		public static void LogDebug(string message, Exception e)
 		{

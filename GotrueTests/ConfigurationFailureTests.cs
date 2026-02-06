@@ -46,5 +46,17 @@ namespace GotrueTests
 			
 			AreEqual(AdminTokenRequired, x.Reason);
 		}
+
+		[TestMethod("Timeout error")]
+		public async Task TimeoutTest()
+		{
+			IGotrueAdminClient<User> adminClient = new AdminClient(GenerateServiceRoleToken(), new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 1});
+			AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
+
+			await ThrowsExceptionAsync<TaskCanceledException>(async () =>
+			{
+				await adminClient.ListUsers();
+			});
+		}
 	}
 }

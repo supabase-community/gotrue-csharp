@@ -27,7 +27,7 @@ public class MfaClientTests
 	public void TestInitializer()
 	{
 		_client = TestUtils.Client();
-		_adminClient = TestUtils.AdminClient;
+		_adminClient = TestUtils.AdminClient();
 	}
 
 	[TestMethod("MFA: Complete flow")]
