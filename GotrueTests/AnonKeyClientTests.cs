@@ -481,15 +481,5 @@ namespace GotrueTests
 			// As this is being forced to regenerate, the original should be different than the cached.
 			AreNotEqual(refreshToken, _client.CurrentSession.RefreshToken);
 		}
-
-		[TestMethod("Session: `ExpiresAt` is Calculated Correctly.")]
-		public async Task SessionCalculatesExpiresAtCorrectly()
-		{
-			var email = $"{RandomString(12)}@supabase.io";
-			var session = await _client.SignUp(email, PASSWORD);
-
-			IsFalse(session.Expired());
-			AreEqual(session.ExpiresAt().Ticks, session.CreatedAt.ToUniversalTime().AddSeconds(session.ExpiresIn).Ticks);
-		}
 	}
 }

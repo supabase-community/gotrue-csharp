@@ -125,7 +125,9 @@ namespace GotrueTests
 			{
 				await _client.RefreshSession();
 			});
+			
 			AreEqual(InvalidRefreshToken, x.Reason);
+			IsNull(_client.CurrentSession);
 		}
 
 		[TestMethod("Client: expired token")]
@@ -138,18 +140,17 @@ namespace GotrueTests
 			IsNotNull(emailSession.RefreshToken);
 			IsNotNull(emailSession.User);
 
-			await _client.RefreshSession();
-			
-			IsNotNull(emailSession.AccessToken);
-			IsNotNull(emailSession.RefreshToken);
-			IsNotNull(emailSession.User);
-
+			// Set CreatedAt to an old date - this should NOT prevent refresh from working
+			// Session "expiration" based on CreatedAt is about access token lifetime, not refresh token validity
 			_client.CurrentSession.CreatedAt = DateTime.UtcNow.AddDays(-10);
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
-			{
-				await _client.RefreshSession();
-			});
-			AreEqual(ExpiredRefreshToken, x.Reason);
+
+			// Refresh should still succeed with a valid refresh token
+			await _client.RefreshSession();
+
+			IsNotNull(_client.CurrentSession);
+			IsNotNull(_client.CurrentSession.AccessToken);
+			IsNotNull(_client.CurrentSession.RefreshToken);
+			IsNotNull(_client.CurrentSession.User);
 		}
 
 		[TestMethod("Client: Send Reset Password Email for unknown email")]
