@@ -49,11 +49,17 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="url"></param>
 		/// <param name="headers"></param>
-		public Api(string url, Dictionary<string, string>? headers = null)
+		/// <param name="timeout"></param>
+		public Api(string url, Dictionary<string, string>? headers = null, int? timeout = null)
 		{
 			Url = url;
 			headers ??= new Dictionary<string, string>();
 			_headers = headers;
+
+			if (timeout != null)
+			{
+				Helpers.CreateHttpClient((int)timeout);
+			}
 		}
 
 		/// <summary>

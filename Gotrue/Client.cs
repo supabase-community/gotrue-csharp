@@ -77,7 +77,7 @@ namespace Supabase.Gotrue
 		{
 			options ??= new ClientOptions();
 			Options = options;
-			_api = new Api(options.Url, options.Headers);
+			_api = new Api(options.Url, options.Headers, options.Timeout);
 
 			if (options.AutoRefreshToken)
 			{

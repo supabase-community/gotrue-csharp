@@ -26,8 +26,8 @@ public class MfaClientTests
 	[TestInitialize]
 	public void TestInitializer()
 	{
-		_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
-		_adminClient = new AdminClient(_serviceKey, new ClientOptions { AllowUnconfirmedUserSessions = true });
+		_client = TestUtils.Client();
+		_adminClient = TestUtils.AdminClient;
 	}
 
 	[TestMethod("MFA: Complete flow")]

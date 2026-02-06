@@ -40,7 +40,7 @@ namespace GotrueTests
 		public void TestInitializer()
 		{
 			_persistence = new TestSessionPersistence();
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestUtils.Client();
 			_client.SetPersistence(_persistence);
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
@@ -172,6 +172,18 @@ namespace GotrueTests
 			{
 				var result = await _client.SignIn(user, PASSWORD + "$");
 				IsNotNull(result);
+			});
+		}
+		
+		[TestMethod("Client: Throws Exception on Timeout occurrence")]
+		public async Task ClientThrowsExceptionOnTimeout()
+		{
+			var user = $"{RandomString(12)}@supabase.io";
+			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 2});
+			
+			await ThrowsExceptionAsync<TaskCanceledException>(async () =>
+			{
+				await _client.SignIn(user, PASSWORD);
 			});
 		}
 	}

@@ -106,6 +106,7 @@ namespace Supabase.Gotrue.Exceptions
 				400 when gte.Content.Contains("Invalid login") => UserBadLogin,
 				400 when gte.Content.Contains("Email not confirmed") => UserEmailNotConfirmed,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
+				400 when gte.Content.Contains("Refresh token is not valid") => InvalidRefreshToken,
 				400 when gte.Content.Contains("Phone") => UserBadPhoneNumber,
 				400 when gte.Content.Contains("phone") => UserBadPhoneNumber,
 				400 when gte.Content.Contains("Phone") => UserBadPhoneNumber,

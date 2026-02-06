@@ -36,7 +36,7 @@ namespace GotrueTests
 		[TestMethod("Bad service key message")]
 		public async Task BadServiceApiKeyTest()
 		{
-			IGotrueAdminClient<User> adminClient = new AdminClient("bad_service_key", new ClientOptions { AllowUnconfirmedUserSessions = true });
+			IGotrueAdminClient<User> adminClient = new AdminClient("bad_service_key", new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1"});
 			AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
