@@ -132,7 +132,7 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public IGotrueApi<User, Session> GetApi(StatelessClientOptions options) => new Api(options.Url, options.Headers);
+		public IGotrueApi<User, Session> GetApi(StatelessClientOptions options) => new Api(options.Url, options.Headers, options.Timeout);
 		
 		/// <inheritdoc />
 		public Task<Session?> SignUp(string email, string password, StatelessClientOptions options, SignUpOptions? signUpOptions = null) => SignUp(SignUpType.Email, email, password, options, signUpOptions);
@@ -397,6 +397,8 @@ namespace Supabase.Gotrue
 			/// confirmed emails - mirrors the Gotrue server's configuration.
 			/// </summary>
 			public bool AllowUnconfirmedUserSessions { get; set; }
+			
+			public int Timeout { get; set; } = 100_000;
 		}
 	}
 }

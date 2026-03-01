@@ -42,7 +42,7 @@ namespace GotrueTests
 		public void TestInitializer()
 		{
 			_persistence = new TestSessionPersistence();
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestUtils.Client();
 			_client.SetPersistence(_persistence);
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
@@ -89,7 +89,7 @@ namespace GotrueTests
 
 			var newPersistence = new TestSessionPersistence();
 			newPersistence.SaveSession(session);
-			IGotrueClient<User, Session> newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			IGotrueClient<User, Session> newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1"});
 			newClient.SetPersistence(newPersistence);
 			newClient.AddDebugListener(LogDebug);
 			newClient.AddStateChangedListener(AuthStateListener);
@@ -270,10 +270,10 @@ namespace GotrueTests
 		public async Task ClientReturnsAuthUrlForProvider()
 		{
 			var result1 = await _client.SignIn(Constants.Provider.Google);
-			AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
+			AreEqual("http://127.0.0.1:54321/auth/v1/authorize?provider=google", result1.Uri.ToString());
 
 			var result2 = await _client.SignIn(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
-			AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			AreEqual("http://127.0.0.1:54321/auth/v1/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("Client: Returns Verification Code for Provider")]

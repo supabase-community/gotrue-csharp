@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
@@ -27,7 +25,7 @@ namespace GotrueTests
 
 		private IGotrueStatelessClient<User, Session> _client;
 
-		private static StatelessClientOptions Options { get => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true }; }
+		private static StatelessClientOptions Options { get => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 5000}; }
 
 		private static string RandomString(int length)
 		{
@@ -45,24 +43,7 @@ namespace GotrueTests
 
 		private string GenerateServiceRoleToken()
 		{
-			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
-
-			var tokenDescriptor = new SecurityTokenDescriptor
-			{
-				IssuedAt = DateTime.UtcNow,
-				Expires = DateTime.UtcNow.AddDays(7),
-				SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
-				Claims = new Dictionary<string, object>()
-				{
-					{
-						"role", "service_role"
-					}
-				}
-			};
-
-			var tokenHandler = new JwtSecurityTokenHandler();
-			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-			return tokenHandler.WriteToken(securityToken);
+			return TestUtils.GenerateServiceRoleToken();
 		}
 
 
@@ -197,10 +178,10 @@ namespace GotrueTests
 		public void ReturnsAuthUrlForProvider()
 		{
 			var result1 = _client.SignIn(Provider.Google, Options);
-			Assert.AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
+			Assert.AreEqual("http://127.0.0.1:54321/auth/v1/authorize?provider=google", result1.Uri.ToString());
 
 			var result2 = _client.SignIn(Provider.Google, Options, new SignInOptions { Scopes = "special scopes please" });
-			Assert.AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			Assert.AreEqual("http://127.0.0.1:54321/auth/v1/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("StatelessClient: Update user")]
@@ -443,6 +424,20 @@ namespace GotrueTests
 
 			factors = await _client.ListFactors(session.AccessToken, Options);
 			Assert.IsTrue(factors.Totp.Count == 0);
+		}
+		
+		[TestMethod("StatelessClient: Timeout error")]
+		public async Task SignsUpUserTimeout()
+		{
+			
+			var client = new StatelessClient();
+		    var options = new StatelessClientOptions() { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1", Timeout = 1};
+			var email = $"{RandomString(12)}@supabase.io";
+			
+			await ThrowsExceptionAsync<TaskCanceledException>(async () =>
+			{
+				await client.SignUp(email, PASSWORD, options);
+			});
 		}
 	}
 }
