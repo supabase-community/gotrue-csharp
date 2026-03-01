@@ -241,8 +241,24 @@ namespace GotrueTests
 
 			var serviceRoleKey = GenerateServiceRoleToken();
 			var result = await _client.DeleteUser(uid, serviceRoleKey, Options);
+			
+			Assert.ThrowsExceptionAsync<GotrueException>(async () => await _client.GetUserById(serviceRoleKey, Options, uid));
+			Assert.IsTrue(result);
+		}
+		
+		[TestMethod("StatelessClient: Soft Deletes User")]
+		public async Task SoftDeletesUser()
+		{
+			var user = $"{RandomString(12)}@supabase.io";
+			var session = await _client.SignUp(user, PASSWORD, Options);
+			var uid = session.User.Id;
+
+			var serviceRoleKey = GenerateServiceRoleToken();
+			var result = await _client.DeleteUser(uid, serviceRoleKey, Options, true);
+			var deletedUser = await _client.GetUserById(serviceRoleKey, Options, uid);
 
 			Assert.IsTrue(result);
+			Assert.IsNotNull(deletedUser.DeletedAt);
 		}
 
 		[TestMethod("StatelessClient: Sends Reset Password Email")]
