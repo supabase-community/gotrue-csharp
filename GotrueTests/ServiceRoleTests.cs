@@ -175,6 +175,20 @@ namespace GotrueTests
 
 			IsTrue(result);
 		}
+		
+		[TestMethod("Service Role: Soft Delete User")]
+		public async Task SoftDeletesUser()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var user = await _client.CreateUser(email, PASSWORD);
+			var uid = user.Id;
+
+			var result = await _client.DeleteUser(uid ?? throw new InvalidOperationException(), true);
+			var deletedUser = await _client.GetUserById(uid);
+
+			IsTrue(result);
+			Assert.IsNotNull(deletedUser.DeletedAt);
+		}
 
 		[TestMethod("Nonce generation and verification")]
 		public void NonceGeneration()
