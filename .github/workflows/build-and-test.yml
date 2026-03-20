@@ -23,8 +23,18 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Initialize Testing Stack
-        run: docker compose up -d
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+          
+     # - name: Initialize Testing Stack
+     #   run: docker compose up -d
+        
+      - name: Supabase Signing Key
+        run: supabase start gen signing-key --algorithm ES256
+
+      - name: Supabase Testing Stack
+        run: supabase start
 
       - name: Test
         run: dotnet test --no-restore
