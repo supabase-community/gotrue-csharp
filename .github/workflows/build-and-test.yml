@@ -31,7 +31,7 @@ jobs:
      #   run: docker compose up -d
         
       - name: Supabase Signing Key
-        run: supabase start gen signing-key --algorithm ES256
+        run: supabase gen signing-key --algorithm ES256
 
       - name: Supabase Testing Stack
         run: supabase start
