@@ -125,6 +125,9 @@ namespace GotrueTests
 		private static string GetJwkJson()
 		{
 			var path = Path.Combine(GetRepoRoot(), "supabase", "signing_keys.json");
+			if (!File.Exists(path))
+				GenerateSigningKeys();
+			
 			return File.ReadAllText(path);
 		}
 		
@@ -181,5 +184,49 @@ namespace GotrueTests
 			}
 			return Convert.FromBase64String(s);
 		}
+		
+		private static void GenerateSigningKeys()
+		{
+			using var ecdsa = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+			var parameters = ecdsa.ExportParameters(true);
+
+			var jwk = new
+			{
+				kty = "EC",
+				kid = Guid.NewGuid().ToString(),
+				use = "sig",
+				key_ops = new[] { "sign", "verify" },
+				alg = "ES256",
+				ext = true,
+				d = Base64UrlEncode(parameters.D!),
+				crv = "P-256",
+				x = Base64UrlEncode(parameters.Q.X!),
+				y = Base64UrlEncode(parameters.Q.Y!)
+			};
+
+			var signingKeys = new[] { jwk };
+
+			var solutionDir = GetRepoRoot();
+			var outputDir = Path.Combine(solutionDir, "supabase");
+			var outputPath = Path.Combine(outputDir, "signing_keys.json");
+
+			Directory.CreateDirectory(outputDir);
+
+			var json = JsonSerializer.Serialize(signingKeys, new JsonSerializerOptions
+			{
+				WriteIndented = true
+			});
+
+			File.WriteAllText(outputPath, json + Environment.NewLine);
+			Console.WriteLine($"Saved to: {outputPath}");
+		}
+
+		private static string Base64UrlEncode(byte[] bytes)
+		{
+			return Convert.ToBase64String(bytes)
+				.TrimEnd('=')
+				.Replace('+', '-')
+				.Replace('/', '_');
+		}		
 	}
 }
