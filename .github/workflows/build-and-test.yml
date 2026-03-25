@@ -30,8 +30,11 @@ jobs:
      # - name: Initialize Testing Stack
      #   run: docker compose up -d
         
-      - name: Supabase Signing Key
-        run: supabase gen signing-key --algorithm ES256
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip cryptography
+    
+      - name: Generate Supabase signing key
+        run: python scripts/generate_signing_key.py
 
       - name: Supabase Testing Stack
         run: supabase start
