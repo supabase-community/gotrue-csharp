@@ -481,5 +481,38 @@ namespace GotrueTests
 			// As this is being forced to regenerate, the original should be different than the cached.
 			AreNotEqual(refreshToken, _client.CurrentSession.RefreshToken);
 		}
+		
+
+		[TestMethod("Client: Resend")]
+		public async Task Resend()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			
+			// We testing the contract and that it reaches the server.
+			// The server should return 200 even if user doesn't exist (depending on config)
+			// or 422/404 if it's strict. Either way, a response from the server validates the implementation.
+			try 
+			{
+				var response = await _client.Resend(new ResendParams
+				{
+					Email = email,
+					Type = ResendParams.ResendType.Signup
+				});
+				
+				IsNotNull(response);
+				// If we get a response, the request was correctly formed.
+				// We don't necessarily require success for the contract to be valid, 
+				// but usually /resend returns 200 for security reasons (don't leak user existence).
+				IsTrue(response.ResponseMessage?.IsSuccessStatusCode ?? false);
+			}
+			catch (GotrueException ex)
+			{
+				// If we get a 400 validation error, it might be due to server configuration or version differences.
+				// But reaching the server proves the client-side implementation of the method and model is valid.
+				// However, "signup" should be accepted.
+				System.Console.WriteLine($"[DEBUG_LOG] Resend failed with: {ex.Message}");
+				throw;
+			}
+		}
 	}
 }

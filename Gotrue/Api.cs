@@ -742,6 +742,16 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
+		/// Resends a confirmation code to a user's email or phone.
+		/// </summary>
+		/// <param name="resendParams"></param>
+		/// <returns></returns>
+		public Task<BaseResponse> Resend(ResendParams resendParams)
+		{
+			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/resend", resendParams, Headers);
+		}
+
+		/// <summary>
 		/// Delete a user
 		/// </summary>
 		/// <param name="uid">The user uid you want to remove.</param>

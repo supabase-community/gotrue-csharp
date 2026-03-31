@@ -41,6 +41,7 @@ namespace Supabase.Gotrue.Interfaces
 		Task<TSession?> VerifyEmailOTP(string email, string token, EmailOtpType type);
 		Task<TSession?> VerifyTokenHash(string tokenHash, EmailOtpType type);
 		Task<BaseResponse> Reauthenticate(string userJwt);
+		Task<BaseResponse> Resend(ResendParams resendParams);
 		ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null);
 		Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode);
 		Task<Settings?> Settings();
