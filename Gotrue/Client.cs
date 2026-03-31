@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
+using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
@@ -460,6 +461,12 @@ namespace Supabase.Gotrue
 			var response = await _api.Reauthenticate(CurrentSession.AccessToken!);
 
 			return response.ResponseMessage?.IsSuccessStatusCode ?? false;
+		}
+
+		/// <inheritdoc />
+		public Task<BaseResponse> Resend(ResendParams resendParams)
+		{
+			return _api.Resend(resendParams);
 		}
 
 		/// <inheritdoc />
