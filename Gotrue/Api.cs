@@ -321,7 +321,6 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null)
 		{
-			// TODO Validate this function
 			var body = new Dictionary<string, object> { { "email", email } };
 
 			var endpoint = $"{Url}/magiclink";
@@ -357,7 +356,6 @@ namespace Supabase.Gotrue
 			if (options?.Data != null)
 				body["data"] = options.Data;
 
-			// TODO Validate here if it really necessary
 			if (!string.IsNullOrEmpty(options?.CaptchaToken))
 				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options!.CaptchaToken! } });
 
