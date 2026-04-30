@@ -838,7 +838,7 @@ namespace Supabase.Gotrue
 
 			var challengeResponse = await _api.Challenge(CurrentSession.AccessToken, new MfaChallengeParams
 			{
-				FactorId = mfaChallengeAndVerifyParams.FactorId
+				FactorId = mfaChallengeAndVerifyParams.FactorId,
 			});
 
 			if (challengeResponse == null)
@@ -850,7 +850,7 @@ namespace Supabase.Gotrue
 			{
 				FactorId = mfaChallengeAndVerifyParams.FactorId,
 				Code = mfaChallengeAndVerifyParams.Code,
-				ChallengeId = challengeResponse.Id
+				ChallengeId = challengeResponse.Id,
 			});
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))

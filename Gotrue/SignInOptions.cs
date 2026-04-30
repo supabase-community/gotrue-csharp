@@ -14,6 +14,11 @@ namespace Supabase.Gotrue
         public string? RedirectTo { get; set; }
 
         /// <summary>
+        /// Verification token received when the user completes the captcha on the site.
+        /// </summary>
+        public string? CaptchaToken { get; set; }
+
+        /// <summary>
         /// A space-separated list of scopes granted to the OAuth application.
         /// </summary>
         public string? Scopes { get; set; }

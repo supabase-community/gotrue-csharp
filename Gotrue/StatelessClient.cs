@@ -46,7 +46,10 @@ namespace Supabase.Gotrue
 			var api = GetApi(options);
 			var challengeResponse = await api.Challenge(jwt, new MfaChallengeParams
 			{
-				FactorId = mfaChallengeAndVerifyParams.FactorId
+				FactorId = mfaChallengeAndVerifyParams.FactorId,
+				FriendlyName = mfaChallengeAndVerifyParams.FriendlyName,
+				Channel = mfaChallengeAndVerifyParams.Channel,
+				WebAuthn = mfaChallengeAndVerifyParams.WebAuthn
 			});
 
 			if (challengeResponse != null)
