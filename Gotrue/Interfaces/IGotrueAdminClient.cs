@@ -124,13 +124,13 @@ namespace Supabase.Gotrue.Interfaces
 
 		// Admin Custom Provider Management
 		/// <summary>Lists all custom providers.</summary>
-		Task<List<CustomProvider>> ListCustomProviders();
+		Task<List<CustomProviderResponse>> ListCustomProviders();
 		/// <summary>Creates a new custom provider.</summary>
-		Task<CustomProvider> CreateCustomProvider(CustomProvider provider);
+		Task<CustomProviderResponse> CreateCustomProvider(CustomProvider provider);
 		/// <summary>Gets a custom provider by ID.</summary>
-		Task<CustomProvider> GetCustomProvider(string providerId);
+		Task<CustomProviderResponse> GetCustomProvider(string providerId);
 		/// <summary>Updates a custom provider.</summary>
-		Task<CustomProvider> UpdateCustomProvider(string providerId, CustomProvider provider);
+		Task<CustomProviderResponse> UpdateCustomProvider(string providerId, CustomProvider provider);
 		/// <summary>Deletes a custom provider.</summary>
 		Task<bool> DeleteCustomProvider(string providerId);
 	}
