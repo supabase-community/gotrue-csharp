@@ -644,17 +644,17 @@ namespace Supabase.Gotrue
 
 		// Admin Custom Provider Management
 		/// <inheritdoc />
-		public async Task<List<CustomProvider>> ListCustomProviders(string jwt)
+		public async Task<List<CustomProviderResponse>> ListCustomProviders(string jwt)
 		{
 			var response = await Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/custom-providers", null, CreateAuthedRequestHeaders(jwt));
-			return JsonConvert.DeserializeObject<List<CustomProvider>>(response.Content!) ?? new List<CustomProvider>();
+			return JsonConvert.DeserializeObject<List<CustomProviderResponse>>(response.Content!) ?? new List<CustomProviderResponse>();
 		}
 		/// <inheritdoc />
-		public Task<CustomProvider> CreateCustomProvider(string jwt, CustomProvider provider) => Helpers.MakeRequest<CustomProvider>(HttpMethod.Post, $"{Url}/admin/custom-providers", provider, CreateAuthedRequestHeaders(jwt))!;
+		public Task<CustomProviderResponse> CreateCustomProvider(string jwt, CustomProvider provider) => Helpers.MakeRequest<CustomProviderResponse>(HttpMethod.Post, $"{Url}/admin/custom-providers", provider, CreateAuthedRequestHeaders(jwt))!;
 		/// <inheritdoc />
-		public Task<CustomProvider> GetCustomProvider(string jwt, string providerId) => Helpers.MakeRequest<CustomProvider>(HttpMethod.Get, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt))!;
+		public Task<CustomProviderResponse> GetCustomProvider(string jwt, string providerId) => Helpers.MakeRequest<CustomProviderResponse>(HttpMethod.Get, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt))!;
 		/// <inheritdoc />
-		public Task<CustomProvider> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider) => Helpers.MakeRequest<CustomProvider>(HttpMethod.Put, $"{Url}/admin/custom-providers/{providerId}", provider, CreateAuthedRequestHeaders(jwt))!;
+		public Task<CustomProviderResponse> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider) => Helpers.MakeRequest<CustomProviderResponse>(HttpMethod.Put, $"{Url}/admin/custom-providers/{providerId}", provider, CreateAuthedRequestHeaders(jwt))!;
 		/// <inheritdoc />
 		public Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId) => Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt));
 

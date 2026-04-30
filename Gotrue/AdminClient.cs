@@ -158,13 +158,13 @@ namespace Supabase.Gotrue
 
 		// Admin Custom Provider Management
 		/// <inheritdoc />
-		public Task<List<CustomProvider>> ListCustomProviders() => _api.ListCustomProviders(_serviceKey);
+		public Task<List<CustomProviderResponse>> ListCustomProviders() => _api.ListCustomProviders(_serviceKey);
 		/// <inheritdoc />
-		public Task<CustomProvider> CreateCustomProvider(CustomProvider provider) => _api.CreateCustomProvider(_serviceKey, provider);
+		public Task<CustomProviderResponse> CreateCustomProvider(CustomProvider provider) => _api.CreateCustomProvider(_serviceKey, provider);
 		/// <inheritdoc />
-		public Task<CustomProvider> GetCustomProvider(string providerId) => _api.GetCustomProvider(_serviceKey, providerId);
+		public Task<CustomProviderResponse> GetCustomProvider(string providerId) => _api.GetCustomProvider(_serviceKey, providerId);
 		/// <inheritdoc />
-		public Task<CustomProvider> UpdateCustomProvider(string providerId, CustomProvider provider) => _api.UpdateCustomProvider(_serviceKey, providerId, provider);
+		public Task<CustomProviderResponse> UpdateCustomProvider(string providerId, CustomProvider provider) => _api.UpdateCustomProvider(_serviceKey, providerId, provider);
 		/// <inheritdoc />
 		public async Task<bool> DeleteCustomProvider(string providerId)
 		{

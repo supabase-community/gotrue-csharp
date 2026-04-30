@@ -59,10 +59,10 @@ namespace Supabase.Gotrue.Interfaces
 		Task<OAuthClient> UpdateOAuthClient(string jwt, string clientId, OAuthClient client);
 		Task<BaseResponse> DeleteOAuthClient(string jwt, string clientId);
 		Task<OAuthClient> RegenerateOAuthClientSecret(string jwt, string clientId);
-		Task<List<CustomProvider>> ListCustomProviders(string jwt);
-		Task<CustomProvider> CreateCustomProvider(string jwt, CustomProvider provider);
-		Task<CustomProvider> GetCustomProvider(string jwt, string providerId);
-		Task<CustomProvider> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider);
+		Task<List<CustomProviderResponse>> ListCustomProviders(string jwt);
+		Task<CustomProviderResponse> CreateCustomProvider(string jwt, CustomProvider provider);
+		Task<CustomProviderResponse> GetCustomProvider(string jwt, string providerId);
+		Task<CustomProviderResponse> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider);
 		Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId);
 
 		/// <summary>

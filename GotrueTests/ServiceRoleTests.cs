@@ -429,14 +429,18 @@ namespace GotrueTests
 				var provider = new CustomProvider
 				{
 					Name = name,
-					Type = "oidc"
+					ProviderType = CustomProviderType.Oidc,
+					Identifier = "custom:identifier",
+					ClientId = "clientid",
+					ClientSecret = "clientsecret",
+					Issuer = "https://example.com/",
 				};
 
 				var createdProvider = await _client.CreateCustomProvider(provider);
 				IsNotNull(createdProvider);
 				IsNotNull(createdProvider.Id);
 				AreEqual(name, createdProvider.Name);
-				AreEqual("oidc", createdProvider.Type);
+				AreEqual("oidc", createdProvider.ProviderType);
 
 				await _client.DeleteCustomProvider(createdProvider.Id);
 			}
@@ -452,7 +456,15 @@ namespace GotrueTests
 			try
 			{
 				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+				var createdProvider = await _client.CreateCustomProvider(
+					new CustomProvider
+					{
+						Name = name, ProviderType = CustomProviderType.Oidc,
+						Identifier = "custom:identifier",
+						ClientId = "clientid",
+						ClientSecret = "clientsecret",
+						Issuer = "https://example.com/",
+					});
 
 				var fetchedProvider = await _client.GetCustomProvider(createdProvider.Id);
 				IsNotNull(fetchedProvider);
@@ -473,7 +485,15 @@ namespace GotrueTests
 			try
 			{
 				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+				var createdProvider = await _client.CreateCustomProvider(
+					new CustomProvider
+					{
+						Name = name, ProviderType = CustomProviderType.Oidc,
+						Identifier = "custom:identifier",
+						ClientId = "clientid",
+						ClientSecret = "clientsecret",
+						Issuer = "https://example.com/",
+					});
 
 				var providers = await _client.ListCustomProviders();
 				IsNotNull(providers);
@@ -493,11 +513,27 @@ namespace GotrueTests
 			try
 			{
 				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
-
+				var createdProvider = await _client.CreateCustomProvider(
+					new CustomProvider
+					{
+						Name = name, ProviderType = CustomProviderType.Oidc,
+						Identifier = "custom:identifier",
+						ClientId = "clientid",
+						ClientSecret = "clientsecret",
+						Issuer = "https://example.com/",
+					});
+				
 				var newName = $"Updated {name}";
-				createdProvider.Name = newName;
-				var updatedProvider = await _client.UpdateCustomProvider(createdProvider.Id, createdProvider);
+				var updateProvider = new CustomProvider
+				{
+					Name = newName,
+					ProviderType = CustomProviderType.Oidc,
+					Identifier = "custom:identifier",
+					ClientId = "clientid",
+					ClientSecret = "clientsecret",
+					Issuer = "https://example.com/",
+				};
+				var updatedProvider = await _client.UpdateCustomProvider(createdProvider.Id, updateProvider);
 
 				IsNotNull(updatedProvider);
 				AreEqual(newName, updatedProvider.Name);
@@ -516,7 +552,15 @@ namespace GotrueTests
 			try
 			{
 				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+				var createdProvider = await _client.CreateCustomProvider(
+					new CustomProvider
+					{
+						Name = name, ProviderType = CustomProviderType.Oidc,
+						Identifier = "custom:identifier",
+						ClientId = "clientid",
+						ClientSecret = "clientsecret",
+						Issuer = "https://example.com/",
+					});
 
 				var result = await _client.DeleteCustomProvider(createdProvider.Id);
 				IsTrue(result);
