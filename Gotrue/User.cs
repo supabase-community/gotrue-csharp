@@ -76,6 +76,9 @@ namespace Supabase.Gotrue
 
 		[JsonProperty("user_metadata")]
 		public Dictionary<string, object> UserMetadata { get; set; } = new Dictionary<string, object>();
+
+		[JsonProperty("is_sso_user")]
+		public bool IsSsoUser { get; set; }
 	}
 
 	/// <summary>
@@ -144,6 +147,15 @@ namespace Supabase.Gotrue
 
 		[JsonProperty("password")]
 		public string? Password { get; set; }
+
+		/// <summary>
+		/// The user's current password
+		///
+		/// This is only ever present when the user is resetting
+		/// their password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true.
+		/// </summary>
+		[JsonProperty("current_password")]
+		public string? CurrentPassword { get; set; }
 
 		[JsonProperty("phone")]
 		public string? Phone { get; set; }

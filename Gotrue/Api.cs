@@ -85,6 +85,11 @@ namespace Supabase.Gotrue
 				{
 					body.Add("data", options.Data);
 				}
+
+				if (!string.IsNullOrEmpty(options.CaptchaToken))
+				{
+					body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+				}
 			}
 
 			var response = await Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
@@ -316,7 +321,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null)
 		{
-			var data = new Dictionary<string, string> { { "email", email } };
+			var body = new Dictionary<string, object> { { "email", email } };
 
 			var endpoint = $"{Url}/magiclink";
 
@@ -326,9 +331,14 @@ namespace Supabase.Gotrue
 				{
 					endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo! } }).ToString();
 				}
+
+				if (!string.IsNullOrEmpty(options.CaptchaToken))
+				{
+					body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+				}
 			}
 
-			return Helpers.MakeRequest(HttpMethod.Post, endpoint, data, Headers);
+			return Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
 		}
 
 		/// <summary>
@@ -345,6 +355,9 @@ namespace Supabase.Gotrue
 
 			if (options?.Data != null)
 				body["data"] = options.Data;
+
+			if (!string.IsNullOrEmpty(options?.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options!.CaptchaToken! } });
 
 			return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAuthedRequestHeaders(jwt));
 		}
@@ -379,6 +392,11 @@ namespace Supabase.Gotrue
 				if (options.Data != null)
 				{
 					body.Add("data", options.Data);
+				}
+
+				if (!string.IsNullOrEmpty(options.CaptchaToken))
+				{
+					body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
 				}
 			}
 
@@ -562,7 +580,15 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams)
 		{
-			return Helpers.MakeRequest<MfaChallengeResponse>(HttpMethod.Post, $"{Url}/factors/{mfaChallengeParams.FactorId}/challenge", null, CreateAuthedRequestHeaders(jwt));
+			var body = new Dictionary<string, object>();
+			if (!string.IsNullOrEmpty(mfaChallengeParams.FriendlyName))
+				body.Add("friendly_name", mfaChallengeParams.FriendlyName);
+			if (!string.IsNullOrEmpty(mfaChallengeParams.Channel))
+				body.Add("channel", mfaChallengeParams.Channel);
+			if (mfaChallengeParams.WebAuthn != null)
+				body.Add("webauthn", mfaChallengeParams.WebAuthn);
+
+			return Helpers.MakeRequest<MfaChallengeResponse>(HttpMethod.Post, $"{Url}/factors/{mfaChallengeParams.FactorId}/challenge", body.Count > 0 ? body : null, CreateAuthedRequestHeaders(jwt));
 		}
 
 		/// <inheritdoc />
@@ -573,6 +599,9 @@ namespace Supabase.Gotrue
 				{ "code", mfaVerifyParams.Code },
 				{ "challenge_id", mfaVerifyParams.ChallengeId }
 			};
+
+			if (mfaVerifyParams.WebAuthn != null)
+				body.Add("webauthn", mfaVerifyParams.WebAuthn);
 
 			return Helpers.MakeRequest<MfaVerifyResponse>(HttpMethod.Post, $"{Url}/factors/{mfaVerifyParams.FactorId}/verify", body, CreateAuthedRequestHeaders(jwt));
 		}
@@ -594,6 +623,40 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<MfaAdminDeleteFactorResponse>(HttpMethod.Delete, $"{Url}/admin/users/{deleteFactorParams.UserId}/factors/{deleteFactorParams.Id}", null, CreateAuthedRequestHeaders(jwt));
 		}
+
+		// Admin OAuth Client Management
+		/// <inheritdoc />
+		public async Task<List<OAuthClient>> ListOAuthClients(string jwt)
+		{
+			var response = await Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/oauth/clients", null, CreateAuthedRequestHeaders(jwt));
+			return JsonConvert.DeserializeObject<List<OAuthClient>>(response.Content!) ?? new List<OAuthClient>();
+		}
+		/// <inheritdoc />
+		public Task<OAuthClient> CreateOAuthClient(string jwt, OAuthClient client) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Post, $"{Url}/admin/oauth/clients", client, CreateAuthedRequestHeaders(jwt))!;
+		/// <inheritdoc />
+		public Task<OAuthClient> GetOAuthClient(string jwt, string clientId) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Get, $"{Url}/admin/oauth/clients/{clientId}", null, CreateAuthedRequestHeaders(jwt))!;
+		/// <inheritdoc />
+		public Task<OAuthClient> UpdateOAuthClient(string jwt, string clientId, OAuthClient client) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Put, $"{Url}/admin/oauth/clients/{clientId}", client, CreateAuthedRequestHeaders(jwt))!;
+		/// <inheritdoc />
+		public Task<BaseResponse> DeleteOAuthClient(string jwt, string clientId) => Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/oauth/clients/{clientId}", null, CreateAuthedRequestHeaders(jwt));
+		/// <inheritdoc />
+		public Task<OAuthClient> RegenerateOAuthClientSecret(string jwt, string clientId) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Post, $"{Url}/admin/oauth/clients/{clientId}/regenerate_secret", null, CreateAuthedRequestHeaders(jwt))!;
+
+		// Admin Custom Provider Management
+		/// <inheritdoc />
+		public async Task<List<CustomProvider>> ListCustomProviders(string jwt)
+		{
+			var response = await Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/custom-providers", null, CreateAuthedRequestHeaders(jwt));
+			return JsonConvert.DeserializeObject<List<CustomProvider>>(response.Content!) ?? new List<CustomProvider>();
+		}
+		/// <inheritdoc />
+		public Task<CustomProvider> CreateCustomProvider(string jwt, CustomProvider provider) => Helpers.MakeRequest<CustomProvider>(HttpMethod.Post, $"{Url}/admin/custom-providers", provider, CreateAuthedRequestHeaders(jwt))!;
+		/// <inheritdoc />
+		public Task<CustomProvider> GetCustomProvider(string jwt, string providerId) => Helpers.MakeRequest<CustomProvider>(HttpMethod.Get, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt))!;
+		/// <inheritdoc />
+		public Task<CustomProvider> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider) => Helpers.MakeRequest<CustomProvider>(HttpMethod.Put, $"{Url}/admin/custom-providers/{providerId}", provider, CreateAuthedRequestHeaders(jwt))!;
+		/// <inheritdoc />
+		public Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId) => Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt));
 
 		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)

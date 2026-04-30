@@ -288,5 +288,246 @@ namespace GotrueTests
 			var result2 = await _client.GenerateLink(options2);
 			AreEqual(result2.VerificationType, "email_change_new");
 		}
+
+		[TestMethod("Service Role: Create OAuth Client")]
+		public async Task CreateOAuthClient()
+		{
+			try
+			{
+				var name = $"Test Client {RandomString(6)}";
+				var client = new OAuthClient
+				{
+					Name = name,
+					Description = "Test Description"
+				};
+
+				var createdClient = await _client.CreateOAuthClient(client);
+				IsNotNull(createdClient);
+				IsNotNull(createdClient.Id);
+				AreEqual(name, createdClient.Name);
+				IsNotNull(createdClient.ClientSecret);
+
+				await _client.DeleteOAuthClient(createdClient.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Get OAuth Client")]
+		public async Task GetOAuthClient()
+		{
+			try
+			{
+				var name = $"Test Client {RandomString(6)}";
+				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+
+				var fetchedClient = await _client.GetOAuthClient(createdClient.Id);
+				IsNotNull(fetchedClient);
+				AreEqual(createdClient.Id, fetchedClient.Id);
+				AreEqual(name, fetchedClient.Name);
+
+				await _client.DeleteOAuthClient(createdClient.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: List OAuth Clients")]
+		public async Task ListOAuthClients()
+		{
+			try
+			{
+				var name = $"Test Client {RandomString(6)}";
+				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+
+				var clients = await _client.ListOAuthClients();
+				IsNotNull(clients);
+				IsTrue(clients.Exists(c => c.Id == createdClient.Id));
+
+				await _client.DeleteOAuthClient(createdClient.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Update OAuth Client")]
+		public async Task UpdateOAuthClient()
+		{
+			try
+			{
+				var name = $"Test Client {RandomString(6)}";
+				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+
+				var newName = $"Updated {name}";
+				createdClient.Name = newName;
+				var updatedClient = await _client.UpdateOAuthClient(createdClient.Id, createdClient);
+
+				IsNotNull(updatedClient);
+				AreEqual(newName, updatedClient.Name);
+
+				await _client.DeleteOAuthClient(createdClient.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Regenerate OAuth Client Secret")]
+		public async Task RegenerateOAuthClientSecret()
+		{
+			try
+			{
+				var name = $"Test Client {RandomString(6)}";
+				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+
+				var regeneratedClient = await _client.RegenerateOAuthClientSecret(createdClient.Id);
+				IsNotNull(regeneratedClient);
+				IsNotNull(regeneratedClient.ClientSecret);
+				AreNotEqual(createdClient.ClientSecret, regeneratedClient.ClientSecret);
+
+				await _client.DeleteOAuthClient(createdClient.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Delete OAuth Client")]
+		public async Task DeleteOAuthClient()
+		{
+			try
+			{
+				var name = $"Test Client {RandomString(6)}";
+				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+
+				var result = await _client.DeleteOAuthClient(createdClient.Id);
+				IsTrue(result);
+
+				var clients = await _client.ListOAuthClients();
+				IsFalse(clients.Exists(c => c.Id == createdClient.Id));
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Create Custom Provider")]
+		public async Task CreateCustomProvider()
+		{
+			try
+			{
+				var name = $"Test Provider {RandomString(6)}";
+				var provider = new CustomProvider
+				{
+					Name = name,
+					Type = "oidc"
+				};
+
+				var createdProvider = await _client.CreateCustomProvider(provider);
+				IsNotNull(createdProvider);
+				IsNotNull(createdProvider.Id);
+				AreEqual(name, createdProvider.Name);
+				AreEqual("oidc", createdProvider.Type);
+
+				await _client.DeleteCustomProvider(createdProvider.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Get Custom Provider")]
+		public async Task GetCustomProvider()
+		{
+			try
+			{
+				var name = $"Test Provider {RandomString(6)}";
+				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+
+				var fetchedProvider = await _client.GetCustomProvider(createdProvider.Id);
+				IsNotNull(fetchedProvider);
+				AreEqual(createdProvider.Id, fetchedProvider.Id);
+				AreEqual(name, fetchedProvider.Name);
+
+				await _client.DeleteCustomProvider(createdProvider.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: List Custom Providers")]
+		public async Task ListCustomProviders()
+		{
+			try
+			{
+				var name = $"Test Provider {RandomString(6)}";
+				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+
+				var providers = await _client.ListCustomProviders();
+				IsNotNull(providers);
+				IsTrue(providers.Exists(p => p.Id == createdProvider.Id));
+
+				await _client.DeleteCustomProvider(createdProvider.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Update Custom Provider")]
+		public async Task UpdateCustomProvider()
+		{
+			try
+			{
+				var name = $"Test Provider {RandomString(6)}";
+				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+
+				var newName = $"Updated {name}";
+				createdProvider.Name = newName;
+				var updatedProvider = await _client.UpdateCustomProvider(createdProvider.Id, createdProvider);
+
+				IsNotNull(updatedProvider);
+				AreEqual(newName, updatedProvider.Name);
+
+				await _client.DeleteCustomProvider(createdProvider.Id);
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
+			}
+		}
+
+		[TestMethod("Service Role: Delete Custom Provider")]
+		public async Task DeleteCustomProvider()
+		{
+			try
+			{
+				var name = $"Test Provider {RandomString(6)}";
+				var createdProvider = await _client.CreateCustomProvider(new CustomProvider { Name = name, Type = "oidc" });
+
+				var result = await _client.DeleteCustomProvider(createdProvider.Id);
+				IsTrue(result);
+
+				var providers = await _client.ListCustomProviders();
+				IsFalse(providers.Exists(p => p.Id == createdProvider.Id));
+			}
+			catch (GotrueException ex) when (ex.Message.Contains("404"))
+			{
+				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
+			}
+		}
 	}
 }

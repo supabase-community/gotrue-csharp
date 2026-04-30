@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Supabase.Core.Attributes;
 using Supabase.Core.Interfaces;
@@ -106,5 +107,31 @@ namespace Supabase.Gotrue.Interfaces
 		/// <param name="listFactorParams">A <see cref="MfaAdminListFactorsParams"/> object that contains the user id.</param>
 		/// <returns>A <see cref="MfaAdminDeleteFactorResponse"/> containing the deleted factor id.</returns>
 		public Task<MfaAdminDeleteFactorResponse?> DeleteFactor(MfaAdminDeleteFactorParams deleteFactorParams);
+
+		// Admin OAuth Client Management
+		/// <summary>Lists all OAuth clients.</summary>
+		Task<List<OAuthClient>> ListOAuthClients();
+		/// <summary>Creates a new OAuth client.</summary>
+		Task<OAuthClient> CreateOAuthClient(OAuthClient client);
+		/// <summary>Gets an OAuth client by ID.</summary>
+		Task<OAuthClient> GetOAuthClient(string clientId);
+		/// <summary>Updates an OAuth client.</summary>
+		Task<OAuthClient> UpdateOAuthClient(string clientId, OAuthClient client);
+		/// <summary>Deletes an OAuth client.</summary>
+		Task<bool> DeleteOAuthClient(string clientId);
+		/// <summary>Regenerates the client secret for an OAuth client.</summary>
+		Task<OAuthClient> RegenerateOAuthClientSecret(string clientId);
+
+		// Admin Custom Provider Management
+		/// <summary>Lists all custom providers.</summary>
+		Task<List<CustomProvider>> ListCustomProviders();
+		/// <summary>Creates a new custom provider.</summary>
+		Task<CustomProvider> CreateCustomProvider(CustomProvider provider);
+		/// <summary>Gets a custom provider by ID.</summary>
+		Task<CustomProvider> GetCustomProvider(string providerId);
+		/// <summary>Updates a custom provider.</summary>
+		Task<CustomProvider> UpdateCustomProvider(string providerId, CustomProvider provider);
+		/// <summary>Deletes a custom provider.</summary>
+		Task<bool> DeleteCustomProvider(string providerId);
 	}
 }

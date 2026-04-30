@@ -137,6 +137,42 @@ namespace Supabase.Gotrue
 			return await _api.DeleteFactor(_serviceKey, deleteFactorParams);
 		}
 
+		// Admin OAuth Client Management
+		/// <inheritdoc />
+		public Task<List<OAuthClient>> ListOAuthClients() => _api.ListOAuthClients(_serviceKey);
+		/// <inheritdoc />
+		public Task<OAuthClient> CreateOAuthClient(OAuthClient client) => _api.CreateOAuthClient(_serviceKey, client);
+		/// <inheritdoc />
+		public Task<OAuthClient> GetOAuthClient(string clientId) => _api.GetOAuthClient(_serviceKey, clientId);
+		/// <inheritdoc />
+		public Task<OAuthClient> UpdateOAuthClient(string clientId, OAuthClient client) => _api.UpdateOAuthClient(_serviceKey, clientId, client);
+		/// <inheritdoc />
+		public async Task<bool> DeleteOAuthClient(string clientId)
+		{
+			var result = await _api.DeleteOAuthClient(_serviceKey, clientId);
+			result.ResponseMessage?.EnsureSuccessStatusCode();
+			return true;
+		}
+		/// <inheritdoc />
+		public Task<OAuthClient> RegenerateOAuthClientSecret(string clientId) => _api.RegenerateOAuthClientSecret(_serviceKey, clientId);
+
+		// Admin Custom Provider Management
+		/// <inheritdoc />
+		public Task<List<CustomProvider>> ListCustomProviders() => _api.ListCustomProviders(_serviceKey);
+		/// <inheritdoc />
+		public Task<CustomProvider> CreateCustomProvider(CustomProvider provider) => _api.CreateCustomProvider(_serviceKey, provider);
+		/// <inheritdoc />
+		public Task<CustomProvider> GetCustomProvider(string providerId) => _api.GetCustomProvider(_serviceKey, providerId);
+		/// <inheritdoc />
+		public Task<CustomProvider> UpdateCustomProvider(string providerId, CustomProvider provider) => _api.UpdateCustomProvider(_serviceKey, providerId, provider);
+		/// <inheritdoc />
+		public async Task<bool> DeleteCustomProvider(string providerId)
+		{
+			var result = await _api.DeleteCustomProvider(_serviceKey, providerId);
+			result.ResponseMessage?.EnsureSuccessStatusCode();
+			return true;
+		}
+
 		/// <inheritdoc />
 		public async Task<User?> Update(UserAttributes attributes)
 		{

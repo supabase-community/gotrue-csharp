@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Mfa;
@@ -52,6 +53,17 @@ namespace Supabase.Gotrue.Interfaces
 		Task<MfaUnenrollResponse?> Unenroll(string jwt, MfaUnenrollParams mfaVerifyParams);
 		Task<BaseResponse> ListFactors(string jwt, MfaAdminListFactorsParams listFactorsParams);
 		Task<MfaAdminDeleteFactorResponse?> DeleteFactor(string jwt, MfaAdminDeleteFactorParams deleteFactorParams);
+		Task<List<OAuthClient>> ListOAuthClients(string jwt);
+		Task<OAuthClient> CreateOAuthClient(string jwt, OAuthClient client);
+		Task<OAuthClient> GetOAuthClient(string jwt, string clientId);
+		Task<OAuthClient> UpdateOAuthClient(string jwt, string clientId, OAuthClient client);
+		Task<BaseResponse> DeleteOAuthClient(string jwt, string clientId);
+		Task<OAuthClient> RegenerateOAuthClientSecret(string jwt, string clientId);
+		Task<List<CustomProvider>> ListCustomProviders(string jwt);
+		Task<CustomProvider> CreateCustomProvider(string jwt, CustomProvider provider);
+		Task<CustomProvider> GetCustomProvider(string jwt, string providerId);
+		Task<CustomProvider> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider);
+		Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId);
 
 		/// <summary>
 		/// Links an oauth identity to an existing user.

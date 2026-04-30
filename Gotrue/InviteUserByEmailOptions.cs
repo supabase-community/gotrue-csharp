@@ -16,5 +16,10 @@ namespace Supabase.Gotrue
 		/// A custom data object to store additional metadata about the user. This maps to the `auth.users.user_metadata` column.
 		/// </summary>
 		public Dictionary<string, object>? Data { get; set; }
+
+		/// <summary>
+		/// Verification token received when the user completes the captcha on the site.
+		/// </summary>
+		public string? CaptchaToken { get; set; }
 	}
 }

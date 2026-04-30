@@ -49,5 +49,11 @@ namespace Supabase.Gotrue
 
 		[JsonProperty("created_at")]
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+		/// <summary>
+		/// The timestamp when the access token will expire. Calculated from <see cref="ExpiresIn"/> and <see cref="CreatedAt"/>.
+		/// </summary>
+		[JsonIgnore]
+		public long ExpiresAt => ((DateTimeOffset)CreatedAt).ToUnixTimeSeconds() + ExpiresIn;
 	}
 }

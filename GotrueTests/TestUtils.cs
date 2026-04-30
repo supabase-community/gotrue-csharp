@@ -73,32 +73,19 @@ namespace GotrueTests
 
 		public static string GenerateServiceRoleToken()
 		{
-			var jwksJson = GetJwkJson();
-			var key = CreateEcdsaSecurityKeyFromJwksJson(jwksJson);
+			var signingKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("super-secret-jwt-token-with-at-least-32-characters-long"));
 
-			var creds = new SigningCredentials(key, SecurityAlgorithms.EcdsaSha256);
-
-			var header = new JwtHeader(creds);
-			header["kid"] = key.KeyId;
-
-			var claims = new List<Claim>
+			var tokenDescriptor = new SecurityTokenDescriptor
 			{
-				new("role", "service_role"),
+				IssuedAt = DateTime.UtcNow,
+				Expires = DateTime.UtcNow.AddDays(7),
+				SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
+				Claims = new Dictionary<string, object>() { { "role", "service_role" } }
 			};
 
-			var token = new JwtSecurityToken(
-				header: header,
-				payload: new JwtPayload(
-					issuer: null,
-					audience: null,
-					claims: claims,
-					notBefore: DateTime.UtcNow.AddMinutes(-1),
-					expires: DateTime.UtcNow.AddDays(7),
-					issuedAt: DateTime.UtcNow
-				)
-			);
-
-			return new JwtSecurityTokenHandler().WriteToken(token);
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+			return tokenHandler.WriteToken(securityToken);
 		}
 
 

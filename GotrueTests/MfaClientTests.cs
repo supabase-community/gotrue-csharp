@@ -51,7 +51,8 @@ public class MfaClientTests
 
 		var challengeResponse = await _client.Challenge(new MfaChallengeParams
 		{
-			FactorId = enrollResponse.Id
+			FactorId = enrollResponse.Id,
+			FriendlyName = "Challenge test"
 		});
 		IsNotNull(challengeResponse.Id);
 
