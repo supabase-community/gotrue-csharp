@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using Newtonsoft.Json;
 using Supabase.Core;
-using Supabase.Core.Attributes;
 using Supabase.Core.Extensions;
+using Supabase.Gotrue.CustomProviders;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
+using Supabase.Gotrue.OAuth;
 using Supabase.Gotrue.Responses;
+using Supabase.Gotrue.Responses.CustomProviders;
+using Supabase.Gotrue.Responses.OAuth;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
@@ -624,39 +626,124 @@ namespace Supabase.Gotrue
 			return Helpers.MakeRequest<MfaAdminDeleteFactorResponse>(HttpMethod.Delete, $"{Url}/admin/users/{deleteFactorParams.UserId}/factors/{deleteFactorParams.Id}", null, CreateAuthedRequestHeaders(jwt));
 		}
 
-		// Admin OAuth Client Management
-		/// <inheritdoc />
-		public async Task<List<OAuthClient>> ListOAuthClients(string jwt)
-		{
-			var response = await Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/oauth/clients", null, CreateAuthedRequestHeaders(jwt));
-			return JsonConvert.DeserializeObject<List<OAuthClient>>(response.Content!) ?? new List<OAuthClient>();
-		}
-		/// <inheritdoc />
-		public Task<OAuthClient> CreateOAuthClient(string jwt, OAuthClient client) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Post, $"{Url}/admin/oauth/clients", client, CreateAuthedRequestHeaders(jwt))!;
-		/// <inheritdoc />
-		public Task<OAuthClient> GetOAuthClient(string jwt, string clientId) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Get, $"{Url}/admin/oauth/clients/{clientId}", null, CreateAuthedRequestHeaders(jwt))!;
-		/// <inheritdoc />
-		public Task<OAuthClient> UpdateOAuthClient(string jwt, string clientId, OAuthClient client) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Put, $"{Url}/admin/oauth/clients/{clientId}", client, CreateAuthedRequestHeaders(jwt))!;
-		/// <inheritdoc />
-		public Task<BaseResponse> DeleteOAuthClient(string jwt, string clientId) => Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/oauth/clients/{clientId}", null, CreateAuthedRequestHeaders(jwt));
-		/// <inheritdoc />
-		public Task<OAuthClient> RegenerateOAuthClientSecret(string jwt, string clientId) => Helpers.MakeRequest<OAuthClient>(HttpMethod.Post, $"{Url}/admin/oauth/clients/{clientId}/regenerate_secret", null, CreateAuthedRequestHeaders(jwt))!;
+        // Admin OAuth Client Management
+        /// <inheritdoc />
+        public async Task<OAuthClientResponse> ListOAuthClients(string jwt)
+        {
+            var response = await Helpers.MakeRequest(
+                HttpMethod.Get,
+                $"{Url}/admin/oauth/clients",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
+            return JsonConvert.DeserializeObject<OAuthClientResponse>(response.Content!)
+                ?? new OAuthClientResponse();
+        }
 
-		// Admin Custom Provider Management
-		/// <inheritdoc />
-		public async Task<List<CustomProviderResponse>> ListCustomProviders(string jwt)
-		{
-			var response = await Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/custom-providers", null, CreateAuthedRequestHeaders(jwt));
-			return JsonConvert.DeserializeObject<List<CustomProviderResponse>>(response.Content!) ?? new List<CustomProviderResponse>();
-		}
-		/// <inheritdoc />
-		public Task<CustomProviderResponse> CreateCustomProvider(string jwt, CustomProvider provider) => Helpers.MakeRequest<CustomProviderResponse>(HttpMethod.Post, $"{Url}/admin/custom-providers", provider, CreateAuthedRequestHeaders(jwt))!;
-		/// <inheritdoc />
-		public Task<CustomProviderResponse> GetCustomProvider(string jwt, string providerId) => Helpers.MakeRequest<CustomProviderResponse>(HttpMethod.Get, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt))!;
-		/// <inheritdoc />
-		public Task<CustomProviderResponse> UpdateCustomProvider(string jwt, string providerId, CustomProvider provider) => Helpers.MakeRequest<CustomProviderResponse>(HttpMethod.Put, $"{Url}/admin/custom-providers/{providerId}", provider, CreateAuthedRequestHeaders(jwt))!;
-		/// <inheritdoc />
-		public Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId) => Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/custom-providers/{providerId}", null, CreateAuthedRequestHeaders(jwt));
+        /// <inheritdoc />
+        public Task<OAuthClient> CreateOAuthClient(string jwt, CreateOAuthClient client) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Post,
+                $"{Url}/admin/oauth/clients",
+                client,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<OAuthClient> GetOAuthClient(string jwt, string clientId) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Get,
+                $"{Url}/admin/oauth/clients/{clientId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<OAuthClient> UpdateOAuthClient(
+            string jwt,
+            string clientId,
+            UpdateOAuthClient client
+        ) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Put,
+                $"{Url}/admin/oauth/clients/{clientId}",
+                client,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<BaseResponse> DeleteOAuthClient(string jwt, string clientId) =>
+            Helpers.MakeRequest(
+                HttpMethod.Delete,
+                $"{Url}/admin/oauth/clients/{clientId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
+
+        /// <inheritdoc />
+        public Task<OAuthClient> RegenerateOAuthClientSecret(string jwt, string clientId) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Post,
+                $"{Url}/admin/oauth/clients/{clientId}/regenerate_secret",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        // Admin Custom Provider Management
+        /// <inheritdoc />
+        public async Task<CustomProviderResponse> ListCustomProviders(string jwt)
+        {
+            var response = await Helpers.MakeRequest(
+                HttpMethod.Get,
+                $"{Url}/admin/custom-providers",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
+            return JsonConvert.DeserializeObject<CustomProviderResponse>(response.Content!)!;
+        }
+
+        /// <inheritdoc />
+        public Task<CustomProvider> CreateCustomProvider(
+            string jwt,
+            CreateCustomProvider provider
+        ) =>
+            Helpers.MakeRequest<CustomProvider>(
+                HttpMethod.Post,
+                $"{Url}/admin/custom-providers",
+                provider,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<CustomProvider> GetCustomProvider(string jwt, string providerId) =>
+            Helpers.MakeRequest<CustomProvider>(
+                HttpMethod.Get,
+                $"{Url}/admin/custom-providers/{providerId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<CustomProvider> UpdateCustomProvider(
+            string jwt,
+            string providerId,
+            UpdateCustomProvider provider
+        ) =>
+            Helpers.MakeRequest<CustomProvider>(
+                HttpMethod.Put,
+                $"{Url}/admin/custom-providers/{providerId}",
+                provider,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId) =>
+            Helpers.MakeRequest(
+                HttpMethod.Delete,
+                $"{Url}/admin/custom-providers/{providerId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
 
 		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
