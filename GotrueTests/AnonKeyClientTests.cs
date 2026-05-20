@@ -404,7 +404,8 @@ namespace GotrueTests
 
 			var result = await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions
 			{
-				FlowType = Constants.OAuthFlowType.PKCE
+				FlowType = Constants.OAuthFlowType.PKCE,
+				RedirectTo = "http://localhost:3000"
 			});
 
 			IsFalse(string.IsNullOrEmpty(result.PKCEVerifier));

@@ -1,22 +1,16 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Supabase.Gotrue
+namespace Supabase.Gotrue.CustomProviders
 {
     /// <summary>
-    /// Represents an Admin Custom Provider.
+    /// Represents a customizable provider configuration intended for update operations.
+    /// This class encapsulates various properties that define how a custom provider
+    /// should be configured, including authentication-related details, mappings,
+    /// authorization parameters, and endpoints.
     /// </summary>
-    public class CustomProvider
+    public class UpdateCustomProvider
     {
-        /// <summary>Provider type.</summary>
-        [JsonProperty("provider_type")]
-        public CustomProviderType? ProviderType { get; set; }
-
-        /// <summary>Provider identifier, e.g. <c>custom:mycompany</c>.</summary>
-        [JsonProperty("identifier")]
-        public string? Identifier { get; set; }
-
         /// <summary>Human-readable name.</summary>
         [JsonProperty("name")]
         public string? Name { get; set; }

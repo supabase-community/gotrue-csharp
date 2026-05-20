@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
-using Supabase.Gotrue.Exceptions;
+using Supabase.Gotrue.CustomProviders;
 using Supabase.Gotrue.Interfaces;
-using static Supabase.Gotrue.Constants;
+using Supabase.Gotrue.OAuth;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static Supabase.Gotrue.Constants;
 
 namespace GotrueTests
 {
@@ -289,289 +291,280 @@ namespace GotrueTests
 			AreEqual(result2.VerificationType, "email_change_new");
 		}
 
-		[TestMethod("Service Role: Create OAuth Client")]
-		public async Task CreateOAuthClient()
-		{
-			try
-			{
-				var name = $"Test Client {RandomString(6)}";
-				var client = new OAuthClient
-				{
-					Name = name,
-					Description = "Test Description"
-				};
+        [TestMethod("Service Role: Create OAuth Client")]
+        public async Task CreateOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var client = new CreateOAuthClient
+            {
+                ClientName = name,
+                RedirectUrls = ["https://localhost:3000"],
+            };
 
-				var createdClient = await _client.CreateOAuthClient(client);
-				IsNotNull(createdClient);
-				IsNotNull(createdClient.Id);
-				AreEqual(name, createdClient.Name);
-				IsNotNull(createdClient.ClientSecret);
+            var createdClient = await _client.CreateOAuthClient(client);
+            IsNotNull(createdClient);
+            IsNotNull(createdClient.ClientId);
+            AreEqual(name, createdClient.ClientName);
+            IsNotNull(createdClient.ClientSecret);
 
-				await _client.DeleteOAuthClient(createdClient.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
-			}
-		}
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
 
-		[TestMethod("Service Role: Get OAuth Client")]
-		public async Task GetOAuthClient()
-		{
-			try
-			{
-				var name = $"Test Client {RandomString(6)}";
-				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+        [TestMethod("Service Role: Get OAuth Client")]
+        public async Task GetOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
 
-				var fetchedClient = await _client.GetOAuthClient(createdClient.Id);
-				IsNotNull(fetchedClient);
-				AreEqual(createdClient.Id, fetchedClient.Id);
-				AreEqual(name, fetchedClient.Name);
+            var fetchedClient = await _client.GetOAuthClient(createdClient.ClientId);
+            IsNotNull(fetchedClient);
+            AreEqual(createdClient.ClientId, fetchedClient.ClientId);
+            AreEqual(name, fetchedClient.ClientName);
 
-				await _client.DeleteOAuthClient(createdClient.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
-			}
-		}
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
 
-		[TestMethod("Service Role: List OAuth Clients")]
-		public async Task ListOAuthClients()
-		{
-			try
-			{
-				var name = $"Test Client {RandomString(6)}";
-				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+        [TestMethod("Service Role: List OAuth Clients")]
+        public async Task ListOAuthClients()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
 
-				var clients = await _client.ListOAuthClients();
-				IsNotNull(clients);
-				IsTrue(clients.Exists(c => c.Id == createdClient.Id));
+            var clients = await _client.ListOAuthClients();
 
-				await _client.DeleteOAuthClient(createdClient.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
-			}
-		}
+            IsNotNull(clients);
+            IsTrue(clients.Clients.Exists(c => c.ClientId == createdClient.ClientId));
 
-		[TestMethod("Service Role: Update OAuth Client")]
-		public async Task UpdateOAuthClient()
-		{
-			try
-			{
-				var name = $"Test Client {RandomString(6)}";
-				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
 
-				var newName = $"Updated {name}";
-				createdClient.Name = newName;
-				var updatedClient = await _client.UpdateOAuthClient(createdClient.Id, createdClient);
+        [TestMethod("Service Role: Update OAuth Client")]
+        public async Task UpdateOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
 
-				IsNotNull(updatedClient);
-				AreEqual(newName, updatedClient.Name);
+            var newName = $"Updated {name}";
+            var updateClient = Supabase.Gotrue.OAuth.UpdateOAuthClient.From(createdClient);
+            updateClient.ClientName = newName;
 
-				await _client.DeleteOAuthClient(createdClient.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
-			}
-		}
+            var updatedClient = await _client.UpdateOAuthClient(
+                createdClient.ClientId,
+                updateClient
+            );
 
-		[TestMethod("Service Role: Regenerate OAuth Client Secret")]
-		public async Task RegenerateOAuthClientSecret()
-		{
-			try
-			{
-				var name = $"Test Client {RandomString(6)}";
-				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+            IsNotNull(updatedClient);
+            AreEqual(newName, updatedClient.ClientName);
 
-				var regeneratedClient = await _client.RegenerateOAuthClientSecret(createdClient.Id);
-				IsNotNull(regeneratedClient);
-				IsNotNull(regeneratedClient.ClientSecret);
-				AreNotEqual(createdClient.ClientSecret, regeneratedClient.ClientSecret);
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
 
-				await _client.DeleteOAuthClient(createdClient.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
-			}
-		}
+        [TestMethod("Service Role: Regenerate OAuth Client Secret")]
+        public async Task RegenerateOAuthClientSecret()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
 
-		[TestMethod("Service Role: Delete OAuth Client")]
-		public async Task DeleteOAuthClient()
-		{
-			try
-			{
-				var name = $"Test Client {RandomString(6)}";
-				var createdClient = await _client.CreateOAuthClient(new OAuthClient { Name = name });
+            var regeneratedClient = await _client.RegenerateOAuthClientSecret(
+                createdClient.ClientId
+            );
+            IsNotNull(regeneratedClient);
+            IsNotNull(regeneratedClient.ClientSecret);
+            AreNotEqual(createdClient.ClientSecret, regeneratedClient.ClientSecret);
 
-				var result = await _client.DeleteOAuthClient(createdClient.Id);
-				IsTrue(result);
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
 
-				var clients = await _client.ListOAuthClients();
-				IsFalse(clients.Exists(c => c.Id == createdClient.Id));
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("OAuth Client management is not supported by the current GoTrue server version.");
-			}
-		}
+        [TestMethod("Service Role: Delete OAuth Client")]
+        public async Task DeleteOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
 
-		[TestMethod("Service Role: Create Custom Provider")]
-		public async Task CreateCustomProvider()
-		{
-			try
-			{
-				var name = $"Test Provider {RandomString(6)}";
-				var provider = new CustomProvider
-				{
-					Name = name,
-					ProviderType = CustomProviderType.Oidc,
-					Identifier = "custom:identifier",
-					ClientId = "clientid",
-					ClientSecret = "clientsecret",
-					Issuer = "https://example.com/",
-				};
+            var result = await _client.DeleteOAuthClient(createdClient.ClientId);
+            IsTrue(result);
 
-				var createdProvider = await _client.CreateCustomProvider(provider);
-				IsNotNull(createdProvider);
-				IsNotNull(createdProvider.Id);
-				AreEqual(name, createdProvider.Name);
-				AreEqual("oidc", createdProvider.ProviderType);
+            var clients = await _client.ListOAuthClients();
+            var results =
+                clients.Clients.IsNullOrEmpty()
+                || !clients.Clients.Exists(c => c.ClientId == createdClient.ClientId);
+            IsTrue(results);
+        }
 
-				await _client.DeleteCustomProvider(createdProvider.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
-			}
-		}
+        [TestMethod("Service Role: Create Custom Provider")]
+        public async Task CreateCustomProvider()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
 
-		[TestMethod("Service Role: Get Custom Provider")]
-		public async Task GetCustomProvider()
-		{
-			try
-			{
-				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(
-					new CustomProvider
-					{
-						Name = name, ProviderType = CustomProviderType.Oidc,
-						Identifier = "custom:identifier",
-						ClientId = "clientid",
-						ClientSecret = "clientsecret",
-						Issuer = "https://example.com/",
-					});
+            IsNotNull(createdProvider);
+            IsNotNull(createdProvider.Id);
+            AreEqual(name, createdProvider.Name);
+            AreEqual("oidc", createdProvider.ProviderType);
 
-				var fetchedProvider = await _client.GetCustomProvider(createdProvider.Id);
-				IsNotNull(fetchedProvider);
-				AreEqual(createdProvider.Id, fetchedProvider.Id);
-				AreEqual(name, fetchedProvider.Name);
+            await _client.DeleteCustomProvider(createdProvider.Identifier);
+        }
 
-				await _client.DeleteCustomProvider(createdProvider.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
-			}
-		}
+        [TestMethod("Service Role: Get Custom Provider")]
+        public async Task GetCustomProvider()
+        {
+                var name = $"Test Provider {RandomString(6)}";
+                var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+                var createdProvider = await _client.CreateCustomProvider(
+                    new CreateCustomProvider()
+                    {
+                        Name = name,
+                        ProviderType = CustomProviderType.Oidc,
+                        Identifier = identifier,
+                        ClientId = "clientid",
+                        ClientSecret = "clientsecret",
+                        Issuer = "https://67vrg.wiremockapi.cloud",
+                        DiscoveryUrl =
+                            "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                    }
+                );
 
-		[TestMethod("Service Role: List Custom Providers")]
-		public async Task ListCustomProviders()
-		{
-			try
-			{
-				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(
-					new CustomProvider
-					{
-						Name = name, ProviderType = CustomProviderType.Oidc,
-						Identifier = "custom:identifier",
-						ClientId = "clientid",
-						ClientSecret = "clientsecret",
-						Issuer = "https://example.com/",
-					});
+                var fetchedProvider = await _client.GetCustomProvider(createdProvider.Identifier);
+                IsNotNull(fetchedProvider);
+                AreEqual(createdProvider.Id, fetchedProvider.Id);
+                AreEqual(name, fetchedProvider.Name);
 
-				var providers = await _client.ListCustomProviders();
-				IsNotNull(providers);
-				IsTrue(providers.Exists(p => p.Id == createdProvider.Id));
+                await _client.DeleteCustomProvider(createdProvider.Identifier);
+    
+        }
 
-				await _client.DeleteCustomProvider(createdProvider.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
-			}
-		}
+        [TestMethod("Service Role: List Custom Providers")]
+        public async Task ListCustomProviders()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider()
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
 
-		[TestMethod("Service Role: Update Custom Provider")]
-		public async Task UpdateCustomProvider()
-		{
-			try
-			{
-				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(
-					new CustomProvider
-					{
-						Name = name, ProviderType = CustomProviderType.Oidc,
-						Identifier = "custom:identifier",
-						ClientId = "clientid",
-						ClientSecret = "clientsecret",
-						Issuer = "https://example.com/",
-					});
-				
-				var newName = $"Updated {name}";
-				var updateProvider = new CustomProvider
-				{
-					Name = newName,
-					ProviderType = CustomProviderType.Oidc,
-					Identifier = "custom:identifier",
-					ClientId = "clientid",
-					ClientSecret = "clientsecret",
-					Issuer = "https://example.com/",
-				};
-				var updatedProvider = await _client.UpdateCustomProvider(createdProvider.Id, updateProvider);
+            var providers = await _client.ListCustomProviders();
+            IsNotNull(providers);
+            IsTrue(providers.Providers.Exists(p => p.Id == createdProvider.Id));
 
-				IsNotNull(updatedProvider);
-				AreEqual(newName, updatedProvider.Name);
+            await _client.DeleteCustomProvider(createdProvider.Identifier);
+        }
 
-				await _client.DeleteCustomProvider(createdProvider.Id);
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
-			}
-		}
+        [TestMethod("Service Role: Update Custom Provider")]
+        public async Task UpdateCustomProvider()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider()
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
 
-		[TestMethod("Service Role: Delete Custom Provider")]
-		public async Task DeleteCustomProvider()
-		{
-			try
-			{
-				var name = $"Test Provider {RandomString(6)}";
-				var createdProvider = await _client.CreateCustomProvider(
-					new CustomProvider
-					{
-						Name = name, ProviderType = CustomProviderType.Oidc,
-						Identifier = "custom:identifier",
-						ClientId = "clientid",
-						ClientSecret = "clientsecret",
-						Issuer = "https://example.com/",
-					});
+            var newName = $"Updated {name}";
+            var updateProvider = new UpdateCustomProvider()
+            {
+                Name = newName,
+                ClientId = "clientid",
+                ClientSecret = "clientsecret",
+                Issuer = "https://67vrg.wiremockapi.cloud",
+                DiscoveryUrl = "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+            };
+            var updatedProvider = await _client.UpdateCustomProvider(
+                createdProvider.Identifier,
+                updateProvider
+            );
 
-				var result = await _client.DeleteCustomProvider(createdProvider.Id);
-				IsTrue(result);
+            IsNotNull(updatedProvider);
+            AreEqual(newName, updatedProvider.Name);
 
-				var providers = await _client.ListCustomProviders();
-				IsFalse(providers.Exists(p => p.Id == createdProvider.Id));
-			}
-			catch (GotrueException ex) when (ex.Message.Contains("404"))
-			{
-				Assert.Inconclusive("Custom Provider management is not supported by the current GoTrue server version.");
-			}
-		}
-	}
+            await _client.DeleteCustomProvider(createdProvider.Identifier);
+        }
+
+        [TestMethod("Service Role: Delete Custom Provider")]
+        public async Task DeleteCustomProvider()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider()
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
+
+            var result = await _client.DeleteCustomProvider(createdProvider.Identifier);
+            IsTrue(result);
+
+            var providers = await _client.ListCustomProviders();
+            IsFalse(providers.Providers.Exists(p => p.Id == createdProvider.Id));
+        }
+    }
 }
