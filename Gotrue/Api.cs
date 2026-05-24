@@ -593,7 +593,27 @@ namespace Supabase.Gotrue
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
 		{
 			var state = Helpers.GetUrlForProvider($"{Url}/user/identities/authorize", provider, options);
-			await Helpers.MakeRequest(HttpMethod.Get, state.Uri.ToString(), null, CreateAuthedRequestHeaders(token));
+
+			// Ask the server to return the provider URL in the response body instead of issuing
+			// a 302 redirect. Without this, HttpClient follows the redirect chain and drops the
+			// Authorization/apikey headers on cross-domain hops, causing Kong to reject the
+			// request with "No API key found in request".
+			var builder = new UriBuilder(state.Uri);
+			var query = HttpUtility.ParseQueryString(builder.Query);
+			query["skip_http_redirect"] = "true";
+			builder.Query = query.ToString();
+
+			var response = await Helpers.MakeRequest(HttpMethod.Get, builder.Uri.ToString(), null, CreateAuthedRequestHeaders(token));
+
+			if (!string.IsNullOrEmpty(response?.Content))
+			{
+				var payload = JsonConvert.DeserializeObject<Dictionary<string, string>>(response!.Content!);
+				if (payload != null && payload.TryGetValue("url", out var url) && !string.IsNullOrEmpty(url))
+				{
+					state.Uri = new Uri(url);
+				}
+			}
+
 			return state;
 		}
 
