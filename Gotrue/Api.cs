@@ -645,7 +645,7 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity)
 		{
-			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/${userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
+			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/{userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
 			return result.ResponseMessage is { IsSuccessStatusCode: true };
 		}
 
