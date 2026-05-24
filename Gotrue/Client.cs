@@ -411,6 +411,27 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public async Task<Session?> LinkIdentity(Provider provider, string idToken, string? accessToken = null,
+			string? nonce = null, string? captchaToken = null)
+		{
+			if (!Online)
+				throw new GotrueException("Only supported when online", Offline);
+
+			if (CurrentSession == null || CurrentUser == null)
+				throw new GotrueException("A valid session is required.", NoSessionFound);
+
+			var result = await _api.LinkIdentityWithIdToken(CurrentSession.AccessToken!, provider, idToken, accessToken, nonce, captchaToken);
+
+			if (result?.AccessToken != null)
+			{
+				UpdateSession(result);
+				NotifyAuthStateChange(SignedIn);
+			}
+
+			return result;
+		}
+
+		/// <inheritdoc />
 		public Task<bool> UnlinkIdentity(UserIdentity userIdentity)
 		{
 			if (!Online)

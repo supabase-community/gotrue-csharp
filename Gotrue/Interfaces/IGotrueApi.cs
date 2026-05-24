@@ -64,6 +64,21 @@ namespace Supabase.Gotrue.Interfaces
 		Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options);
 
 		/// <summary>
+		/// Links an OIDC identity to an existing user using a native ID token.
+		///
+		/// This method does not require the PKCE flow and supports Google, Apple, Azure, and Facebook providers.
+		/// The request is authenticated with the user's current access token.
+		/// </summary>
+		/// <param name="token">User's current access token (Bearer JWT)</param>
+		/// <param name="provider">A supported provider (Google, Apple, Azure, Facebook)</param>
+		/// <param name="idToken">OIDC ID token issued by the specified provider</param>
+		/// <param name="accessToken">If the ID token contains an `at_hash` claim, then the hash of this value is compared to the value in the ID token.</param>
+		/// <param name="nonce">If the ID token contains a `nonce` claim, then the hash of this value is compared to the value in the ID token.</param>
+		/// <param name="captchaToken">Verification token received when the user completes the captcha on the site.</param>
+		/// <returns></returns>
+		Task<TSession?> LinkIdentityWithIdToken(string token, Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null);
+
+		/// <summary>
 		/// Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.
 		/// </summary>
 		/// <param name="token">User's token</param>

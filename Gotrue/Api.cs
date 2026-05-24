@@ -598,6 +598,31 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public Task<Session?> LinkIdentityWithIdToken(string token, Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null)
+		{
+			if (provider != Provider.Google && provider != Provider.Apple && provider != Provider.Azure && provider != Provider.Facebook)
+				throw new GotrueException($"Provider must be `Google`, `Apple`, `Azure`, or `Facebook` not {provider}");
+
+			var body = new Dictionary<string, object?>
+			{
+				{ "provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
+				{ "id_token", idToken },
+				{ "link_identity", true },
+			};
+
+			if (!string.IsNullOrEmpty(accessToken))
+				body.Add("access_token", accessToken);
+
+			if (!string.IsNullOrEmpty(nonce))
+				body.Add("nonce", nonce);
+
+			if (!string.IsNullOrEmpty(captchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } });
+
+			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, CreateAuthedRequestHeaders(token));
+		}
+
+		/// <inheritdoc />
 		public async Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity)
 		{
 			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/${userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
