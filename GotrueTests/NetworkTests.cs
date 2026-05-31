@@ -27,7 +27,7 @@ namespace GotrueTests
 		[TestMethod("Good Ping Check")]
 		public async Task GoodPingTest()
 		{
-			var clientOptions = new ClientOptions { AllowUnconfirmedUserSessions = true };
+			var clientOptions = new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1"};
 			var client = new Client(clientOptions);
 			client.Online = false;
 			var status = new NetworkStatus();
@@ -85,7 +85,7 @@ namespace GotrueTests
 		[TestMethod("Network Not Available For User Refresh")]
 		public async Task BadTokenRefresh()
 		{
-			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1"});
 			client.AddDebugListener(TestUtils.LogDebug);
 			client.AddStateChangedListener(AuthStateListener);
 			client.Online = true;

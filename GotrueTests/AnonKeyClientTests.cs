@@ -42,7 +42,7 @@ namespace GotrueTests
 		public void TestInitializer()
 		{
 			_persistence = new TestSessionPersistence();
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestUtils.Client();
 			_client.SetPersistence(_persistence);
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
@@ -56,6 +56,7 @@ namespace GotrueTests
 			IsNotNull(session.AccessToken);
 			IsNotNull(session.RefreshToken);
 			IsNotNull(session.User);
+			IsTrue(session.ExpiresAt > ((DateTimeOffset)session.CreatedAt).ToUnixTimeSeconds());
 		}
 
 		private void VerifySignedOut()
@@ -89,7 +90,7 @@ namespace GotrueTests
 
 			var newPersistence = new TestSessionPersistence();
 			newPersistence.SaveSession(session);
-			IGotrueClient<User, Session> newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			IGotrueClient<User, Session> newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true, Url = "http://127.0.0.1:54321/auth/v1"});
 			newClient.SetPersistence(newPersistence);
 			newClient.AddDebugListener(LogDebug);
 			newClient.AddStateChangedListener(AuthStateListener);
@@ -270,10 +271,10 @@ namespace GotrueTests
 		public async Task ClientReturnsAuthUrlForProvider()
 		{
 			var result1 = await _client.SignIn(Constants.Provider.Google);
-			AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
+			AreEqual("http://127.0.0.1:54321/auth/v1/authorize?provider=google", result1.Uri.ToString());
 
 			var result2 = await _client.SignIn(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
-			AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			AreEqual("http://127.0.0.1:54321/auth/v1/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("Client: Returns Verification Code for Provider")]
@@ -403,7 +404,8 @@ namespace GotrueTests
 
 			var result = await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions
 			{
-				FlowType = Constants.OAuthFlowType.PKCE
+				FlowType = Constants.OAuthFlowType.PKCE,
+				RedirectTo = "http://localhost:3000"
 			});
 
 			IsFalse(string.IsNullOrEmpty(result.PKCEVerifier));
@@ -481,5 +483,91 @@ namespace GotrueTests
 			// As this is being forced to regenerate, the original should be different than the cached.
 			AreNotEqual(refreshToken, _client.CurrentSession.RefreshToken);
 		}
+		
+
+		[TestMethod("Client: Resend")]
+		public async Task Resend()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+
+				var response = await _client.Resend(new ResendParams
+				{
+					Email = email,
+					Type = ResendParams.ResendType.Signup
+				});
+				
+				IsNotNull(response);
+				IsTrue(response.ResponseMessage?.IsSuccessStatusCode ?? false);
+		}
+
+		// [TestMethod("Client: Get Authorization Details")]
+		// public async Task GetAuthorizationDetails()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var authorizationDetail = await _client.GetAuthorizationDetails("test-authorization-id-012");
+		// 	
+		// 	IsNotNull(authorizationDetail);
+		// 	AreEqual("test-authorization-id-012", authorizationDetail.AuthorizationId);
+		// 	AreEqual(email, authorizationDetail.User.Email);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: Approve Authorization")]
+		// public async Task ApproveAuthorization()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var consentResponse = await _client.ApproveAuthorization("test-authorization-id-013");
+		// 	
+		// 	IsNotNull(consentResponse);
+		// 	IsNotNull(consentResponse.RedirectUrl);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: Deny Authorization")]
+		// public async Task DenyAuthorization()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var consentResponse = await _client.DenyAuthorization("test-authorization-id-014");
+		// 	
+		// 	IsNotNull(consentResponse);
+		// 	IsNotNull(consentResponse.RedirectUrl);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: List Grants")]
+		// public async Task ListGrants()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var grantsResponse = await _client.ListGrants();
+		// 	
+		// 	IsNotNull(grantsResponse);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: Revoke Grant")]
+		// public async Task RevokeGrant()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var authorizationDetail = await _client.GetAuthorizationDetails("test-authorization-id-012");
+		// 	var grantsResponse = await _client.RevokeGrant(authorizationDetail.Client.Id);
+		//
+		// 	IsTrue(grantsResponse);
+		// 	_stateChanges.Clear();
+		// }
 	}
 }

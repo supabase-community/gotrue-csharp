@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
-using Supabase.Gotrue.Exceptions;
+using Supabase.Gotrue.CustomProviders;
 using Supabase.Gotrue.Interfaces;
-using static Supabase.Gotrue.Constants;
+using Supabase.Gotrue.OAuth;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using static Supabase.Gotrue.Constants;
 
 namespace GotrueTests
 {
@@ -23,7 +25,7 @@ namespace GotrueTests
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new AdminClient(_serviceKey, new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestUtils.AdminClient();
 		}
 
 		[TestMethod("Service Role: Update User")]
@@ -175,6 +177,20 @@ namespace GotrueTests
 
 			IsTrue(result);
 		}
+		
+		[TestMethod("Service Role: Soft Delete User")]
+		public async Task SoftDeletesUser()
+		{
+			var email = $"{RandomString(12)}@supabase.io";
+			var user = await _client.CreateUser(email, PASSWORD);
+			var uid = user.Id;
+
+			var result = await _client.DeleteUser(uid ?? throw new InvalidOperationException(), true);
+			var deletedUser = await _client.GetUserById(uid);
+
+			IsTrue(result);
+			Assert.IsNotNull(deletedUser.DeletedAt);
+		}
 
 		[TestMethod("Nonce generation and verification")]
 		public void NonceGeneration()
@@ -274,5 +290,281 @@ namespace GotrueTests
 			var result2 = await _client.GenerateLink(options2);
 			AreEqual(result2.VerificationType, "email_change_new");
 		}
-	}
+
+        [TestMethod("Service Role: Create OAuth Client")]
+        public async Task CreateOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var client = new CreateOAuthClient
+            {
+                ClientName = name,
+                RedirectUrls = ["https://localhost:3000"],
+            };
+
+            var createdClient = await _client.CreateOAuthClient(client);
+            IsNotNull(createdClient);
+            IsNotNull(createdClient.ClientId);
+            AreEqual(name, createdClient.ClientName);
+            IsNotNull(createdClient.ClientSecret);
+
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
+
+        [TestMethod("Service Role: Get OAuth Client")]
+        public async Task GetOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
+
+            var fetchedClient = await _client.GetOAuthClient(createdClient.ClientId);
+            IsNotNull(fetchedClient);
+            AreEqual(createdClient.ClientId, fetchedClient.ClientId);
+            AreEqual(name, fetchedClient.ClientName);
+
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
+
+        [TestMethod("Service Role: List OAuth Clients")]
+        public async Task ListOAuthClients()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
+
+            var clients = await _client.ListOAuthClients();
+
+            IsNotNull(clients);
+            IsTrue(clients.Clients.Exists(c => c.ClientId == createdClient.ClientId));
+
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
+
+        [TestMethod("Service Role: Update OAuth Client")]
+        public async Task UpdateOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
+
+            var newName = $"Updated {name}";
+            var updateClient = Supabase.Gotrue.OAuth.UpdateOAuthClient.From(createdClient);
+            updateClient.ClientName = newName;
+
+            var updatedClient = await _client.UpdateOAuthClient(
+                createdClient.ClientId,
+                updateClient
+            );
+
+            IsNotNull(updatedClient);
+            AreEqual(newName, updatedClient.ClientName);
+
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
+
+        [TestMethod("Service Role: Regenerate OAuth Client Secret")]
+        public async Task RegenerateOAuthClientSecret()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
+
+            var regeneratedClient = await _client.RegenerateOAuthClientSecret(
+                createdClient.ClientId
+            );
+            IsNotNull(regeneratedClient);
+            IsNotNull(regeneratedClient.ClientSecret);
+            AreNotEqual(createdClient.ClientSecret, regeneratedClient.ClientSecret);
+
+            await _client.DeleteOAuthClient(createdClient.ClientId);
+        }
+
+        [TestMethod("Service Role: Delete OAuth Client")]
+        public async Task DeleteOAuthClient()
+        {
+            var name = $"Test Client {RandomString(6)}";
+            var createdClient = await _client.CreateOAuthClient(
+                new CreateOAuthClient
+                {
+                    ClientName = name,
+                    RedirectUrls = ["https://localhost:3000"],
+                }
+            );
+
+            var result = await _client.DeleteOAuthClient(createdClient.ClientId);
+            IsTrue(result);
+
+            var clients = await _client.ListOAuthClients();
+            var results =
+                clients.Clients.IsNullOrEmpty()
+                || !clients.Clients.Exists(c => c.ClientId == createdClient.ClientId);
+            IsTrue(results);
+        }
+
+        [TestMethod("Service Role: Create Custom Provider")]
+        public async Task CreateCustomProvider()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
+
+            IsNotNull(createdProvider);
+            IsNotNull(createdProvider.Id);
+            AreEqual(name, createdProvider.Name);
+            AreEqual("oidc", createdProvider.ProviderType);
+
+            await _client.DeleteCustomProvider(createdProvider.Identifier);
+        }
+
+        [TestMethod("Service Role: Get Custom Provider")]
+        public async Task GetCustomProvider()
+        {
+                var name = $"Test Provider {RandomString(6)}";
+                var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+                var createdProvider = await _client.CreateCustomProvider(
+                    new CreateCustomProvider()
+                    {
+                        Name = name,
+                        ProviderType = CustomProviderType.Oidc,
+                        Identifier = identifier,
+                        ClientId = "clientid",
+                        ClientSecret = "clientsecret",
+                        Issuer = "https://67vrg.wiremockapi.cloud",
+                        DiscoveryUrl =
+                            "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                    }
+                );
+
+                var fetchedProvider = await _client.GetCustomProvider(createdProvider.Identifier);
+                IsNotNull(fetchedProvider);
+                AreEqual(createdProvider.Id, fetchedProvider.Id);
+                AreEqual(name, fetchedProvider.Name);
+
+                await _client.DeleteCustomProvider(createdProvider.Identifier);
+    
+        }
+
+        [TestMethod("Service Role: List Custom Providers")]
+        public async Task ListCustomProviders()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider()
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
+
+            var providers = await _client.ListCustomProviders();
+            IsNotNull(providers);
+            IsTrue(providers.Providers.Exists(p => p.Id == createdProvider.Id));
+
+            await _client.DeleteCustomProvider(createdProvider.Identifier);
+        }
+
+        [TestMethod("Service Role: Update Custom Provider")]
+        public async Task UpdateCustomProvider()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider()
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
+
+            var newName = $"Updated {name}";
+            var updateProvider = new UpdateCustomProvider()
+            {
+                Name = newName,
+                ClientId = "clientid",
+                ClientSecret = "clientsecret",
+                Issuer = "https://67vrg.wiremockapi.cloud",
+                DiscoveryUrl = "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+            };
+            var updatedProvider = await _client.UpdateCustomProvider(
+                createdProvider.Identifier,
+                updateProvider
+            );
+
+            IsNotNull(updatedProvider);
+            AreEqual(newName, updatedProvider.Name);
+
+            await _client.DeleteCustomProvider(createdProvider.Identifier);
+        }
+
+        [TestMethod("Service Role: Delete Custom Provider")]
+        public async Task DeleteCustomProvider()
+        {
+            var name = $"Test Provider {RandomString(6)}";
+            var identifier = $"custom:{Guid.NewGuid().ToString("N")}";
+            var createdProvider = await _client.CreateCustomProvider(
+                new CreateCustomProvider()
+                {
+                    Name = name,
+                    ProviderType = CustomProviderType.Oidc,
+                    Identifier = identifier,
+                    ClientId = "clientid",
+                    ClientSecret = "clientsecret",
+                    Issuer = "https://67vrg.wiremockapi.cloud",
+                    DiscoveryUrl =
+                        "https://67vrg.wiremockapi.cloud/.well-known/openid-configuration",
+                }
+            );
+
+            var result = await _client.DeleteCustomProvider(createdProvider.Identifier);
+            IsTrue(result);
+
+            var providers = await _client.ListCustomProviders();
+            IsFalse(providers.Providers.Exists(p => p.Id == createdProvider.Id));
+        }
+    }
 }

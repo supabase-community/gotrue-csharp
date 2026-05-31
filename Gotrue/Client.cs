@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
+using Supabase.Gotrue.OAuthAuthorization;
+using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
@@ -77,7 +79,7 @@ namespace Supabase.Gotrue
 		{
 			options ??= new ClientOptions();
 			Options = options;
-			_api = new Api(options.Url, options.Headers);
+			_api = new Api(options.Url, options.Headers, options.Timeout);
 
 			if (options.AutoRefreshToken)
 			{
@@ -463,6 +465,12 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public Task<BaseResponse> Resend(ResendParams resendParams)
+		{
+			return _api.Resend(resendParams);
+		}
+
+		/// <inheritdoc />
 		public async Task<bool> ResetPasswordForEmail(string email)
 		{
 			var result = await _api.ResetPasswordForEmail(email);
@@ -831,7 +839,7 @@ namespace Supabase.Gotrue
 
 			var challengeResponse = await _api.Challenge(CurrentSession.AccessToken, new MfaChallengeParams
 			{
-				FactorId = mfaChallengeAndVerifyParams.FactorId
+				FactorId = mfaChallengeAndVerifyParams.FactorId,
 			});
 
 			if (challengeResponse == null)
@@ -843,7 +851,7 @@ namespace Supabase.Gotrue
 			{
 				FactorId = mfaChallengeAndVerifyParams.FactorId,
 				Code = mfaChallengeAndVerifyParams.Code,
-				ChallengeId = challengeResponse.Id
+				ChallengeId = challengeResponse.Id,
 			});
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
@@ -926,6 +934,55 @@ namespace Supabase.Gotrue
 			};
 
 			return Task.FromResult(response);
+		}
+		
+		///  <inheritdoc />
+		public Task<OAuthAuthorizationDetail?> GetAuthorizationDetails(string authorizationId)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.GetAuthorizationDetails(CurrentSession.AccessToken, authorizationId);
+		}
+		
+		///  <inheritdoc />
+		public Task<OAuthAuthorizationRedirect?> ApproveAuthorization(string authorizationId)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.ApproveAuthorization(CurrentSession.AccessToken, authorizationId);
+		}
+			
+		///  <inheritdoc />
+		public Task<OAuthAuthorizationRedirect?> DenyAuthorization(string authorizationId)
+
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.DenyAuthorization(CurrentSession.AccessToken, authorizationId);
+		}
+		
+		///  <inheritdoc />
+		public Task<List<OAuthAuthorizationGrant>?> ListGrants()
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.ListGrants(CurrentSession.AccessToken);
+		}
+		
+		///  <inheritdoc />
+		public async Task<bool> RevokeGrant(string grantId)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			var response = await _api.RevokeGrant(CurrentSession.AccessToken, grantId);
+			response.ResponseMessage?.EnsureSuccessStatusCode();
+			
+			return true;
 		}
 	}
 }

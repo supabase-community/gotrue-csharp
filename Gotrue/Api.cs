@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using Newtonsoft.Json;
 using Supabase.Core;
-using Supabase.Core.Attributes;
 using Supabase.Core.Extensions;
+using Supabase.Gotrue.CustomProviders;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
+using Supabase.Gotrue.OAuth;
+using Supabase.Gotrue.OAuthAuthorization;
 using Supabase.Gotrue.Responses;
+using Supabase.Gotrue.Responses.CustomProviders;
+using Supabase.Gotrue.Responses.OAuth;
 using static Supabase.Gotrue.Constants;
 
 namespace Supabase.Gotrue
@@ -49,11 +52,17 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="url"></param>
 		/// <param name="headers"></param>
-		public Api(string url, Dictionary<string, string>? headers = null)
+		/// <param name="timeout"></param>
+		public Api(string url, Dictionary<string, string>? headers = null, int? timeout = null)
 		{
 			Url = url;
 			headers ??= new Dictionary<string, string>();
 			_headers = headers;
+
+			if (timeout != null)
+			{
+				Helpers.CreateHttpClient((int)timeout);
+			}
 		}
 
 		/// <summary>
@@ -78,6 +87,11 @@ namespace Supabase.Gotrue
 				if (options.Data != null)
 				{
 					body.Add("data", options.Data);
+				}
+
+				if (!string.IsNullOrEmpty(options.CaptchaToken))
+				{
+					body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
 				}
 			}
 
@@ -310,7 +324,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<BaseResponse> SendMagicLinkEmail(string email, SignInOptions? options = null)
 		{
-			var data = new Dictionary<string, string> { { "email", email } };
+			var body = new Dictionary<string, object> { { "email", email } };
 
 			var endpoint = $"{Url}/magiclink";
 
@@ -320,9 +334,14 @@ namespace Supabase.Gotrue
 				{
 					endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo! } }).ToString();
 				}
+
+				if (!string.IsNullOrEmpty(options.CaptchaToken))
+				{
+					body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
+				}
 			}
 
-			return Helpers.MakeRequest(HttpMethod.Post, endpoint, data, Headers);
+			return Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
 		}
 
 		/// <summary>
@@ -339,6 +358,9 @@ namespace Supabase.Gotrue
 
 			if (options?.Data != null)
 				body["data"] = options.Data;
+
+			if (!string.IsNullOrEmpty(options?.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options!.CaptchaToken! } });
 
 			return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAuthedRequestHeaders(jwt));
 		}
@@ -373,6 +395,11 @@ namespace Supabase.Gotrue
 				if (options.Data != null)
 				{
 					body.Add("data", options.Data);
+				}
+
+				if (!string.IsNullOrEmpty(options.CaptchaToken))
+				{
+					body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
 				}
 			}
 
@@ -556,7 +583,15 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public Task<MfaChallengeResponse?> Challenge(string jwt, MfaChallengeParams mfaChallengeParams)
 		{
-			return Helpers.MakeRequest<MfaChallengeResponse>(HttpMethod.Post, $"{Url}/factors/{mfaChallengeParams.FactorId}/challenge", null, CreateAuthedRequestHeaders(jwt));
+			var body = new Dictionary<string, object>();
+			if (!string.IsNullOrEmpty(mfaChallengeParams.FriendlyName))
+				body.Add("friendly_name", mfaChallengeParams.FriendlyName);
+			if (!string.IsNullOrEmpty(mfaChallengeParams.Channel))
+				body.Add("channel", mfaChallengeParams.Channel);
+			if (mfaChallengeParams.WebAuthn != null)
+				body.Add("webauthn", mfaChallengeParams.WebAuthn);
+
+			return Helpers.MakeRequest<MfaChallengeResponse>(HttpMethod.Post, $"{Url}/factors/{mfaChallengeParams.FactorId}/challenge", body.Count > 0 ? body : null, CreateAuthedRequestHeaders(jwt));
 		}
 
 		/// <inheritdoc />
@@ -567,6 +602,9 @@ namespace Supabase.Gotrue
 				{ "code", mfaVerifyParams.Code },
 				{ "challenge_id", mfaVerifyParams.ChallengeId }
 			};
+
+			if (mfaVerifyParams.WebAuthn != null)
+				body.Add("webauthn", mfaVerifyParams.WebAuthn);
 
 			return Helpers.MakeRequest<MfaVerifyResponse>(HttpMethod.Post, $"{Url}/factors/{mfaVerifyParams.FactorId}/verify", body, CreateAuthedRequestHeaders(jwt));
 		}
@@ -588,6 +626,125 @@ namespace Supabase.Gotrue
 		{
 			return Helpers.MakeRequest<MfaAdminDeleteFactorResponse>(HttpMethod.Delete, $"{Url}/admin/users/{deleteFactorParams.UserId}/factors/{deleteFactorParams.Id}", null, CreateAuthedRequestHeaders(jwt));
 		}
+
+        // Admin OAuth Client Management
+        /// <inheritdoc />
+        public async Task<OAuthClientResponse> ListOAuthClients(string jwt)
+        {
+            var response = await Helpers.MakeRequest(
+                HttpMethod.Get,
+                $"{Url}/admin/oauth/clients",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
+            return JsonConvert.DeserializeObject<OAuthClientResponse>(response.Content!)
+                ?? new OAuthClientResponse();
+        }
+
+        /// <inheritdoc />
+        public Task<OAuthClient> CreateOAuthClient(string jwt, CreateOAuthClient client) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Post,
+                $"{Url}/admin/oauth/clients",
+                client,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<OAuthClient> GetOAuthClient(string jwt, string clientId) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Get,
+                $"{Url}/admin/oauth/clients/{clientId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<OAuthClient> UpdateOAuthClient(
+            string jwt,
+            string clientId,
+            UpdateOAuthClient client
+        ) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Put,
+                $"{Url}/admin/oauth/clients/{clientId}",
+                client,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<BaseResponse> DeleteOAuthClient(string jwt, string clientId) =>
+            Helpers.MakeRequest(
+                HttpMethod.Delete,
+                $"{Url}/admin/oauth/clients/{clientId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
+
+        /// <inheritdoc />
+        public Task<OAuthClient> RegenerateOAuthClientSecret(string jwt, string clientId) =>
+            Helpers.MakeRequest<OAuthClient>(
+                HttpMethod.Post,
+                $"{Url}/admin/oauth/clients/{clientId}/regenerate_secret",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        // Admin Custom Provider Management
+        /// <inheritdoc />
+        public async Task<CustomProviderResponse> ListCustomProviders(string jwt)
+        {
+            var response = await Helpers.MakeRequest(
+                HttpMethod.Get,
+                $"{Url}/admin/custom-providers",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
+            return JsonConvert.DeserializeObject<CustomProviderResponse>(response.Content!)!;
+        }
+
+        /// <inheritdoc />
+        public Task<CustomProvider> CreateCustomProvider(
+            string jwt,
+            CreateCustomProvider provider
+        ) =>
+            Helpers.MakeRequest<CustomProvider>(
+                HttpMethod.Post,
+                $"{Url}/admin/custom-providers",
+                provider,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<CustomProvider> GetCustomProvider(string jwt, string providerId) =>
+            Helpers.MakeRequest<CustomProvider>(
+                HttpMethod.Get,
+                $"{Url}/admin/custom-providers/{providerId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<CustomProvider> UpdateCustomProvider(
+            string jwt,
+            string providerId,
+            UpdateCustomProvider provider
+        ) =>
+            Helpers.MakeRequest<CustomProvider>(
+                HttpMethod.Put,
+                $"{Url}/admin/custom-providers/{providerId}",
+                provider,
+                CreateAuthedRequestHeaders(jwt)
+            )!;
+
+        /// <inheritdoc />
+        public Task<BaseResponse> DeleteCustomProvider(string jwt, string providerId) =>
+            Helpers.MakeRequest(
+                HttpMethod.Delete,
+                $"{Url}/admin/custom-providers/{providerId}",
+                null,
+                CreateAuthedRequestHeaders(jwt)
+            );
 
 		/// <inheritdoc />
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
@@ -736,14 +893,28 @@ namespace Supabase.Gotrue
 		}
 
 		/// <summary>
+		/// Resends a confirmation code to a user's email or phone.
+		/// </summary>
+		/// <param name="resendParams"></param>
+		/// <returns></returns>
+		public Task<BaseResponse> Resend(ResendParams resendParams)
+		{
+			return Helpers.MakeRequest(HttpMethod.Post, $"{Url}/resend", resendParams, Headers);
+		}
+
+		/// <summary>
 		/// Delete a user
 		/// </summary>
 		/// <param name="uid">The user uid you want to remove.</param>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="softDelete"></param>
 		/// <returns></returns>
-		public Task<BaseResponse> DeleteUser(string uid, string jwt)
+		public Task<BaseResponse> DeleteUser(string uid, string jwt, bool softDelete = false)
 		{
-			var data = new Dictionary<string, string>();
+			var data = new Dictionary<string, bool>
+			{
+				{ "should_soft_delete", softDelete }
+			};
 			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
 		}
 
@@ -790,5 +961,98 @@ namespace Supabase.Gotrue
 
 			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=refresh_token", data, Headers.MergeLeft(headers));
 		}
+
+		/// <summary>
+		/// Retrieves details about an OAuth authorization request.
+		/// Used to display consent information to the user.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		///
+		/// This method returns one of two response types:
+		/// - OAuthAuthorizationDetails: User needs to consent - show consent page with client info
+		/// - OAuthRedirect: User already consented - redirect immediately to the OAuth client
+		///
+		/// Use type checking to distinguish between the responses:
+		/// Check if Detail is not null to show consent page, otherwise redirect to Redirect.RedirectUrl
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="authorizationId">The authorization ID from the authorization request</param>
+		/// <returns>Authorization details or redirect URL depending on consent status</returns>
+		public Task<OAuthAuthorizationDetail?> GetAuthorizationDetails(string jwt, string authorizationId) => 
+			Helpers.MakeRequest<OAuthAuthorizationDetail>(
+				HttpMethod.Get, 
+				$"{Url}/oauth/authorizations/{authorizationId}",
+				null, 
+				CreateAuthedRequestHeaders(jwt)
+				);
+
+		/// <summary>
+		/// Approves an OAuth authorization request.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		///
+		/// After approval, the user's consent is stored and an authorization code is generated.
+		/// The response contains a complete redirect URL with the authorization code and state.
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="authorizationId">The authorization ID to approve</param>
+		/// <param name="options">Optional parameters. If skipBrowserRedirect is false (default), automatically redirects the browser to the OAuth client. If true, returns the redirect_url without automatic redirect (useful for custom handling).</param>
+		/// <returns>Redirect URL to send the user back to the OAuth client with authorization code</returns>
+		public Task<OAuthAuthorizationRedirect?> ApproveAuthorization(string jwt, string authorizationId) =>
+			Helpers.MakeRequest<OAuthAuthorizationRedirect>(
+				HttpMethod.Post,
+				$"{Url}/oauth/authorizations/{authorizationId}/consent",
+				new Dictionary<string, string> { { "action", "approve"} },
+				CreateAuthedRequestHeaders(jwt)
+			);
+		
+		/// <summary>
+		/// Denies an OAuth authorization request.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		///
+		/// After denial, the response contains a redirect URL with an OAuth error
+		/// (access_denied) to inform the OAuth client that the user rejected the request.
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="authorizationId">The authorization ID to deny</param>
+		/// <param name="options">Optional parameters. If skipBrowserRedirect is false (default), automatically redirects the browser to the OAuth client. If true, returns the redirect_url without automatic redirect (useful for custom handling).</param>
+		/// <returns>Redirect URL to send the user back to the OAuth client with error information</returns>
+		public Task<OAuthAuthorizationRedirect?> DenyAuthorization(string jwt, string authorizationId) =>
+			Helpers.MakeRequest<OAuthAuthorizationRedirect>(
+				HttpMethod.Post,
+				$"{Url}/oauth/authorizations/{authorizationId}/consent",
+				new Dictionary<string, string> { { "action", "deny"} },
+				CreateAuthedRequestHeaders(jwt)
+			);
+
+		/// <summary>
+		/// Lists all OAuth grants that the authenticated user has authorized.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <returns>Response with array of OAuth grants with client information and granted scopes</returns>
+		public Task<List<OAuthAuthorizationGrant>?> ListGrants(string jwt) =>
+			Helpers.MakeRequest<List<OAuthAuthorizationGrant>>(
+				HttpMethod.Get,
+				$"{Url}/user/oauth/grants",
+				null,
+				CreateAuthedRequestHeaders(jwt)
+			);
+
+		/// <summary>
+		/// Revokes a user's OAuth grant for a specific client.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// 
+		/// Revocation marks consent as revoked, deletes active sessions for that OAuth client,
+		/// and invalidates associated refresh tokens.
+		/// </summary>
+		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="clientId">The OAuth grant identifier to revoke</param>
+		/// <returns>Empty response on successful revocation</returns>
+		public Task<BaseResponse> RevokeGrant(string jwt, string clientId) =>
+			Helpers.MakeRequest(
+				HttpMethod.Delete,
+				$"{Url}/user/oauth/grants?client_id={clientId}",
+				null,
+				CreateAuthedRequestHeaders(jwt)
+			);
 	}
 }

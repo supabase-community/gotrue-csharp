@@ -88,7 +88,16 @@ namespace Supabase.Gotrue.Exceptions
 			/// The sso provider ID was incorrect or does not exist
 			/// </summary>
 			SsoProviderNotFound,
-			MfaChallengeUnverified
+			MfaChallengeUnverified,
+			/// <summary>
+			/// 502, 503, 504: Standard server/gateway errors
+			/// </summary>
+			NetworkError,
+			/// <summary>
+			/// Indicates an error related to Cloudflare network connectivity or operation.
+			/// 520-524, 530: Cloudflare-specific error codes (web server down, connection timed out, etc.)
+			/// </summary>
+			CloudflareNetworkError,
 		}
 
 		/// <summary>
@@ -106,6 +115,7 @@ namespace Supabase.Gotrue.Exceptions
 				400 when gte.Content.Contains("Invalid login") => UserBadLogin,
 				400 when gte.Content.Contains("Email not confirmed") => UserEmailNotConfirmed,
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
+				400 when gte.Content.Contains("Refresh token is not valid") => InvalidRefreshToken,
 				400 when gte.Content.Contains("Phone") => UserBadPhoneNumber,
 				400 when gte.Content.Contains("phone") => UserBadPhoneNumber,
 				400 when gte.Content.Contains("Email") => UserBadEmailAddress,
@@ -123,6 +133,15 @@ namespace Supabase.Gotrue.Exceptions
 				422 when gte.Content.Contains("Password") => UserBadPassword,
 				422 when gte.Content.Contains("password") => UserBadPassword,
 				429 => UserTooManyRequests,
+				502 => NetworkError,
+				503 => NetworkError,	
+				504 => NetworkError,
+				520 => CloudflareNetworkError,
+				521 => CloudflareNetworkError,
+				522 => CloudflareNetworkError,
+				523 => CloudflareNetworkError,
+				524 => CloudflareNetworkError,
+				530 => CloudflareNetworkError,
 				_ => Unknown
 			};
 

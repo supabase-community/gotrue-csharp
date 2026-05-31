@@ -61,4 +61,7 @@
         <None Include="..\.github\icon.png" Pack="true" Link="icon.png" PackagePath="\" />
         <None Include="..\README.md" Pack="true" Link="README.md" PackagePath="\" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Responses\OAuthClient\" />
+    </ItemGroup>
 </Project>
