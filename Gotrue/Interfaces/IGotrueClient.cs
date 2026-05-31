@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Mfa;
+using Supabase.Gotrue.OAuthAuthorization;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
 
@@ -521,6 +523,66 @@ namespace Supabase.Gotrue.Interfaces
 		/// user needs to be shown a screen to verify their MFA factors.
 		/// </summary>
 		Task<MfaGetAuthenticatorAssuranceLevelResponse?> GetAuthenticatorAssuranceLevel();
+
+		#endregion
+
+		#region OAuth
+
+		/// <summary>
+		/// Retrieves details about an OAuth authorization request.
+		/// Used to display consent information to the user.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// 
+		/// This method returns one of two response types:
+		/// - OAuthAuthorizationDetails: User needs to consent - show consent page with client info
+		/// - OAuthRedirect: User already consented - redirect immediately to the OAuth client
+		/// 
+		/// Use type checking to distinguish between the responses:
+		/// Check if Detail is not null to show consent page, otherwise redirect to Redirect.RedirectUrl
+		/// </summary>
+		/// <param name="authorizationId">The authorization ID from the authorization request</param>
+		/// <returns>Authorization details or redirect URL depending on consent status</returns>
+		public Task<OAuthAuthorizationDetail?> GetAuthorizationDetails(string authorizationId);
+
+		/// <summary>
+		/// Approves an OAuth authorization request.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// 
+		/// After approval, the user's consent is stored and an authorization code is generated.
+		/// The response contains a complete redirect URL with the authorization code and state.
+		/// </summary>
+		/// <param name="authorizationId">The authorization ID to approve</param>
+		/// <returns>Redirect URL to send the user back to the OAuth client with authorization code</returns>
+		public Task<OAuthAuthorizationRedirect?> ApproveAuthorization(string authorizationId);
+
+		/// <summary>
+		/// Denies an OAuth authorization request.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// 
+		/// After denial, the response contains a redirect URL with an OAuth error
+		/// (access_denied) to inform the OAuth client that the user rejected the request.
+		/// </summary>
+		/// <param name="authorizationId">The authorization ID to deny</param>
+		/// <returns>Redirect URL to send the user back to the OAuth client with error information</returns>
+		public Task<OAuthAuthorizationRedirect?> DenyAuthorization(string authorizationId);
+
+		/// <summary>
+		/// Lists all OAuth grants that the authenticated user has authorized.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// </summary>
+		/// <returns>Response with array of OAuth grants with client information and granted scopes</returns>
+		public Task<List<OAuthAuthorizationGrant>?> ListGrants();
+
+		/// <summary>
+		/// Revokes a user's OAuth grant for a specific client.
+		/// Only relevant when the OAuth 2.1 server is enabled in Supabase Auth.
+		/// 
+		/// Revocation marks consent as revoked, deletes active sessions for that OAuth client,
+		/// and invalidates associated refresh tokens.
+		/// </summary>
+		/// <param name="clientId">The OAuth grant identifier to revoke</param>
+		/// <returns>Empty response on successful revocation</returns>
+		public Task<bool> RevokeGrant(string clientId);
 
 		#endregion
 

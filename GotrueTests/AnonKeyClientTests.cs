@@ -499,5 +499,75 @@ namespace GotrueTests
 				IsNotNull(response);
 				IsTrue(response.ResponseMessage?.IsSuccessStatusCode ?? false);
 		}
+
+		// [TestMethod("Client: Get Authorization Details")]
+		// public async Task GetAuthorizationDetails()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var authorizationDetail = await _client.GetAuthorizationDetails("test-authorization-id-012");
+		// 	
+		// 	IsNotNull(authorizationDetail);
+		// 	AreEqual("test-authorization-id-012", authorizationDetail.AuthorizationId);
+		// 	AreEqual(email, authorizationDetail.User.Email);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: Approve Authorization")]
+		// public async Task ApproveAuthorization()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var consentResponse = await _client.ApproveAuthorization("test-authorization-id-013");
+		// 	
+		// 	IsNotNull(consentResponse);
+		// 	IsNotNull(consentResponse.RedirectUrl);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: Deny Authorization")]
+		// public async Task DenyAuthorization()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var consentResponse = await _client.DenyAuthorization("test-authorization-id-014");
+		// 	
+		// 	IsNotNull(consentResponse);
+		// 	IsNotNull(consentResponse.RedirectUrl);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: List Grants")]
+		// public async Task ListGrants()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var grantsResponse = await _client.ListGrants();
+		// 	
+		// 	IsNotNull(grantsResponse);
+		// 	_stateChanges.Clear();	
+		// }
+		//
+		// [TestMethod("Client: Revoke Grant")]
+		// public async Task RevokeGrant()
+		// {
+		// 	var email = $"ssrdkyzhfijc@supabase.io";
+		// 	var emailSession = await _client.SignIn(email, PASSWORD);
+		// 	VerifyGoodSession(emailSession);
+		//
+		// 	var authorizationDetail = await _client.GetAuthorizationDetails("test-authorization-id-012");
+		// 	var grantsResponse = await _client.RevokeGrant(authorizationDetail.Client.Id);
+		//
+		// 	IsTrue(grantsResponse);
+		// 	_stateChanges.Clear();
+		// }
 	}
 }

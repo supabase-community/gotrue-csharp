@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
+using Supabase.Gotrue.OAuthAuthorization;
 using Supabase.Gotrue.Responses;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
@@ -933,6 +934,55 @@ namespace Supabase.Gotrue
 			};
 
 			return Task.FromResult(response);
+		}
+		
+		///  <inheritdoc />
+		public Task<OAuthAuthorizationDetail?> GetAuthorizationDetails(string authorizationId)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.GetAuthorizationDetails(CurrentSession.AccessToken, authorizationId);
+		}
+		
+		///  <inheritdoc />
+		public Task<OAuthAuthorizationRedirect?> ApproveAuthorization(string authorizationId)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.ApproveAuthorization(CurrentSession.AccessToken, authorizationId);
+		}
+			
+		///  <inheritdoc />
+		public Task<OAuthAuthorizationRedirect?> DenyAuthorization(string authorizationId)
+
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.DenyAuthorization(CurrentSession.AccessToken, authorizationId);
+		}
+		
+		///  <inheritdoc />
+		public Task<List<OAuthAuthorizationGrant>?> ListGrants()
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			return _api.ListGrants(CurrentSession.AccessToken);
+		}
+		
+		///  <inheritdoc />
+		public async Task<bool> RevokeGrant(string grantId)
+		{
+			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
+				throw new GotrueException("Not Logged in.", NoSessionFound);
+			
+			var response = await _api.RevokeGrant(CurrentSession.AccessToken, grantId);
+			response.ResponseMessage?.EnsureSuccessStatusCode();
+			
+			return true;
 		}
 	}
 }
