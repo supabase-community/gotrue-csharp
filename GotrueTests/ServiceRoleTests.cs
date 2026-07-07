@@ -1,14 +1,18 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
-using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using static Supabase.Gotrue.Constants;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+#endregion
 
 namespace GotrueTests
 {
@@ -18,12 +22,10 @@ namespace GotrueTests
 	{
 		private IGotrueAdminClient<User> _client;
 
-		private readonly string _serviceKey = GenerateServiceRoleToken();
-
 		[TestInitialize]
 		public void TestInitializer()
 		{
-			_client = new AdminClient(_serviceKey, new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestClients.AdminAgainstCliStack();
 		}
 
 		[TestMethod("Service Role: Update User")]

@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="db\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Gotrue\Gotrue.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,10 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
@@ -11,6 +14,8 @@ using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.CollectionAssert;
 using static Supabase.Gotrue.Constants.AuthState;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
+
+#endregion
 
 namespace GotrueTests
 {
@@ -40,7 +45,7 @@ namespace GotrueTests
 		public void TestInitializer()
 		{
 			_persistence = new TestSessionPersistence();
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestClients.AgainstCliStack();
 			_client.SetPersistence(_persistence);
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);

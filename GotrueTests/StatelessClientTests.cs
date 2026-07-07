@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -5,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
@@ -13,6 +16,8 @@ using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.StatelessClient;
 using static Supabase.Gotrue.Constants;
+
+#endregion
 
 namespace GotrueTests
 {
@@ -27,7 +32,10 @@ namespace GotrueTests
 
 		private IGotrueStatelessClient<User, Session> _client;
 
-		private static StatelessClientOptions Options { get => new StatelessClientOptions() { AllowUnconfirmedUserSessions = true }; }
+		private static StatelessClientOptions Options
+		{
+			get => TestClients.StatelessAgainstCliStack();
+		}
 
 		private static string RandomString(int length)
 		{
@@ -45,7 +53,7 @@ namespace GotrueTests
 
 		private string GenerateServiceRoleToken()
 		{
-			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
+			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TestClients.CliJwtSecret));
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
@@ -197,10 +205,10 @@ namespace GotrueTests
 		public void ReturnsAuthUrlForProvider()
 		{
 			var result1 = _client.SignIn(Provider.Google, Options);
-			Assert.AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
+			Assert.AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google", result1.Uri.ToString());
 
 			var result2 = _client.SignIn(Provider.Google, Options, new SignInOptions { Scopes = "special scopes please" });
-			Assert.AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			Assert.AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("StatelessClient: Update user")]

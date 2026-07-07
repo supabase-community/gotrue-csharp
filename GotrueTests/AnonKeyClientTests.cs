@@ -1,8 +1,11 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
@@ -11,6 +14,8 @@ using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.CollectionAssert;
 using static Supabase.Gotrue.Constants.AuthState;
+
+#endregion
 
 namespace GotrueTests
 {
@@ -42,7 +47,7 @@ namespace GotrueTests
 		public void TestInitializer()
 		{
 			_persistence = new TestSessionPersistence();
-			_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			_client = TestClients.AgainstCliStack();
 			_client.SetPersistence(_persistence);
 			_client.AddDebugListener(LogDebug);
 			_client.AddStateChangedListener(AuthStateListener);
@@ -89,7 +94,7 @@ namespace GotrueTests
 
 			var newPersistence = new TestSessionPersistence();
 			newPersistence.SaveSession(session);
-			IGotrueClient<User, Session> newClient = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			var newClient = TestClients.AgainstCliStack();
 			newClient.SetPersistence(newPersistence);
 			newClient.AddDebugListener(LogDebug);
 			newClient.AddStateChangedListener(AuthStateListener);
@@ -238,10 +243,10 @@ namespace GotrueTests
 		public async Task ClientReturnsAuthUrlForProvider()
 		{
 			var result1 = await _client.SignIn(Constants.Provider.Google);
-			AreEqual("http://localhost:9999/authorize?provider=google", result1.Uri.ToString());
+			AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google", result1.Uri.ToString());
 
 			var result2 = await _client.SignIn(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
-			AreEqual("http://localhost:9999/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
 		}
 
 		[TestMethod("Client: Returns Verification Code for Provider")]

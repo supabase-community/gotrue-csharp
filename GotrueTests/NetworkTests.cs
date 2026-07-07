@@ -1,10 +1,15 @@
+#region
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
+
+#endregion
 
 namespace GotrueTests
 {
@@ -27,13 +32,11 @@ namespace GotrueTests
 		[TestMethod("Good Ping Check")]
 		public async Task GoodPingTest()
 		{
-			var clientOptions = new ClientOptions { AllowUnconfirmedUserSessions = true };
-			var client = new Client(clientOptions);
+			var client = TestClients.AgainstCliStack();
 			client.Online = false;
 			var status = new NetworkStatus();
 
-			var url =
-				$"{clientOptions.Url}/settings";
+			var url = TestClients.CliPingUrl;
 
 			status.Client = client;
 			var online = await status.PingCheck(url);
@@ -85,7 +88,7 @@ namespace GotrueTests
 		[TestMethod("Network Not Available For User Refresh")]
 		public async Task BadTokenRefresh()
 		{
-			var client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
+			var client = TestClients.AgainstCliStack();
 			client.AddDebugListener(TestUtils.LogDebug);
 			client.AddStateChangedListener(AuthStateListener);
 			client.Online = true;
