@@ -4051,6 +4051,15 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).RefreshToken()
   nameWithType: IGotrueClient<TUser, TSession>.RefreshToken()
   nameWithType.vb: IGotrueClient(Of TUser, TSession).RefreshToken()
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken(System.String,System.String)
+  name: RefreshToken(string, string)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshToken_System_String_System_String_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken(System.String,System.String)
+  name.vb: RefreshToken(String, String)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.RefreshToken(string, string)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).RefreshToken(String, String)
+  nameWithType: IGotrueClient<TUser, TSession>.RefreshToken(string, string)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).RefreshToken(String, String)
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken*
   name: RefreshToken
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshToken_

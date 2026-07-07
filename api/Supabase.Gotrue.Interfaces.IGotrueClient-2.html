@@ -356,7 +356,7 @@ the token is refreshed, etc).</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Challenge_Supabase_Gotrue_Mfa_MfaChallengeParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Challenge(Supabase.Gotrue.Mfa.MfaChallengeParams)">
   Challenge(MfaChallengeParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L484"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L498"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Prepares a challenge used to verify that a user has access to a MFA
@@ -394,7 +394,7 @@ factor.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ChallengeAndVerify_Supabase_Gotrue_Mfa_MfaChallengeAndVerifyParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ChallengeAndVerify(Supabase.Gotrue.Mfa.MfaChallengeAndVerifyParams)">
   ChallengeAndVerify(MfaChallengeAndVerifyParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L496"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L510"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Helper method which creates a challenge and immediately uses the given code to verify against it thereafter. The verification code is
@@ -496,7 +496,7 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Enroll_Supabase_Gotrue_Mfa_MfaEnrollParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Enroll(Supabase.Gotrue.Mfa.MfaEnrollParams)">
   Enroll(MfaEnrollParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L478"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L492"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Starts the enrollment process for a new Multi-Factor Authentication (MFA)
@@ -577,7 +577,7 @@ The user has to enter the code from their authenticator app to verify it.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_GetAuthenticatorAssuranceLevel" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.GetAuthenticatorAssuranceLevel">
   GetAuthenticatorAssuranceLevel()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L521"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L535"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the Authenticator Assurance Level (AAL) for the active session.</p>
@@ -736,7 +736,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ListFactors" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ListFactors">
   ListFactors()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L507"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L521"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the list of MFA factors enabled for this user</p>
@@ -909,6 +909,53 @@ user needs to be shown a screen to verify their MFA factors.</p>
     <pre><code class="lang-csharp hljs">Task RefreshToken()</code></pre>
   </div>
 
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshToken_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken*"></a>
+
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshToken_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken(System.String,System.String)">
+  RefreshToken(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L480"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Refreshes a Token using the provided access and refresh tokens, replacing the
+current session with the result. Useful when resuming from a persisted session:
+the refresh token is one-time-use and never expires server-side, so it can mint a
+new session even if the access token has long expired.</p>
+<p>If the server rejects the refresh token, the current session is destroyed and a
+<a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> with reason
+<a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_InvalidRefreshToken">InvalidRefreshToken</a> is thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task RefreshToken(string accessToken, string refreshToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>accessToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The access token to send as the bearer authorization.</p>
+</dd>
+    <dt><code>refreshToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The refresh token to exchange for a new session.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
@@ -1895,7 +1942,7 @@ To fetch the currently logged-in user, refer to <see>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Unenroll_Supabase_Gotrue_Mfa_MfaUnenrollParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Unenroll(Supabase.Gotrue.Mfa.MfaUnenrollParams)">
   Unenroll(MfaUnenrollParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L502"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L516"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unenroll removes a MFA factor.
@@ -2008,7 +2055,7 @@ A user has to have an <code>aal2</code> authenticator level in order to unenroll
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Verify_Supabase_Gotrue_Mfa_MfaVerifyParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Verify(Supabase.Gotrue.Mfa.MfaVerifyParams)">
   Verify(MfaVerifyParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L490"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L504"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Verifies a code against a challenge. The verification code is
