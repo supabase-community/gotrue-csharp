@@ -28,9 +28,6 @@ jobs:
         with:
           version: latest
 
-      - name: Initialize Legacy Testing Stack
-        run: docker compose up -d
-
       - name: Initialize Supabase CLI Stack
         run: supabase start
 
