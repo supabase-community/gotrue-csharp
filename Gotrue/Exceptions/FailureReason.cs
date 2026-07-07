@@ -105,7 +105,12 @@ namespace Supabase.Gotrue.Exceptions
 			{
 				400 when gte.Content.Contains("Invalid login") => UserBadLogin,
 				400 when gte.Content.Contains("Email not confirmed") => UserEmailNotConfirmed,
+				// Gotrue rejects refresh tokens on two paths: malformed tokens fail format validation
+				// ("Refresh token is not valid", validation_failed) before lookup, while well-formed
+				// unknown tokens return "Invalid Refresh Token" (refresh_token_not_found).
 				400 when gte.Content.Contains("Invalid Refresh Token") => InvalidRefreshToken,
+				400 when gte.Content.Contains("refresh_token_not_found") => InvalidRefreshToken,
+				400 when gte.Content.Contains("Refresh token is not valid") => InvalidRefreshToken,
 				400 when gte.Content.Contains("Phone") => UserBadPhoneNumber,
 				400 when gte.Content.Contains("phone") => UserBadPhoneNumber,
 				400 when gte.Content.Contains("Email") => UserBadEmailAddress,
