@@ -48,20 +48,19 @@ public class RefreshBehaviorTests
 		await VerifyRotatedSession(signUp, refreshed);
 	}
 
-	[TestMethod("Refreshing with a malformed refresh token throws InvalidRefreshToken and destroys the session")]
-	public async Task RefreshFailsWithMalformedToken()
+	[DataTestMethod("Refreshing with a rejected refresh token throws InvalidRefreshToken and destroys the session")]
+	[DataRow("bogus-token", DisplayName = "Malformed token")]
+	[DataRow("abcdef012345", DisplayName = "Well-formed unknown token")]
+	public async Task RefreshFailsWithRejectedToken(string rejectedToken)
 	{
 		await SignUpNewUser();
-		client.CurrentSession!.RefreshToken = "bogus-token";
-		await VerifyRefreshFailsAndDestroysSession();
-	}
+		client.CurrentSession!.RefreshToken = rejectedToken;
 
-	[TestMethod("Refreshing with a well-formed token the server does not know throws InvalidRefreshToken and destroys the session")]
-	public async Task RefreshFailsWithUnknownToken()
-	{
-		await SignUpNewUser();
-		client.CurrentSession!.RefreshToken = "abcdef012345";
-		await VerifyRefreshFailsAndDestroysSession();
+		Func<Task> refresh = () => client.RefreshSession();
+		var exception = await refresh.Should().ThrowAsync<GotrueException>();
+
+		exception.Which.Reason.Should().Be(InvalidRefreshToken);
+		client.CurrentSession.Should().BeNull();
 	}
 
 	private sealed record SignUpResult(Session Session, string UserId);
@@ -72,14 +71,6 @@ public class RefreshBehaviorTests
 		session.Should().NotBeNull();
 		session!.User?.Id.Should().NotBeNullOrEmpty();
 		return new SignUpResult(session, session.User!.Id!);
-	}
-
-	private async Task VerifyRefreshFailsAndDestroysSession()
-	{
-		var refresh = () => client.RefreshSession();
-		var exception = await refresh.Should().ThrowAsync<GotrueException>();
-		exception.Which.Reason.Should().Be(InvalidRefreshToken);
-		client.CurrentSession.Should().BeNull();
 	}
 
 	private void ExpireCurrentSession()
