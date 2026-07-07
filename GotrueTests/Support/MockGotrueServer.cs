@@ -1,13 +1,12 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using WireMock;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert;
 
 namespace GotrueTests.Support
 {
@@ -29,8 +28,8 @@ namespace GotrueTests.Support
 
 		internal ReceivedRequest VerifySingleReceivedRequest()
 		{
-			AreEqual(1, server.LogEntries.Count, "expected the SDK to emit exactly one request");
-			return new ReceivedRequest(server.LogEntries.Single().RequestMessage);
+			var entry = server.LogEntries.Should().ContainSingle("the SDK should emit exactly one request").Which;
+			return new ReceivedRequest(entry.RequestMessage);
 		}
 
 		public void Dispose() => server.Stop();
@@ -47,44 +46,39 @@ namespace GotrueTests.Support
 
 		internal ReceivedRequest WithPath(string path)
 		{
-			AreEqual(path, request.Path);
+			request.Path.Should().Be(path);
 			return this;
 		}
-
 
 		internal ReceivedRequest WithMethod(HttpMethod method)
 		{
-			AreEqual(method.ToString(), request.Method);
+			request.Method.Should().Be(method.ToString());
 			return this;
 		}
 
-
 		internal ReceivedRequest WithQueryParam(string name, string expected)
 		{
-			IsTrue(request.Query != null && request.Query.ContainsKey(name), $"missing query parameter '{name}'");
-			AreEqual(expected, request.Query[name].Single());
+			request.Query.Should().ContainKey(name).WhoseValue.Single().Should().Be(expected);
 			return this;
 		}
 
 		internal ReceivedRequest WithHeader(string name, string expected)
 		{
-			IsTrue(request.Headers != null && request.Headers.ContainsKey(name), $"missing header '{name}'");
-			AreEqual(expected, request.Headers[name].Single());
+			request.Headers.Should().ContainKey(name).WhoseValue.Single().Should().Be(expected);
 			return this;
 		}
 
 		internal ReceivedRequest WithJsonContentType()
 		{
-			IsTrue(request.Headers != null && request.Headers.ContainsKey("Content-Type"), "missing Content-Type header");
-			StartsWith(request.Headers["Content-Type"].Single(), "application/json");
+			request.Headers.Should().ContainKey("Content-Type").WhoseValue.Single().Should().StartWith("application/json");
 			return this;
 		}
 
 		internal void WithExactJsonBody(string field, string expected)
 		{
-			IsNotNull(request.Body, "request has no body");
+			request.Body.Should().NotBeNull("the request should have a body");
 			var body = JObject.Parse(request.Body);
-			AreEqual(expected, (string)body[field]);
+			((string)body[field]).Should().Be(expected);
 		}
 	}
 }
