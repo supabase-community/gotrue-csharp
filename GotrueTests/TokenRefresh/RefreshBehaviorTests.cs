@@ -55,10 +55,8 @@ public class RefreshBehaviorTests
 	{
 		await SignUpNewUser();
 		client.CurrentSession!.RefreshToken = rejectedToken;
-
 		Func<Task> refresh = () => client.RefreshSession();
 		var exception = await refresh.Should().ThrowAsync<GotrueException>();
-
 		exception.Which.Reason.Should().Be(InvalidRefreshToken);
 		client.CurrentSession.Should().BeNull();
 	}
