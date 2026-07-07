@@ -1,0 +1,56 @@
+# Minimal Supabase CLI stack for the Behavior test tier (GotrueTests/TokenRefresh).
+# Only api (Kong), db, and auth are enabled; everything else is switched off to keep
+# `supabase start` fast in CI. Keys/URL are the CLI defaults expected by
+# GotrueTests/Support/TestClients.cs (overridable via SUPABASE_CLI_AUTH_URL / SUPABASE_CLI_ANON_KEY).
+project_id = "gotrue-csharp"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.pooler]
+enabled = false
+
+[db.migrations]
+enabled = true
+
+[db.seed]
+enabled = false
+
+[realtime]
+enabled = false
+
+[studio]
+enabled = false
+
+[local_smtp]
+enabled = false
+
+[storage]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:3000"
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+[edge_runtime]
+enabled = false
+
+[analytics]
+enabled = false

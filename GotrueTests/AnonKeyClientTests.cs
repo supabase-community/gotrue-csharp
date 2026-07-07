@@ -123,38 +123,6 @@ namespace GotrueTests
 			AreEqual("Testing", session.User.UserMetadata["firstName"]);
 		}
 
-		[TestMethod("Client: Triggers Token Refreshed Event")]
-		public async Task ClientTriggersTokenRefreshedEvent()
-		{
-			var tsc = new TaskCompletionSource<string>();
-
-			var email = $"{RandomString(12)}@supabase.io";
-
-			IsTrue(AuthStateIsEmpty());
-
-			var session = await _client.SignUp(email, PASSWORD);
-
-			VerifyGoodSession(session);
-
-			_client.AddStateChangedListener((_, args) =>
-			{
-				if (args == TokenRefreshed)
-				{
-					tsc.SetResult(_client.CurrentSession.AccessToken);
-				}
-			});
-
-			_stateChanges.Clear();
-
-			await _client.RefreshSession();
-			Contains(_stateChanges, TokenRefreshed);
-			AreEqual(_client.CurrentSession, _persistence.SavedSession);
-
-			var newToken = await tsc.Task;
-			IsNotNull(newToken);
-			AreNotEqual(session.RefreshToken, _client.CurrentSession.RefreshToken);
-		}
-
 		[TestMethod("Client: Signs In User (Email, Phone, Refresh token)")]
 		public async Task ClientSignsIn()
 		{

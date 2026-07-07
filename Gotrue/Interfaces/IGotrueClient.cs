@@ -465,6 +465,20 @@ namespace Supabase.Gotrue.Interfaces
 		/// <returns></returns>
 		public Task RefreshToken();
 
+		/// <summary>
+		/// Refreshes a Token using the provided access and refresh tokens, replacing the
+		/// current session with the result. Useful when resuming from a persisted session:
+		/// the refresh token is one-time-use and never expires server-side, so it can mint a
+		/// new session even if the access token has long expired.
+		///
+		/// If the server rejects the refresh token, the current session is destroyed and a
+		/// <see cref="Exceptions.GotrueException"/> with reason
+		/// <see cref="Exceptions.FailureHint.Reason.InvalidRefreshToken"/> is thrown.
+		/// </summary>
+		/// <param name="accessToken">The access token to send as the bearer authorization.</param>
+		/// <param name="refreshToken">The refresh token to exchange for a new session.</param>
+		public Task RefreshToken(string accessToken, string refreshToken);
+
 		#region MFA
 		/// <summary>
 		/// Starts the enrollment process for a new Multi-Factor Authentication (MFA)
