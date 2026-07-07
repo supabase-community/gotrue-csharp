@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#region
+
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
@@ -9,8 +11,8 @@ using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using static Microsoft.VisualStudio.TestTools.UnitTesting.CollectionAssert;
-using static Supabase.Gotrue.Constants.AuthState;
+
+#endregion
 
 namespace GotrueTests;
 
@@ -18,16 +20,14 @@ namespace GotrueTests;
 [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 public class MfaClientTests
 {
-	private IGotrueClient<User, Session> _client;
 	private IGotrueAdminClient<User> _adminClient;
-
-	private readonly string _serviceKey = GenerateServiceRoleToken();
+	private IGotrueClient<User, Session> _client;
 
 	[TestInitialize]
 	public void TestInitializer()
 	{
-		_client = new Client(new ClientOptions { AllowUnconfirmedUserSessions = true });
-		_adminClient = new AdminClient(_serviceKey, new ClientOptions { AllowUnconfirmedUserSessions = true });
+		_client = TestClients.AgainstCliStack();
+		_adminClient = TestClients.AdminAgainstCliStack();
 	}
 
 	[TestMethod("MFA: Complete flow")]
@@ -285,7 +285,7 @@ public class MfaClientTests
 
 		await ThrowsExceptionAsync<GotrueException>(async () =>
 		{
-			await _client.Verify(new MfaVerifyParams{ Code = "", ChallengeId = "", FactorId = enrollResponse.Id });
+			await _client.Verify(new MfaVerifyParams { Code = "", ChallengeId = "", FactorId = enrollResponse.Id });
 		});
 	}
 
@@ -314,7 +314,7 @@ public class MfaClientTests
 
 		await ThrowsExceptionAsync<GotrueException>(async () =>
 		{
-			await _client.Verify(new MfaVerifyParams{ Code = "", ChallengeId = challengeResponse.Id, FactorId = "" });
+			await _client.Verify(new MfaVerifyParams { Code = "", ChallengeId = challengeResponse.Id, FactorId = "" });
 		});
 	}
 

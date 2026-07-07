@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,14 +8,16 @@ using System.Linq;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
+#endregion
+
 namespace GotrueTests
 {
 	public static class TestUtils
 	{
-		private static readonly Random Random = new Random();
 
 		public const string PASSWORD = "I@M@SuperP@ssWord";
-		
+		private static readonly Random Random = new();
+
 		public static void LogDebug(string message, Exception e)
 		{
 			Debug.WriteLine(message);
@@ -46,9 +50,9 @@ namespace GotrueTests
 			return Random.Next(minValue, maxValue);
 		}
 
-		public static string GenerateServiceRoleToken()
+		public static string GenerateServiceRoleToken(string jwtSecret)
 		{
-			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("37c304f8-51aa-419a-a1af-06154e63707a")); // using GOTRUE_JWT_SECRET
+			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret));
 
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
@@ -62,6 +66,5 @@ namespace GotrueTests
 			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
 			return tokenHandler.WriteToken(securityToken);
 		}
-
 	}
 }

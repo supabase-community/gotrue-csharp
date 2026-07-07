@@ -1,13 +1,15 @@
-using System.Collections.Generic;
-using System.Net.Http;
+#region
+
 using System.Threading.Tasks;
+using GotrueTests.Support;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
-using Supabase.Gotrue.Interfaces;
 using static GotrueTests.TestUtils;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
+
+#endregion
 
 namespace GotrueTests
 {
@@ -36,14 +38,14 @@ namespace GotrueTests
 		[TestMethod("Bad service key message")]
 		public async Task BadServiceApiKeyTest()
 		{
-			IGotrueAdminClient<User> adminClient = new AdminClient("bad_service_key", new ClientOptions { AllowUnconfirmedUserSessions = true });
+			var adminClient = TestClients.AdminAgainstCliStack("bad_service_key");
 			AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
 
 			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
 			{
 				await adminClient.ListUsers();
 			});
-			
+
 			AreEqual(AdminTokenRequired, x.Reason);
 		}
 	}
