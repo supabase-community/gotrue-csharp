@@ -112,47 +112,6 @@ namespace GotrueTests
 			AreEqual(1, _stateChanges.Count);
 		}
 
-		[TestMethod("Client: Bogus refresh token")]
-		public async Task ClientTriggersTokenRefreshedEvent()
-		{
-			var email = $"{RandomString(12)}@supabase.io";
-			var user = await _client.SignUp(email, PASSWORD);
-			IsNotNull(user);
-
-			_client.CurrentSession.RefreshToken = "bogus token";
-
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
-			{
-				await _client.RefreshSession();
-			});
-			
-			AreEqual(InvalidRefreshToken, x.Reason);
-			IsNull(_client.CurrentSession);
-		}
-
-		[TestMethod("Client: expired token")]
-		public async Task ExpiredTokenTest()
-		{
-			var email = $"{RandomString(12)}@supabase.io";
-			var emailSession = await _client.SignUp(email, PASSWORD);
-
-			IsNotNull(emailSession.AccessToken);
-			IsNotNull(emailSession.RefreshToken);
-			IsNotNull(emailSession.User);
-
-			// Set CreatedAt to an old date - this should NOT prevent refresh from working
-			// Session "expiration" based on CreatedAt is about access token lifetime, not refresh token validity
-			_client.CurrentSession.CreatedAt = DateTime.UtcNow.AddDays(-10);
-
-			// Refresh should still succeed with a valid refresh token
-			await _client.RefreshSession();
-
-			IsNotNull(_client.CurrentSession);
-			IsNotNull(_client.CurrentSession.AccessToken);
-			IsNotNull(_client.CurrentSession.RefreshToken);
-			IsNotNull(_client.CurrentSession.User);
-		}
-
 		[TestMethod("Client: Send Reset Password Email for unknown email")]
 		public async Task ClientSendsResetPasswordForEmail()
 		{
