@@ -2,7 +2,7 @@
 services:
 
   gotrue:
-    image: supabase/gotrue:v2.155.6
+    image: public.ecr.aws/supabase/gotrue:v2.191.0
     ports:
       - "9999:9999"
     environment:
@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
 
   db:
-    image: postgres:13
+    image: postgres:17
     restart: unless-stopped
     ports:
       - "5432:5432"
