@@ -56,6 +56,7 @@ namespace Supabase.Gotrue
 			_headers = headers;
 		}
 
+
 		/// <summary>
 		/// Signs a user up using an email address and password.
 		/// </summary>
@@ -100,7 +101,61 @@ namespace Supabase.Gotrue
 			}
 			return null;
 		}
-
+	
+	
+	        /// <summary>
+	        /// Logs in an existing user using their email address.
+	        /// </summary>
+	        /// <param name="email"></param>
+	        /// <param name="password"></param>
+	        /// <returns></returns>
+	        public Task<Session> SignInWithEmail(UserAttributes attributes, SignUpOptions options = null)
+	        {
+	            string endpoint = $"{Url}/token?grant_type=password";
+	
+	            if (options != null)
+	            {
+	                if (!string.IsNullOrEmpty(options.RedirectTo))
+	                {
+	                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
+	                }
+	
+	                if (options.Data != null)
+	                {
+	                    attributes.Data.Add("data", options.Data);
+	                }
+	            }
+	            return Helpers.MakeRequest<Session>(HttpMethod.Post, endpoint, attributes, Headers);
+	        }
+	
+	        /// <summary>
+	        /// Signs up a new user using their phone number and a password.The phone number of the user.
+	        /// </summary>
+	        /// <param name="phone">The phone number of the user.</param>
+	        /// <param name="password">The password of the user.</param>
+	        /// <param name="options">Optional Signup data.</param>
+	        /// <returns></returns>
+	        public Task<Session> SignUpWithPhone(UserAttributes attributes, SignUpOptions options = null)
+	        {
+	
+	            string endpoint = $"{Url}/signup";
+	
+	            if (options != null)
+	            {
+	                if (!string.IsNullOrEmpty(options.RedirectTo))
+	                {
+	                    endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo } }).ToString();
+	                }
+	
+	                if (options.Data != null)
+	                {
+	                    attributes.Data.Add("data", options.Data);
+	                }
+	            }
+	
+	            return Helpers.MakeRequest<Session>(HttpMethod.Post, endpoint, attributes, Headers);
+        }
+	
 		/// <summary>
 		/// Logs in an existing user using their email address.
 		/// </summary>
