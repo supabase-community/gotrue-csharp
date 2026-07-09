@@ -340,7 +340,7 @@ namespace Supabase.Gotrue
 			if (options?.Data != null)
 				body["data"] = options.Data;
 
-			return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <summary>
@@ -518,6 +518,26 @@ namespace Supabase.Gotrue
 			return headers;
 		}
 
+		/// <summary>
+		/// Create a temporary object with all configured headers, adds the Authorization token, and ensures the apikey header is set for admin requests
+		/// </summary>
+		/// <param name="serviceRoleToken">Service role token (JWT)</param>
+		/// <returns></returns>
+		private Dictionary<string, string> CreateAdminRequestHeaders(string serviceRoleToken)
+		{
+			var headers = new Dictionary<string, string>(Headers)
+			{
+				["Authorization"] = $"Bearer {serviceRoleToken}"
+			};
+
+			if (!headers.ContainsKey("apikey"))
+			{
+				headers["apikey"] = serviceRoleToken;
+			}
+
+			return headers;
+		}
+
 		/// <inheritdoc />
 		public ProviderAuthState GetUriForProvider(Provider provider, SignInOptions? options = null) =>
 			Helpers.GetUrlForProvider($"{Url}/authorize", provider, options);
@@ -580,13 +600,13 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public Task<BaseResponse> ListFactors(string jwt, MfaAdminListFactorsParams listFactorsParams)
 		{
-			return Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/users/{listFactorsParams.UserId}/factors", null, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest(HttpMethod.Get, $"{Url}/admin/users/{listFactorsParams.UserId}/factors", null, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <inheritdoc />
 		public Task<MfaAdminDeleteFactorResponse?> DeleteFactor(string jwt, MfaAdminDeleteFactorParams deleteFactorParams)
 		{
-			return Helpers.MakeRequest<MfaAdminDeleteFactorResponse>(HttpMethod.Delete, $"{Url}/admin/users/{deleteFactorParams.UserId}/factors/{deleteFactorParams.Id}", null, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest<MfaAdminDeleteFactorResponse>(HttpMethod.Delete, $"{Url}/admin/users/{deleteFactorParams.UserId}/factors/{deleteFactorParams.Id}", null, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <inheritdoc />
@@ -639,7 +659,7 @@ namespace Supabase.Gotrue
 		{
 			var data = new Dictionary<string, string>();
 
-			return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/admin/users/{userId}", data, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest<User>(HttpMethod.Get, $"{Url}/admin/users/{userId}", data, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <summary>
@@ -667,7 +687,7 @@ namespace Supabase.Gotrue
 		{
 			var data = TransformListUsersParams(filter, sortBy, sortOrder, page, perPage);
 
-			return Helpers.MakeRequest<UserList<User>>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest<UserList<User>>(HttpMethod.Get, $"{Url}/admin/users", data, CreateAdminRequestHeaders(jwt));
 		}
 
 		private Dictionary<string, string> TransformListUsersParams(string? filter = null, string? sortBy = null, SortOrder sortOrder = SortOrder.Descending, int? page = null, int? perPage = null)
@@ -708,7 +728,7 @@ namespace Supabase.Gotrue
 		{
 			attributes ??= new AdminUserAttributes();
 
-			return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", attributes, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest<User>(HttpMethod.Post, $"{Url}/admin/users", attributes, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <summary>
@@ -720,7 +740,7 @@ namespace Supabase.Gotrue
 		/// <returns></returns>
 		public Task<User?> UpdateUserById(string jwt, string userId, UserAttributes userData)
 		{
-			return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/admin/users/{userId}", userData, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/admin/users/{userId}", userData, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <summary>
@@ -740,11 +760,15 @@ namespace Supabase.Gotrue
 		/// </summary>
 		/// <param name="uid">The user uid you want to remove.</param>
 		/// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
+		/// <param name="shouldSoftDelete">If true, then the user will be soft-deleted from the auth schema. Soft deletion allows user identification from the hashed user ID but is not reversible. Defaults to false for backward compatibility.</param>
 		/// <returns></returns>
-		public Task<BaseResponse> DeleteUser(string uid, string jwt)
+		public Task<BaseResponse> DeleteUser(string uid, string jwt, bool shouldSoftDelete = false)
 		{
-			var data = new Dictionary<string, string>();
-			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAuthedRequestHeaders(jwt));
+			var data = new Dictionary<string, object>
+			{
+				{ "should_soft_delete", shouldSoftDelete }
+			};
+			return Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/admin/users/{uid}", data, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <summary>
@@ -767,7 +791,7 @@ namespace Supabase.Gotrue
 		{
 			var url = string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/admin/generate_link" : $"{Url}/admin/generate_link?redirect_to={options.RedirectTo}";
 
-			return Helpers.MakeRequest(HttpMethod.Post, url, options, CreateAuthedRequestHeaders(jwt));
+			return Helpers.MakeRequest(HttpMethod.Post, url, options, CreateAdminRequestHeaders(jwt));
 		}
 
 		/// <summary>

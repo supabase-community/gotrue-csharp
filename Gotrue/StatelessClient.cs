@@ -314,9 +314,9 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
-		public async Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options)
+		public async Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options, bool shouldSoftDelete = false)
 		{
-			var result = await GetApi(options).DeleteUser(uid, serviceRoleToken);
+			var result = await GetApi(options).DeleteUser(uid, serviceRoleToken, shouldSoftDelete);
 			result.ResponseMessage?.EnsureSuccessStatusCode();
 			return true;
 		}

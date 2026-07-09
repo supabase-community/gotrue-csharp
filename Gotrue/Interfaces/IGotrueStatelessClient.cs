@@ -43,8 +43,9 @@ namespace Supabase.Gotrue.Interfaces
         /// <param name="uid"></param>
         /// <param name="serviceRoleToken">this token needs role 'supabase_admin' or 'service_role'</param>
         /// <param name="options"></param>
+        /// <param name="shouldSoftDelete">If true, then the user will be soft-deleted from the auth schema. Soft deletion allows user identification from the hashed user ID but is not reversible. Defaults to false for backward compatibility.</param>
         /// <returns></returns>
-        Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options);
+        Task<bool> DeleteUser(string uid, string serviceRoleToken, StatelessClientOptions options, bool shouldSoftDelete = false);
 
         /// <summary>
         /// Logs in an existing user via a third-party provider.
