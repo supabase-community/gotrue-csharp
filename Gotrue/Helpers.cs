@@ -108,6 +108,10 @@ namespace Supabase.Gotrue
 			if (attr == null)
 				throw new Exception("Unknown provider");
 
+			var state = !string.IsNullOrEmpty(options.State) ? options.State : GenerateNonce();
+			query.Add("state", state);
+			result.State = state;
+
 			query.Add("provider", attr.Mapping);
 
 			if (!string.IsNullOrEmpty(options.Scopes))

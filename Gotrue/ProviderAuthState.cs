@@ -19,6 +19,12 @@ namespace Supabase.Gotrue
         public string? PKCEVerifier { get; set; }
 
         /// <summary>
+        /// The state parameter included in the OAuth URL for CSRF protection (RFC 6749 §10.12).
+        /// Validate this against the state echoed back in the OAuth callback.
+        /// </summary>
+        public string State { get; set; } = null!;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="uri"></param>
