@@ -1,5 +1,7 @@
 #region
 
+using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -8,6 +10,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
+using WireMock.RequestBuilders;
+using WireMock.ResponseBuilders;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 #endregion
@@ -20,9 +24,6 @@ public class RefreshContractTests
 {
 	private const string AccessToken = "an-access-token";
 	private const string RefreshTokenValue = "a-refresh-token";
-	private const string UnclassifiedError = "{\"msg\":\"internal server error\"}";
-	private const string TokenNotFoundError = "{\"code\":400,\"error_code\":\"refresh_token_not_found\",\"msg\":\"Invalid Refresh Token: Refresh Token Not Found\"}";
-	private const string MalformedTokenError = "{\"code\":400,\"error_code\":\"validation_failed\",\"msg\":\"Refresh token is not valid\"}";
 	private IGotrueClient<User, Session> client;
 	private MockGotrueServer server;
 
@@ -34,10 +35,7 @@ public class RefreshContractTests
 	}
 
 	[TestCleanup]
-	public void TestCleanup()
-	{
-		server.Dispose();
-	}
+	public void TestCleanup() => server.Dispose();
 
 	[TestMethod("Refresh sends POST /token?grant_type=refresh_token with bearer auth, the api key, and only the refresh token as body")]
 	public async Task RefreshSendsExpectedRequest()
@@ -59,16 +57,20 @@ public class RefreshContractTests
 	{
 		MockSuccessResponse();
 		await client.RefreshToken(AccessToken, RefreshTokenValue);
-		ValidateCurrentSessionPropertiesVerifyRefreshedToken();
+		client.CurrentSession.Should().NotBeNull();
+		client.CurrentSession!.AccessToken.Should().Be("new-access-token");
+		client.CurrentSession!.RefreshToken.Should().Be("new-refresh-token");
+		client.CurrentSession!.User.Should().NotBeNull();
+		client.CurrentSession!.User?.Id.Should().Be("user-id-123");
+		client.CurrentSession!.ExpiresIn.Should().Be(3600);
 	}
 
-
 	[DataTestMethod("A 400 invalid-refresh-token response is classified as InvalidRefreshToken and destroys the session")]
-	[DataRow(TokenNotFoundError, DisplayName = "unknown token (refresh_token_not_found)")]
-	[DataRow(MalformedTokenError, DisplayName = "malformed token (validation_failed)")]
-	public async Task InvalidRefreshTokenResponseIsClassified(string errorBody)
+	[DataRow("token_not_found_error.json", DisplayName = "unknown token (refresh_token_not_found)")]
+	[DataRow("malformed_token_error.json", DisplayName = "malformed token (validation_failed)")]
+	public async Task InvalidRefreshTokenResponseIsClassified(string fixture)
 	{
-		MockErrorResponse(400, errorBody);
+		MockErrorResponse(400, Fixture(fixture));
 		var refresh = () => client.RefreshToken(AccessToken, RefreshTokenValue);
 		var exception = await refresh.Should().ThrowAsync<GotrueException>();
 		exception.Which.Reason.Should().Be(InvalidRefreshToken);
@@ -78,7 +80,7 @@ public class RefreshContractTests
 	[TestMethod("An unrecognized error response is classified as Unknown")]
 	public async Task UnrecognizedErrorResponseIsUnknown()
 	{
-		MockErrorResponse(500, UnclassifiedError);
+		MockErrorResponse(500, Fixture("unclassified_error.json"));
 		var refresh = () => client.RefreshToken(AccessToken, RefreshTokenValue);
 		var exception = await refresh.Should().ThrowAsync<GotrueException>();
 		exception.Which.Reason.Should().Be(Unknown);
@@ -86,19 +88,21 @@ public class RefreshContractTests
 	}
 
 	private void MockSuccessResponse() =>
-		server.RespondsTo("/token", 200,
-			"{\"access_token\":\"new-access-token\",\"refresh_token\":\"new-refresh-token\",\"token_type\":\"bearer\",\"expires_in\":3600,\"user\":{\"id\":\"user-id-123\",\"aud\":\"authenticated\"}}");
+		server
+			.Given(Request.Create().WithPath("/token").UsingPost())
+			.RespondWith(Response.Create()
+				.WithStatusCode(200)
+				.WithHeader("Content-Type", "application/json")
+				.WithBody(Fixture("token_success.json")));
 
 	private void MockErrorResponse(int statusCode, string body) =>
-		server.RespondsTo("/token", statusCode, body);
-	
-	private void ValidateCurrentSessionPropertiesVerifyRefreshedToken()
-	{
-		client.CurrentSession.Should().NotBeNull();
-		client.CurrentSession!.AccessToken.Should().Be("new-access-token");
-		client.CurrentSession!.RefreshToken.Should().Be("new-refresh-token");
-		client.CurrentSession!.User.Should().NotBeNull();
-		client.CurrentSession!.User?.Id.Should().Be("user-id-123");
-		client.CurrentSession!.ExpiresIn.Should().Be(3600);
-	}
+		server
+			.Given(Request.Create().WithPath("/token").UsingPost())
+			.RespondWith(Response.Create()
+				.WithStatusCode(statusCode)
+				.WithHeader("Content-Type", "application/json")
+				.WithBody(body));
+
+	private static string Fixture(string name) =>
+		File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TokenRefresh", "Fixtures", name));
 }

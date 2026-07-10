@@ -22,4 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Gotrue\Gotrue.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TokenRefresh\Fixtures\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
