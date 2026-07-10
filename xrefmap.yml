@@ -6114,6 +6114,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.ProviderAuthState.PKCEVerifier
   nameWithType: ProviderAuthState.PKCEVerifier
+- uid: Supabase.Gotrue.ProviderAuthState.State
+  name: State
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_State
+  commentId: P:Supabase.Gotrue.ProviderAuthState.State
+  fullName: Supabase.Gotrue.ProviderAuthState.State
+  nameWithType: ProviderAuthState.State
+- uid: Supabase.Gotrue.ProviderAuthState.State*
+  name: State
+  href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_State_
+  commentId: Overload:Supabase.Gotrue.ProviderAuthState.State
+  isSpec: "True"
+  fullName: Supabase.Gotrue.ProviderAuthState.State
+  nameWithType: ProviderAuthState.State
 - uid: Supabase.Gotrue.ProviderAuthState.Uri
   name: Uri
   href: api/Supabase.Gotrue.ProviderAuthState.html#Supabase_Gotrue_ProviderAuthState_Uri
@@ -6667,6 +6680,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.SignInOptions.Scopes
   nameWithType: SignInOptions.Scopes
+- uid: Supabase.Gotrue.SignInOptions.State
+  name: State
+  href: api/Supabase.Gotrue.SignInOptions.html#Supabase_Gotrue_SignInOptions_State
+  commentId: P:Supabase.Gotrue.SignInOptions.State
+  fullName: Supabase.Gotrue.SignInOptions.State
+  nameWithType: SignInOptions.State
+- uid: Supabase.Gotrue.SignInOptions.State*
+  name: State
+  href: api/Supabase.Gotrue.SignInOptions.html#Supabase_Gotrue_SignInOptions_State_
+  commentId: Overload:Supabase.Gotrue.SignInOptions.State
+  isSpec: "True"
+  fullName: Supabase.Gotrue.SignInOptions.State
+  nameWithType: SignInOptions.State
 - uid: Supabase.Gotrue.SignInWithPasswordlessEmailOptions
   name: SignInWithPasswordlessEmailOptions
   href: api/Supabase.Gotrue.SignInWithPasswordlessEmailOptions.html

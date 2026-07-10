@@ -164,7 +164,7 @@ Class ProviderAuthState  <a class="header-action link-secondary" title="View sou
 
   <h3 id="Supabase_Gotrue_ProviderAuthState__ctor_System_Uri_" data-uid="Supabase.Gotrue.ProviderAuthState.#ctor(System.Uri)">
   ProviderAuthState(Uri)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/ProviderAuthState.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/ProviderAuthState.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor</p>
@@ -209,6 +209,39 @@ Class ProviderAuthState  <a class="header-action link-secondary" title="View sou
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string? PKCEVerifier { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Supabase_Gotrue_ProviderAuthState_State_" data-uid="Supabase.Gotrue.ProviderAuthState.State*"></a>
+
+  <h3 id="Supabase_Gotrue_ProviderAuthState_State" data-uid="Supabase.Gotrue.ProviderAuthState.State">
+  State
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/ProviderAuthState.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The state parameter included in the OAuth URL for CSRF protection (RFC 6749 §10.12).
+Validate this against the state echoed back in the OAuth callback.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string State { get; set; }</code></pre>
   </div>
 
 
