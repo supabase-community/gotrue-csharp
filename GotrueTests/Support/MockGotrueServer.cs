@@ -18,13 +18,8 @@ namespace GotrueTests.Support
 
 		internal string Url => server.Url!;
 
-		internal void RespondsTo(string path, int statusCode, string jsonBody) =>
-			server
-				.Given(Request.Create().WithPath(path))
-				.RespondWith(Response.Create()
-					.WithStatusCode(statusCode)
-					.WithHeader("Content-Type", "application/json")
-					.WithBody(jsonBody));
+		internal IRespondWithAProvider Given(IRequestBuilder requestBuilder) =>
+			server.Given(requestBuilder);
 
 		internal ReceivedRequest VerifySingleReceivedRequest()
 		{
@@ -79,6 +74,13 @@ namespace GotrueTests.Support
 			request.Body.Should().NotBeNull("the request should have a body");
 			var body = JObject.Parse(request.Body);
 			((string)body[field]).Should().Be(expected);
+		}
+
+		internal string ReadJsonBodyField(string field)
+		{
+			request.Body.Should().NotBeNull("the request should have a body");
+			var body = JObject.Parse(request.Body);
+			return (string)body[field];
 		}
 	}
 }

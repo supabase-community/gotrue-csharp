@@ -144,9 +144,8 @@ namespace Supabase.Gotrue
 
 			if (options.FlowType == OAuthFlowType.PKCE)
 			{
-				var challenge = Helpers.GenerateNonce();
-				verifier = Helpers.GeneratePKCENonceVerifier(challenge);
-
+				verifier = Helpers.GenerateNonce();
+				var challenge = Helpers.GeneratePKCENonceVerifier(verifier);
 				body.Add("code_challenge", challenge);
 				body.Add("code_challenge_method", "s256");
 			}
@@ -488,8 +487,8 @@ namespace Supabase.Gotrue
 
 			if (options.FlowType == OAuthFlowType.PKCE)
 			{
-				var challenge = Helpers.GenerateNonce();
-				verifier = Helpers.GeneratePKCENonceVerifier(challenge);
+				verifier = Helpers.GenerateNonce();
+				var challenge = Helpers.GeneratePKCENonceVerifier(verifier);
 
 				body.Add("code_challenge", challenge);
 				body.Add("code_challenge_method", "s256");
