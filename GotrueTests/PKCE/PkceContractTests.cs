@@ -77,6 +77,27 @@ public class PkceContractTests
 		request.ReadJsonBodyField("code_challenge").Should().Be(S256(state.PKCEVerifier!), "server must receive BASE64URL(SHA256(verifier)) per RFC 7636 §4.2");
 	}
 
+	[TestMethod("SignInWithProvider: auto-generates state and includes it in the URL")]
+	public async Task SignInWithProvider_AutoGeneratesState()
+	{
+		var result = await client.SignIn(Provider.Github, new SignInOptions { FlowType = OAuthFlowType.PKCE });
+		result.State.Should().NotBeNullOrEmpty();
+		result.Uri.Query.Should().Contain($"state={result.State}");
+	}
+
+	[TestMethod("SignInWithProvider: uses developer-provided state and includes it in the URL")]
+	public async Task SignInWithProvider_UsesDeveloperProvidedState()
+	{
+		var customState = "my-server-generated-csrf-token";
+		var result = await client.SignIn(Provider.Github, new SignInOptions
+		{
+			FlowType = OAuthFlowType.PKCE,
+			State = customState
+		});
+		result.State.Should().Be(customState);
+		result.Uri.Query.Should().Contain($"state={customState}");
+	}
+
 	private static string S256(string verifier)
 	{
 		using var sha = SHA256.Create();

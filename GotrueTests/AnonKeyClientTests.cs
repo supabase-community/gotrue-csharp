@@ -243,10 +243,14 @@ namespace GotrueTests
 		public async Task ClientReturnsAuthUrlForProvider()
 		{
 			var result1 = await _client.SignIn(Constants.Provider.Google);
-			AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google", result1.Uri.ToString());
+			IsTrue(result1.Uri.ToString().StartsWith($"{TestClients.CliAuthUrl}/authorize"));
+			IsTrue(result1.Uri.Query.Contains("provider=google"));
+			IsTrue(result1.Uri.Query.Contains("state="));
 
 			var result2 = await _client.SignIn(Constants.Provider.Google, new SignInOptions { Scopes = "special scopes please" });
-			AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			IsTrue(result2.Uri.Query.Contains("provider=google"));
+			IsTrue(result2.Uri.Query.Contains("scopes=special+scopes+please"));
+			IsTrue(result2.Uri.Query.Contains("state="));
 		}
 
 		[TestMethod("Client: Returns Verification Code for Provider")]

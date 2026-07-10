@@ -205,10 +205,14 @@ namespace GotrueTests
 		public void ReturnsAuthUrlForProvider()
 		{
 			var result1 = _client.SignIn(Provider.Google, Options);
-			Assert.AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google", result1.Uri.ToString());
+			Assert.IsTrue(result1.Uri.ToString().StartsWith($"{TestClients.CliAuthUrl}/authorize"));
+			Assert.IsTrue(result1.Uri.Query.Contains("provider=google"));
+			Assert.IsTrue(result1.Uri.Query.Contains("state="));
 
 			var result2 = _client.SignIn(Provider.Google, Options, new SignInOptions { Scopes = "special scopes please" });
-			Assert.AreEqual($"{TestClients.CliAuthUrl}/authorize?provider=google&scopes=special+scopes+please", result2.Uri.ToString());
+			Assert.IsTrue(result2.Uri.Query.Contains("provider=google"));
+			Assert.IsTrue(result2.Uri.Query.Contains("scopes=special+scopes+please"));
+			Assert.IsTrue(result2.Uri.Query.Contains("state="));
 		}
 
 		[TestMethod("StatelessClient: Update user")]
