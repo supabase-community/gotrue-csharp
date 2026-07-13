@@ -68,7 +68,7 @@ namespace Supabase.Gotrue
 		/// <remarks></remarks>
 		/// <example>
 		///		var client = new Supabase.Gotrue.Client(options);
-		///     client.LoadSession();
+		///		await client.LoadSessionAsync();
 		///		await client.RetrieveSessionAsync();
 		/// </example>
 		/// </summary>
@@ -738,11 +738,18 @@ namespace Supabase.Gotrue
 			}
 		}
 
-
 		/// <inheritdoc />
+		[Obsolete("Call LoadSessionAsync instead.")]
 		public void LoadSession()
 		{
 			if (_sessionPersistence != null) UpdateSession(_sessionPersistence.Persistence.LoadSession());
+		}
+		
+		/// <inheritdoc />
+		public async Task LoadSessionAsync()
+		{
+			if (_sessionPersistence != null) 
+				UpdateSession(await _sessionPersistence.Persistence.LoadSessionAsync());
 		}
 
 

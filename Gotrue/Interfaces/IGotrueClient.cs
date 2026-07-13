@@ -424,7 +424,13 @@ namespace Supabase.Gotrue.Interfaces
 		/// <summary>
 		/// Loads the session from the persistence layer.
 		/// </summary>
+		[Obsolete("Use LoadSessionAsync")]
 		void LoadSession();
+
+		/// <summary>
+		/// Loads the session asynchronously from the persistence layer.
+		/// </summary>
+		Task LoadSessionAsync();
 
 		/// <summary>
 		/// Retrieves the settings from the server
