@@ -1,4 +1,27 @@
-﻿# Changelog
+# Changelog
+
+## [6.1.0](https://github.com/supabase-community/gotrue-csharp/compare/v6.0.3...v6.1.0) (2026-07-15)
+
+
+### Features
+
+* add option for setting redirect_url for MagicLink sign in ([ad017a3](https://github.com/supabase-community/gotrue-csharp/commit/ad017a3b01defacd9884f29bd0add8885bf9f3f6))
+* add option for setting redirect_url for MagicLink sign in ([#23](https://github.com/supabase-community/gotrue-csharp/issues/23)) ([8b63277](https://github.com/supabase-community/gotrue-csharp/commit/8b63277e03baa8b629b2d58957e98c9ce0b920ad))
+* add state parameter support to OAuth provider sign-in ([2de994c](https://github.com/supabase-community/gotrue-csharp/commit/2de994c4b4e3295d663efc130f78756dfd11709b))
+* add state parameter support to OAuth provider sign-in ([b46fbea](https://github.com/supabase-community/gotrue-csharp/commit/b46fbea65aef809d75e604572efdc5bc66218475))
+* add state parameter support to OAuth provider sign-in ([4ae5b7d](https://github.com/supabase-community/gotrue-csharp/commit/4ae5b7d34147d5dac786fd658a9afce8c4a15604))
+* expose RefreshToken(accessToken, refreshToken) on IGotrueClient ([6a7d21f](https://github.com/supabase-community/gotrue-csharp/commit/6a7d21f91ddbccae789f6a7cdf6dd19524561653))
+
+
+### Bug Fixes
+
+* 17 and [#18](https://github.com/supabase-community/gotrue-csharp/issues/18) ([3731f27](https://github.com/supabase-community/gotrue-csharp/commit/3731f2756ef255c5da806c63bd2faff1325811ef))
+* 9 ([ece7d1c](https://github.com/supabase-community/gotrue-csharp/commit/ece7d1cf2c0584c5db807efee6895877f899809d))
+* classify refresh token rejections from current gotrue ([2f1f6ea](https://github.com/supabase-community/gotrue-csharp/commit/2f1f6ea7d7d2b942659ad74d7a300bfdb1434dde))
+* classify refresh token rejections from current gotrue ([376f5a8](https://github.com/supabase-community/gotrue-csharp/commit/376f5a8d58fe70a5551a8f8a8fbe49eb669e311d))
+* correct PKCE verifier/challenge swap in SignInWithOtp and ResetPasswordForEmail ([18be768](https://github.com/supabase-community/gotrue-csharp/commit/18be7687958227b6032de2e04ed151eb8bae75bf))
+* correct PKCE verifier/challenge swap in SignInWithOtp and ResetPasswordForEmail ([c5f804a](https://github.com/supabase-community/gotrue-csharp/commit/c5f804a595d9ad1c59ab368791dcc3e9bef4d4b3))
+* lower Newtonsoft.Json minimum version to 13.0.2 ([#135](https://github.com/supabase-community/gotrue-csharp/issues/135)) ([6b46b2a](https://github.com/supabase-community/gotrue-csharp/commit/6b46b2a2c21193e76cc75516a783baee92bdc269))
 
 ## 6.0.3 - 2024-07-26
 
