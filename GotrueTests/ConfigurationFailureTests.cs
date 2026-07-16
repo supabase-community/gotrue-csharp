@@ -41,7 +41,7 @@ namespace GotrueTests
 			var adminClient = TestClients.AdminAgainstCliStack("bad_service_key");
 			AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
 
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+			var x = await ThrowsAsync<GotrueException>(async () =>
 			{
 				await adminClient.ListUsers();
 			});

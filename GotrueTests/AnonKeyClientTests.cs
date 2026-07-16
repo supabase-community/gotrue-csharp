@@ -369,12 +369,12 @@ namespace GotrueTests
 		{
 			var email = $"{RandomString(12)}@supabase.io";
 
-			await ThrowsExceptionAsync<GotrueException>(async () => await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions
+			await ThrowsAsync<GotrueException>(async () => await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions
 			{
 				FlowType = Constants.OAuthFlowType.PKCE
 			}));
 
-			await ThrowsExceptionAsync<GotrueException>(async () => await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions()));
+			await ThrowsAsync<GotrueException>(async () => await _client.LinkIdentity(Constants.Provider.Github, new SignInOptions()));
 
 			var session = await _client.SignUp(email, PASSWORD);
 

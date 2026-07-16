@@ -204,7 +204,7 @@ public class MfaClientTests
 		var enrollResponse = await _client.Enroll(mfaEnrollParams);
 		IsNotNull(enrollResponse.Id);
 
-		await ThrowsExceptionAsync<GotrueException>(async () =>
+		await ThrowsAsync<GotrueException>(async () =>
 		{
 			await _client.ChallengeAndVerify(new MfaChallengeAndVerifyParams
 			{
@@ -228,7 +228,7 @@ public class MfaClientTests
 			FriendlyName = "Enroll test"
 		};
 
-		await ThrowsExceptionAsync<GotrueException>(async () =>
+		await ThrowsAsync<GotrueException>(async () =>
 		{
 			await _client.Enroll(mfaEnrollParams);
 		});
@@ -241,7 +241,7 @@ public class MfaClientTests
 		var session = await _client.SignUp(email, PASSWORD);
 		VerifyGoodSession(session);
 
-		await ThrowsExceptionAsync<GotrueException>(async () =>
+		await ThrowsAsync<GotrueException>(async () =>
 		{
 			await _client.Unenroll(new MfaUnenrollParams { FactorId = "" });
 		});
@@ -254,7 +254,7 @@ public class MfaClientTests
 		var session = await _client.SignUp(email, PASSWORD);
 		VerifyGoodSession(session);
 
-		await ThrowsExceptionAsync<GotrueException>(async () =>
+		await ThrowsAsync<GotrueException>(async () =>
 		{
 			await _client.Challenge(new MfaChallengeParams { FactorId = "" });
 		});
@@ -283,7 +283,7 @@ public class MfaClientTests
 		});
 		IsNotNull(challengeResponse.Id);
 
-		await ThrowsExceptionAsync<GotrueException>(async () =>
+		await ThrowsAsync<GotrueException>(async () =>
 		{
 			await _client.Verify(new MfaVerifyParams { Code = "", ChallengeId = "", FactorId = enrollResponse.Id });
 		});
@@ -312,7 +312,7 @@ public class MfaClientTests
 		});
 		IsNotNull(challengeResponse.Id);
 
-		await ThrowsExceptionAsync<GotrueException>(async () =>
+		await ThrowsAsync<GotrueException>(async () =>
 		{
 			await _client.Verify(new MfaVerifyParams { Code = "", ChallengeId = challengeResponse.Id, FactorId = "" });
 		});

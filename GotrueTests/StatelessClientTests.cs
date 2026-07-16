@@ -118,7 +118,7 @@ namespace GotrueTests
 			var result1 = await _client.SignUp(email, PASSWORD, Options);
 			Assert.IsNotNull(result1);
 
-			await Assert.ThrowsExceptionAsync<GotrueException>(async () =>
+			await Assert.ThrowsAsync<GotrueException>(async () =>
 			{
 				await _client.SignUp(email, PASSWORD, Options);
 			});
@@ -248,7 +248,7 @@ namespace GotrueTests
 			var user = $"{RandomString(12)}@supabase.io";
 			await _client.SignUp(user, PASSWORD, Options);
 
-			await Assert.ThrowsExceptionAsync<GotrueException>(async () =>
+			await Assert.ThrowsAsync<GotrueException>(async () =>
 			{
 				await _client.SignIn(user, PASSWORD + "$", Options);
 			});

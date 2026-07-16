@@ -55,7 +55,7 @@ namespace GotrueTests
 		public async Task SignUpUserEmailBadPassword()
 		{
 			var email = $"{RandomString(12)}@supabase.io";
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+			var x = await ThrowsAsync<GotrueException>(async () =>
 			{
 				await _client.SignUp(email, "x");
 			});
@@ -68,7 +68,7 @@ namespace GotrueTests
 		[TestMethod("Client: Sign Up With Bad Email Address")]
 		public async Task SignUpUserEmailBadEmailAddress()
 		{
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+			var x = await ThrowsAsync<GotrueException>(async () =>
 			{
 				await _client.SignUp("not a real email address", PASSWORD);
 			});
@@ -84,7 +84,7 @@ namespace GotrueTests
 			IsTrue(AuthStateIsEmpty());
 
 			var phone1 = "";
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+			var x = await ThrowsAsync<GotrueException>(async () =>
 			{
 				await _client.SignUp(Constants.SignUpType.Phone, phone1, PASSWORD, new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
 			});
@@ -106,7 +106,7 @@ namespace GotrueTests
 			AreEqual(_client.CurrentSession, _persistence.SavedSession);
 			_stateChanges.Clear();
 
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+			var x = await ThrowsAsync<GotrueException>(async () =>
 			{
 				await _client.SignUp(email, PASSWORD);
 			});
@@ -133,7 +133,7 @@ namespace GotrueTests
 			await _client.SignUp(user, PASSWORD);
 			await _client.SignOut();
 
-			await ThrowsExceptionAsync<GotrueException>(async () =>
+			await ThrowsAsync<GotrueException>(async () =>
 			{
 				var result = await _client.SignIn(user, PASSWORD + "$");
 				IsNotNull(result);
