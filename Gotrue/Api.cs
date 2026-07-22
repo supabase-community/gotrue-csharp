@@ -592,14 +592,59 @@ namespace Supabase.Gotrue
 		public async Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options)
 		{
 			var state = Helpers.GetUrlForProvider($"{Url}/user/identities/authorize", provider, options);
-			await Helpers.MakeRequest(HttpMethod.Get, state.Uri.ToString(), null, CreateAuthedRequestHeaders(token));
+
+			// Ask the server to return the provider URL in the response body instead of issuing
+			// a 302 redirect. Without this, HttpClient follows the redirect chain and drops the
+			// Authorization/apikey headers on cross-domain hops, causing Kong to reject the
+			// request with "No API key found in request".
+			var builder = new UriBuilder(state.Uri);
+			var query = HttpUtility.ParseQueryString(builder.Query);
+			query["skip_http_redirect"] = "true";
+			builder.Query = query.ToString();
+
+			var response = await Helpers.MakeRequest(HttpMethod.Get, builder.Uri.ToString(), null, CreateAuthedRequestHeaders(token));
+
+			if (!string.IsNullOrEmpty(response?.Content))
+			{
+				var payload = JsonConvert.DeserializeObject<Dictionary<string, string>>(response!.Content!);
+				if (payload != null && payload.TryGetValue("url", out var url) && !string.IsNullOrEmpty(url))
+				{
+					state.Uri = new Uri(url);
+				}
+			}
+
 			return state;
+		}
+
+		/// <inheritdoc />
+		public Task<Session?> LinkIdentityWithIdToken(string token, Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null)
+		{
+			if (provider != Provider.Google && provider != Provider.Apple && provider != Provider.Azure && provider != Provider.Facebook)
+				throw new GotrueException($"Provider must be `Google`, `Apple`, `Azure`, or `Facebook` not {provider}");
+
+			var body = new Dictionary<string, object?>
+			{
+				{ "provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
+				{ "id_token", idToken },
+				{ "link_identity", true },
+			};
+
+			if (!string.IsNullOrEmpty(accessToken))
+				body.Add("access_token", accessToken);
+
+			if (!string.IsNullOrEmpty(nonce))
+				body.Add("nonce", nonce);
+
+			if (!string.IsNullOrEmpty(captchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } });
+
+			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, CreateAuthedRequestHeaders(token));
 		}
 
 		/// <inheritdoc />
 		public async Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity)
 		{
-			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/${userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
+			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/{userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
 			return result.ResponseMessage is { IsSuccessStatusCode: true };
 		}
 
