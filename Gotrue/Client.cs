@@ -1,16 +1,21 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
+using Supabase.Core.Diagnostics;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
 using static Supabase.Gotrue.Constants.AuthState;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
+
+#endregion
 
 namespace Supabase.Gotrue
 {
@@ -31,17 +36,14 @@ namespace Supabase.Gotrue
 		/// <summary>
 		/// Gets notifications if there is a failure not visible by exceptions (e.g. background thread refresh failure)
 		/// </summary>
+#pragma warning disable CS0618 // internal plumbing for the obsolete debug surface, removed together in v8
 		private DebugNotification? _debugNotification;
+#pragma warning restore CS0618
 
 		/// <summary>
 		/// Object called to persist the session (e.g. filesystem or cookie)
 		/// </summary>
 		private IGotruePersistenceListener<Session>? _sessionPersistence;
-
-		/// <summary>
-		/// Get the TokenRefresh object, if it exists
-		/// </summary>
-		public TokenRefresh? TokenRefresh { get; }
 
 		/// <summary>
 		/// Initializes the GoTrue stateful client.
@@ -85,6 +87,11 @@ namespace Supabase.Gotrue
 				_authEventHandlers.Add(TokenRefresh.ManageAutoRefresh);
 			}
 		}
+
+		/// <summary>
+		///     Get the TokenRefresh object, if it exists
+		/// </summary>
+		public TokenRefresh? TokenRefresh { get; }
 
 		/// <inheritdoc />
 		public void SetPersistence(IGotrueSessionPersistence<Session> persistence)
@@ -161,6 +168,9 @@ namespace Supabase.Gotrue
 		public async Task<Session?> SignUp(SignUpType type, string identifier, string password,
 			SignUpOptions? options = null)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignUp);
+			activity?.SetTag(GotrueInstrumentation.Tags.SignUpType, type.ToString());
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -186,6 +196,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<bool> SignIn(string email, SignInOptions? options = null)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SendMagicLink);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -197,6 +209,9 @@ namespace Supabase.Gotrue
 		public async Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? accessToken = null, string? nonce = null,
 			string? captchaToken = null)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignInWithIdToken);
+			activity?.SetTag(GotrueInstrumentation.Tags.Provider, provider.ToString());
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -214,6 +229,9 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessEmailOptions options)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignInWithOtp);
+			activity?.SetTag(GotrueInstrumentation.Tags.OtpChannel, GotrueInstrumentation.Channels.Email);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -225,6 +243,9 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<PasswordlessSignInState> SignInWithOtp(SignInWithPasswordlessPhoneOptions options)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignInWithOtp);
+			activity?.SetTag(GotrueInstrumentation.Tags.OtpChannel, GotrueInstrumentation.Channels.Phone);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -247,6 +268,9 @@ namespace Supabase.Gotrue
 		public async Task<Session?> SignIn(SignInType type, string identifierOrToken, string? password = null,
 			string? scopes = null)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignIn);
+			activity?.SetTag(GotrueInstrumentation.Tags.SignInType, type.ToString());
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -322,6 +346,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> SignInAnonymously(SignInAnonymouslyOptions? options = null)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignInAnonymously);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -337,6 +363,9 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> VerifyOTP(string phone, string token, MobileOtpType type = MobileOtpType.SMS)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.VerifyOtp);
+			activity?.SetTag(GotrueInstrumentation.Tags.OtpChannel, GotrueInstrumentation.Channels.Phone);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -358,6 +387,9 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> VerifyOTP(string email, string token, EmailOtpType type = EmailOtpType.MagicLink)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.VerifyOtp);
+			activity?.SetTag(GotrueInstrumentation.Tags.OtpChannel, GotrueInstrumentation.Channels.Email);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -378,6 +410,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> VerifyTokenHash(string tokenHash, EmailOtpType type = EmailOtpType.Email)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.VerifyTokenHash);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -425,6 +459,9 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task SignOut(SignOutScope scope = SignOutScope.Global)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SignOut);
+			activity?.SetTag(GotrueInstrumentation.Tags.SignOutScope, scope.ToString());
+
 			if (CurrentSession?.AccessToken != null) await _api.SignOut(CurrentSession.AccessToken, scope);
 			UpdateSession(null);
 			NotifyAuthStateChange(SignedOut);
@@ -434,6 +471,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<User?> Update(UserAttributes attributes)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.UpdateUser);
+
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new GotrueException("Not Logged in.");
 
@@ -480,6 +519,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> RefreshSession()
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.RefreshSession);
+
 			if (CurrentSession == null || string.IsNullOrEmpty(CurrentSession.AccessToken))
 				throw new GotrueException("Not Logged in.", NoSessionFound);
 
@@ -497,6 +538,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session> SetSession(string accessToken, string refreshToken, bool forceAccessTokenRefresh = false)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.SetSession);
+
 			DestroySession();
 
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
@@ -518,11 +561,11 @@ namespace Supabase.Gotrue
 				NotifyAuthStateChange(SignedIn);
 				return CurrentSession;
 			}
-			
+
 			var iat = payload.IssuedAt;
 			var exp = payload.ValidTo;
 			var expiresIn = (long)(exp - iat).TotalSeconds;
-			
+
 			CurrentSession = new Session
 			{
 				AccessToken = accessToken,
@@ -595,6 +638,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> RetrieveSessionAsync()
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.RetrieveSession);
+
 			// No session, so just return.
 			if (CurrentSession == null)
 				return null;
@@ -615,8 +660,10 @@ namespace Supabase.Gotrue
 				}
 				catch (Exception e)
 				{
+					// Never log the session itself here - it contains the access and refresh tokens.
 					_debugNotification?.Log($"Failed to refresh token ({e.Message})", e);
-					_debugNotification?.Log(JsonConvert.SerializeObject(CurrentSession, Formatting.Indented));
+					_debugNotification?.Log($"Destroying session created at {CurrentSession?.CreatedAt:O} (expires in {CurrentSession?.ExpiresIn}s) that could not be refreshed");
+					activity.SetFailure(e);
 					DestroySession();
 					return null;
 				}
@@ -629,6 +676,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task<Session?> ExchangeCodeForSession(string codeVerifier, string authCode)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.ExchangeCode);
+
 			var result = await _api.ExchangeCodeForSession(codeVerifier, authCode);
 
 			if (result != null)
@@ -652,44 +701,23 @@ namespace Supabase.Gotrue
 
 
 		/// <inheritdoc />
+		[Obsolete("The debug listener is replaced by OpenTelemetry-compatible diagnostics: subscribe to the ActivitySource and Meter named \"Supabase.Gotrue\". This member will be removed in v8.")]
 		public void AddDebugListener(Action<string, Exception?> listener)
 		{
+#pragma warning disable CS0618 // internal plumbing for the obsolete debug surface, removed together in v8
 			_debugNotification ??= new DebugNotification();
+#pragma warning restore CS0618
 			_debugNotification.AddDebugListener(listener);
-		}
-
-		/// <summary>
-		/// Saves the session
-		/// </summary>
-		/// <param name="session"></param>
-		private void UpdateSession(Session? session)
-		{
-			if (session == null)
-			{
-				CurrentSession = null;
-				NotifyAuthStateChange(SignedOut);
-				return;
-			}
-
-			var dirty = CurrentSession != session;
-			CurrentSession = session;
-			if (dirty) NotifyAuthStateChange(UserUpdated);
-		}
-
-		/// <summary>
-		/// Clears the session
-		/// </summary>
-		private void DestroySession()
-		{
-			UpdateSession(null);
 		}
 
 		/// <inheritdoc />
 		public async Task RefreshToken(string accessToken, string refreshToken)
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.RefreshToken);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
-			
+
 			if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
 				throw new GotrueException("No token provided", NoSessionFound);
 
@@ -699,12 +727,13 @@ namespace Supabase.Gotrue
 
 				if (result == null || string.IsNullOrEmpty(result.AccessToken))
 					throw new GotrueException("Could not refresh token from provided session.", NoSessionFound);
-				
+
 				CurrentSession = result;
-				NotifyAuthStateChange(TokenRefreshed);	
+				NotifyAuthStateChange(TokenRefreshed);
 			}
 			catch (GotrueException ex) when (ex.Reason is InvalidRefreshToken)
 			{
+				activity.SetFailure(ex);
 				DestroySession();
 				NotifyAuthStateChange(SignedOut);
 				throw;
@@ -714,6 +743,8 @@ namespace Supabase.Gotrue
 		/// <inheritdoc />
 		public async Task RefreshToken()
 		{
+			using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.RefreshToken);
+
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
@@ -728,10 +759,11 @@ namespace Supabase.Gotrue
 
 				CurrentSession = result;
 
-				NotifyAuthStateChange(TokenRefreshed);	
+				NotifyAuthStateChange(TokenRefreshed);
 			}
 			catch (GotrueException ex) when (ex.Reason is InvalidRefreshToken)
 			{
+				activity.SetFailure(ex);
 				DestroySession();
 				NotifyAuthStateChange(SignedOut);
 				throw;
@@ -800,11 +832,11 @@ namespace Supabase.Gotrue
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
-			var result =  await _api.Verify(CurrentSession.AccessToken, mfaVerifyParams);
+			var result = await _api.Verify(CurrentSession.AccessToken, mfaVerifyParams);
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
-			
+
 			var session = new Session
 			{
 				AccessToken = result.AccessToken,
@@ -839,7 +871,7 @@ namespace Supabase.Gotrue
 				return null;
 			}
 
-			var result =  await _api.Verify(CurrentSession.AccessToken, new MfaVerifyParams
+			var result = await _api.Verify(CurrentSession.AccessToken, new MfaVerifyParams
 			{
 				FactorId = mfaChallengeAndVerifyParams.FactorId,
 				Code = mfaChallengeAndVerifyParams.Code,
@@ -848,7 +880,7 @@ namespace Supabase.Gotrue
 
 			if (result == null || string.IsNullOrEmpty(result.AccessToken))
 				throw new GotrueException("Could not verify MFA.", MfaChallengeUnverified);
-			
+
 			var session = new Session
 			{
 				AccessToken = result.AccessToken,
@@ -873,7 +905,7 @@ namespace Supabase.Gotrue
 			if (!Online)
 				throw new GotrueException("Only supported when online", Offline);
 
-			return  await _api.Unenroll(CurrentSession.AccessToken, mfaUnenrollParams);
+			return await _api.Unenroll(CurrentSession.AccessToken, mfaUnenrollParams);
 		}
 
 		/// <inheritdoc />
@@ -926,6 +958,32 @@ namespace Supabase.Gotrue
 			};
 
 			return Task.FromResult(response);
+		}
+
+		/// <summary>
+		///     Saves the session
+		/// </summary>
+		/// <param name="session"></param>
+		private void UpdateSession(Session? session)
+		{
+			if (session == null)
+			{
+				CurrentSession = null;
+				NotifyAuthStateChange(SignedOut);
+				return;
+			}
+
+			var dirty = CurrentSession != session;
+			CurrentSession = session;
+			if (dirty) NotifyAuthStateChange(UserUpdated);
+		}
+
+		/// <summary>
+		///     Clears the session
+		/// </summary>
+		private void DestroySession()
+		{
+			UpdateSession(null);
 		}
 	}
 }
