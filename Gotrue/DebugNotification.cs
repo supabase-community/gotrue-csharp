@@ -1,11 +1,17 @@
+#region
+
 using System;
 using System.Collections.Generic;
+
+#endregion
+
 namespace Supabase.Gotrue
 {
 	/// <summary>
 	/// Manages the debug listeners for the Gotrue Client. You'll want to install a debug listener
 	/// to get debug information back - especially for errors from the background RefreshToken thread.
 	/// </summary>
+	[Obsolete("The debug listener is replaced by OpenTelemetry-compatible diagnostics: subscribe to the ActivitySource and Meter named \"Supabase.Gotrue\". This type will be removed in v8.")]
 	public class DebugNotification
 	{
 		private readonly List<Action<string, Exception?>> _debugListeners = new List<Action<string, Exception?>>();

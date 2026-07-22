@@ -1,5 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,10 +10,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
-using Supabase.Core.Attributes;
-using Supabase.Core.Extensions;
+using Supabase.Core.Diagnostics;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Responses;
+
+#endregion
+
 namespace Supabase.Gotrue
 {
 	/// <summary>
@@ -18,6 +23,8 @@ namespace Supabase.Gotrue
 	/// </summary>
 	public static class Helpers
 	{
+
+		private static readonly HttpClient Client = new HttpClient();
 		/// <summary>
 		/// Generates a nonce (code verifier)
 		/// Used with PKCE flow and Apple/Google Sign in.
@@ -95,8 +102,8 @@ namespace Supabase.Gotrue
 
 			if (options.FlowType == Constants.OAuthFlowType.PKCE)
 			{
-				var codeVerifier = Helpers.GenerateNonce();
-				var codeChallenge = Helpers.GeneratePKCENonceVerifier(codeVerifier);
+				var codeVerifier = GenerateNonce();
+				var codeChallenge = GeneratePKCENonceVerifier(codeVerifier);
 
 				query.Add("flow_type", "pkce");
 				query.Add("code_challenge", codeChallenge);
@@ -148,8 +155,6 @@ namespace Supabase.Gotrue
 
 			return builder.Uri;
 		}
-
-		private static readonly HttpClient Client = new HttpClient();
 
 		/// <summary>
 		/// Helper to make a request using the defined parameters to an API Endpoint and coerce into a model. 
@@ -207,12 +212,21 @@ namespace Supabase.Gotrue
 				}
 			}
 
+			using var activity = GotrueInstrumentation.StartHttpActivity(method, builder.Uri);
+			var startTimestamp = Stopwatch.GetTimestamp();
+			int? statusCode = null;
+			string? errorType = null;
+
 			try
 			{
 				using var response = await Client.SendAsync(requestMessage).ConfigureAwait(false);
+				statusCode = (int)response.StatusCode;
+				activity.SetHttpResponseTags(statusCode.Value);
+
 				var content = await response.Content.ReadAsStringAsync();
 				if (!response.IsSuccessStatusCode)
 				{
+					errorType = statusCode.Value.ToString();
 					var e = new GotrueException(content ?? "Request Failed")
 					{
 						Content = content,
@@ -226,10 +240,14 @@ namespace Supabase.Gotrue
 			}
 			catch (HttpRequestException hre)
 			{
+				errorType = hre.GetType().FullName;
+				activity.SetFailure(hre);
 				throw new GotrueException(hre.Message, FailureHint.Reason.Offline, hre);
 			}
-
-
+			finally
+			{
+				GotrueInstrumentation.RecordRequest(method, builder.Uri, statusCode, errorType, startTimestamp);
+			}
 		}
 	}
 }

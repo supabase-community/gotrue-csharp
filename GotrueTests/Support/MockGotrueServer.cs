@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -5,8 +7,9 @@ using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using WireMock;
 using WireMock.RequestBuilders;
-using WireMock.ResponseBuilders;
 using WireMock.Server;
+
+#endregion
 
 namespace GotrueTests.Support
 {
@@ -18,16 +21,18 @@ namespace GotrueTests.Support
 
 		internal string Url => server.Url!;
 
+		public void Dispose() => server.Stop();
+
 		internal IRespondWithAProvider Given(IRequestBuilder requestBuilder) =>
 			server.Given(requestBuilder);
+
+		internal void Reset() => server.ResetMappings();
 
 		internal ReceivedRequest VerifySingleReceivedRequest()
 		{
 			var entry = server.LogEntries.Should().ContainSingle("the SDK should emit exactly one request").Which;
 			return new ReceivedRequest(entry.RequestMessage);
 		}
-
-		public void Dispose() => server.Stop();
 	}
 
 	/// <summary>

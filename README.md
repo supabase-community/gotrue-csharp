@@ -66,6 +66,58 @@ This means that if you have your server set to a one hour token expiration, noth
 if you extend the server refresh to (for example) a week, as long as the user launches the app
 at least once a week, they will never have to re-authenticate.
 
+### Observability (OpenTelemetry)
+
+The client emits traces and metrics through `System.Diagnostics`, so you can wire them into
+OpenTelemetry (or any `ActivityListener`/`MeterListener`) without the client taking a dependency
+on the OpenTelemetry packages. Emission is zero-cost while nothing is listening, so it is always
+on and stays silent until you subscribe.
+
+Register the client's `ActivitySource` and `Meter` by name. Use the `GotrueDiagnostics.SourceName`
+constant rather than hardcoding the string, so a typo becomes a compile error instead of a silent
+no-op:
+
+```csharp
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
+using Supabase.Gotrue;
+
+// Requires the OpenTelemetry.Extensions.Hosting and an exporter package (e.g. OTLP) in your app.
+builder.Services.AddOpenTelemetry()
+    .WithTracing(tracing => tracing
+        .AddSource(GotrueDiagnostics.SourceName)
+        .AddOtlpExporter())
+    .WithMetrics(metrics => metrics
+        .AddMeter(GotrueDiagnostics.SourceName)
+        .AddOtlpExporter());
+```
+
+Once subscribed you get:
+
+- A span per public operation (`gotrue.sign_in`, `gotrue.refresh_token`, …) with a child client
+  span for the underlying HTTP call following OpenTelemetry HTTP conventions (method, status code,
+  and a sanitized URL — the query string, which carries grant types and API keys, is never
+  recorded).
+- A `supabase.gotrue.http.request.duration` histogram (seconds), tagged with method, host, path,
+  and status code.
+
+If you are not using the OpenTelemetry SDK, a raw listener works too:
+
+```csharp
+using System.Diagnostics;
+using Supabase.Gotrue;
+
+using var listener = new ActivityListener
+{
+    ShouldListenTo = source => source.Name == GotrueDiagnostics.SourceName,
+    Sample = (ref ActivityCreationOptions<ActivityContext> _) => ActivitySamplingResult.AllData,
+    ActivityStopped = activity => Console.WriteLine($"{activity.OperationName} {activity.Duration.TotalMilliseconds}ms {activity.Status}")
+};
+ActivitySource.AddActivityListener(listener);
+```
+
+This replaces `AddDebugListener`, which is now deprecated and will be removed in v8.
+
 ## BREAKING CHANGES v3.1 → v4.x
 
 - Exceptions have been simplified to a single `GotrueException`. A `Reason` field has been added
@@ -75,7 +127,8 @@ at least once a week, they will never have to re-authenticate.
 - Console logging in a few places (most notable the background refresh thread) has been removed
   in favor of a notification method. See `Client.AddDebugListener()` and the test cases for examples.
   This will allow you to implement your own logging strategy (write to temp file, console, user visible
-  err console, etc).
+  err console, etc). _Note: `AddDebugListener` is deprecated as of the observability work above and
+  will be removed in v8 — see [Observability (OpenTelemetry)](#observability-opentelemetry)._
 - The client now more reliably emits AuthState changes.
 - There is now a single source of truth for headers in the stateful Client - the `Options` headers.
 

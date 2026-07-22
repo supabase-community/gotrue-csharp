@@ -1,9 +1,13 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Threading.Tasks;
 using Supabase.Core.Interfaces;
 using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Mfa;
 using static Supabase.Gotrue.Constants;
+
+#endregion
 
 #pragma warning disable CS1591
 
@@ -27,6 +31,12 @@ namespace Supabase.Gotrue.Interfaces
 		where TUser : User
 		where TSession : Session
 	{
+
+		/// <summary>
+		///     The method that is called when there is a user state change.
+		/// </summary>
+		delegate void AuthEventHandler(IGotrueClient<TUser, TSession> sender, AuthState stateChanged);
+
 		/// <summary>
 		/// Indicates if the client should be considered online or offline.
 		///
@@ -53,9 +63,9 @@ namespace Supabase.Gotrue.Interfaces
 		TUser? CurrentUser { get; }
 
 		/// <summary>
-		/// The method that is called when there is a user state change.
+		/// Returns the client options.
 		/// </summary>
-		delegate void AuthEventHandler(IGotrueClient<TUser, TSession> sender, AuthState stateChanged);
+		ClientOptions Options { get; }
 
 		/// <summary>
 		/// Sets the persistence implementation for the client (e.g. file system, local storage, etc).
@@ -419,6 +429,7 @@ namespace Supabase.Gotrue.Interfaces
 		/// that automatically manages refreshing the user's token.
 		/// </summary>
 		/// <param name="listener">Callback method for debug messages</param>
+		[Obsolete("The debug listener is replaced by OpenTelemetry-compatible diagnostics: subscribe to the ActivitySource and Meter named \"Supabase.Gotrue\". This member will be removed in v8.")]
 		void AddDebugListener(Action<string, Exception?> listener);
 
 		/// <summary>
@@ -431,11 +442,6 @@ namespace Supabase.Gotrue.Interfaces
 		/// </summary>
 		/// <returns></returns>
 		Task<Settings?> Settings();
-
-		/// <summary>
-		/// Returns the client options.
-		/// </summary>
-		ClientOptions Options { get; }
 
 		/// <summary>
 		/// Get User details by JWT. Can be used to validate a JWT.
@@ -480,6 +486,7 @@ namespace Supabase.Gotrue.Interfaces
 		public Task RefreshToken(string accessToken, string refreshToken);
 
 		#region MFA
+
 		/// <summary>
 		/// Starts the enrollment process for a new Multi-Factor Authentication (MFA)
 		/// factor. This method creates a new `unverified` factor.
