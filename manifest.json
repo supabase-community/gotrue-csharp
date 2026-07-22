@@ -362,6 +362,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.GotrueDiagnostics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.GotrueDiagnostics.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.GotrueDiagnostics",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.GotrueDiagnostics.yml\" sourcestartlinenumber=\"1\">Names of the diagnostic sources the GoTrue client emits to. Pass these when wiring up\nOpenTelemetry so you don't have to hardcode (case-sensitive) source names:\n<code>TracerProviderBuilder.AddSource(GotrueDiagnostics.SourceName)</code> and\n<code>MeterProviderBuilder.AddMeter(GotrueDiagnostics.SourceName)</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Supabase.Gotrue.Helpers.yml",
       "output": {
         ".html": {

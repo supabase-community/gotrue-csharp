@@ -2697,6 +2697,18 @@ references:
   fullName.vb: Supabase.Gotrue.GenerateLinkSignupOptions.New
   nameWithType: GenerateLinkSignupOptions.GenerateLinkSignupOptions
   nameWithType.vb: GenerateLinkSignupOptions.New
+- uid: Supabase.Gotrue.GotrueDiagnostics
+  name: GotrueDiagnostics
+  href: api/Supabase.Gotrue.GotrueDiagnostics.html
+  commentId: T:Supabase.Gotrue.GotrueDiagnostics
+  fullName: Supabase.Gotrue.GotrueDiagnostics
+  nameWithType: GotrueDiagnostics
+- uid: Supabase.Gotrue.GotrueDiagnostics.SourceName
+  name: SourceName
+  href: api/Supabase.Gotrue.GotrueDiagnostics.html#Supabase_Gotrue_GotrueDiagnostics_SourceName
+  commentId: F:Supabase.Gotrue.GotrueDiagnostics.SourceName
+  fullName: Supabase.Gotrue.GotrueDiagnostics.SourceName
+  nameWithType: GotrueDiagnostics.SourceName
 - uid: Supabase.Gotrue.Helpers
   name: Helpers
   href: api/Supabase.Gotrue.Helpers.html

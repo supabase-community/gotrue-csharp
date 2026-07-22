@@ -153,6 +153,14 @@ to get debug information back - especially for errors from the background Refres
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Supabase.Gotrue.GotrueDiagnostics.html">GotrueDiagnostics</a></dt>
+      <dd><p>Names of the diagnostic sources the GoTrue client emits to. Pass these when wiring up
+OpenTelemetry so you don't have to hardcode (case-sensitive) source names:
+<code>TracerProviderBuilder.AddSource(GotrueDiagnostics.SourceName)</code> and
+<code>MeterProviderBuilder.AddMeter(GotrueDiagnostics.SourceName)</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Supabase.Gotrue.Helpers.html">Helpers</a></dt>
       <dd><p>Utility methods to assist with flow. Includes nonce generation and verification.</p>
 </dd>
