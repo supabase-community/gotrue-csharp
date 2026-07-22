@@ -17,8 +17,8 @@
         <PackageProjectUrl>https://github.com/supabase-community/gotrue-csharp</PackageProjectUrl>
         <PackageTags>supabase, gotrue</PackageTags>
         <!-- x-release-please-start-version -->
-        <PackageVersion>6.1.0</PackageVersion>
-        <ReleaseVersion>6.1.0</ReleaseVersion>
+        <PackageVersion>6.2.0</PackageVersion>
+        <ReleaseVersion>6.2.0</ReleaseVersion>
         <!-- x-release-please-end -->
         <RepositoryUrl>https://github.com/supabase-community/gotrue-csharp</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -41,7 +41,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Version)' == '' ">
-        <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">6.1.0</VersionPrefix> <!-- x-release-please-version -->
+        <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">6.2.0</VersionPrefix> <!-- x-release-please-version -->
         <VersionSuffix Condition=" '$(VersionSuffix)' == '' ">
         </VersionSuffix>
         <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>

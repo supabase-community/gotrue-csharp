@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.0](https://github.com/supabase-community/gotrue-csharp/compare/v6.1.0...v6.2.0) (2026-07-22)
+
+
+### Features
+
+* emit observability via System.Diagnostics and deprecate debug callback ([#140](https://github.com/supabase-community/gotrue-csharp/issues/140)) ([7833a16](https://github.com/supabase-community/gotrue-csharp/commit/7833a1625dc6af19b6298ba3972797d00f8c123d))
+
 ## [6.1.0](https://github.com/supabase-community/gotrue-csharp/compare/v6.0.3...v6.1.0) (2026-07-15)
 
 
