@@ -45,7 +45,7 @@ public class UserProfileTests : AuthClientFixture
         var email = RandomEmail();
         var session = await this.Client.SignUp(email, Password);
         this.Client.CurrentUser!.Email.Should().Be(email);
-        var byToken = await this.Client.GetUser(session!.AccessToken ?? throw new InvalidOperationException());
+        var byToken = (await this.Client.GetUser(session!.AccessToken ?? throw new InvalidOperationException()))!;
         byToken.Email.Should().Be(email);
     }
 }

@@ -56,7 +56,7 @@ public class MfaFailureTests : MfaFixture
     {
         await this.SignUpNewUser();
         var enrollment = await this.EnrollTotp();
-        var challenge = await this.Client.Challenge(new MfaChallengeParams { FactorId = enrollment.Id });
+        var challenge = (await this.Client.Challenge(new MfaChallengeParams { FactorId = enrollment.Id }))!;
         challenge.Id.Should().NotBeNull();
         var verify = () => this.Client.Verify(new MfaVerifyParams { Code = "", ChallengeId = "", FactorId = enrollment.Id });
         await verify.Should().ThrowAsync<GotrueException>();
@@ -67,7 +67,7 @@ public class MfaFailureTests : MfaFixture
     {
         await this.SignUpNewUser();
         var enrollment = await this.EnrollTotp();
-        var challenge = await this.Client.Challenge(new MfaChallengeParams { FactorId = enrollment.Id });
+        var challenge = (await this.Client.Challenge(new MfaChallengeParams { FactorId = enrollment.Id }))!;
         var verify = () => this.Client.Verify(new MfaVerifyParams { Code = "", ChallengeId = challenge.Id, FactorId = "" });
         await verify.Should().ThrowAsync<GotrueException>();
     }

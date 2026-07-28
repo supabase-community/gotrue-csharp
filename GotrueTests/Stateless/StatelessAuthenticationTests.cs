@@ -31,7 +31,7 @@ public class StatelessAuthenticationTests : StatelessFixture
         settings.Should().NotBeNull();
         using (new AssertionScope())
         {
-            settings!.ExternalProviders["email"].Should().BeTrue();
+            settings!.ExternalProviders!["email"].Should().BeTrue();
             settings.ExternalProviders["zoom"].Should().BeFalse();
             settings.DisableSignup.Should().BeFalse();
             settings.MailerAutoConfirm.Should().BeTrue();
@@ -43,12 +43,12 @@ public class StatelessAuthenticationTests : StatelessFixture
     [TestMethod]
     public async Task SignUp_ShouldReturnSession_GivenEmailThenPhoneWithMetadata()
     {
-        var emailSession = await this.Client.SignUp(RandomEmail(), Password, Options);
+        var emailSession = (await this.Client.SignUp(RandomEmail(), Password, Options))!;
         emailSession.AccessToken.Should().NotBeNull();
         emailSession.RefreshToken.Should().NotBeNull();
         emailSession.User.Should().NotBeNull();
-        var phoneSession = await this.Client.SignUp(SignUpType.Phone, GetRandomPhoneNumber(), Password, Options,
-            new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
+        var phoneSession = (await this.Client.SignUp(SignUpType.Phone, GetRandomPhoneNumber(), Password, Options,
+            new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } }))!;
         phoneSession.AccessToken.Should().NotBeNull();
         phoneSession.User!.UserMetadata["firstName"].Should().Be("Testing");
     }
@@ -67,14 +67,14 @@ public class StatelessAuthenticationTests : StatelessFixture
     {
         var email = RandomEmail();
         await this.Client.SignUp(email, Password, Options);
-        var emailSession = await this.Client.SignIn(email, Password, Options);
+        var emailSession = (await this.Client.SignIn(email, Password, Options))!;
         emailSession.AccessToken.Should().NotBeNull();
         emailSession.User.Should().NotBeNull();
         var phone = GetRandomPhoneNumber();
         await this.Client.SignUp(SignUpType.Phone, phone, Password, Options);
-        var phoneSession = await this.Client.SignIn(SignInType.Phone, phone, Password, Options);
+        var phoneSession = (await this.Client.SignIn(SignInType.Phone, phone, Password, Options))!;
         phoneSession.AccessToken.Should().NotBeNull();
-        var refreshed = await this.Client.RefreshToken(phoneSession.AccessToken, phoneSession.RefreshToken, Options);
+        var refreshed = (await this.Client.RefreshToken(phoneSession.AccessToken!, phoneSession.RefreshToken!, Options))!;
         refreshed.AccessToken.Should().NotBeNull();
         refreshed.RefreshToken.Should().NotBeNull();
         refreshed.User.Should().NotBeNull();
@@ -85,8 +85,8 @@ public class StatelessAuthenticationTests : StatelessFixture
     {
         var email = RandomEmail();
         await this.Client.SignUp(email, Password, Options);
-        var session = await this.Client.SignIn(email, Password, Options);
-        (await this.Client.SignOut(session.AccessToken, Options)).Should().BeTrue();
+        var session = (await this.Client.SignIn(email, Password, Options))!;
+        (await this.Client.SignOut(session.AccessToken!, Options)).Should().BeTrue();
     }
 
     [TestMethod]
@@ -113,11 +113,11 @@ public class StatelessAuthenticationTests : StatelessFixture
     public async Task Update_ShouldPersistUserMetadata()
     {
         var email = RandomEmail();
-        var session = await this.Client.SignUp(email, Password, Options);
-        var updated = await this.Client.Update(session.AccessToken, new UserAttributes
+        var session = (await this.Client.SignUp(email, Password, Options))!;
+        var updated = (await this.Client.Update(session.AccessToken!, new UserAttributes
         {
             Data = new Dictionary<string, object> { { "hello", "world" } },
-        }, Options);
+        }, Options))!;
         updated.Email.Should().Be(email);
         updated.UserMetadata.Should().ContainKey("hello");
     }

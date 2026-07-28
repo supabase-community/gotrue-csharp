@@ -21,13 +21,14 @@ public class MfaAdminTests : MfaFixture
     public async Task ListFactors_ShouldReflectFactorVerificationStatus()
     {
         var session = await this.SignUpNewUser();
+        var userId = session.User!.Id!;
         var enrollment = await this.EnrollTotp();
-        var unverified = await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = session.User!.Id });
+        var unverified = (await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = userId }))!;
         unverified.Factors.Should().ContainSingle();
         unverified.Factors[0].Id.Should().Be(enrollment.Id);
         unverified.Factors[0].Status.Should().Be("unverified");
         await this.Client.ChallengeAndVerify(new MfaChallengeAndVerifyParams { FactorId = enrollment.Id, Code = TotpCode(enrollment) });
-        var verified = await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = session.User.Id });
+        var verified = (await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = userId }))!;
         verified.Factors.Should().ContainSingle();
         verified.Factors[0].Status.Should().Be("verified");
     }
@@ -36,10 +37,11 @@ public class MfaAdminTests : MfaFixture
     public async Task DeleteFactor_ShouldRemoveTheUsersFactor()
     {
         var session = await this.SignUpNewUser();
+        var userId = session.User!.Id!;
         var enrollment = await this.EnrollTotp();
-        (await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = session.User!.Id })).Factors.Should().ContainSingle();
-        var deleted = await this.Admin.DeleteFactor(new MfaAdminDeleteFactorParams { Id = enrollment.Id, UserId = session.User.Id });
+        (await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = userId }))!.Factors.Should().ContainSingle();
+        var deleted = (await this.Admin.DeleteFactor(new MfaAdminDeleteFactorParams { Id = enrollment.Id, UserId = userId }))!;
         deleted.Id.Should().Be(enrollment.Id);
-        (await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = session.User.Id })).Factors.Should().BeEmpty();
+        (await this.Admin.ListFactors(new MfaAdminListFactorsParams { UserId = userId }))!.Factors.Should().BeEmpty();
     }
 }

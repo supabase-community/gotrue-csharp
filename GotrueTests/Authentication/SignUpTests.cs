@@ -35,7 +35,7 @@ public class SignUpTests : AuthClientFixture
         var session = await this.Client.SignUp(Constants.SignUpType.Phone, GetRandomPhoneNumber(), Password,
             new SignUpOptions { Data = new Dictionary<string, object> { { "firstName", "Testing" } } });
         this.VerifyGoodSession(session);
-        session.User!.UserMetadata["firstName"].Should().Be("Testing");
+        session!.User!.UserMetadata["firstName"].Should().Be("Testing");
     }
 
     [TestMethod]

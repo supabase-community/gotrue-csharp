@@ -49,7 +49,7 @@ public class SignInTests : AuthClientFixture
         var signedUp = await this.Client.SignUp(RandomEmail(), Password);
         var refreshToken = signedUp!.RefreshToken ?? throw new InvalidOperationException();
         this.StateChanges.Clear();
-        var refreshed = await this.Client.SignIn(Constants.SignInType.RefreshToken, refreshToken);
+        var refreshed = (await this.Client.SignIn(Constants.SignInType.RefreshToken, refreshToken))!;
         this.Persistence.LoadSession().Should().BeSameAs(this.Client.CurrentSession);
         this.StateChanges.Should().Contain(TokenRefreshed).And.NotContain(SignedIn,
             "exchanging a refresh token rotates the existing session rather than starting a new sign-in");

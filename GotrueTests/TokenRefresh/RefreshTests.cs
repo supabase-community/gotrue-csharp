@@ -53,10 +53,10 @@ public class RefreshTests : AuthClientFixture
         this.Client.CurrentSession.Should().BeNull();
     }
 
-    private async Task VerifyRotatedSession(Session original, Session refreshed)
+    private async Task VerifyRotatedSession(Session original, Session? refreshed)
     {
         refreshed.Should().NotBeNull();
-        refreshed.RefreshToken.Should().NotBe(original.RefreshToken);
+        refreshed!.RefreshToken.Should().NotBe(original.RefreshToken);
         this.StateChanges.Should().Contain(TokenRefreshed);
         this.Persistence.LoadSession().Should().BeSameAs(this.Client.CurrentSession);
         var user = await this.Client.GetUser(refreshed.AccessToken!);

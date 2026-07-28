@@ -1,6 +1,7 @@
 #region
 
 using System.Threading.Tasks;
+using FluentAssertions;
 using GotrueTests.Support;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Interfaces;
@@ -19,9 +20,13 @@ public abstract class MfaFixture : AuthClientFixture
     private IGotrueAdminClient<User>? admin;
     protected IGotrueAdminClient<User> Admin => admin ??= TestClients.AdminAgainstCliStack();
 
-    protected Task<MfaEnrollResponse> EnrollTotp() =>
-        this.Client.Enroll(new MfaEnrollParams { Issuer = "Supabase", FactorType = "totp", FriendlyName = "Enroll test" });
+    protected async Task<MfaEnrollResponse> EnrollTotp()
+    {
+        var enrollment = await this.Client.Enroll(new MfaEnrollParams { Issuer = "Supabase", FactorType = "totp", FriendlyName = "Enroll test" });
+        enrollment.Should().NotBeNull();
+        return enrollment!;
+    }
 
     protected static string TotpCode(MfaEnrollResponse enrollment) =>
-        TotpGenerator.GeneratePin(enrollment.Totp.Secret, 30, 6);
+        TotpGenerator.GeneratePin(enrollment.Totp!.Secret, 30, 6);
 }

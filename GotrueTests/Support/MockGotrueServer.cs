@@ -34,7 +34,7 @@ internal sealed class MockGotrueServer : IDisposable
     internal ReceivedRequest VerifySingleReceivedRequest()
     {
         var entry = server.LogEntries.Should().ContainSingle("the SDK should emit exactly one request").Which;
-        return new ReceivedRequest(entry.RequestMessage);
+        return new ReceivedRequest(entry.RequestMessage!);
     }
 }
 

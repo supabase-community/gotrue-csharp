@@ -28,7 +28,7 @@ public class MfaEnrollmentTests : MfaFixture
         enrollment.Id.Should().NotBeNull();
         enrollment.FriendlyName.Should().Be("Enroll test");
         enrollment.Type.Should().Be("totp");
-        var challenge = await this.Client.Challenge(new MfaChallengeParams { FactorId = enrollment.Id });
+        var challenge = (await this.Client.Challenge(new MfaChallengeParams { FactorId = enrollment.Id }))!;
         challenge.Id.Should().NotBeNull();
         var verified = await this.Client.Verify(new MfaVerifyParams
         {
@@ -39,20 +39,20 @@ public class MfaEnrollmentTests : MfaFixture
         this.VerifyGoodSession(verified);
         await this.Client.SignOut();
         await this.Client.SignIn(email, Password);
-        var afterSignIn = await this.Client.GetAuthenticatorAssuranceLevel();
+        var afterSignIn = (await this.Client.GetAuthenticatorAssuranceLevel())!;
         afterSignIn.CurrentLevel.Should().Be(AuthenticatorAssuranceLevel.aal1);
         afterSignIn.NextLevel.Should().Be(AuthenticatorAssuranceLevel.aal2);
         await this.Client.ChallengeAndVerify(new MfaChallengeAndVerifyParams { FactorId = enrollment.Id, Code = TotpCode(enrollment) });
-        var elevated = await this.Client.GetAuthenticatorAssuranceLevel();
+        var elevated = (await this.Client.GetAuthenticatorAssuranceLevel())!;
         elevated.CurrentLevel.Should().Be(AuthenticatorAssuranceLevel.aal2);
         elevated.NextLevel.Should().Be(AuthenticatorAssuranceLevel.aal2);
-        (await this.Client.ListFactors()).Totp.Should().ContainSingle();
+        (await this.Client.ListFactors())!.Totp.Should().ContainSingle();
         await this.Client.Unenroll(new MfaUnenrollParams { FactorId = enrollment.Id });
         await this.Client.SignOut();
         await this.Client.SignIn(email, Password);
-        var afterUnenroll = await this.Client.GetAuthenticatorAssuranceLevel();
+        var afterUnenroll = (await this.Client.GetAuthenticatorAssuranceLevel())!;
         afterUnenroll.CurrentLevel.Should().Be(AuthenticatorAssuranceLevel.aal1);
         afterUnenroll.NextLevel.Should().Be(AuthenticatorAssuranceLevel.aal1);
-        (await this.Client.ListFactors()).Totp.Should().BeEmpty();
+        (await this.Client.ListFactors())!.Totp.Should().BeEmpty();
     }
 }

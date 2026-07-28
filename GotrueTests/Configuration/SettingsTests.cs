@@ -25,7 +25,7 @@ public class SettingsTests
         settings.Should().NotBeNull();
         using (new AssertionScope())
         {
-            settings!.ExternalProviders["email"].Should().BeTrue();
+            settings!.ExternalProviders!["email"].Should().BeTrue();
             settings.ExternalProviders["zoom"].Should().BeFalse();
             settings.DisableSignup.Should().BeFalse();
             settings.MailerAutoConfirm.Should().BeTrue();

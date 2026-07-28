@@ -43,13 +43,14 @@ public abstract class AuthClientFixture
         return session!;
     }
 
-    protected void VerifyGoodSession(Session session)
+    protected void VerifyGoodSession(Session? session)
     {
         using (new AssertionScope())
         {
+            session.Should().NotBeNull();
             StateChanges.Should().Contain(SignedIn);
             Persistence.LoadSession().Should().BeSameAs(Client.CurrentSession, "the SDK persists the session it signed in");
-            Client.CurrentUser!.Id.Should().Be(session.User!.Id);
+            Client.CurrentUser!.Id.Should().Be(session!.User!.Id);
             session.AccessToken.Should().NotBeNull();
             session.RefreshToken.Should().NotBeNull();
             session.User.Should().NotBeNull();
