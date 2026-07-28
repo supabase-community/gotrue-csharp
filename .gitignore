@@ -406,3 +406,6 @@ ASALocalRun/
 # Supabase CLI local state
 supabase/.temp/
 supabase/.branches/
+
+# Stryker mutation testing output
+StrykerOutput/

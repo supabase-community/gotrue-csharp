@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
@@ -10,61 +9,49 @@ using Microsoft.IdentityModel.Tokens;
 
 #endregion
 
-namespace GotrueTests
+namespace GotrueTests;
+
+/// <summary>
+///     Shared, tier-agnostic test data helpers: unique identities per test (so E2E runs stay isolated on the
+///     live stack), a strong default password, and a signed service-role token for admin calls.
+/// </summary>
+public static class TestUtils
 {
-	public static class TestUtils
-	{
+    public const string Password = "I@M@SuperP@ssWord";
+    private static readonly Random Random = new();
 
-		public const string PASSWORD = "I@M@SuperP@ssWord";
-		private static readonly Random Random = new();
+    public static string RandomString(int length)
+    {
+        const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        return new string(Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray());
+    }
 
-		public static void LogDebug(string message, Exception e)
-		{
-			Debug.WriteLine(message);
-			if (e != null)
-				Debug.WriteLine(e);
-		}
+    public static string RandomEmail() => $"{RandomString(12)}@supabase.io";
 
+    public static string GetRandomPhoneNumber()
+    {
+        const string chars = "123456789";
+        var inner = new string(Enumerable.Repeat(chars, 10).Select(s => s[Random.Next(s.Length)]).ToArray());
+        return $"+1{inner}";
+    }
 
-		public static string RandomString(int length)
-		{
-			const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-			return new string(Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray());
-		}
+    /// <summary>
+    ///     Returns a random number within the limits specified via parameters.
+    /// </summary>
+    public static int RandomNumber(int minValue = 0, int maxValue = 1000) => Random.Next(minValue, maxValue);
 
-		public static string GetRandomPhoneNumber()
-		{
-			const string chars = "123456789";
-			var inner = new string(Enumerable.Repeat(chars, 10).Select(s => s[Random.Next(s.Length)]).ToArray());
-			return $"+1{inner}";
-		}
-
-		/// <summary>
-		/// Returns a random number within the limits specified via parameters.
-		/// </summary>
-		/// <param name="minValue">Minimum value. Default 0.</param>
-		/// <param name="maxValue">Maximum value. Default 1000.</param>
-		/// <returns>Integer within the range.</returns>
-		public static int RandomNumber(int minValue = 0, int maxValue = 1000)
-		{
-			return Random.Next(minValue, maxValue);
-		}
-
-		public static string GenerateServiceRoleToken(string jwtSecret)
-		{
-			var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret));
-
-			var tokenDescriptor = new SecurityTokenDescriptor
-			{
-				IssuedAt = DateTime.UtcNow,
-				Expires = DateTime.UtcNow.AddDays(7),
-				SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
-				Claims = new Dictionary<string, object>() { { "role", "service_role" } }
-			};
-
-			var tokenHandler = new JwtSecurityTokenHandler();
-			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-			return tokenHandler.WriteToken(securityToken);
-		}
-	}
+    public static string GenerateServiceRoleToken(string jwtSecret)
+    {
+        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret));
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            IssuedAt = DateTime.UtcNow,
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature),
+            Claims = new Dictionary<string, object> { { "role", "service_role" } },
+        };
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(securityToken);
+    }
 }

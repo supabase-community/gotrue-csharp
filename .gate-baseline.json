@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "package": "gotrue-csharp",
+  "project": "Gotrue/Gotrue.csproj",
+  "testProject": "GotrueTests/GotrueTests.csproj",
+  "warnings": { "total": 370, "byCode": {"CS1591":126,"CS8602":112,"CS8618":60,"CS8604":38,"CS8601":14,"CS8619":10,"CS1573":4,"CS1572":4,"CS1574":2} },
+  "mutationScore": 88.24,
+  "updated": "2026-07-28T12:10:13Z"
+}
