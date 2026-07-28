@@ -2,8 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +18,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1"/>
     <PackageReference Include="MSTest.TestAdapter" Version="4.3.2"/>
     <PackageReference Include="MSTest.TestFramework" Version="4.3.2"/>
+    <PackageReference Include="NSubstitute" Version="[6.0.0]"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
     <PackageReference Include="WireMock.Net" Version="2.12.0"/>
   </ItemGroup>
@@ -25,5 +29,24 @@
 
   <ItemGroup>
     <None Update="TokenRefresh\Fixtures\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!--
+    Mutation-harness scoping: Stryker cannot filter by [TestCategory], so when STRYKER_MUTATION=true we
+    compile-exclude the E2E tests (which drive the live Supabase CLI stack, are slow, and are non-deterministic
+    per-mutant). Stryker then runs only the fast, hermetic Unit + Contract tests once per mutant. The mutate
+    scope is pinned in stryker-config.json to the offline-testable logic those tiers own. MSBuild resolves the
+    environment variable automatically; Stryker's child build inherits it.
+  -->
+  <ItemGroup Condition="'$(STRYKER_MUTATION)' == 'true'">
+    <Compile Remove="Authentication\**\*.cs"/>
+    <Compile Remove="Users\**\*.cs"/>
+    <Compile Remove="Sessions\**\*.cs"/>
+    <Compile Remove="Mfa\**\*.cs"/>
+    <Compile Remove="Admin\**\*.cs"/>
+    <Compile Remove="Stateless\**\*.cs"/>
+    <Compile Remove="Network\**\*.cs"/>
+    <Compile Remove="Configuration\**\*.cs"/>
+    <Compile Remove="TokenRefresh\RefreshTests.cs"/>
   </ItemGroup>
 </Project>
