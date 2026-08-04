@@ -7657,6 +7657,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.User.IsAnonymous
   nameWithType: User.IsAnonymous
+- uid: Supabase.Gotrue.User.IsConfirmed
+  name: IsConfirmed
+  href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_IsConfirmed
+  commentId: P:Supabase.Gotrue.User.IsConfirmed
+  fullName: Supabase.Gotrue.User.IsConfirmed
+  nameWithType: User.IsConfirmed
+- uid: Supabase.Gotrue.User.IsConfirmed*
+  name: IsConfirmed
+  href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_IsConfirmed_
+  commentId: Overload:Supabase.Gotrue.User.IsConfirmed
+  isSpec: "True"
+  fullName: Supabase.Gotrue.User.IsConfirmed
+  nameWithType: User.IsConfirmed
 - uid: Supabase.Gotrue.User.LastSignInAt
   name: LastSignInAt
   href: api/Supabase.Gotrue.User.html#Supabase_Gotrue_User_LastSignInAt
