@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Supabase.Gotrue.Exceptions;
 using Supabase.Gotrue.Interfaces;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
+using static Supabase.Gotrue.Constants.AuthState;
 using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 #endregion
@@ -79,6 +81,18 @@ public class RefreshContractTests
         var exception = await refresh.Should().ThrowAsync<GotrueException>();
         exception.Which.Reason.Should().Be(InvalidRefreshToken);
         client.CurrentSession.Should().BeNull();
+    }
+
+    [TestMethod]
+    public async Task RefreshToken_ShouldNotifySignedOut_GivenRejected()
+    {
+        var stateChanges = new List<Constants.AuthState>();
+        client.AddStateChangedListener((_, state) => stateChanges.Add(state));
+        MockErrorResponse(400, Fixture("token_not_found_error.json"));
+        var refresh = () => client.RefreshToken(AccessToken, RefreshTokenValue);
+        await refresh.Should().ThrowAsync<GotrueException>();
+        stateChanges.Should().Contain(SignedOut,
+            "a rejected refresh must notify listeners the session ended — the auto-refresh timer swallows the exception, so the SignedOut event is the only way a background refresh failure reaches the app (issue #91)");
     }
 
     [TestMethod]

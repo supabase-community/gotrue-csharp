@@ -130,6 +130,16 @@ public class ObservabilityContractTests
     }
 
     [TestMethod]
+    public async Task DomainSpan_ShouldBeMarkedError_GivenFailedRefresh()
+    {
+        MockTokenFailure();
+        await FluentActions.Awaiting(Refresh).Should().ThrowAsync<Exception>();
+        var domainSpan = activities.Should().ContainSingle(a => a.OperationName == "gotrue.refresh_token").Which;
+        domainSpan.Status.Should().Be(ActivityStatusCode.Error,
+            "a failed refresh must mark its domain span as error so a silently-swallowed background auto-refresh failure is still visible in traces (issue #91)");
+    }
+
+    [TestMethod]
     public async Task RequestDurationHistogram_ShouldRecordOncePerRequest()
     {
         MockTokenSuccess();

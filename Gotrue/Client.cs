@@ -712,6 +712,11 @@ namespace Supabase.Gotrue
                 NotifyAuthStateChange(SignedOut);
                 throw;
             }
+            catch (Exception ex)
+            {
+                activity.SetFailure(ex);
+                throw;
+            }
         }
 
         /// <inheritdoc />
@@ -741,6 +746,12 @@ namespace Supabase.Gotrue
                 activity.SetFailure(ex);
                 DestroySession();
                 NotifyAuthStateChange(SignedOut);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                // The auto-refresh timer swallows this exception, so mark the span failed to keep it in traces.
+                activity.SetFailure(ex);
                 throw;
             }
         }
