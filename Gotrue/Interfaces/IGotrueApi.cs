@@ -64,6 +64,16 @@ namespace Supabase.Gotrue.Interfaces
 		Task<ProviderAuthState> LinkIdentity(string token, Provider provider, SignInOptions options);
 
 		/// <summary>
+		/// Links a native OIDC identity to an existing user using an ID token, authenticated as that user.
+		///
+		/// Unlike <see cref="LinkIdentity(string, Provider, SignInOptions)" /> this does not require the PKCE flow.
+		/// </summary>
+		/// <param name="token">Current user's access token (Bearer JWT) the link is performed on behalf of.</param>
+		/// <param name="options">The provider, ID token, and optional proofs describing the identity to link.</param>
+		/// <returns>The session GoTrue returns for the linked user.</returns>
+		Task<TSession?> LinkIdentityWithIdToken(string token, LinkIdentityWithIdTokenOptions options);
+
+		/// <summary>
 		/// Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.
 		/// </summary>
 		/// <param name="token">User's token</param>

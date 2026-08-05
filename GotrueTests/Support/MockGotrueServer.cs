@@ -77,11 +77,36 @@ internal sealed class ReceivedRequest
         return this;
     }
 
-    internal void WithExactJsonBody(string field, string expected)
+    internal ReceivedRequest WithExactJsonBody(string field, string expected)
     {
         request.Body.Should().NotBeNull("the request should have a body");
         var body = JObject.Parse(request.Body!);
         body[field]?.Value<string>().Should().Be(expected);
+        return this;
+    }
+
+    internal ReceivedRequest WithBooleanJsonBody(string field, bool expected)
+    {
+        request.Body.Should().NotBeNull("the request should have a body");
+        var body = JObject.Parse(request.Body!);
+        body[field]?.Value<bool>().Should().Be(expected);
+        return this;
+    }
+
+    internal ReceivedRequest WithNestedJsonBody(string parent, string field, string expected)
+    {
+        request.Body.Should().NotBeNull("the request should have a body");
+        var body = JObject.Parse(request.Body!);
+        body[parent]?[field]?.Value<string>().Should().Be(expected);
+        return this;
+    }
+
+    internal ReceivedRequest WithoutJsonBodyField(string field)
+    {
+        request.Body.Should().NotBeNull("the request should have a body");
+        var body = JObject.Parse(request.Body!);
+        body.ContainsKey(field).Should().BeFalse($"'{field}' should be omitted when not supplied");
+        return this;
     }
 
     internal string? ReadJsonBodyField(string field)

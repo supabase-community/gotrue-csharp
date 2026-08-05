@@ -597,6 +597,41 @@ namespace Supabase.Gotrue
 		}
 
 		/// <inheritdoc />
+		public Task<Session?> LinkIdentityWithIdToken(string token, LinkIdentityWithIdTokenOptions options)
+		{
+			EnsureIdTokenProviderSupported(options.Provider);
+			var body = BuildIdTokenLinkBody(options);
+			return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, CreateAuthedRequestHeaders(token));
+		}
+
+		private static void EnsureIdTokenProviderSupported(Provider provider)
+		{
+			if (provider != Provider.Google && provider != Provider.Apple && provider != Provider.Azure && provider != Provider.Facebook)
+				throw new GotrueException($"Provider must be `Google`, `Apple`, `Azure`, or `Facebook` not {provider}");
+		}
+
+		private static Dictionary<string, object?> BuildIdTokenLinkBody(LinkIdentityWithIdTokenOptions options)
+		{
+			var body = new Dictionary<string, object?>
+			{
+				{ "provider", Core.Helpers.GetMappedToAttr(options.Provider).Mapping },
+				{ "id_token", options.IdToken },
+				{ "link_identity", true }
+			};
+
+			if (!string.IsNullOrEmpty(options.AccessToken))
+				body.Add("access_token", options.AccessToken);
+
+			if (!string.IsNullOrEmpty(options.Nonce))
+				body.Add("nonce", options.Nonce);
+
+			if (!string.IsNullOrEmpty(options.CaptchaToken))
+				body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", options.CaptchaToken } });
+
+			return body;
+		}
+
+		/// <inheritdoc />
 		public async Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity)
 		{
 			var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/{userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
