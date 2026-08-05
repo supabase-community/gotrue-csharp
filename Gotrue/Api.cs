@@ -18,7 +18,7 @@ using static Supabase.Gotrue.Constants;
 namespace Supabase.Gotrue
 {
     /// <summary>
-    ///     The REST calls to the Gotrue API.
+    /// The REST calls to the Gotrue API.
     /// </summary>
     public class Api : IGotrueApi<User, Session>
     {
@@ -26,7 +26,7 @@ namespace Supabase.Gotrue
         private Dictionary<string, string> _headers;
 
         /// <summary>
-        ///     Creates a new API client
+        /// Creates a new API client
         /// </summary>
         /// <param name="url"></param>
         /// <param name="headers"></param>
@@ -38,7 +38,7 @@ namespace Supabase.Gotrue
         }
         private string Url { get; }
         /// <summary>
-        ///     Headers to be sent with every request. These will be merged with any headers returned by GetHeaders.
+        /// Headers to be sent with every request. These will be merged with any headers returned by GetHeaders.
         /// </summary>
         protected Dictionary<string, string> Headers
         {
@@ -47,20 +47,18 @@ namespace Supabase.Gotrue
             {
                 _headers = value;
                 if (!_headers.ContainsKey("X-Client-Info"))
-                {
                     _headers.Add("X-Client-Info", Util.GetAssemblyVersion(typeof(Client)));
-                }
             }
         }
 
         /// <summary>
-        ///     Function that can be set to return dynamic headers.
-        ///     Headers specified in the constructor will ALWAYS take precedence over headers returned by this function.
+        /// Function that can be set to return dynamic headers.
+        /// Headers specified in the constructor will ALWAYS take precedence over headers returned by this function.
         /// </summary>
         public Func<Dictionary<string, string>>? GetHeaders { get; set; }
 
         /// <summary>
-        ///     Signs a user up using an email address and password.
+        /// Signs a user up using an email address and password.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
@@ -100,7 +98,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Logs in an existing user using their email address.
+        /// Logs in an existing user using their email address.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
@@ -112,16 +110,19 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Log in a user using magiclink or a one-time password (OTP).
-        ///     If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
-        ///     If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
-        ///     If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-        ///     Be aware that you may get back an error message that will not distinguish
-        ///     between the cases where the account does not exist or, that the account
-        ///     can only be accessed via social login.
-        ///     Do note that you will need to configure a Whatsapp sender on Twilio
-        ///     if you are using phone sign in with the 'whatsapp' channel. The whatsapp
-        ///     channel is not supported on other providers at this time.
+        /// Log in a user using magiclink or a one-time password (OTP).
+        ///
+        /// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
+        /// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
+        /// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+        ///
+        /// Be aware that you may get back an error message that will not distinguish
+        /// between the cases where the account does not exist or, that the account
+        /// can only be accessed via social login.
+        ///
+        /// Do note that you will need to configure a Whatsapp sender on Twilio
+        /// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
+        /// channel is not supported on other providers at this time.
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
@@ -143,24 +144,25 @@ namespace Supabase.Gotrue
                 body.Add("code_challenge_method", "s256");
             }
             if (!string.IsNullOrEmpty(options.CaptchaToken))
-            {
                 body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
-            }
             await Helpers.MakeRequest(HttpMethod.Post, url, body, Headers);
             return new PasswordlessSignInState { PKCEVerifier = verifier };
         }
 
         /// <summary>
-        ///     Log in a user using magiclink or a one-time password (OTP).
-        ///     If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
-        ///     If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
-        ///     If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
-        ///     Be aware that you may get back an error message that will not distinguish
-        ///     between the cases where the account does not exist or, that the account
-        ///     can only be accessed via social login.
-        ///     Do note that you will need to configure a Whatsapp sender on Twilio
-        ///     if you are using phone sign in with the 'whatsapp' channel. The whatsapp
-        ///     channel is not supported on other providers at this time.
+        /// Log in a user using magiclink or a one-time password (OTP).
+        ///
+        /// If the `{{ .ConfirmationURL }}` variable is specified in the email template, a magiclink will be sent.
+        /// If the `{{ .Token }}` variable is specified in the email template, an OTP will be sent.
+        /// If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+        ///
+        /// Be aware that you may get back an error message that will not distinguish
+        /// between the cases where the account does not exist or, that the account
+        /// can only be accessed via social login.
+        ///
+        /// Do note that you will need to configure a Whatsapp sender on Twilio
+        /// if you are using phone sign in with the 'whatsapp' channel. The whatsapp
+        /// channel is not supported on other providers at this time.
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
@@ -175,15 +177,13 @@ namespace Supabase.Gotrue
                 { "channel", Core.Helpers.GetMappedToAttr(options.Channel).Mapping },
             };
             if (!string.IsNullOrEmpty(options.CaptchaToken))
-            {
                 body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
-            }
             await Helpers.MakeRequest(HttpMethod.Post, url, body, Headers);
             return new PasswordlessSignInState();
         }
 
         /// <summary>
-        ///     Creates a new anonymous user.
+        /// Creates a new anonymous user.
         /// </summary>
         /// <param name="options"></param>
         /// <returns>A session where the is_anonymous claim in the access token JWT set to true</returns>
@@ -192,35 +192,21 @@ namespace Supabase.Gotrue
             var url = $"{Url}/signup";
             var body = new Dictionary<string, object>();
             if (options?.Data != null)
-            {
                 body.Add("data", options.Data);
-            }
             if (options != null && !string.IsNullOrEmpty(options.CaptchaToken))
-            {
                 body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
-            }
             return await Helpers.MakeRequest<Session>(HttpMethod.Post, url, body, Headers);
         }
 
         /// <summary>
-        ///     Allows signing in with an ID token issued by certain supported providers.
-        ///     The [idToken] is verified for validity and a new session is established.
-        ///     This method of signing in only supports [Provider.Google] or [Provider.Apple].
+        /// Allows signing in with an ID token issued by certain supported providers.
+        /// The [idToken] is verified for validity and a new session is established.
+        /// This method of signing in only supports [Provider.Google] or [Provider.Apple].
         /// </summary>
         /// <param name="provider">A supported provider (Google, Apple, Azure, Facebook)</param>
-        /// <param name="idToken">
-        ///     OIDC ID token issued by the specified provider. The `iss` claim in the ID token must match the
-        ///     supplied provider. Some ID tokens contain an `at_hash` which require that you provide an `access_token` value to be
-        ///     accepted properly. If the token contains a `nonce` claim you must supply the nonce used to obtain the ID token.
-        /// </param>
-        /// <param name="accessToken">
-        ///     If the ID token contains an `at_hash` claim, then the hash of this value is compared to the
-        ///     value in the ID token.
-        /// </param>
-        /// <param name="nonce">
-        ///     If the ID token contains a `nonce` claim, then the hash of this value is compared to the value in
-        ///     the ID token.
-        /// </param>
+        /// <param name="idToken">OIDC ID token issued by the specified provider. The `iss` claim in the ID token must match the supplied provider. Some ID tokens contain an `at_hash` which require that you provide an `access_token` value to be accepted properly. If the token contains a `nonce` claim you must supply the nonce used to obtain the ID token.</param>
+        /// <param name="accessToken">If the ID token contains an `at_hash` claim, then the hash of this value is compared to the value in the ID token.</param>
+        /// <param name="nonce">If the ID token contains a `nonce` claim, then the hash of this value is compared to the value in the ID token.</param>
         /// <param name="captchaToken">Verification token received when the user completes the captcha on the site.</param>
         /// <returns></returns>
         /// <exception>
@@ -229,26 +215,19 @@ namespace Supabase.Gotrue
         public Task<Session?> SignInWithIdToken(Provider provider, string idToken, string? accessToken = null, string? nonce = null, string? captchaToken = null)
         {
             if (provider != Provider.Google && provider != Provider.Apple && provider != Provider.Azure && provider != Provider.Facebook)
-            {
                 throw new GotrueException($"Provider must be `Google`, `Apple`, `Azure`, or `Facebook` not {provider}");
-            }
+
             var body = new Dictionary<string, object?>
             {
                 { "provider", Core.Helpers.GetMappedToAttr(provider).Mapping },
                 { "id_token", idToken },
             };
             if (!string.IsNullOrEmpty(accessToken))
-            {
                 body.Add("access_token", accessToken);
-            }
             if (!string.IsNullOrEmpty(nonce))
-            {
                 body.Add("nonce", nonce);
-            }
             if (!string.IsNullOrEmpty(captchaToken))
-            {
                 body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", captchaToken } });
-            }
             return Helpers.MakeRequest<Session>(HttpMethod.Post, $"{Url}/token?grant_type=id_token", body, Headers);
         }
 
@@ -259,7 +238,7 @@ namespace Supabase.Gotrue
         public Task<SSOResponse?> SignInWithSSO(string domain, SignInWithSSOOptions? options = null) => SignInWithSsoInternal(domain: domain, options: options);
 
         /// <summary>
-        ///     Sends a magic login link to an email address.
+        /// Sends a magic login link to an email address.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="options"></param>
@@ -279,7 +258,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Sends an invite link to an email address.
+        /// Sends an invite link to an email address.
         /// </summary>
         /// <param name="email"></param>
         /// <param name="jwt">this token needs role 'supabase_admin' or 'service_role'</param>
@@ -290,14 +269,12 @@ namespace Supabase.Gotrue
             var url = options == null || string.IsNullOrEmpty(options.RedirectTo) ? $"{Url}/invite" : $"{Url}/invite?redirect_to={options.RedirectTo}";
             var body = new Dictionary<string, object> { { "email", email } };
             if (options?.Data != null)
-            {
                 body["data"] = options.Data;
-            }
             return Helpers.MakeRequest(HttpMethod.Post, url, body, CreateAuthedRequestHeaders(jwt));
         }
 
         /// <summary>
-        ///     Signs up a new user using their phone number and a password.The phone number of the user.
+        /// Signs up a new user using their phone number and a password.The phone number of the user.
         /// </summary>
         /// <param name="phone">The phone number of the user.</param>
         /// <param name="password">The password of the user.</param>
@@ -306,9 +283,8 @@ namespace Supabase.Gotrue
         public Task<Session?> SignUpWithPhone(string phone, string password, SignUpOptions? options = null)
         {
             if (string.IsNullOrEmpty(phone))
-            {
                 throw new GotrueException("Phone number not provided.", FailureHint.Reason.UserBadPhoneNumber);
-            }
+
             var body = new Dictionary<string, object>
             {
                 { "phone", phone },
@@ -330,7 +306,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Logs in an existing user using their phone number and password.
+        /// Logs in an existing user using their phone number and password.
         /// </summary>
         /// <param name="phone">The phone number of the user.</param>
         /// <param name="password">The password of the user.</param>
@@ -346,7 +322,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Sends a mobile OTP via SMS. Will register the account if it doesn't already exist
+        /// Sends a mobile OTP via SMS. Will register the account if it doesn't already exist
         /// </summary>
         /// <param name="phone">phone The user's phone number WITH international prefix</param>
         /// <returns></returns>
@@ -357,7 +333,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Send User supplied Mobile OTP to be verified
+        /// Send User supplied Mobile OTP to be verified
         /// </summary>
         /// <param name="phone">The user's phone number WITH international prefix</param>
         /// <param name="token">token that user was sent to their mobile phone</param>
@@ -375,7 +351,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Send User supplied Email OTP to be verified
+        /// Send User supplied Email OTP to be verified
         /// </summary>
         /// <param name="email">The user's email address</param>
         /// <param name="token">token that user was sent to their mobile phone</param>
@@ -393,7 +369,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Verify token hash used in an email confirmation link.
+        /// Verify token hash used in an email confirmation link.
         /// </summary>
         /// <param name="tokenHash">The token hash used in an email confirmation link</param>
         /// <param name="type">Type of verification, e.g. email.</param>
@@ -409,7 +385,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Sends a reset request to an email address.
+        /// Sends a reset request to an email address.
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -420,8 +396,9 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Sends a password reset request to an email address.
-        ///     This Method supports the PKCE Flow
+        /// Sends a password reset request to an email address.
+        ///
+        /// This Method supports the PKCE Flow
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
@@ -441,9 +418,7 @@ namespace Supabase.Gotrue
                 body.Add("code_challenge_method", "s256");
             }
             if (!string.IsNullOrEmpty(options.CaptchaToken))
-            {
                 body.Add("gotrue_meta_security", new Dictionary<string, string> { { "captcha_token", options.CaptchaToken! } });
-            }
             await Helpers.MakeRequest(HttpMethod.Post, url, body, Headers);
             return new ResetPasswordForEmailState { PKCEVerifier = verifier };
         }
@@ -453,7 +428,7 @@ namespace Supabase.Gotrue
             Helpers.GetUrlForProvider($"{Url}/authorize", provider, options);
 
         /// <summary>
-        ///     Log in an existing user via code from third-party provider.
+        /// Log in an existing user via code from third-party provider.
         /// </summary>
         /// <param name="codeVerifier">Generated verifier (probably from GetUrlForProvider)</param>
         /// <param name="authCode">The received Auth Code Callback</param>
@@ -519,12 +494,12 @@ namespace Supabase.Gotrue
         /// <inheritdoc />
         public async Task<bool> UnlinkIdentity(string token, UserIdentity userIdentity)
         {
-            var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/{userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
+            var result = await Helpers.MakeRequest(HttpMethod.Delete, $"{Url}/user/identities/${userIdentity.IdentityId}", null, CreateAuthedRequestHeaders(token));
             return result.ResponseMessage is { IsSuccessStatusCode: true };
         }
 
         /// <summary>
-        ///     Removes a logged-in session.
+        /// Removes a logged-in session.
         /// </summary>
         /// <param name="jwt"></param>
         /// <param name="scope"></param>
@@ -536,7 +511,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Gets User Details
+        /// Gets User Details
         /// </summary>
         /// <param name="jwt"></param>
         /// <returns></returns>
@@ -547,7 +522,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Get User details by Id
+        /// Get User details by Id
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId">userID</param>
@@ -559,7 +534,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Updates the User data
+        /// Updates the User data
         /// </summary>
         /// <param name="jwt"></param>
         /// <param name="attributes"></param>
@@ -567,7 +542,7 @@ namespace Supabase.Gotrue
         public Task<User?> UpdateUser(string jwt, UserAttributes attributes) => Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/user", attributes, CreateAuthedRequestHeaders(jwt));
 
         /// <summary>
-        ///     Lists users
+        /// Lists users
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="filter">A string for example part of the email</param>
@@ -583,7 +558,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Create a user
+        /// Create a user
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="attributes">Additional administrative details</param>
@@ -595,7 +570,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Update user by Id
+        /// Update user by Id
         /// </summary>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
         /// <param name="userId">userID</param>
@@ -604,15 +579,16 @@ namespace Supabase.Gotrue
         public Task<User?> UpdateUserById(string jwt, string userId, UserAttributes userData) => Helpers.MakeRequest<User>(HttpMethod.Put, $"{Url}/admin/users/{userId}", userData, CreateAuthedRequestHeaders(jwt));
 
         /// <summary>
-        ///     Sends a re-authentication request, used for password changes.
-        ///     See: https://github.com/supabase/gotrue#get-reauthenticate
+        /// Sends a re-authentication request, used for password changes.
+        ///
+        /// See: https://github.com/supabase/gotrue#get-reauthenticate
         /// </summary>
         /// <param name="userJwt">The user's auth token.</param>
         /// <returns></returns>
         public Task<BaseResponse> Reauthenticate(string userJwt) => Helpers.MakeRequest(HttpMethod.Get, $"{Url}/reauthenticate", null, CreateAuthedRequestHeaders(userJwt));
 
         /// <summary>
-        ///     Delete a user
+        /// Delete a user
         /// </summary>
         /// <param name="uid">The user uid you want to remove.</param>
         /// <param name="jwt">A valid JWT. Must be a full-access API key (e.g. service_role key).</param>
@@ -624,15 +600,14 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Calls the GoTrue server to get the settings (for example, if email auto confirmation is turned on)
+        /// Calls the GoTrue server to get the settings (for example, if email auto confirmation is turned on)
         /// </summary>
-        /// <returns>
-        ///     mpose up -d
+        /// <returns>mpose up -d
         /// </returns>
         public Task<Settings?> Settings() => Helpers.MakeRequest<Settings>(HttpMethod.Get, $"{Url}/settings", null, Headers);
 
         /// <summary>
-        ///     Generates email links and OTPs to be sent via a custom email provider.
+        /// Generates email links and OTPs to be sent via a custom email provider.
         /// </summary>
         /// <param name="jwt"></param>
         /// <param name="options"></param>
@@ -644,7 +619,7 @@ namespace Supabase.Gotrue
         }
 
         /// <summary>
-        ///     Generates a new Session given a user's access token and refresh token.
+        /// Generates a new Session given a user's access token and refresh token.
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <param name="accessToken"></param>
@@ -665,15 +640,12 @@ namespace Supabase.Gotrue
         private Task<SSOResponse?> SignInWithSsoInternal(Guid? providerId = null, string? domain = null, SignInWithSSOOptions? options = null)
         {
             if (providerId != null && domain != null)
-            {
                 throw new GotrueException("Both providerId and domain were provided to the API, " +
                                           $"you must supply either one or the other but not both providerId={providerId}, domain={domain}");
-            }
             if (providerId == null && domain == null)
-            {
                 throw new GotrueException("Both providerId and domain were null " +
                                           $"you must supply either one or the other but not both providerId={providerId}, domain={domain}");
-            }
+
             string? codeChallenge = null;
             string? codeChallengeMethod = null;
             if (options?.FlowType == OAuthFlowType.PKCE)
@@ -694,15 +666,12 @@ namespace Supabase.Gotrue
                 { "code_challenge_method", codeChallengeMethod },
             };
             if (!string.IsNullOrEmpty(options?.CaptchaToken))
-            {
                 body.Add("gotrue_meta_security", new Dictionary<string, object?> { { "captcha_token", options?.CaptchaToken } });
-            }
             return Helpers.MakeRequest<SSOResponse>(HttpMethod.Post, $"{Url}/sso", body, Headers);
         }
 
         /// <summary>
-        ///     Create a temporary object with all configured headers and adds the Authorization token to be used on request
-        ///     methods
+        /// Create a temporary object with all configured headers and adds the Authorization token to be used on request methods
         /// </summary>
         /// <param name="jwt">JWT</param>
         /// <returns></returns>
