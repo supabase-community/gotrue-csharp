@@ -423,6 +423,28 @@ namespace Supabase.Gotrue
         }
 
         /// <inheritdoc />
+        public async Task<Session?> LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions options)
+        {
+            using var activity = GotrueInstrumentation.Source.StartActivity(GotrueInstrumentation.Spans.LinkIdentityWithIdToken);
+            activity?.SetTag(GotrueInstrumentation.Tags.Provider, options.Provider.ToString());
+            if (!Online)
+            {
+                throw new GotrueException("Only supported when online", Offline);
+            }
+            if (CurrentSession == null || CurrentUser == null)
+            {
+                throw new GotrueException("A valid session is required.", NoSessionFound);
+            }
+            var result = await _api.LinkIdentityWithIdToken(CurrentSession.AccessToken!, options).ConfigureAwait(false);
+            if (result?.AccessToken != null)
+            {
+                UpdateSession(result);
+                NotifyAuthStateChange(SignedIn);
+            }
+            return result;
+        }
+
+        /// <inheritdoc />
         public Task<bool> UnlinkIdentity(UserIdentity userIdentity)
         {
             if (!Online)

@@ -69,6 +69,7 @@ namespace Supabase.Gotrue
 			internal const string SignUp = "gotrue.sign_up";
 			internal const string SendMagicLink = "gotrue.send_magic_link";
 			internal const string SignInWithIdToken = "gotrue.sign_in.id_token";
+			internal const string LinkIdentityWithIdToken = "gotrue.link_identity.id_token";
 			internal const string SignInWithOtp = "gotrue.sign_in.otp";
 			internal const string SignIn = "gotrue.sign_in";
 			internal const string SignInAnonymously = "gotrue.sign_in.anonymous";

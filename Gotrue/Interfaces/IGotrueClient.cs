@@ -434,6 +434,21 @@ namespace Supabase.Gotrue.Interfaces
         Task<ProviderAuthState> LinkIdentity(Provider provider, SignInOptions options);
 
         /// <summary>
+        ///     Links a native OIDC identity to the currently signed-in user using an ID token.
+        ///     Unlike <see cref="LinkIdentity(Provider, SignInOptions)" /> this does not require the PKCE flow, and
+        ///     is only defined for the native providers: Google, Apple, Azure, and Facebook.
+        /// </summary>
+        /// <param name="options">The provider, ID token, and optional proofs describing the identity to link.</param>
+        /// <returns>The session reflecting the linked identity, or <c>null</c> when GoTrue returns no session.</returns>
+        /// <example>
+        ///     <code>
+        ///     var options = new LinkIdentityWithIdTokenOptions(Constants.Provider.Google, googleIdToken);
+        ///     var session = await client.LinkIdentityWithIdToken(options);
+        ///     </code>
+        /// </example>
+        Task<TSession?> LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions options);
+
+        /// <summary>
         ///     Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once
         ///     it's unlinked.
         /// </summary>
