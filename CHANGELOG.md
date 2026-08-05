@@ -1,5 +1,19 @@
 # Changelog
 
+## [6.3.0](https://github.com/supabase-community/gotrue-csharp/compare/v6.2.0...v6.3.0) (2026-08-05)
+
+
+### Features
+
+* add LinkIdentityWithIdToken for native OIDC identity linking ([#146](https://github.com/supabase-community/gotrue-csharp/issues/146)) ([f91d66a](https://github.com/supabase-community/gotrue-csharp/commit/f91d66a878596919be1cb967bf812bef68e0c80c))
+
+
+### Bug Fixes
+
+* adopt auto-confirmed sign-up sessions instead of dropping them ([#143](https://github.com/supabase-community/gotrue-csharp/issues/143)) ([74c0b87](https://github.com/supabase-community/gotrue-csharp/commit/74c0b87a0305598de403043ae4ecd7d529d80c66))
+* drop stray '$' from unlink identity url ([#145](https://github.com/supabase-community/gotrue-csharp/issues/145)) ([91a41c2](https://github.com/supabase-community/gotrue-csharp/commit/91a41c21ccb9df245163fc3604a53f87a5c5275e))
+* mark the refresh span failed on any error so background failures are traceable ([18f861c](https://github.com/supabase-community/gotrue-csharp/commit/18f861c2baadb060f10a7b8c1199104f69320283))
+
 ## [6.2.0](https://github.com/supabase-community/gotrue-csharp/compare/v6.1.0...v6.2.0) (2026-07-22)
 
 
