@@ -442,7 +442,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>",
-      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"1\">GoTrue stateful Client.</p>\n<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"3\">This class is best used as a long-lived singleton object in your application. You can attach listeners\nto be notified of changes to the user log in state, a persistence system for sessions across application\nlaunches, and more. It includes a (optional, on by default) background thread that runs to refresh the\nuser's session token.</p>\n<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"8\">Check out the test suite for examples of use.</p>\n"
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.Interfaces.IGotrueClient-2.yml\" sourcestartlinenumber=\"1\">GoTrue stateful Client.\nThis class is best used as a long-lived singleton object in your application. You can attach listeners\nto be notified of changes to the user log in state, a persistence system for sessions across application\nlaunches, and more. It includes a (optional, on by default) background thread that runs to refresh the\nuser's session token.\nCheck out the test suite for examples of use.</p>\n"
     },
     {
       "type": "ManagedReference",

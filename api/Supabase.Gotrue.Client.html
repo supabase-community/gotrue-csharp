@@ -228,8 +228,8 @@ await client.RetrieveSessionAsync();
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L157"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The current Session as managed by this client. Does not refresh tokens or have any other side effects.</p>
-<p>You probably don't want to directly make changes to this object - you'll want to use other methods
+  <div class="markdown level1 summary"><p>The current Session as managed by this client. Does not refresh tokens or have any other side effects.
+You probably don't want to directly make changes to this object - you'll want to use other methods
 on this class to make changes.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -328,9 +328,9 @@ To persist modifications to the User you'll want to use other methods.
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L154"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Indicates if the client should be considered online or offline.</p>
-<p>In a server environment, this client would likely always be online.</p>
-<p>On a mobile client, you will want to pair this with a network implementation
+  <div class="markdown level1 summary"><p>Indicates if the client should be considered online or offline.
+In a server environment, this client would likely always be online.
+On a mobile client, you will want to pair this with a network implementation
 to turn this on and off as the device goes online and offline.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -468,8 +468,8 @@ public void AddDebugListener(Action&lt;string, Exception?&gt; listener)</code></
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a listener to be notified when the user state changes (e.g. the user logs in, logs out,
-the token is refreshed, etc).</p>
-<p><a class="xref" href="Supabase.Gotrue.Constants.AuthState.html">Constants.AuthState</a></p>
+the token is refreshed, etc).
+<a class="xref" href="Supabase.Gotrue.Constants.AuthState.html">Constants.AuthState</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -539,7 +539,8 @@ factor.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L842"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Helper method which creates a challenge and immediately uses the given code to verify against it thereafter. The verification code is
+  <div class="markdown level1 summary"><p>Helper method which creates a challenge and immediately uses the given code to verify against it thereafter. The
+verification code is
 provided by the user by entering a code seen in their authenticator app.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -577,8 +578,8 @@ provided by the user by entering a code seen in their authenticator app.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L151"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Clears all of the listeners from receiving event state changes.</p>
-<p>WARNING: The persistence handler and refresh token thread are installed as state change
+  <div class="markdown level1 summary"><p>Clears all of the listeners from receiving event state changes.
+WARNING: The persistence handler and refresh token thread are installed as state change
 listeners. Clearing the listeners will also delete these handlers.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -645,8 +646,9 @@ out issues with the refresh token background thread.</p>
 factor. This method creates a new <code>unverified</code> factor.
 To verify a factor, present the QR code or secret to the user and ask them to add it to their
 authenticator app.
-The user has to enter the code from their authenticator app to verify it.</p>
-<p>Upon verifying a factor, all other sessions are logged out and the current session's authenticator level is promoted to <code>aal2</code>.</p>
+The user has to enter the code from their authenticator app to verify it.
+Upon verifying a factor, all other sessions are logged out and the current session's authenticator level is
+promoted to <code>aal2</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -727,11 +729,12 @@ The user has to enter the code from their authenticator app to verify it.</p>
 <li><code>aal1</code> (or <code>null</code>) means that the user's identity has been verified only
 with a conventional login (email+password, OTP, magic link, social login,
 etc.).</li>
-<li><code>aal2</code> means that the user's identity has been verified both with a conventional login and at least one MFA factor.</li>
-</ul>
-<p>Although this method returns a promise, it's fairly quick (microseconds)
+<li><code>aal2</code> means that the user's identity has been verified both with a conventional login and at least one MFA
+factor.
+Although this method returns a promise, it's fairly quick (microseconds)
 and rarely uses the network. You can use this to check whether the current
-user needs to be shown a screen to verify their MFA factors.</p>
+user needs to be shown a screen to verify their MFA factors.</li>
+</ul>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -840,8 +843,8 @@ user needs to be shown a screen to verify their MFA factors.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L408"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.</p>
-<p>This method requires the PKCE flow.</p>
+  <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.
+This method requires the PKCE flow.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -940,8 +943,8 @@ user needs to be shown a screen to verify their MFA factors.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L112"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Notifies all listeners that the current user auth state has changed.</p>
-<p>This is mainly used internally to fire notifications - most client applications won't need this.</p>
+  <div class="markdown level1 summary"><p>Notifies all listeners that the current user auth state has changed.
+This is mainly used internally to fire notifications - most client applications won't need this.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -973,8 +976,8 @@ user needs to be shown a screen to verify their MFA factors.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L471"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Used for re-authenticating a user in password changes.</p>
-<p>See: <a href="https://github.com/supabase/gotrue#get-reauthenticate">https://github.com/supabase/gotrue#get-reauthenticate</a></p>
+  <div class="markdown level1 summary"><p>Used for re-authenticating a user in password changes.
+See: <a href="https://github.com/supabase/gotrue#get-reauthenticate">https://github.com/supabase/gotrue#get-reauthenticate</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1078,8 +1081,8 @@ user needs to be shown a screen to verify their MFA factors.</p>
   <div class="markdown level1 summary"><p>Refreshes a Token using the provided access and refresh tokens, replacing the
 current session with the result. Useful when resuming from a persisted session:
 the refresh token is one-time-use and never expires server-side, so it can mint a
-new session even if the access token has long expired.</p>
-<p>If the server rejects the refresh token, the current session is destroyed and a
+new session even if the access token has long expired.
+If the server rejects the refresh token, the current session is destroyed and a
 <a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> with reason
 <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_InvalidRefreshToken">InvalidRefreshToken</a> is thrown.</p>
 </div>
@@ -1154,8 +1157,9 @@ new session even if the access token has long expired.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L494"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Sends a password reset request to an email address.</p>
-<p>Supports the PKCE Flow (the <code>verifier</code> from <a class="xref" href="Supabase.Gotrue.ResetPasswordForEmailState.html">ResetPasswordForEmailState</a> will be combined with <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_">ExchangeCodeForSession(string, string)</a> in response)</p>
+  <div class="markdown level1 summary"><p>Sends a password reset request to an email address.
+Supports the PKCE Flow (the <code>verifier</code> from <a class="xref" href="Supabase.Gotrue.ResetPasswordForEmailState.html">ResetPasswordForEmailState</a> will be combined with
+<a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_">ExchangeCodeForSession(string, string)</a> in response)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1229,8 +1233,8 @@ new session even if the access token has long expired.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L616"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Typically called as part of the startup process for the client.</p>
-<p>This will take the currently loaded session (e.g. from a persistence implementation) and
+  <div class="markdown level1 summary"><p>Typically called as part of the startup process for the client.
+This will take the currently loaded session (e.g. from a persistence implementation) and
 if possible attempt to refresh it. If the loaded session is expired or invalid, it will
 log the user out.</p>
 </div>
@@ -1264,8 +1268,8 @@ log the user out.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L245"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Sends a Magic email login link to the specified email.</p>
-<p>Most of the interesting configuration for this flow is done in the
+  <div class="markdown level1 summary"><p>Sends a Magic email login link to the specified email.
+Most of the interesting configuration for this flow is done in the
 Supabase/GoTrue admin panel.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1343,7 +1347,8 @@ Supabase/GoTrue admin panel.</p>
 <li>Raise a <a class="xref" href="Supabase.Gotrue.Constants.AuthState.html#Supabase_Gotrue_Constants_AuthState_SignedOut">SignedOut</a> event.</li>
 <li>Decode token
 3a. If expired (or bool <code class="paramref">forceAccessTokenRefresh</code> set), force an access token refresh.
-3b. If not expired, set the <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> and retrieve <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> from the server using the <code class="paramref">accessToken</code>.</li>
+3b. If not expired, set the <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> and retrieve <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> from the server
+using the <code class="paramref">accessToken</code>.</li>
 <li>Raise a `<a class="xref" href="Supabase.Gotrue.Constants.AuthState.html#Supabase_Gotrue_Constants_AuthState_SignedIn">SignedIn</a> event if successful.</li>
 </ol>
 </div>
@@ -1424,8 +1429,8 @@ Supabase/GoTrue admin panel.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L782"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Let all of the listeners know that the stateless client is being shutdown.</p>
-<p>In particular, the background thread that is used to refresh the token is stopped.</p>
+  <div class="markdown level1 summary"><p>Let all of the listeners know that the stateless client is being shutdown.
+In particular, the background thread that is used to refresh the token is stopped.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1452,8 +1457,8 @@ Supabase/GoTrue admin panel.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L300"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Retrieves a <a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a> to redirect to for signing in with a <a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Constants.Provider</a>.</p>
-<p>This will likely be paired with a PKCE flow (set in SignInOptions) - after redirecting the
+  <div class="markdown level1 summary"><p>Retrieves a <a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a> to redirect to for signing in with a <a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Constants.Provider</a>.
+This will likely be paired with a PKCE flow (set in SignInOptions) - after redirecting the
 user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_">ExchangeCodeForSession(string, string)</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1669,16 +1674,21 @@ This method of signing in only supports [Provider.Google] or [Provider.Apple].</
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>provider</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Provider</a></dt>
-    <dd><p>Provider name or OIDC <code>iss</code> value identifying which provider should be used to verify the provided token. Supported names: <code>google</code>, <code>apple</code>, <code>azure</code>, <code>facebook</code></p>
+    <dd><p>Provider name or OIDC <code>iss</code> value identifying which provider should be used to verify the
+provided token. Supported names: <code>google</code>, <code>apple</code>, <code>azure</code>, <code>facebook</code></p>
 </dd>
     <dt><code>idToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>OIDC ID token issued by the specified provider. The <code>iss</code> claim in the ID token must match the supplied provider. Some ID tokens contain an <code>at_hash</code> which require that you provide an <code>access_token</code> value to be accepted properly. If the token contains a <code>nonce</code> claim you must supply the nonce used to obtain the ID token.</p>
+    <dd><p>OIDC ID token issued by the specified provider. The <code>iss</code> claim in the ID token must match the
+supplied provider. Some ID tokens contain an <code>at_hash</code> which require that you provide an <code>access_token</code> value to be
+accepted properly. If the token contains a <code>nonce</code> claim you must supply the nonce used to obtain the ID token.</p>
 </dd>
     <dt><code>accessToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>If the ID token contains an <code>at_hash</code> claim, then the hash of this value is compared to the value in the ID token.</p>
+    <dd><p>If the ID token contains an <code>at_hash</code> claim, then the hash of this value is compared to the
+value in the ID token.</p>
 </dd>
     <dt><code>nonce</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>If the ID token contains a <code>nonce</code> claim, then the hash of this value is compared to the value in the ID token.</p>
+    <dd><p>If the ID token contains a <code>nonce</code> claim, then the hash of this value is compared to the value in
+the ID token.</p>
 </dd>
     <dt><code>captchaToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>Verification token received when the user completes the captcha on the site.</p>
@@ -1711,14 +1721,14 @@ This method of signing in only supports [Provider.Google] or [Provider.Apple].</
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L219"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).</p>
-<p>If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
+  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).
+If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
 If the <code>{{ .Token }}</code> variable is specified in the email template, an OTP will be sent.
-If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.</p>
-<p>Be aware that you may get back an error message that will not distinguish
+If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+Be aware that you may get back an error message that will not distinguish
 between the cases where the account does not exist or, that the account
-can only be accessed via social login.</p>
-<p>Do note that you will need to configure a Whatsapp sender on Twilio
+can only be accessed via social login.
+Do note that you will need to configure a Whatsapp sender on Twilio
 if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 channel is not supported on other providers at this time.</p>
 </div>
@@ -1760,14 +1770,14 @@ channel is not supported on other providers at this time.</p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L232"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).</p>
-<p>If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
+  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).
+If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
 If the <code>{{ .Token }}</code> variable is specified in the email template, an OTP will be sent.
-If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.</p>
-<p>Be aware that you may get back an error message that will not distinguish
+If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+Be aware that you may get back an error message that will not distinguish
 between the cases where the account does not exist or, that the account
-can only be accessed via social login.</p>
-<p>Do note that you will need to configure a Whatsapp sender on Twilio
+can only be accessed via social login.
+Do note that you will need to configure a Whatsapp sender on Twilio
 if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 channel is not supported on other providers at this time.</p>
 </div>
@@ -1871,7 +1881,8 @@ please follow the guide found here: <a href="https://supabase.com/docs/guides/au
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.SSOResponse.html">SSOResponse</a>&gt;</dt>
-    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</p>
+    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta,
+microsoft entra, gsuite ect...)</p>
 </dd>
   </dl>
 
@@ -1905,7 +1916,8 @@ please follow the guide found here: <a href="https://supabase.com/docs/guides/au
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>domain</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Your organizations email domain to use for sign in, this domain needs to already be registered with supabase by running the CLI commands
+    <dd><p>Your organizations email domain to use for sign in, this domain needs to already be registered with supabase by
+running the CLI commands
 Example: <code>google.com</code></p>
 </dd>
     <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignInWithSSOOptions.html">SignInWithSSOOptions</a></dt>
@@ -1916,7 +1928,8 @@ Example: <code>google.com</code></p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.SSOResponse.html">SSOResponse</a>&gt;</dt>
-    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</p>
+    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta,
+microsoft entra, gsuite ect...)</p>
 </dd>
   </dl>
 
@@ -1948,7 +1961,8 @@ Example: <code>google.com</code></p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>scope</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.SignOutScope.html">SignOutScope</a></dt>
-    <dd><p>Determines which sessions should be invalidated. By default, it will invalidate all session for a user</p>
+    <dd><p>Determines which sessions should be invalidated. By default, it will invalidate all session for a
+user</p>
 </dd>
   </dl>
 
@@ -1975,7 +1989,7 @@ Example: <code>google.com</code></p>
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L164"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Signs up a user</p>
+  <div class="markdown level1 summary"><p>Signs up a user with an email or phone identifier.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1986,20 +2000,25 @@ Example: <code>google.com</code></p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>type</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.SignUpType.html">SignUpType</a></dt>
-    <dd></dd>
+    <dd><p>Whether <code class="paramref">identifier</code> is an email address or a phone number.</p>
+</dd>
     <dt><code>identifier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The email address or phone number to register.</p>
+</dd>
     <dt><code>password</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The new user's password.</p>
+</dd>
     <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignUpOptions.html">SignUpOptions</a></dt>
-    <dd><p>Object containing redirectTo and optional user metadata (data)</p>
+    <dd><p>Optional redirect URL and user metadata (data).</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.Session.html">Session</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> for the new (or, for an existing account, obfuscated) user; an empty
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> on <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> indicates the account already existed.</p>
+</dd>
   </dl>
 
 
@@ -2009,18 +2028,29 @@ Example: <code>google.com</code></p>
 
 
   <h4 class="section" id="Supabase_Gotrue_Client_SignUp_Supabase_Gotrue_Constants_SignUpType_System_String_System_String_Supabase_Gotrue_SignUpOptions__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Calling this method will log out the current user session (if any).</p>
-<p>By default, the user needs to verify their email address before logging in. To turn this off, disable confirm email in your project.
-Confirm email determines if users need to confirm their email address after signing up.
-- If Confirm email is enabled, a user is returned but session is null.
-- If Confirm email is disabled, both a user and a session are returned.
-When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
-If signUp() is called for an existing confirmed user:
-- If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
-- If Confirm email is disabled, the error message, User already registered is returned.
-To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.Gotrue.User.html">User</a>.</p>
+  <div class="markdown level1 remarks"><p>Calling this method logs out the current session (if any).
+Returns a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> whose <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> is the signed-up user. Whether that
+session is usable depends on your project's Confirm email/phone settings:</p>
+<ul>
+<li>Confirmation required: the user must confirm first. The returned user is unconfirmed
+(<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmedAt">ConfirmedAt</a> is null, <a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmationSentAt">ConfirmationSentAt</a> is set) and the
+client does not sign them in — <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> / <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> stay unchanged.</li>
+<li>Confirmation disabled: the user is auto-confirmed, the session is adopted as the current session,
+and a <code>SignedIn</code> state change fires.
+If the identifier already belongs to an account, GoTrue avoids revealing that it exists, so the outcome
+depends on your project's settings: either a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> is returned whose
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> is empty (an obfuscated user, meaning no new account was created), or a
+<a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> is thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a>.</li>
+</ul>
 </div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a></dt>
+    <dd><p>Thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a> when the identifier is already
+registered and your project surfaces that as an error rather than an obfuscated user.</p>
+</dd>
+  </dl>
 
 
 
@@ -2042,18 +2072,22 @@ To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.G
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>email</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The email address to register.</p>
+</dd>
     <dt><code>password</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The new user's password.</p>
+</dd>
     <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignUpOptions.html">SignUpOptions</a></dt>
-    <dd><p>Object containing redirectTo and optional user metadata (data)</p>
+    <dd><p>Optional redirect URL and user metadata (data).</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.Session.html">Session</a>&gt;</dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> for the new (or, for an existing account, obfuscated) user; an empty
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> on <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> indicates the account already existed.</p>
+</dd>
   </dl>
 
 
@@ -2063,20 +2097,29 @@ To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.G
 
 
   <h4 class="section" id="Supabase_Gotrue_Client_SignUp_System_String_System_String_Supabase_Gotrue_SignUpOptions__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
-Confirm email determines if users need to confirm their email address after signing up.
-- If Confirm email is enabled, a user is returned but session is null.
-- If Confirm email is disabled, both a user and a session are returned.
-When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or
-add additional redirect URLs in your project.
-If signUp() is called for an existing confirmed user:
-- If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
-- If Confirm email is disabled, the error message, User already registered is returned.
-To fetch the currently logged-in user, refer to <see>
-<cref>User</cref>
-</see>.</p>
+  <div class="markdown level1 remarks"><p>Calling this method logs out the current session (if any).
+Returns a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> whose <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> is the signed-up user. Whether that
+session is usable depends on your project's Confirm email setting:</p>
+<ul>
+<li>Confirm email enabled: the user must confirm their address first. The returned user is unconfirmed
+(<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmedAt">ConfirmedAt</a> is null, <a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmationSentAt">ConfirmationSentAt</a> is set) and the
+client does not sign them in — <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> / <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> stay unchanged.</li>
+<li>Confirm email disabled: the user is auto-confirmed, the session is adopted as the current session,
+and a <code>SignedIn</code> state change fires.
+If the email already belongs to an account, GoTrue avoids revealing that it exists, so the outcome
+depends on your project's settings: either a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> is returned whose
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> is empty (an obfuscated user, meaning no new account was created), or a
+<a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> is thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a>.</li>
+</ul>
 </div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a></dt>
+    <dd><p>Thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a> when the email is already registered
+and your project surfaces that as an error rather than an obfuscated user.</p>
+</dd>
+  </dl>
 
 
 
@@ -2125,7 +2168,8 @@ A user has to have an <code>aal2</code> authenticator level in order to unenroll
   <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Client.cs/#L426"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>
+  <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once
+it's unlinked.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 

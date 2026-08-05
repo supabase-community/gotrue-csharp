@@ -89,7 +89,7 @@
 
 
   <h1 id="Supabase_Gotrue_Interfaces_IGotrueClient_2" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2" class="text-break">
-Interface IGotrueClient&lt;TUser, TSession&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L30"><i class="bi bi-code-slash"></i></a>
+Interface IGotrueClient&lt;TUser, TSession&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,12 @@ Interface IGotrueClient&lt;TUser, TSession&gt;  <a class="header-action link-sec
   <dl><dt>Assembly</dt><dd>Supabase.Gotrue.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>GoTrue stateful Client.</p>
-<p>This class is best used as a long-lived singleton object in your application. You can attach listeners
+  <div class="markdown summary"><p>GoTrue stateful Client.
+This class is best used as a long-lived singleton object in your application. You can attach listeners
 to be notified of changes to the user log in state, a persistence system for sessions across application
 launches, and more. It includes a (optional, on by default) background thread that runs to refresh the
-user's session token.</p>
-<p>Check out the test suite for examples of use.</p>
+user's session token.
+Check out the test suite for examples of use.</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -148,11 +148,11 @@ var user = await client.SignIn(&quot;user@email.com&quot;, &quot;fancyPassword&q
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.CurrentSession">
   CurrentSession
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The current Session as managed by this client. Does not refresh tokens or have any other side effects.</p>
-<p>You probably don't want to directly make changes to this object - you'll want to use other methods
+  <div class="markdown level1 summary"><p>The current Session as managed by this client. Does not refresh tokens or have any other side effects.
+You probably don't want to directly make changes to this object - you'll want to use other methods
 on this class to make changes.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -182,7 +182,7 @@ on this class to make changes.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.CurrentUser">
   CurrentUser
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The currently logged in User. This is a local cache of the current session User.
@@ -216,12 +216,12 @@ To persist modifications to the User you'll want to use other methods.
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Online" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Online">
   Online
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Indicates if the client should be considered online or offline.</p>
-<p>In a server environment, this client would likely always be online.</p>
-<p>On a mobile client, you will want to pair this with a network implementation
+  <div class="markdown level1 summary"><p>Indicates if the client should be considered online or offline.
+In a server environment, this client would likely always be online.
+On a mobile client, you will want to pair this with a network implementation
 to turn this on and off as the device goes online and offline.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -251,7 +251,7 @@ to turn this on and off as the device goes online and offline.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Options" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Options">
   Options
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the client options.</p>
@@ -287,7 +287,7 @@ to turn this on and off as the device goes online and offline.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_AddDebugListener_System_Action_System_String_System_Exception__" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.AddDebugListener(System.Action{System.String,System.Exception})">
   AddDebugListener(Action&lt;string, Exception?&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L432"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L450"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add a listener to get errors that occur outside of a typical Exception flow.
@@ -323,12 +323,12 @@ void AddDebugListener(Action&lt;string, Exception?&gt; listener)</code></pre>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_AddStateChangedListener_Supabase_Gotrue_Interfaces_IGotrueClient__0__1__AuthEventHandler_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.AddStateChangedListener(Supabase.Gotrue.Interfaces.IGotrueClient{`0,`1}.AuthEventHandler)">
   AddStateChangedListener(AuthEventHandler)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L77"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a listener to be notified when the user state changes (e.g. the user logs in, logs out,
-the token is refreshed, etc).</p>
-<p><a class="xref" href="Supabase.Gotrue.Constants.AuthState.html">Constants.AuthState</a></p>
+the token is refreshed, etc).
+<a class="xref" href="Supabase.Gotrue.Constants.AuthState.html">Constants.AuthState</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -357,7 +357,7 @@ the token is refreshed, etc).</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Challenge_Supabase_Gotrue_Mfa_MfaChallengeParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Challenge(Supabase.Gotrue.Mfa.MfaChallengeParams)">
   Challenge(MfaChallengeParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L505"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L521"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Prepares a challenge used to verify that a user has access to a MFA
@@ -395,10 +395,11 @@ factor.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ChallengeAndVerify_Supabase_Gotrue_Mfa_MfaChallengeAndVerifyParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ChallengeAndVerify(Supabase.Gotrue.Mfa.MfaChallengeAndVerifyParams)">
   ChallengeAndVerify(MfaChallengeAndVerifyParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L517"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L534"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Helper method which creates a challenge and immediately uses the given code to verify against it thereafter. The verification code is
+  <div class="markdown level1 summary"><p>Helper method which creates a challenge and immediately uses the given code to verify against it thereafter. The
+verification code is
 provided by the user by entering a code seen in their authenticator app.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -433,11 +434,11 @@ provided by the user by entering a code seen in their authenticator app.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ClearStateChangedListeners" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ClearStateChangedListeners">
   ClearStateChangedListeners()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Clears all of the listeners from receiving event state changes.</p>
-<p>WARNING: The persistence handler and refresh token thread are installed as state change
+  <div class="markdown level1 summary"><p>Clears all of the listeners from receiving event state changes.
+WARNING: The persistence handler and refresh token thread are installed as state change
 listeners. Clearing the listeners will also delete these handlers.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -462,7 +463,7 @@ listeners. Clearing the listeners will also delete these handlers.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Debug_System_String_System_Exception_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Debug(System.String,System.Exception)">
   Debug(string, Exception?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L459"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L477"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Posts messages and exceptions to the debug listener. This is particularly useful for sorting
@@ -497,15 +498,16 @@ out issues with the refresh token background thread.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Enroll_Supabase_Gotrue_Mfa_MfaEnrollParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Enroll(Supabase.Gotrue.Mfa.MfaEnrollParams)">
   Enroll(MfaEnrollParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L499"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L515"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Starts the enrollment process for a new Multi-Factor Authentication (MFA)
 factor. This method creates a new <code>unverified</code> factor.
 To verify a factor, present the QR code or secret to the user and ask them to add it to their
 authenticator app.
-The user has to enter the code from their authenticator app to verify it.</p>
-<p>Upon verifying a factor, all other sessions are logged out and the current session's authenticator level is promoted to <code>aal2</code>.</p>
+The user has to enter the code from their authenticator app to verify it.
+Upon verifying a factor, all other sessions are logged out and the current session's authenticator level is
+promoted to <code>aal2</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -539,7 +541,7 @@ The user has to enter the code from their authenticator app to verify it.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ExchangeCodeForSession(System.String,System.String)">
   ExchangeCodeForSession(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L312"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L313"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Logs in an existing user via a third-party provider.</p>
@@ -578,7 +580,7 @@ The user has to enter the code from their authenticator app to verify it.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_GetAuthenticatorAssuranceLevel" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.GetAuthenticatorAssuranceLevel">
   GetAuthenticatorAssuranceLevel()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L542"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L558"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the Authenticator Assurance Level (AAL) for the active session.</p>
@@ -586,11 +588,12 @@ The user has to enter the code from their authenticator app to verify it.</p>
 <li><code>aal1</code> (or <code>null</code>) means that the user's identity has been verified only
 with a conventional login (email+password, OTP, magic link, social login,
 etc.).</li>
-<li><code>aal2</code> means that the user's identity has been verified both with a conventional login and at least one MFA factor.</li>
-</ul>
-<p>Although this method returns a promise, it's fairly quick (microseconds)
+<li><code>aal2</code> means that the user's identity has been verified both with a conventional login and at least one MFA
+factor.
+Although this method returns a promise, it's fairly quick (microseconds)
 and rarely uses the network. You can use this to check whether the current
-user needs to be shown a screen to verify their MFA factors.</p>
+user needs to be shown a screen to verify their MFA factors.</li>
+</ul>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -619,7 +622,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_GetSessionFromUrl_System_Uri_System_Boolean_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.GetSessionFromUrl(System.Uri,System.Boolean)">
   GetSessionFromUrl(Uri, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L105"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Converts a URL to a session. For client apps, this probably requires setting up URL handlers.</p>
@@ -658,7 +661,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_GetUser_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.GetUser(System.String)">
   GetUser(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L451"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L469"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get User details by JWT. Can be used to validate a JWT.</p>
@@ -696,11 +699,11 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_LinkIdentity_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentity(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)">
   LinkIdentity(Provider, SignInOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L417"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L434"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.</p>
-<p>This method requires the PKCE flow.</p>
+  <div class="markdown level1 summary"><p>Links an oauth identity to an existing user.
+This method requires the PKCE flow.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -737,7 +740,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ListFactors" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ListFactors">
   ListFactors()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L528"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L545"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the list of MFA factors enabled for this user</p>
@@ -769,7 +772,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_LoadSession" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.LoadSession">
   LoadSession()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L438"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L456"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Loads the session from the persistence layer.</p>
@@ -796,11 +799,11 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_NotifyAuthStateChange_Supabase_Gotrue_Constants_AuthState_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.NotifyAuthStateChange(Supabase.Gotrue.Constants.AuthState)">
   NotifyAuthStateChange(AuthState)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L97"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Notifies all listeners that the current user auth state has changed.</p>
-<p>This is mainly used internally to fire notifications - most client applications won't need this.</p>
+  <div class="markdown level1 summary"><p>Notifies all listeners that the current user auth state has changed.
+This is mainly used internally to fire notifications - most client applications won't need this.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -829,11 +832,11 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Reauthenticate" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Reauthenticate">
   Reauthenticate()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L367"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L382"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Used for re-authenticating a user in password changes.</p>
-<p>See: <a href="https://github.com/supabase/gotrue#get-reauthenticate">https://github.com/supabase/gotrue#get-reauthenticate</a></p>
+  <div class="markdown level1 summary"><p>Used for re-authenticating a user in password changes.
+See: <a href="https://github.com/supabase/gotrue#get-reauthenticate">https://github.com/supabase/gotrue#get-reauthenticate</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -867,7 +870,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshSession" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshSession">
   RefreshSession()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L111"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Refreshes the currently logged in User's Session.</p>
@@ -899,7 +902,7 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshToken" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken">
   RefreshToken()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L472"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L489"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Refreshes a Token using the current session.</p>
@@ -931,14 +934,14 @@ user needs to be shown a screen to verify their MFA factors.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RefreshToken_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RefreshToken(System.String,System.String)">
   RefreshToken(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L486"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L502"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Refreshes a Token using the provided access and refresh tokens, replacing the
 current session with the result. Useful when resuming from a persisted session:
 the refresh token is one-time-use and never expires server-side, so it can mint a
-new session even if the access token has long expired.</p>
-<p>If the server rejects the refresh token, the current session is destroyed and a
+new session even if the access token has long expired.
+If the server rejects the refresh token, the current session is destroyed and a
 <a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> with reason
 <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_InvalidRefreshToken">InvalidRefreshToken</a> is thrown.</p>
 </div>
@@ -978,7 +981,7 @@ new session even if the access token has long expired.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RemoveStateChangedListener_Supabase_Gotrue_Interfaces_IGotrueClient__0__1__AuthEventHandler_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RemoveStateChangedListener(Supabase.Gotrue.Interfaces.IGotrueClient{`0,`1}.AuthEventHandler)">
   RemoveStateChangedListener(AuthEventHandler)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes a specified listener from event state changes.</p>
@@ -1010,11 +1013,12 @@ new session even if the access token has long expired.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ResetPasswordForEmail_Supabase_Gotrue_ResetPasswordForEmailOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ResetPasswordForEmail(Supabase.Gotrue.ResetPasswordForEmailOptions)">
   ResetPasswordForEmail(ResetPasswordForEmailOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L127"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Sends a password reset request to an email address.</p>
-<p>Supports the PKCE Flow (the <code>verifier</code> from <a class="xref" href="Supabase.Gotrue.ResetPasswordForEmailState.html">ResetPasswordForEmailState</a> will be combined with <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_">ExchangeCodeForSession(string, string)</a> in response)</p>
+  <div class="markdown level1 summary"><p>Sends a password reset request to an email address.
+Supports the PKCE Flow (the <code>verifier</code> from <a class="xref" href="Supabase.Gotrue.ResetPasswordForEmailState.html">ResetPasswordForEmailState</a> will be combined with
+<a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_">ExchangeCodeForSession(string, string)</a> in response)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1048,7 +1052,7 @@ new session even if the access token has long expired.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_ResetPasswordForEmail_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.ResetPasswordForEmail(System.String)">
   ResetPasswordForEmail(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L118"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends a reset request to an email address.</p>
@@ -1085,11 +1089,11 @@ new session even if the access token has long expired.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_RetrieveSessionAsync" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.RetrieveSessionAsync">
   RetrieveSessionAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L136"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Typically called as part of the startup process for the client.</p>
-<p>This will take the currently loaded session (e.g. from a persistence implementation) and
+  <div class="markdown level1 summary"><p>Typically called as part of the startup process for the client.
+This will take the currently loaded session (e.g. from a persistence implementation) and
 if possible attempt to refresh it. If the loaded session is expired or invalid, it will
 log the user out.</p>
 </div>
@@ -1120,11 +1124,11 @@ log the user out.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SendMagicLink_System_String_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SendMagicLink(System.String,Supabase.Gotrue.SignInOptions)">
   SendMagicLink(string, SignInOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L146"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Sends a Magic email login link to the specified email.</p>
-<p>Most of the interesting configuration for this flow is done in the
+  <div class="markdown level1 summary"><p>Sends a Magic email login link to the specified email.
+Most of the interesting configuration for this flow is done in the
 Supabase/GoTrue admin panel.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1161,7 +1165,7 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SetPersistence_Supabase_Gotrue_Interfaces_IGotrueSessionPersistence__1__" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SetPersistence(Supabase.Gotrue.Interfaces.IGotrueSessionPersistence{`1})">
   SetPersistence(IGotrueSessionPersistence&lt;TSession&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the persistence implementation for the client (e.g. file system, local storage, etc).</p>
@@ -1193,7 +1197,7 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SetSession_System_String_System_String_System_Boolean_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SetSession(System.String,System.String,System.Boolean)">
   SetSession(string, string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L163"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets a new session given a user's access token and their refresh token.</p>
@@ -1202,7 +1206,8 @@ Supabase/GoTrue admin panel.</p>
 <li>Raise a <a class="xref" href="Supabase.Gotrue.Constants.AuthState.html#Supabase_Gotrue_Constants_AuthState_SignedOut">SignedOut</a> event.</li>
 <li>Decode token
 3a. If expired (or bool <code class="paramref">forceAccessTokenRefresh</code> set), force an access token refresh.
-3b. If not expired, set the <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> and retrieve <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> from the server using the <code class="paramref">accessToken</code>.</li>
+3b. If not expired, set the <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> and retrieve <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> from the server
+using the <code class="paramref">accessToken</code>.</li>
 <li>Raise a `<a class="xref" href="Supabase.Gotrue.Constants.AuthState.html#Supabase_Gotrue_Constants_AuthState_SignedIn">SignedIn</a> event if successful.</li>
 </ol>
 </div>
@@ -1248,7 +1253,7 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Settings" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Settings">
   Settings()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L444"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L462"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the settings from the server</p>
@@ -1280,11 +1285,11 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Shutdown" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Shutdown">
   Shutdown()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L466"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L483"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Let all of the listeners know that the stateless client is being shutdown.</p>
-<p>In particular, the background thread that is used to refresh the token is stopped.</p>
+  <div class="markdown level1 summary"><p>Let all of the listeners know that the stateless client is being shutdown.
+In particular, the background thread that is used to refresh the token is stopped.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1308,11 +1313,11 @@ Supabase/GoTrue admin panel.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.Provider,Supabase.Gotrue.SignInOptions)">
   SignIn(Provider, SignInOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L259"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L240"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Retrieves a <a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a> to redirect to for signing in with a <a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Constants.Provider</a>.</p>
-<p>This will likely be paired with a PKCE flow (set in SignInOptions) - after redirecting the
+  <div class="markdown level1 summary"><p>Retrieves a <a class="xref" href="Supabase.Gotrue.ProviderAuthState.html">ProviderAuthState</a> to redirect to for signing in with a <a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Constants.Provider</a>.
+This will likely be paired with a PKCE flow (set in SignInOptions) - after redirecting the
 user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ExchangeCodeForSession_System_String_System_String_">ExchangeCodeForSession(string, string)</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1349,7 +1354,7 @@ user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Int
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_Supabase_Gotrue_Constants_SignInType_System_String_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(Supabase.Gotrue.Constants.SignInType,System.String,System.String,System.String)">
   SignIn(SignInType, string, string?, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L173"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Log in an existing user, or login via a third-party provider.</p>
@@ -1396,7 +1401,7 @@ user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Int
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_System_String_Supabase_Gotrue_SignInOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(System.String,Supabase.Gotrue.SignInOptions)">
   SignIn(string, SignInOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L192"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L180"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sends a magic link login email to the specified email.</p>
@@ -1435,7 +1440,7 @@ user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Int
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignIn_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignIn(System.String,System.String)">
   SignIn(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L188"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Signs in a User.</p>
@@ -1474,7 +1479,7 @@ user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Int
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInAnonymously_Supabase_Gotrue_SignInAnonymouslyOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInAnonymously(Supabase.Gotrue.SignInAnonymouslyOptions)">
   SignInAnonymously(SignInAnonymouslyOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L282"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L276"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new anonymous user.</p>
@@ -1512,7 +1517,7 @@ user to the flow, you should pair with <a class="xref" href="Supabase.Gotrue.Int
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithIdToken_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithIdToken(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)">
   SignInWithIdToken(Provider, string, string?, string?, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L275"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L269"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Allows signing in with an ID token issued by certain supported providers.
@@ -1528,16 +1533,21 @@ This method of signing in only supports [Provider.Google] or [Provider.Apple].</
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>provider</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.Provider.html">Provider</a></dt>
-    <dd><p>Provider name or OIDC <code>iss</code> value identifying which provider should be used to verify the provided token. Supported names: <code>google</code>, <code>apple</code>, <code>azure</code>, <code>facebook</code></p>
+    <dd><p>Provider name or OIDC <code>iss</code> value identifying which provider should be used to verify the
+provided token. Supported names: <code>google</code>, <code>apple</code>, <code>azure</code>, <code>facebook</code></p>
 </dd>
     <dt><code>idToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>OIDC ID token issued by the specified provider. The <code>iss</code> claim in the ID token must match the supplied provider. Some ID tokens contain an <code>at_hash</code> which require that you provide an <code>access_token</code> value to be accepted properly. If the token contains a <code>nonce</code> claim you must supply the nonce used to obtain the ID token.</p>
+    <dd><p>OIDC ID token issued by the specified provider. The <code>iss</code> claim in the ID token must match the
+supplied provider. Some ID tokens contain an <code>at_hash</code> which require that you provide an <code>access_token</code> value to be
+accepted properly. If the token contains a <code>nonce</code> claim you must supply the nonce used to obtain the ID token.</p>
 </dd>
     <dt><code>accessToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>If the ID token contains an <code>at_hash</code> claim, then the hash of this value is compared to the value in the ID token.</p>
+    <dd><p>If the ID token contains an <code>at_hash</code> claim, then the hash of this value is compared to the
+value in the ID token.</p>
 </dd>
     <dt><code>nonce</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>If the ID token contains a <code>nonce</code> claim, then the hash of this value is compared to the value in the ID token.</p>
+    <dd><p>If the ID token contains a <code>nonce</code> claim, then the hash of this value is compared to the value in
+the ID token.</p>
 </dd>
     <dt><code>captchaToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>Verification token received when the user completes the captcha on the site.</p>
@@ -1567,17 +1577,17 @@ This method of signing in only supports [Provider.Google] or [Provider.Apple].</
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessEmailOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessEmailOptions)">
   SignInWithOtp(SignInWithPasswordlessEmailOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L220"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L205"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).</p>
-<p>If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
+  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).
+If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
 If the <code>{{ .Token }}</code> variable is specified in the email template, an OTP will be sent.
-If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.</p>
-<p>Be aware that you may get back an error message that will not distinguish
+If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+Be aware that you may get back an error message that will not distinguish
 between the cases where the account does not exist or, that the account
-can only be accessed via social login.</p>
-<p>Do note that you will need to configure a Whatsapp sender on Twilio
+can only be accessed via social login.
+Do note that you will need to configure a Whatsapp sender on Twilio
 if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 channel is not supported on other providers at this time.</p>
 </div>
@@ -1616,17 +1626,17 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithOtp_Supabase_Gotrue_SignInWithPasswordlessPhoneOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithOtp(Supabase.Gotrue.SignInWithPasswordlessPhoneOptions)">
   SignInWithOtp(SignInWithPasswordlessPhoneOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L240"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L222"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).</p>
-<p>If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
+  <div class="markdown level1 summary"><p>Log in a user using magiclink or a one-time password (OTP).
+If the <code>{{ .ConfirmationURL }}</code> variable is specified in the email template, a magiclink will be sent.
 If the <code>{{ .Token }}</code> variable is specified in the email template, an OTP will be sent.
-If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.</p>
-<p>Be aware that you may get back an error message that will not distinguish
+If you're using phone sign-ins, only an OTP will be sent. You won't be able to send a magiclink for phone sign-ins.
+Be aware that you may get back an error message that will not distinguish
 between the cases where the account does not exist or, that the account
-can only be accessed via social login.</p>
-<p>Do note that you will need to configure a Whatsapp sender on Twilio
+can only be accessed via social login.
+Do note that you will need to configure a Whatsapp sender on Twilio
 if you are using phone sign in with the 'whatsapp' channel. The whatsapp
 channel is not supported on other providers at this time.</p>
 </div>
@@ -1665,7 +1675,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithPassword_System_String_System_String_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithPassword(System.String,System.String)">
   SignInWithPassword(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L248"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Log in an existing user with an email and password or phone and password.</p>
@@ -1704,7 +1714,7 @@ channel is not supported on other providers at this time.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithSSO_System_Guid_Supabase_Gotrue_SignInWithSSOOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithSSO(System.Guid,Supabase.Gotrue.SignInWithSSOOptions)">
   SignInWithSSO(Guid, SignInWithSSOOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L292"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L289"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sign in using single sign on (SSO) as supported by supabase
@@ -1730,7 +1740,8 @@ please follow the guide found here: <a href="https://supabase.com/docs/guides/au
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.SSOResponse.html">SSOResponse</a>&gt;</dt>
-    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</p>
+    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta,
+microsoft entra, gsuite ect...)</p>
 </dd>
   </dl>
 
@@ -1748,7 +1759,7 @@ please follow the guide found here: <a href="https://supabase.com/docs/guides/au
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignInWithSSO_System_String_Supabase_Gotrue_SignInWithSSOOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignInWithSSO(System.String,Supabase.Gotrue.SignInWithSSOOptions)">
   SignInWithSSO(string, SignInWithSSOOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L305"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L306"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sign in using single sign on (SSO) as supported by supabase
@@ -1764,7 +1775,8 @@ please follow the guide found here: <a href="https://supabase.com/docs/guides/au
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>domain</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Your organizations email domain to use for sign in, this domain needs to already be registered with supabase by running the CLI commands
+    <dd><p>Your organizations email domain to use for sign in, this domain needs to already be registered with supabase by
+running the CLI commands
 Example: <code>google.com</code></p>
 </dd>
     <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignInWithSSOOptions.html">SignInWithSSOOptions</a></dt>
@@ -1775,7 +1787,8 @@ Example: <code>google.com</code></p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Supabase.Gotrue.SSOResponse.html">SSOResponse</a>&gt;</dt>
-    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta, microsoft entra, gsuite ect...)</p>
+    <dd><p>The Uri returned from supabase auth that a user can use to sign in to their given SSO provider (okta,
+microsoft entra, gsuite ect...)</p>
 </dd>
   </dl>
 
@@ -1793,7 +1806,7 @@ Example: <code>google.com</code></p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignOut_Supabase_Gotrue_Constants_SignOutScope_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignOut(Supabase.Gotrue.Constants.SignOutScope)">
   SignOut(SignOutScope)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L374"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L392"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Signs out and invalidates all sessions for a user.</p>
@@ -1807,7 +1820,8 @@ Example: <code>google.com</code></p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>scope</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.SignOutScope.html">SignOutScope</a></dt>
-    <dd><p>Determines which sessions should be invalidated. By default, it will invalidate all session for a user</p>
+    <dd><p>Determines which sessions should be invalidated. By default, it will invalidate all session for a
+user</p>
 </dd>
   </dl>
 
@@ -1831,10 +1845,10 @@ Example: <code>google.com</code></p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignUp_Supabase_Gotrue_Constants_SignUpType_System_String_System_String_Supabase_Gotrue_SignUpOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignUp(Supabase.Gotrue.Constants.SignUpType,System.String,System.String,Supabase.Gotrue.SignUpOptions)">
   SignUp(SignUpType, string, string, SignUpOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L335"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L344"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Signs up a user</p>
+  <div class="markdown level1 summary"><p>Signs up a user with an email or phone identifier.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1845,20 +1859,25 @@ Example: <code>google.com</code></p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>type</code> <a class="xref" href="Supabase.Gotrue.Constants.html">Constants</a>.<a class="xref" href="Supabase.Gotrue.Constants.SignUpType.html">SignUpType</a></dt>
-    <dd></dd>
+    <dd><p>Whether <code class="paramref">identifier</code> is an email address or a phone number.</p>
+</dd>
     <dt><code>identifier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The email address or phone number to register.</p>
+</dd>
     <dt><code>password</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The new user's password.</p>
+</dd>
     <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignUpOptions.html">SignUpOptions</a></dt>
-    <dd><p>Object containing redirectTo and optional user metadata (data)</p>
+    <dd><p>Optional redirect URL and user metadata (data).</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TSession&gt;</dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> for the new (or, for an existing account, obfuscated) user; an empty
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> on <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> indicates the account already existed.</p>
+</dd>
   </dl>
 
 
@@ -1868,18 +1887,29 @@ Example: <code>google.com</code></p>
 
 
   <h4 class="section" id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignUp_Supabase_Gotrue_Constants_SignUpType_System_String_System_String_Supabase_Gotrue_SignUpOptions__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Calling this method will log out the current user session (if any).</p>
-<p>By default, the user needs to verify their email address before logging in. To turn this off, disable confirm email in your project.
-Confirm email determines if users need to confirm their email address after signing up.
-- If Confirm email is enabled, a user is returned but session is null.
-- If Confirm email is disabled, both a user and a session are returned.
-When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or add additional redirect URLs in your project.
-If signUp() is called for an existing confirmed user:
-- If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
-- If Confirm email is disabled, the error message, User already registered is returned.
-To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.Gotrue.User.html">User</a>.</p>
+  <div class="markdown level1 remarks"><p>Calling this method logs out the current session (if any).
+Returns a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> whose <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> is the signed-up user. Whether that
+session is usable depends on your project's Confirm email/phone settings:</p>
+<ul>
+<li>Confirmation required: the user must confirm first. The returned user is unconfirmed
+(<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmedAt">ConfirmedAt</a> is null, <a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmationSentAt">ConfirmationSentAt</a> is set) and the
+client does not sign them in — <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> / <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> stay unchanged.</li>
+<li>Confirmation disabled: the user is auto-confirmed, the session is adopted as the current session,
+and a <code>SignedIn</code> state change fires.
+If the identifier already belongs to an account, GoTrue avoids revealing that it exists, so the outcome
+depends on your project's settings: either a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> is returned whose
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> is empty (an obfuscated user, meaning no new account was created), or a
+<a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> is thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a>.</li>
+</ul>
 </div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a></dt>
+    <dd><p>Thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a> when the identifier is already
+registered and your project surfaces that as an error rather than an obfuscated user.</p>
+</dd>
+  </dl>
 
 
 
@@ -1887,7 +1917,7 @@ To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.G
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignUp_System_String_System_String_Supabase_Gotrue_SignUpOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.SignUp(System.String,System.String,Supabase.Gotrue.SignUpOptions)">
   SignUp(string, string, SignUpOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L358"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L374"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Signs up a user by email address.</p>
@@ -1901,18 +1931,22 @@ To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.G
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>email</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The email address to register.</p>
+</dd>
     <dt><code>password</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The new user's password.</p>
+</dd>
     <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.SignUpOptions.html">SignUpOptions</a></dt>
-    <dd><p>Object containing redirectTo and optional user metadata (data)</p>
+    <dd><p>Optional redirect URL and user metadata (data).</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TSession&gt;</dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> for the new (or, for an existing account, obfuscated) user; an empty
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> on <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> indicates the account already existed.</p>
+</dd>
   </dl>
 
 
@@ -1922,20 +1956,29 @@ To fetch the currently logged-in user, refer to <a class="xref" href="Supabase.G
 
 
   <h4 class="section" id="Supabase_Gotrue_Interfaces_IGotrueClient_2_SignUp_System_String_System_String_Supabase_Gotrue_SignUpOptions__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>By default, the user needs to verify their email address before logging in. To turn this off, disable Confirm email in your project.
-Confirm email determines if users need to confirm their email address after signing up.
-- If Confirm email is enabled, a user is returned but session is null.
-- If Confirm email is disabled, both a user and a session are returned.
-When the user confirms their email address, they are redirected to the SITE_URL by default. You can modify your SITE_URL or
-add additional redirect URLs in your project.
-If signUp() is called for an existing confirmed user:
-- If Confirm email is enabled in your project, an obfuscated/fake user object is returned.
-- If Confirm email is disabled, the error message, User already registered is returned.
-To fetch the currently logged-in user, refer to <see>
-<cref>User</cref>
-</see>.</p>
+  <div class="markdown level1 remarks"><p>Calling this method logs out the current session (if any).
+Returns a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> whose <a class="xref" href="Supabase.Gotrue.Session.html#Supabase_Gotrue_Session_User">User</a> is the signed-up user. Whether that
+session is usable depends on your project's Confirm email setting:</p>
+<ul>
+<li>Confirm email enabled: the user must confirm their address first. The returned user is unconfirmed
+(<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmedAt">ConfirmedAt</a> is null, <a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_ConfirmationSentAt">ConfirmationSentAt</a> is set) and the
+client does not sign them in — <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentUser">CurrentUser</a> / <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_CurrentSession">CurrentSession</a> stay unchanged.</li>
+<li>Confirm email disabled: the user is auto-confirmed, the session is adopted as the current session,
+and a <code>SignedIn</code> state change fires.
+If the email already belongs to an account, GoTrue avoids revealing that it exists, so the outcome
+depends on your project's settings: either a <a class="xref" href="Supabase.Gotrue.Session.html">Session</a> is returned whose
+<a class="xref" href="Supabase.Gotrue.User.html#Supabase_Gotrue_User_Identities">Identities</a> is empty (an obfuscated user, meaning no new account was created), or a
+<a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a> is thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a>.</li>
+</ul>
 </div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Supabase.Gotrue.Exceptions.GotrueException.html">GotrueException</a></dt>
+    <dd><p>Thrown with <a class="xref" href="Supabase.Gotrue.Exceptions.FailureHint.Reason.html#Supabase_Gotrue_Exceptions_FailureHint_Reason_UserAlreadyRegistered">UserAlreadyRegistered</a> when the email is already registered
+and your project surfaces that as an error rather than an obfuscated user.</p>
+</dd>
+  </dl>
 
 
 
@@ -1943,7 +1986,7 @@ To fetch the currently logged-in user, refer to <see>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Unenroll_Supabase_Gotrue_Mfa_MfaUnenrollParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Unenroll(Supabase.Gotrue.Mfa.MfaUnenrollParams)">
   Unenroll(MfaUnenrollParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L523"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L540"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unenroll removes a MFA factor.
@@ -1981,10 +2024,11 @@ A user has to have an <code>aal2</code> authenticator level in order to unenroll
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_UnlinkIdentity_Supabase_Gotrue_UserIdentity_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.UnlinkIdentity(Supabase.Gotrue.UserIdentity)">
   UnlinkIdentity(UserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L424"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L442"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>
+  <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once
+it's unlinked.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -2019,7 +2063,7 @@ A user has to have an <code>aal2</code> authenticator level in order to unenroll
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Update_Supabase_Gotrue_UserAttributes_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Update(Supabase.Gotrue.UserAttributes)">
   Update(UserAttributes)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L381"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L399"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates a User.</p>
@@ -2056,7 +2100,7 @@ A user has to have an <code>aal2</code> authenticator level in order to unenroll
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_Verify_Supabase_Gotrue_Mfa_MfaVerifyParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.Verify(Supabase.Gotrue.Mfa.MfaVerifyParams)">
   Verify(MfaVerifyParams)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L511"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L527"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Verifies a code against a challenge. The verification code is
@@ -2094,7 +2138,7 @@ provided by the user by entering a code seen in their authenticator app.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_VerifyOTP_System_String_System_String_Supabase_Gotrue_Constants_EmailOtpType_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.VerifyOTP(System.String,System.String,Supabase.Gotrue.Constants.EmailOtpType)">
   VerifyOTP(string, string, EmailOtpType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L399"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L417"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Log in a user give a user supplied OTP received via email.</p>
@@ -2136,7 +2180,7 @@ provided by the user by entering a code seen in their authenticator app.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_VerifyOTP_System_String_System_String_Supabase_Gotrue_Constants_MobileOtpType_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.VerifyOTP(System.String,System.String,Supabase.Gotrue.Constants.MobileOtpType)">
   VerifyOTP(string, string, MobileOtpType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L390"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L408"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Log in a user given a User supplied OTP received via mobile.</p>
@@ -2180,7 +2224,7 @@ provided by the user by entering a code seen in their authenticator app.</p>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueClient_2_VerifyTokenHash_System_String_Supabase_Gotrue_Constants_EmailOtpType_" data-uid="Supabase.Gotrue.Interfaces.IGotrueClient`2.VerifyTokenHash(System.String,Supabase.Gotrue.Constants.EmailOtpType)">
   VerifyTokenHash(string, EmailOtpType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L407"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L425"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Log in a user given the token hash used in an email confirmation link.</p>
@@ -2219,7 +2263,7 @@ provided by the user by entering a code seen in their authenticator app.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L30" class="edit-link">Edit this page</a>
+          <a href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueClient.cs/#L28" class="edit-link">Edit this page</a>
         </div>
 
 
