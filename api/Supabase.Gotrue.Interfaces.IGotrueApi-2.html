@@ -596,6 +596,49 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
 
 
+  <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentityWithIdToken_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentityWithIdToken*"></a>
+
+  <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentityWithIdToken_System_String_Supabase_Gotrue_LinkIdentityWithIdTokenOptions_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentityWithIdToken(System.String,Supabase.Gotrue.LinkIdentityWithIdTokenOptions)">
+  LinkIdentityWithIdToken(string, LinkIdentityWithIdTokenOptions)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Links a native OIDC identity to an existing user using an ID token, authenticated as that user.</p>
+<p>Unlike <a class="xref" href="Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentity_System_String_Supabase_Gotrue_Constants_Provider_Supabase_Gotrue_SignInOptions_">LinkIdentity(string, Provider, SignInOptions)</a> this does not require the PKCE flow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;TSession?&gt; LinkIdentityWithIdToken(string token, LinkIdentityWithIdTokenOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>token</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Current user's access token (Bearer JWT) the link is performed on behalf of.</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html">LinkIdentityWithIdTokenOptions</a></dt>
+    <dd><p>The provider, ID token, and optional proofs describing the identity to link.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TSession&gt;</dt>
+    <dd><p>The session GoTrue returns for the linked user.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Supabase_Gotrue_Interfaces_IGotrueApi_2_ListFactors_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.ListFactors*"></a>
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_ListFactors_System_String_Supabase_Gotrue_Mfa_MfaAdminListFactorsParams_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.ListFactors(System.String,Supabase.Gotrue.Mfa.MfaAdminListFactorsParams)">
@@ -1395,7 +1438,7 @@ Interface IGotrueApi&lt;TUser, TSession&gt;  <a class="header-action link-second
 
   <h3 id="Supabase_Gotrue_Interfaces_IGotrueApi_2_UnlinkIdentity_System_String_Supabase_Gotrue_UserIdentity_" data-uid="Supabase.Gotrue.Interfaces.IGotrueApi`2.UnlinkIdentity(System.String,Supabase.Gotrue.UserIdentity)">
   UnlinkIdentity(string, UserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/supabase-community/gotrue-csharp/blob/master/Gotrue/Interfaces/IGotrueApi.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Unlinks an identity from a user by deleting it. The user will no longer be able to sign in with that identity once it's unlinked.</p>

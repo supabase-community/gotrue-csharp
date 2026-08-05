@@ -516,6 +516,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Supabase.Gotrue.LinkIdentityWithIdTokenOptions",
+      "Summary": "<p sourcefile=\"api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.yml\" sourcestartlinenumber=\"1\">Immutable inputs for linking a native OIDC identity to the currently signed-in user with an ID token.\nBundles the provider and token with the optional proofs GoTrue may require, so the linking surface stays\nadditive: new optional inputs are added here without changing the method signature.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Supabase.Gotrue.Mfa.AmrEntry.yml",
       "output": {
         ".html": {

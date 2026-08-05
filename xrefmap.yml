@@ -542,6 +542,22 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Api.LinkIdentity
   nameWithType: Api.LinkIdentity
+- uid: Supabase.Gotrue.Api.LinkIdentityWithIdToken(System.String,Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  name: LinkIdentityWithIdToken(string, LinkIdentityWithIdTokenOptions)
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_LinkIdentityWithIdToken_System_String_Supabase_Gotrue_LinkIdentityWithIdTokenOptions_
+  commentId: M:Supabase.Gotrue.Api.LinkIdentityWithIdToken(System.String,Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  name.vb: LinkIdentityWithIdToken(String, LinkIdentityWithIdTokenOptions)
+  fullName: Supabase.Gotrue.Api.LinkIdentityWithIdToken(string, Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  fullName.vb: Supabase.Gotrue.Api.LinkIdentityWithIdToken(String, Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  nameWithType: Api.LinkIdentityWithIdToken(string, LinkIdentityWithIdTokenOptions)
+  nameWithType.vb: Api.LinkIdentityWithIdToken(String, LinkIdentityWithIdTokenOptions)
+- uid: Supabase.Gotrue.Api.LinkIdentityWithIdToken*
+  name: LinkIdentityWithIdToken
+  href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_LinkIdentityWithIdToken_
+  commentId: Overload:Supabase.Gotrue.Api.LinkIdentityWithIdToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Api.LinkIdentityWithIdToken
+  nameWithType: Api.LinkIdentityWithIdToken
 - uid: Supabase.Gotrue.Api.ListFactors(System.String,Supabase.Gotrue.Mfa.MfaAdminListFactorsParams)
   name: ListFactors(string, MfaAdminListFactorsParams)
   href: api/Supabase.Gotrue.Api.html#Supabase_Gotrue_Api_ListFactors_System_String_Supabase_Gotrue_Mfa_MfaAdminListFactorsParams_
@@ -1194,6 +1210,19 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.Client.LinkIdentity
   nameWithType: Client.LinkIdentity
+- uid: Supabase.Gotrue.Client.LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  name: LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions)
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_LinkIdentityWithIdToken_Supabase_Gotrue_LinkIdentityWithIdTokenOptions_
+  commentId: M:Supabase.Gotrue.Client.LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  fullName: Supabase.Gotrue.Client.LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  nameWithType: Client.LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions)
+- uid: Supabase.Gotrue.Client.LinkIdentityWithIdToken*
+  name: LinkIdentityWithIdToken
+  href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_LinkIdentityWithIdToken_
+  commentId: Overload:Supabase.Gotrue.Client.LinkIdentityWithIdToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Client.LinkIdentityWithIdToken
+  nameWithType: Client.LinkIdentityWithIdToken
 - uid: Supabase.Gotrue.Client.ListFactors
   name: ListFactors()
   href: api/Supabase.Gotrue.Client.html#Supabase_Gotrue_Client_ListFactors
@@ -3202,6 +3231,24 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).LinkIdentity
   nameWithType: IGotrueApi<TUser, TSession>.LinkIdentity
   nameWithType.vb: IGotrueApi(Of TUser, TSession).LinkIdentity
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentityWithIdToken(System.String,Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  name: LinkIdentityWithIdToken(string, LinkIdentityWithIdTokenOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentityWithIdToken_System_String_Supabase_Gotrue_LinkIdentityWithIdTokenOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentityWithIdToken(System.String,Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  name.vb: LinkIdentityWithIdToken(String, LinkIdentityWithIdTokenOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.LinkIdentityWithIdToken(string, Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).LinkIdentityWithIdToken(String, Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  nameWithType: IGotrueApi<TUser, TSession>.LinkIdentityWithIdToken(string, LinkIdentityWithIdTokenOptions)
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).LinkIdentityWithIdToken(String, LinkIdentityWithIdTokenOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentityWithIdToken*
+  name: LinkIdentityWithIdToken
+  href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_LinkIdentityWithIdToken_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueApi`2.LinkIdentityWithIdToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueApi<TUser, TSession>.LinkIdentityWithIdToken
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueApi(Of TUser, TSession).LinkIdentityWithIdToken
+  nameWithType: IGotrueApi<TUser, TSession>.LinkIdentityWithIdToken
+  nameWithType.vb: IGotrueApi(Of TUser, TSession).LinkIdentityWithIdToken
 - uid: Supabase.Gotrue.Interfaces.IGotrueApi`2.ListFactors(System.String,Supabase.Gotrue.Mfa.MfaAdminListFactorsParams)
   name: ListFactors(string, MfaAdminListFactorsParams)
   href: api/Supabase.Gotrue.Interfaces.IGotrueApi-2.html#Supabase_Gotrue_Interfaces_IGotrueApi_2_ListFactors_System_String_Supabase_Gotrue_Mfa_MfaAdminListFactorsParams_
@@ -3936,6 +3983,23 @@ references:
   fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).LinkIdentity
   nameWithType: IGotrueClient<TUser, TSession>.LinkIdentity
   nameWithType.vb: IGotrueClient(Of TUser, TSession).LinkIdentity
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  name: LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions)
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_LinkIdentityWithIdToken_Supabase_Gotrue_LinkIdentityWithIdTokenOptions_
+  commentId: M:Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).LinkIdentityWithIdToken(Supabase.Gotrue.LinkIdentityWithIdTokenOptions)
+  nameWithType: IGotrueClient<TUser, TSession>.LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions)
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).LinkIdentityWithIdToken(LinkIdentityWithIdTokenOptions)
+- uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentityWithIdToken*
+  name: LinkIdentityWithIdToken
+  href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_LinkIdentityWithIdToken_
+  commentId: Overload:Supabase.Gotrue.Interfaces.IGotrueClient`2.LinkIdentityWithIdToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.Interfaces.IGotrueClient<TUser, TSession>.LinkIdentityWithIdToken
+  fullName.vb: Supabase.Gotrue.Interfaces.IGotrueClient(Of TUser, TSession).LinkIdentityWithIdToken
+  nameWithType: IGotrueClient<TUser, TSession>.LinkIdentityWithIdToken
+  nameWithType.vb: IGotrueClient(Of TUser, TSession).LinkIdentityWithIdToken
 - uid: Supabase.Gotrue.Interfaces.IGotrueClient`2.ListFactors
   name: ListFactors()
   href: api/Supabase.Gotrue.Interfaces.IGotrueClient-2.html#Supabase_Gotrue_Interfaces_IGotrueClient_2_ListFactors
@@ -5219,6 +5283,96 @@ references:
   isSpec: "True"
   fullName: Supabase.Gotrue.InviteUserByEmailOptions.RedirectTo
   nameWithType: InviteUserByEmailOptions.RedirectTo
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions
+  name: LinkIdentityWithIdTokenOptions
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html
+  commentId: T:Supabase.Gotrue.LinkIdentityWithIdTokenOptions
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions
+  nameWithType: LinkIdentityWithIdTokenOptions
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.#ctor(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name: LinkIdentityWithIdTokenOptions(Provider, string, string?, string?, string?)
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions__ctor_Supabase_Gotrue_Constants_Provider_System_String_System_String_System_String_System_String_
+  commentId: M:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.#ctor(Supabase.Gotrue.Constants.Provider,System.String,System.String,System.String,System.String)
+  name.vb: New(Provider, String, String, String, String)
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.LinkIdentityWithIdTokenOptions(Supabase.Gotrue.Constants.Provider, string, string?, string?, string?)
+  fullName.vb: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.New(Supabase.Gotrue.Constants.Provider, String, String, String, String)
+  nameWithType: LinkIdentityWithIdTokenOptions.LinkIdentityWithIdTokenOptions(Constants.Provider, string, string?, string?, string?)
+  nameWithType.vb: LinkIdentityWithIdTokenOptions.New(Constants.Provider, String, String, String, String)
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.#ctor*
+  name: LinkIdentityWithIdTokenOptions
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions__ctor_
+  commentId: Overload:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.LinkIdentityWithIdTokenOptions
+  fullName.vb: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.New
+  nameWithType: LinkIdentityWithIdTokenOptions.LinkIdentityWithIdTokenOptions
+  nameWithType.vb: LinkIdentityWithIdTokenOptions.New
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.AccessToken
+  name: AccessToken
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_AccessToken
+  commentId: P:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.AccessToken
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.AccessToken
+  nameWithType: LinkIdentityWithIdTokenOptions.AccessToken
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.AccessToken*
+  name: AccessToken
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_AccessToken_
+  commentId: Overload:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.AccessToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.AccessToken
+  nameWithType: LinkIdentityWithIdTokenOptions.AccessToken
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.CaptchaToken
+  name: CaptchaToken
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_CaptchaToken
+  commentId: P:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.CaptchaToken
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.CaptchaToken
+  nameWithType: LinkIdentityWithIdTokenOptions.CaptchaToken
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.CaptchaToken*
+  name: CaptchaToken
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_CaptchaToken_
+  commentId: Overload:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.CaptchaToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.CaptchaToken
+  nameWithType: LinkIdentityWithIdTokenOptions.CaptchaToken
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.IdToken
+  name: IdToken
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_IdToken
+  commentId: P:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.IdToken
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.IdToken
+  nameWithType: LinkIdentityWithIdTokenOptions.IdToken
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.IdToken*
+  name: IdToken
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_IdToken_
+  commentId: Overload:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.IdToken
+  isSpec: "True"
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.IdToken
+  nameWithType: LinkIdentityWithIdTokenOptions.IdToken
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Nonce
+  name: Nonce
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_Nonce
+  commentId: P:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Nonce
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Nonce
+  nameWithType: LinkIdentityWithIdTokenOptions.Nonce
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Nonce*
+  name: Nonce
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_Nonce_
+  commentId: Overload:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Nonce
+  isSpec: "True"
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Nonce
+  nameWithType: LinkIdentityWithIdTokenOptions.Nonce
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Provider
+  name: Provider
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_Provider
+  commentId: P:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Provider
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Provider
+  nameWithType: LinkIdentityWithIdTokenOptions.Provider
+- uid: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Provider*
+  name: Provider
+  href: api/Supabase.Gotrue.LinkIdentityWithIdTokenOptions.html#Supabase_Gotrue_LinkIdentityWithIdTokenOptions_Provider_
+  commentId: Overload:Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Provider
+  isSpec: "True"
+  fullName: Supabase.Gotrue.LinkIdentityWithIdTokenOptions.Provider
+  nameWithType: LinkIdentityWithIdTokenOptions.Provider
 - uid: Supabase.Gotrue.Mfa
   name: Supabase.Gotrue.Mfa
   href: api/Supabase.Gotrue.Mfa.html
